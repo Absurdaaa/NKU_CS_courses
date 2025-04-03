@@ -1,0 +1,2 @@
+g++ -fopenmp PageRank.cpp -o PageRank.exe
+# 该文件为示例编译参数，只需要类似上面的一行即可。
