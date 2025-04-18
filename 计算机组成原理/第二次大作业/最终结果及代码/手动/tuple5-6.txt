@@ -1,0 +1,16 @@
+无条件跳转指令,属于,B型指令
+条件跳转指令,属于,B型指令
+B label,属于,无条件跳转指令
+BL label,属于,无条件跳转指令
+BR Xn,属于,无条件跳转指令
+BLR Xn,属于,无条件跳转指令
+B.cond label,属于,条件跳转指令
+CBZ Xn，label,属于,条件跳转指令
+TBZ Xn，#bit，label,属于,条件跳转指令
+B label,属于,B型指令
+BL label,属于,B型指令
+BR Xn,属于,B型指令
+BLR Xn,属于,B型指令
+B.cond label,属于,B型指令
+CBZ Xn，label,属于,B型指令
+TBZ Xn，#bit，label,属于,B型指令
