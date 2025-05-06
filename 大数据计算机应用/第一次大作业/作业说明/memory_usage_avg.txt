@@ -1,0 +1,8 @@
+file: code/main.py avg maximum mem: 18.64 MB
+file: code/main.py avg maximum mem: 19.45 MB
+file: code/main.py avg maximum mem: 744.70 MB
+file: code/main_2.py avg maximum mem: 840.15 MB
+file: code/main_2.py avg maximum mem: 1088.89 MB
+file: code/main_2.py avg maximum mem: 285.41 MB
+file: code/main_2.py avg maximum mem: 77.91 MB
+file: code/main_2.py avg maximum mem: 114.03 MB

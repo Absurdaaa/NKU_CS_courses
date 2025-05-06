@@ -8,6 +8,9 @@ import time
 import sys
 import os
 
+cpp_ptch ='./code/pagerank.cpp'
+
+
 def compile_cpp(cpp_file, output_file=None, compiler="g++", compile_flags='',optimize_flag='-O2'):
     if output_file is None:
         output_file = os.path.splitext(cpp_file)[0] + ".exe"
@@ -67,7 +70,7 @@ def monitor_memory(executable_path, *args):
 def main():
     cpp_file,prog_args='',''
     if len(sys.argv) < 2:
-        cpp_file='pagerank.cpp'
+        cpp_file=cpp_ptch
         prog_args=''
     
     else:
@@ -79,7 +82,7 @@ def main():
         sys.exit(1)
         
     compiler = os.environ.get("CXX", "g++")
-    compile_flags = os.environ.get("CXXFLAGS", "-fopenmp -mavx2")
+    compile_flags = os.environ.get("CXXFLAGS", "-std=c++17 -mavx2")
     
     executable = compile_cpp(cpp_file, compiler=compiler, compile_flags=compile_flags)
     

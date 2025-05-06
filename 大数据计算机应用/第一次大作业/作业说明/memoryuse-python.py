@@ -1,7 +1,7 @@
 # 仅供运行时测试使用，与最终测试时使用的代码可能存在不同
 # 可能需要修改部分代码以适应不同的测试环境
 
-default_script_path="pagerank.py"
+default_script_path="code/main_2.py"
 
 import psutil
 import subprocess
