@@ -1,0 +1,11 @@
+<user id>|<numbers of rating items>
+<item id>   <score>
+
+example:
+0|6
+550452  95  
+323933  72  
+159248  81  
+554099  65  
+70896  80  
+518385  92 
