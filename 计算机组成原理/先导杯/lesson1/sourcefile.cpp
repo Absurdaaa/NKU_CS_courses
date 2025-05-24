@@ -62,19 +62,20 @@ int main(int argc, char **argv)
   const int N = 1024, M = 2048, P = 512;
   std::string mode = argc >= 2 ? argv[1] : "baseline";
   
-  if(argc >= 3)//添加矩阵规模输入
-  {
-    try
-    {
-      N = std::stoi(argv[2]);
-      M = std::stoi(argv[3]);
-      P = std::stoi(argv[4]);
-    }
-    catch (const std::exception &e)
-    {
-      std::cerr << "Invalid matrix size arguments. Using default sizes." << std::endl;
-    }
-  }
+  // if(argc >= 5)//添加矩阵规模输入
+  // {
+  //   try
+  //   {
+  //     N = std::stoi(argv[2]);
+  //     M = std::stoi(argv[3]);
+  //     P = std::stoi(argv[4]);
+  //   }
+  //   catch (const std::exception &e)
+  //   {
+  //     std::cerr << "Invalid matrix size arguments. Using default sizes." << std::endl;
+  //   }
+  // }
+
   std::cout << "Matrix size: " << N << "x" << M << "x" << P << std::endl;
 
   if (mode == "mpi")
@@ -88,13 +89,12 @@ int main(int argc, char **argv)
   std::vector<double> A(N * M);
   std::vector<double> B(M * P);
   std::vector<double> C(N * P, 0);
-  std::vector<double> C_ref(N * P, 0);//参考答案
+  std::vector<double> C_ref(N * P, 0); // 参考答案
 
   init_matrix(A, N, M);
   init_matrix(B, M, P);
   matmul_baseline(A, B, C_ref, N, M, P);
 
-  
   if (mode == "baseline")
   {
     auto start = std::chrono::high_resolution_clock::now();
@@ -103,7 +103,7 @@ int main(int argc, char **argv)
 
     auto end = std::chrono::high_resolution_clock::now();
     std::chrono::duration<double> elapsed = end - start;
-    
+
     std::cout << std::fixed << std::setprecision(9); // 设置9位小数
     std::cout << "[Baseline] Time: " << elapsed.count() << " seconds" << std::endl;
   }
@@ -115,14 +115,20 @@ int main(int argc, char **argv)
 
     auto end = std::chrono::high_resolution_clock::now();
     std::chrono::duration<double> elapsed = end - start;
-    
+
     std::cout << std::fixed << std::setprecision(9); // 设置9位小数
     std::cout << "[OpenMP] Time: " << elapsed.count() << " seconds" << std::endl;
     std::cout << "[OpenMP] Valid: " << validate(C, C_ref, N, P) << std::endl;
   }
   else if (mode == "block")
   {
+    auto start = std::chrono::high_resolution_clock::now();
     matmul_block_tiling(A, B, C, N, M, P);
+    auto end = std::chrono::high_resolution_clock::now();
+    std::chrono::duration<double> elapsed = end - start;
+
+    std::cout << std::fixed << std::setprecision(9); // 设置9位小数
+    std::cout << "[Block Parallel] Time: " << elapsed.count() << " seconds" << std::endl;
     std::cout << "[Block Parallel] Valid: " << validate(C, C_ref, N, P) << std::endl;
   }
   else if (mode == "other")
@@ -191,7 +197,7 @@ void matmul_openmp(const std::vector<double> &A,
 
 void matmul_block_tiling(const std::vector<double> &A,
                          const std::vector<double> &B,
-                         std::vector<double> &C, int N, int M, int P, int block_size = 64)
+                         std::vector<double> &C, int N, int M, int P, int block_size)
 {
   std::cout << "matmul_block_tiling methods..." << std::endl;
   // 块划分的朴素实现，三重循环外层采用块的遍历
