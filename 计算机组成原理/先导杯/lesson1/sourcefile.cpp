@@ -153,7 +153,7 @@ void init_matrix(std::vector<double> &mat, int rows, int cols)
     mat[i] = dist(gen);
 }
 
-bool validate(const std::vector<double> &A, const std::vector<double> &B, int rows, int cols, double tol = 1e-6)
+bool validate(const std::vector<double> &A, const std::vector<double> &B, int rows, int cols, double tol)
 {
   for (int i = 0; i < rows * cols; ++i)
     if (std::abs(A[i] - B[i]) > tol)
