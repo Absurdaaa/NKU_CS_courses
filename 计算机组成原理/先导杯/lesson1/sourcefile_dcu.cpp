@@ -11,11 +11,12 @@
 // 执行
 // ./outputfile_dcu
 
-#define N 1024
-#define M 2024
-#define P 512
+// #define N 1024
+// #define M 2024
+// #define P 512
 #define BLOCK_SIZE 16
 #define BLOCK 16
+int N,M,P;
 
 // HIP核函数：每个线程负责C矩阵的一个元素
 __global__ void matmul_kernel(const double *A, const double *B, double *C, int n, int m, int p)
@@ -29,29 +30,32 @@ __global__ void matmul_kernel(const double *A, const double *B, double *C, int n
     //         sum += A[row * m + k] * B[k * p + col];
     //     C[row * p + col] = sum;
     // }
-    __shared__ float Asub[BLOCK][BLOCK];
-    __shared__ float Bsub[BLOCK][BLOCK];
+    __shared__ double Asub[BLOCK][BLOCK];
+    __shared__ double Bsub[BLOCK][BLOCK];
+
     int bx = blockIdx.x, by = blockIdx.y;
     int tx = threadIdx.x, ty = threadIdx.y;
     int row = by * BLOCK + ty;
     int col = bx * BLOCK + tx;
-    float sum = 0.0f;
-    for (int t = 0; t < (M + BLOCK - 1) / BLOCK; ++t) {
-        if (row < N && t * BLOCK + tx < M)
-            Asub[ty][tx] = A[row * M + t * BLOCK + tx];
+    double sum = 0.0;
+
+    for (int t = 0; t < (m + BLOCK - 1) / BLOCK; ++t) {
+        if (row < n && t * BLOCK + tx < m)
+            Asub[ty][tx] = A[row * m + t * BLOCK + tx];
         else
-            Asub[ty][tx] = 0.f;
-        if (col < P && t * BLOCK + ty < M)
-            Bsub[ty][tx] = B[(t * BLOCK + ty) * P + col];
+            Asub[ty][tx] = 0.0;
+        if (col < p && t * BLOCK + ty < m)
+            Bsub[ty][tx] = B[(t * BLOCK + ty) * p + col];
         else
-            Bsub[ty][tx] = 0.f;
+            Bsub[ty][tx] = 0.0;
         __syncthreads();
         for (int k = 0; k < BLOCK; ++k)
             sum += Asub[ty][k] * Bsub[k][tx];
         __syncthreads();
     }
-    if (row < N && col < P)
-        C[row * P + col] = sum;
+    if (row < n && col < p)
+        C[row * p + col] = sum;
+        C[row * p + col] = sum;
 }
 
 void init_matrix(std::vector<double> &mat)
@@ -82,8 +86,22 @@ bool validate(const std::vector<double> &ref, const std::vector<double> &test)
     return true;
 }
 
-int main()
+int main(int argc, char* argv[])
 {
+    
+    if (argc < 4) {
+        N = 1024;
+        M = 2048;
+        P = 512;
+    }
+    else{
+        N = std::atoi(argv[1]);
+        M = std::atoi(argv[2]);
+        P = std::atoi(argv[3]);
+    }
+
+    
+
     std::vector<double> A(N * M), B(M * P), C(N * P), C_ref(N * P);
     init_matrix(A);
     init_matrix(B);

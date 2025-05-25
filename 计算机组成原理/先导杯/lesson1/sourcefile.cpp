@@ -7,8 +7,10 @@
 #include <mpi.h>
 
 #include <chrono>
+#include <immintrin.h>
 // #include "judge.h"
 #include <iomanip>
+
 // 编译执行方式参考：
 // 编译， 也可以使用g++，但使用MPI时需使用mpic
 // mpic++ -fopenmp -o outputfile sourcefile.cpp
@@ -51,6 +53,11 @@ void matmul_block_tiling(const std::vector<double> &A,
 
 // 方式3: 利用MPI消息传递，实现多进程并行优化 （主要修改函数）
 void matmul_mpi(int N, int M, int P);
+
+// 方式4: SIMD （主要修改函数）
+void matmul_simd(const std::vector<double> &A,
+                  const std::vector<double> &B,
+                  std::vector<double> &C, int N, int M, int P);
 
 // 方式4: 其他方式 （主要修改函数）
 void matmul_other(const std::vector<double> &A,
@@ -130,6 +137,17 @@ int main(int argc, char **argv)
     std::cout << std::fixed << std::setprecision(9); // 设置9位小数
     std::cout << "[Block Parallel] Time: " << elapsed.count() << " seconds" << std::endl;
     std::cout << "[Block Parallel] Valid: " << validate(C, C_ref, N, P) << std::endl;
+  }
+    else if (mode == "simd")
+  {
+    auto start = std::chrono::high_resolution_clock::now();
+    matmul_simd(A, B, C, N, M, P);
+    auto end = std::chrono::high_resolution_clock::now();
+    std::chrono::duration<double> elapsed = end - start;
+
+    std::cout << std::fixed << std::setprecision(9); // 设置9位小数
+    std::cout << "[SIMD] Time: " << elapsed.count() << " seconds" << std::endl;
+    std::cout << "[SIMD] Valid: " << validate(C, C_ref, N, P) << std::endl;
   }
   else if (mode == "other")
   {
@@ -339,4 +357,39 @@ void matmul_other(const std::vector<double> &A,
                   std::vector<double> &C, int N, int M, int P)
 {
   std::cout << "Other methods..." << std::endl;
+}
+
+void matmul_simd(const std::vector<double> &A,
+                 const std::vector<double> &B,
+                 std::vector<double> &C, int N, int M, int P)
+{
+    // 将B转置，方便SIMD按行访问
+    std::vector<double> B_T(P * M);
+    for (int i = 0; i < M; ++i)
+        for (int j = 0; j < P; ++j)
+            B_T[j * M + i] = B[i * P + j];
+
+    for (int i = 0; i < N; ++i)
+    {
+        for (int j = 0; j < P; ++j)
+        {
+            __m256d sum_vec = _mm256_setzero_pd();
+            int k = 0;
+            // 每次处理4个double
+            for (; k + 4 <= M; k += 4)
+            {
+                __m256d a_vec = _mm256_loadu_pd(&A[i * M + k]);
+                __m256d b_vec = _mm256_loadu_pd(&B_T[j * M + k]);
+                sum_vec = _mm256_fmadd_pd(a_vec, b_vec, sum_vec); // sum_vec += a_vec * b_vec
+            }
+            // 水平加和sum_vec
+            double sum_arr[4];
+            _mm256_storeu_pd(sum_arr, sum_vec);
+            double sum = sum_arr[0] + sum_arr[1] + sum_arr[2] + sum_arr[3];
+            // 处理剩余的
+            for (; k < M; ++k)
+                sum += A[i * M + k] * B_T[j * M + k];
+            C[i * P + j] = sum;
+        }
+    }
 }

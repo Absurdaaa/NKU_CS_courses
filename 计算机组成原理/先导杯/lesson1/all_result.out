@@ -1,6 +1,32 @@
-[HIP] Time: 0.007753242 seconds
+Matrix size: 1024x2048x512
+Matrix size: 1024x2048x512
+Matrix size: 1024x2048x512
+Matrix size: 1024x2048x512
+[Baseline] Time: 18.317931330 seconds
+Matrix size: 1024x2048x512
+matmul_openmp methods...
+[OpenMP] Time: 1.570506640 seconds
+[OpenMP] Valid: 1
+Matrix size: 1024x2048x512
+matmul_block_tiling methods...
+[Block Parallel] Time: 13.077260750 seconds
+[Block Parallel] Valid: 1
+Matrix size: 1024x2048x512
+[SIMD] Time: 4.205043630 seconds
+[SIMD] Valid: 1
+Matrix size: 1024x2048x512
+Matrix size: 1024x2048x512
+Matrix size: 1024x2048x512
+Matrix size: 1024x2048x512
+[MPI] Time: 3.066610690 seconds
+[MPI] Valid: 1
+
+[HIP] Time: 0.003289680 seconds
 [HIP] Valid: 1
-[HIP] Time: 0.007698757 seconds
+
+[HIP] Time: 0.003359230 seconds
 [HIP] Valid: 1
-[HIP] Time: 0.002057802 seconds
+[HIP] Time: 0.000963360 seconds
 [HIP] Valid: 0
+[HIP] Time: 0.003449510 seconds
+[HIP] Valid: 1
