@@ -176,3 +176,170 @@ DCU[0]		: vram Total Used Memory (MiB): 10
 ======================================================================================
 =================================== End of SMI Log ===================================
 
+===== HIP/DCU (before) =====
+
+============================ System Management Interface =============================
+======================================================================================
+DCU[0]		: Temperature (Sensor edge) (C): 49.0
+DCU[0]		: Temperature (Sensor junction) (C): 53.0
+DCU[0]		: Temperature (Sensor mem) (C): 52.0
+======================================================================================
+======================================================================================
+DCU[0]		: DCU use (%): 0
+======================================================================================
+======================================================================================
+DCU[0]		: vram Total Memory (MiB): 16368
+DCU[0]		: vram Total Used Memory (MiB): 10
+======================================================================================
+=================================== End of SMI Log ===================================
+
+===== HIP/DCU =====
+Launch params (32, 32, 1) are larger than launch bounds (256) for kernel _Z13matmul_kernelPKdS0_Pdiii please add __launch_bounds__ to kernel define or use --gpu-max-threads-per-block recompile program ! 
+	Command being timed: "./outputfile_dcu"
+	User time (seconds): 2.17
+	System time (seconds): 0.07
+	Percent of CPU this job got: 99%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 0:02.25
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 179352
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 2
+	Minor (reclaiming a frame) page faults: 21807
+	Voluntary context switches: 17
+	Involuntary context switches: 57
+	Swaps: 0
+	File system inputs: 0
+	File system outputs: 5712
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0
+===== HIP/DCU (after) =====
+
+============================ System Management Interface =============================
+======================================================================================
+DCU[0]		: Temperature (Sensor edge) (C): 48.0
+DCU[0]		: Temperature (Sensor junction) (C): 53.0
+DCU[0]		: Temperature (Sensor mem) (C): 52.0
+======================================================================================
+======================================================================================
+DCU[0]		: DCU use (%): 0
+======================================================================================
+======================================================================================
+DCU[0]		: vram Total Memory (MiB): 16368
+DCU[0]		: vram Total Used Memory (MiB): 10
+======================================================================================
+=================================== End of SMI Log ===================================
+
+===== HIP/DCU =====
+Launch params (32, 32, 1) are larger than launch bounds (256) for kernel _Z13matmul_kernelPKdS0_Pdiii please add __launch_bounds__ to kernel define or use --gpu-max-threads-per-block recompile program ! 
+	Command being timed: "./outputfile_dcu"
+	User time (seconds): 2.20
+	System time (seconds): 0.06
+	Percent of CPU this job got: 99%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 0:02.27
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 179344
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 1
+	Minor (reclaiming a frame) page faults: 21807
+	Voluntary context switches: 15
+	Involuntary context switches: 60
+	Swaps: 0
+	File system inputs: 0
+	File system outputs: 5712
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0
+===== HIP/DCU (after) =====
+
+============================ System Management Interface =============================
+======================================================================================
+DCU[0]		: Temperature (Sensor edge) (C): 49.0
+DCU[0]		: Temperature (Sensor junction) (C): 53.0
+DCU[0]		: Temperature (Sensor mem) (C): 52.0
+======================================================================================
+======================================================================================
+DCU[0]		: DCU use (%): 0
+======================================================================================
+======================================================================================
+DCU[0]		: vram Total Memory (MiB): 16368
+DCU[0]		: vram Total Used Memory (MiB): 10
+======================================================================================
+=================================== End of SMI Log ===================================
+
+
+
+
+
+
+
+
+===== HIP/DCU (before) =====
+
+============================ System Management Interface =============================
+======================================================================================
+DCU[0]		: Temperature (Sensor edge) (C): 49.0
+DCU[0]		: Temperature (Sensor junction) (C): 53.0
+DCU[0]		: Temperature (Sensor mem) (C): 52.0
+======================================================================================
+======================================================================================
+DCU[0]		: DCU use (%): 0
+======================================================================================
+======================================================================================
+DCU[0]		: vram Total Memory (MiB): 16368
+DCU[0]		: vram Total Used Memory (MiB): 10
+======================================================================================
+=================================== End of SMI Log ===================================
+
+===== HIP/DCU =====
+Launch params (32, 32, 1) are larger than launch bounds (256) for kernel _Z13matmul_kernelPKdS0_Pdiii please add __launch_bounds__ to kernel define or use --gpu-max-threads-per-block recompile program ! 
+	Command being timed: "./outputfile_dcu_more"
+	User time (seconds): 11.70
+	System time (seconds): 0.07
+	Percent of CPU this job got: 99%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 0:11.79
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 171216
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 1
+	Minor (reclaiming a frame) page faults: 24818
+	Voluntary context switches: 17
+	Involuntary context switches: 62
+	Swaps: 0
+	File system inputs: 0
+	File system outputs: 5720
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0
+===== HIP/DCU (after) =====
+
+============================ System Management Interface =============================
+======================================================================================
+DCU[0]		: Temperature (Sensor edge) (C): 48.0
+DCU[0]		: Temperature (Sensor junction) (C): 53.0
+DCU[0]		: Temperature (Sensor mem) (C): 52.0
+======================================================================================
+======================================================================================
+DCU[0]		: DCU use (%): 0
+======================================================================================
+======================================================================================
+DCU[0]		: vram Total Memory (MiB): 16368
+DCU[0]		: vram Total Used Memory (MiB): 10
+======================================================================================
+=================================== End of SMI Log ===================================
+
