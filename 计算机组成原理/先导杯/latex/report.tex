@@ -1,0 +1,640 @@
+% -*- coding: utf-8 -*-
+%-------------------------designed by zcf--------------
+\documentclass[UTF8,a4paper,10pt]{ctexart}
+\usepackage[left=3.17cm, right=3.17cm, top=2.74cm, bottom=2.74cm]{geometry}
+\usepackage{amsmath}
+\usepackage{graphicx,subfig}
+\usepackage{float}
+\usepackage{cite}
+\usepackage{caption}
+\usepackage{enumerate}
+\usepackage{booktabs} %表格
+\usepackage{multirow}
+\newcommand{\tabincell}[2]{\begin{tabular}{@{}#1@{}}#2\end{tabular}}  %表格强制换行
+%-------------------------字体设置--------------
+% \usepackage{times} 
+\usepackage{ctex}
+\setCJKmainfont[ItalicFont=Noto Sans CJK SC Bold, BoldFont=Noto Serif CJK SC Black]{Noto Serif CJK SC}
+\newcommand{\yihao}{\fontsize{26pt}{36pt}\selectfont}           % 一号, 1.4 倍行距
+\newcommand{\erhao}{\fontsize{22pt}{28pt}\selectfont}          % 二号, 1.25倍行距
+\newcommand{\xiaoer}{\fontsize{18pt}{18pt}\selectfont}          % 小二, 单倍行距
+\newcommand{\sanhao}{\fontsize{16pt}{24pt}\selectfont}  %三号字
+\newcommand{\xiaosan}{\fontsize{15pt}{22pt}\selectfont}        % 小三, 1.5倍行距
+\newcommand{\sihao}{\fontsize{14pt}{21pt}\selectfont}            % 四号, 1.5 倍行距
+\newcommand{\banxiaosi}{\fontsize{13pt}{19.5pt}\selectfont}    % 半小四, 1.5倍行距
+\newcommand{\xiaosi}{\fontsize{12pt}{18pt}\selectfont}            % 小四, 1.5倍行距
+\newcommand{\dawuhao}{\fontsize{11pt}{11pt}\selectfont}       % 大五号, 单倍行距
+\newcommand{\wuhao}{\fontsize{10.5pt}{15.75pt}\selectfont}    % 五号, 单倍行距
+%-------------------------章节名----------------
+\usepackage{ctexcap} 
+\CTEXsetup[name={,、},number={ \chinese{section}}]{section}
+\CTEXsetup[name={（,）},number={\chinese{subsection}}]{subsection}
+\CTEXsetup[name={,.},number={\arabic{subsubsection}}]{subsubsection}
+%-------------------------页眉页脚--------------
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\lhead{\kaishu \leftmark}
+% \chead{}
+\rhead{\kaishu 并行程序设计实验报告}%加粗\bfseries 
+\lfoot{}
+\cfoot{\thepage}
+\rfoot{}
+\renewcommand{\headrulewidth}{0.1pt}  
+\renewcommand{\footrulewidth}{0pt}%去掉横线
+\newcommand{\HRule}{\rule{\linewidth}{0.5mm}}%标题横线
+\newcommand{\HRulegrossa}{\rule{\linewidth}{1.2mm}}
+%-----------------------伪代码------------------
+\usepackage{algorithm}  
+\usepackage{algorithmicx}  
+\usepackage{algpseudocode}  
+\floatname{algorithm}{Algorithm}  
+\renewcommand{\algorithmicrequire}{\textbf{Input:}}  
+\renewcommand{\algorithmicensure}{\textbf{Output:}} 
+\usepackage{lipsum}  
+\makeatletter
+\newenvironment{breakablealgorithm}
+  {% \begin{breakablealgorithm}
+  \begin{center}
+     \refstepcounter{algorithm}% New algorithm
+     \hrule height.8pt depth0pt \kern2pt% \@fs@pre for \@fs@ruled
+     \renewcommand{\caption}[2][\relax]{% Make a new \caption
+      {\raggedright\textbf{\ALG@name~\thealgorithm} ##2\par}%
+      \ifx\relax##1\relax % #1 is \relax
+         \addcontentsline{loa}{algorithm}{\protect\numberline{\thealgorithm}##2}%
+      \else % #1 is not \relax
+         \addcontentsline{loa}{algorithm}{\protect\numberline{\thealgorithm}##1}%
+      \fi
+      \kern2pt\hrule\kern2pt
+     }
+  }{% \end{breakablealgorithm}
+     \kern2pt\hrule\relax% \@fs@post for \@fs@ruled
+  \end{center}
+  }
+\makeatother
+%------------------------代码-------------------
+\usepackage{xcolor} 
+\usepackage{listings} 
+\lstset{ 
+breaklines,%自动换行
+basicstyle=\small,
+escapeinside=``,
+keywordstyle=\color{ blue!70} \bfseries,
+commentstyle=\color{red!50!green!50!blue!50},% 
+stringstyle=\ttfamily,% 
+extendedchars=false,% 
+linewidth=\textwidth,% 
+numbers=left,% 
+numberstyle=\tiny \color{blue!50},% 
+frame=trbl% 
+rulesepcolor= \color{ red!20!green!20!blue!20} 
+}
+%------------超链接----------
+\usepackage[colorlinks,linkcolor=black,anchorcolor=blue]{hyperref}
+%------------------------TODO-------------------
+\usepackage{enumitem,amssymb}
+\newlist{todolist}{itemize}{2}
+\setlist[todolist]{label=$\square$}
+% for check symbol 
+\usepackage{pifont}
+\newcommand{\cmark}{\ding{51}}%
+\newcommand{\xmark}{\ding{55}}%
+\newcommand{\done}{\rlap{$\square$}{\raisebox{2pt}{\large\hspace{1pt}\cmark}}\hspace{-2.5pt}}
+\newcommand{\wontfix}{\rlap{$\square$}{\large\hspace{1pt}\xmark}}
+%------------------------水印-------------------
+\usepackage{tikz}
+\usepackage{xcolor}
+\usepackage{eso-pic}
+
+\newcommand{\watermark}[3]{\AddToShipoutPictureBG{
+\parbox[b][\paperheight]{\paperwidth}{
+\vfill%
+\centering%
+\tikz[remember picture, overlay]%
+  \node [rotate = #1, scale = #2] at (current page.center)%
+    {\textcolor{gray!80!cyan!30!magenta!30}{#3}};
+\vfill}}}
+
+
+
+%———————————————————————————————————————————正文———————————————————————————————————————————————
+%----------------------------------------------
+\begin{document}
+\begin{titlepage}
+    \begin{center}
+    \includegraphics[width=0.8\textwidth]{NKU.png}\\[1cm]    
+    \textsc{\Huge \kaishu{\textbf{南\ \ \ \ \ \ 开\ \ \ \ \ \ 大\ \ \ \ \ \ 学}} }\\[0.9cm]
+    \textsc{\huge \kaishu{\textbf{计\ \ 算\ \ 机\ \ 学\ \ 院}}}\\[0.5cm]
+    \textsc{\Large \textbf{计算机组成原理实验报告}}\\[0.8cm]
+    \HRule \\[0.9cm]
+    { \LARGE \bfseries 智能矩阵乘法优化挑战}\\[0.4cm]
+    \HRule \\[2.0cm]
+    \centering
+    \textsc{\LARGE 林晖鹏\kaishu{\ \ \ \ }}\\[0.5cm]
+    \textsc{\LARGE \kaishu{年级\ :\ 2023级}}\\[0.5cm]
+    \textsc{\LARGE \kaishu{专业\ :\ 计算机科学与技术}}\\[0.5cm]
+    \textsc{\LARGE \kaishu{指导教师\ :\ 王刚}}\\[0.5cm]
+    \vfill
+    {\Large \today}
+    \end{center}
+\end{titlepage}
+%-------------摘------要--------------
+\newpage
+\thispagestyle{empty}
+\renewcommand{\abstractname}{\kaishu \sihao \textbf{摘要}}
+    \begin{abstract}
+
+        \noindent  %顶格
+        \textbf{\\\ 关键字：Parallel}\textbf{} \\\ \\\
+    \end{abstract}
+%----------------------------------------------------------------
+\tableofcontents
+%----------------------------------------------------------------
+\newpage
+\watermark{60}{10}{NKU}
+\setcounter{page}{1}
+% \section{概述}
+% %——————————————————————————————————————
+% \subsection{第一节}
+% 如图\ref{fig:1}所示
+% \begin{figure}[H]
+%     \centering
+%     \includegraphics[scale=0.3]{NKU.png}
+%     \caption{Caption}
+%     \label{fig:1}
+% \end{figure}
+
+% 表
+% \begin{table}[!htbp]
+%   \centering
+%   \begin{tabular}{ccccccccccc}
+%   \toprule  
+%   N/n$\backslash$Algo& naive-conv& naive-pool& omp-conv& omp-pool\\
+%   \midrule
+%   64/2& 0.0167& 0.01255& 0.04142& 0.03799\\
+%   64/4& 0.03599&0.0394& 0.0458& 0.0421\\
+%   \bottomrule
+%   \end{tabular}
+%   \caption{性能测试结果(4线程)(单位:ms)}
+% \end{table}
+
+% 带单元格表格
+% \begin{table}[!htbp]
+%   \centering
+%   \begin{tabular}{|c|c|c|c|c|c|c|}
+%   \hline
+%   \multicolumn{2}{|c|}{ \multirow{2}*{$Cost$} }& \multicolumn{5}{c|}{To}\\
+%   \cline{3-7}
+%   \multicolumn{2}{|c|}{}&$A$&$B$&$C$&$D$&$E$\\
+%   \hline
+%   \multirow{3}*{From}&$B$&7&0&1&3&8\\
+%   \cline{2-7}
+%   &$C$&8&1&0&2&7\\
+%   \cline{2-7}
+%   &$D$&8&3&2&0&5\\
+%   \hline
+%   \end{tabular}
+%   \caption{结点C距离向量表(无毒性逆转)}
+% \end{table}
+
+% %——————————————————————————————————————
+% \subsection{第二节}
+% 伪代码
+
+% \begin{breakablealgorithm} 
+%   \caption{初始化obj文件信息——对应MeshSimplify类中readfile函数,Face类calMatrix函数} 
+%   \begin{algorithmic}[1] %每行显示行号  
+%       \Require obj文件,顶点、边、面列表
+%       \Ensure 是否读取成功
+%       \Function {calMatrix}{$Face$}  
+%               \State $normal \gets e1×e2$  
+%               \State $normal \gets normal/normal.length$
+%               \State $temp[] \gets {normal.x, normal.y, normal.z, normal· Face.v1}$
+%               \State $Matrix[i][j]=temp[i] * temp[j]$ 
+%               \State \Return{$Matrix$}  
+%       \EndFunction
+%       \State 根据obj的v和f区分点面信息,读取并加入列表
+%       \State $scale \gets $记录点坐标中距离原点最远的分量,以便后续OpenGL进行显示
+%       \State $ori \gets $记录中心点,便于OpenGL显示在中心位置,避免有的obj偏移原点较多
+%       \State 根据三角面片信息,计算一个面的三条边
+%       \State 计算每个面的矩阵$\gets calMatrix$
+%       \State 将每个面的矩阵加到各点,由点维护\\
+%       \Return True
+%   \end{algorithmic}  
+% \end{breakablealgorithm}
+
+% 代码
+% \begin{lstlisting}[title=逐列访问平凡算法,frame=trbl,language={C++}]
+%     int main(int argc, char* argv[]) {
+%     	int myid, numprocs;
+%         memset(metric, 0, sizeof(float)*D*T);
+%         memset(query, 0, sizeof(float)*Q*T);
+%     	MPI_Init(&argc, &argv);
+%     	MPI_Comm_rank(MPI_COMM_WORLD, &myid);
+%     	MPI_Comm_size(MPI_COMM_WORLD, &numprocs);
+%     }
+% \end{lstlisting}
+
+
+% % %——————————————————————————————————————
+% \subsection{第三节}
+
+% % 参考文献\cite{adams1995hitchhiker}\cite{shin2016deep}
+    
+% % 多行公式
+% % \begin{align}
+% %   a+b = a + b \\
+% %   \frac{a+b}{a-b}
+% % \end{align}
+
+% % 行内公式：$\sum^N_{i=1}$
+
+% % \textbf{超链接}  \href{http://youtube.com/}{YouTube}
+
+% % 带标号枚举
+% % \begin{enumerate}
+% %   \item 1
+% %   \item 2
+% % \end{enumerate}
+
+% % 不带标号枚举
+% % \begin{itemize}
+% %   \item 1
+% %   \item 2
+% % \end{itemize}
+
+% % \xiaosi{切换字体大小}
+
+% % %----------------------------------------------------------------
+% % \section{总结}
+% %
+\section{引言}
+矩阵乘法是科学计算、工程模拟、人工智能等众多领域中的基础运算，其高效实现直接影响到相关应用的整体性能。随着大数据和人工智能的快速发展，涉及大规模矩阵运算的场景日益增多，如何高效地完成大规模矩阵乘法成为当前计算领域的重要研究课题。本实验旨在实现标准的矩阵乘法算法，并探索多种优化技术以提升其计算效率。通过理论分析和实验对比，系统评估不同优化方法的性能表现，为大规模矩阵计算的高效实现提供参考。
+
+% \begin{itemize}
+%     \item 问题背景与意义
+%     \item 实验目标
+% \end{itemize}
+%——————————————————————————————————————
+
+\section{理论基础}
+\subsection{矩阵乘法基本原理}
+设有矩阵$A$（$N\times M$）和矩阵$B$（$M\times P$），其乘积矩阵$C$为$N\times P$矩阵。$C$的每个元素$c_{ij}$计算公式为：
+\begin{equation}
+    c_{ij} = \sum_{k=1}^{M} a_{ik} \cdot b_{kj}, \quad 1 \leq i \leq N,\ 1 \leq j \leq P
+\end{equation}
+标准的矩阵乘法算法的时间复杂度为$O(NMP)$。对于大规模矩阵，这一运算复杂度将带来巨大的计算和存储压力。
+
+\subsection{性能瓶颈分析}
+传统的三重循环实现方式在计算大规模矩阵时主要面临以下性能瓶颈：
+\begin{itemize}
+    \item \textbf{计算量大}：元素级别的逐一计算，导致运算次数随矩阵规模迅速增长。
+    \item \textbf{内存访问局部性差，缓存未命中率高}：标准三重循环中，若访问矩阵B的列，可能导致多次远距离跳转，内存空间局部性差，缓存利用率低，频繁访问主存，极大拖慢整体速度。
+    \item \textbf{缺乏并行性}：标准实现未充分利用多核、多线程和加速器等现代计算资源。
+\end{itemize}
+
+\subsection{常见优化方法简介}
+为提升矩阵乘法的性能，常用的优化方法包括但不限于：
+\begin{itemize}
+    \item \textbf{多线程并行化（OpenMP）}：利用多核CPU资源，将矩阵计算任务划分给不同线程并行执行。
+    \item \textbf{子块并行（Block-wise）}：将矩阵划分为子块，减少缓存未命中，并结合并行机制提升效率。
+    \item \textbf{多进程并行（MPI）}：适用于分布式或多节点系统，通过进程间协作完成大规模矩阵乘法。
+    \item \textbf{SIMD向量化（SIMD）}：利用单指令多数据（SIMD）指令集，在单核内实现数据级并行，加速矩阵元素的批量乘加运算。
+    \item \textbf{异构加速（DCU/HIP）}：利用国产高性能加速器（如DCU/GPU）与HIP编程模型实现大规模并行计算。
+    % \item \textbf{混合优化}：结合多种优化方法（如多线程与子块优化、分布式与加速器协同）进一步提升性能。
+\end{itemize}
+
+%——————————————————————————————————————
+
+\section{实验环境与工具}
+\begin{itemize}
+    \item 硬件环境（CPU型号、内存、加速器（如DCU/GPU）等）
+    \item 软件环境（操作系统、编译器、Python/C++版本、依赖库等）
+    \item 关键工具介绍（OpenMP、MPI、HIP、rocm-smi、hipprof、hipgdb等）
+\end{itemize}
+%——————————————————————————————————————
+\section{算法实现}
+
+\subsection{标准矩阵乘法}
+
+标准矩阵乘法采用三重循环实现。对于矩阵A（N×M）和B（M×P），输出矩阵C（N×P），每个元素 $c_{ij}$ 按如下公式计算：
+        $$
+        c_{ij} = \sum_{k=1}^{M} a_{ik} \cdot b_{kj}
+        $$
+整体流程为：外层循环遍历A的每一行，中间循环遍历B的每一列，内层循环遍历对应的k，并累加乘积。
+
+
+\begin{lstlisting}[title=标准矩阵乘法,frame=trbl,language={C++}]
+    void matmul_baseline(const std::vector<double> &A,
+                 const std::vector<double> &B,
+                 std::vector<double> &C, int N, int M, int P)
+    {
+      for (int i = 0; i < N; ++i)
+        for (int j = 0; j < P; ++j)
+        {
+          C[i * P + j] = 0;
+          for (int k = 0; k < M; ++k)
+            C[i * P + j] += A[i * M + k] * B[k * P + j];
+        }
+    }
+\end{lstlisting}
+
+%——————————————————————————————————————
+
+\subsection{优化算法设计与实现}
+
+\subsubsection{OpenMP多线程并行优化}
+标准三重循环实现未利用多核CPU资源。OpenMP多线程优化通过将最外层循环并行化，使多个线程可同时处理不同的矩阵行，大幅提升计算效率。
+
+只需在外层循环加`\#pragma omp parallel for`，即可自动利用多线程并行。
+
+
+\begin{lstlisting}[title=OpenMP多线程并行优化算法,frame=trbl,language={C++}]
+void matmul_openmp(const std::vector<double> &A,
+                   const std::vector<double> &B,
+                   std::vector<double> &C, int N, int M, int P)
+{
+  #pragma omp parallel for
+  for (int i = 0; i < N; ++i)
+    for (int j = 0; j < P; ++j)
+    {
+      double sum = 0.0;
+      for (int k = 0; k < M; ++k)
+        sum += A[i * M + k] * B[k * P + j];
+      C[i * P + j] = sum;
+    }
+}
+\end{lstlisting}
+
+
+
+\subsubsection{子块并行优化}
+标准矩阵乘法访问模式导致缓存局部性差，频繁跨行/跨列跳转，造成cache未命中。子块并行（Block Tiling）将矩阵划分为小块，每次只处理部分数据，提高缓存命中率，减少内存带宽压力。合理选择block\_size（如32、64、128）可兼容不同CPU缓存结构，达到最佳性能。
+
+
+\begin{lstlisting}[title=子块并行优化算法,frame=trbl,language={C++}]
+void matmul_block_tiling(const std::vector<double> &A,
+                         const std::vector<double> &B,
+                         std::vector<double> &C, int N, int M, int P, int block_size = 64)
+{
+  for (int ii = 0; ii < N; ii += block_size)
+    for (int jj = 0; jj < P; jj += block_size)
+      for (int kk = 0; kk < M; kk += block_size)
+        for (int i = ii; i < std::min(ii + block_size, N); ++i)
+          for (int j = jj; j < std::min(jj + block_size, P); ++j)
+          {
+            double sum = 0.0;
+            for (int k = kk; k < std::min(kk + block_size, M); ++k)
+              sum += A[i * M + k] * B[k * P + j];
+            C[i * P + j] += sum;
+          }
+}
+\end{lstlisting}
+\subsubsection{MPI多进程并行优化}
+
+MPI优化将大矩阵按行分块分配至多台节点或多进程，打破单机内存和计算瓶颈。每个进程独立计算负责的部分，主进程收集各个结果，适合分布式和大规模并行场景。
+
+\begin{lstlisting}[title=MPI多进程并行优化算法核心代码,frame=trbl,language={C++}]
+void matmul_mpi(int N, int M, int P)
+{
+  int rank, size;
+  MPI_Comm_rank(MPI_COMM_WORLD, &rank);
+  MPI_Comm_size(MPI_COMM_WORLD, &size);
+
+  int rows_per_proc = N / size;
+  int remainder = N % size;
+  int local_rows = rows_per_proc + (rank < remainder ? 1 : 0);
+
+  std::vector<double> local_A(local_rows * M);
+  std::vector<double> B(M * P);
+  std::vector<double> local_C(local_rows * P, 0);
+
+  // A/B的生成与分发
+  // B广播
+  // ...
+
+  // 本地计算
+  for (int i = 0; i < local_rows; ++i)
+    for (int j = 0; j < P; ++j)
+      for (int k = 0; k < M; ++k)
+        local_C[i * P + j] += local_A[i * M + k] * B[k * P + j];
+
+  // 主进程收集C子块和结果验证
+  // ...
+}
+\end{lstlisting}
+
+
+\subsubsection{SIMD加速优化}
+
+传统的矩阵乘法为三重循环，CPU一次只处理一对元素，效率较低。利用SIMD指令（如AVX2、SVE等），每条指令可并行处理多个数据元素（如4个double或8个float），极大提升运算效率。
+
+向量化的关键在于将数据按内存对齐批量加载，并用SIMD指令进行批量乘加，实现数据级并行。
+
+\begin{lstlisting}[title=MPI多进程并行优化算法核心代码,frame=trbl,language={C++}]
+void matmul_simd(const std::vector<double> &A,
+                 const std::vector<double> &B,
+                 std::vector<double> &C, int N, int M, int P)
+{
+    // 将B转置，方便SIMD按行访问
+    std::vector<double> B_T(P * M);
+    for (int i = 0; i < M; ++i)
+        for (int j = 0; j < P; ++j)
+            B_T[j * M + i] = B[i * P + j];
+
+    for (int i = 0; i < N; ++i)
+    {
+        for (int j = 0; j < P; ++j)
+        {
+            __m256d sum_vec = _mm256_setzero_pd();
+            int k = 0;
+            // 每次处理4个double
+            for (; k + 4 <= M; k += 4)
+            {
+                __m256d a_vec = _mm256_loadu_pd(&A[i * M + k]);
+                __m256d b_vec = _mm256_loadu_pd(&B_T[j * M + k]);
+                sum_vec = _mm256_fmadd_pd(a_vec, b_vec, sum_vec); // sum_vec += a_vec * b_vec
+            }
+            // 水平加和sum_vec
+            double sum_arr[4];
+            _mm256_storeu_pd(sum_arr, sum_vec);
+            double sum = sum_arr[0] + sum_arr[1] + sum_arr[2] + sum_arr[3];
+            // 处理剩余的
+            for (; k < M; ++k)
+                sum += A[i * M + k] * B_T[j * M + k];
+            C[i * P + j] = sum;
+        }
+    }
+}
+\end{lstlisting}
+
+
+\subsubsection{DCU/HIP加速优化}
+
+本方法采用了国产高性能异构加速器——曙光DCU进行加速，针对AI训练、推理及高性能计算等应用场景，显著提升了计算效率。DCU具备与NVIDIA GPU类似的大规模并行计算能力，能够高效处理矩阵乘法等密集型计算任务。
+
+在技术实现上，本方法基于HIP C++编程接口开发。HIP由AMD提出，兼容CUDA编程模型，能够方便地将CUDA代码迁移至国产DCU平台，降低开发和适配成本，实现跨平台的高性能计算。
+
+采用DCU加速的主要优势包括：
+
+- 充分利用DCU的大规模并行处理能力，极大提升数据处理和训练速度；
+
+- 利用高带宽片上存储和共享内存，有效优化数据访问效率，减少内存瓶颈；
+
+- 通过HIP接口，便于现有CUDA项目的快速迁移和国产化适配；
+
+- 支持与CPU端OpenMP/MPI等并行技术协同，实现异构多级并行优化。
+
+\begin{lstlisting}[title=DCU/HIP加速优化算法,frame=trbl,language={C++}]
+__global__ void matmul_kernel(const double *A, const double *B, double *C, int n, int m, int p)
+{
+    int row = blockIdx.y * blockDim.y + threadIdx.y;
+    int col = blockIdx.x * blockDim.x + threadIdx.x;
+    if (row < n && col < p)
+    {
+        double sum = 0.0;
+        for (int k = 0; k < m; ++k)
+            sum += A[row * m + k] * B[k * p + col];
+        C[row * p + col] = sum;
+    }
+}
+\end{lstlisting}
+
+
+
+
+% \subsubsection{其他优化与混合优化方法（可选）}
+% \begin{itemize}
+%     \item 优化原理
+%     \item 代码实现要点
+%     \item 性能分析及结果
+% \end{itemize}
+
+%——————————————————————————————————————
+
+\section{实验结果与性能分析}
+
+\subsection{运行时间对比}
+
+这里我们在矩阵乘法计算规模为$N=1024$，$M=2048$，$P=512$的情况下进行性能测试。
+
+可以看到，不同的加速方法均显著提升了计算性能。其中，OpenMP方案的加速比为11.66倍，Block Parallel方案的加速比为1.40倍，SIMD方案的加速比为4.36倍，MPI方案的加速比为5.97倍。而DCU-HIP方案则表现出色，运行时间仅为0.0033秒，达到了5555.43倍的加速比。
+
+
+\begin{table}[H]
+\centering
+\begin{tabular}{lcc}
+\hline
+\textbf{算法方案} & \textbf{运行时间（秒）} & \textbf{加速比} \\
+\hline
+Baseline（朴素）   & 18.318  & 1.00 \\
+OpenMP            & 1.571   & 11.66 \\
+Block Parallel    & 13.077  & 1.40 \\
+SIMD              & 4.205   & 4.36 \\
+MPI               & 3.067   & 5.97 \\
+DCU-HIP               & 0.0033  & 5555.43 \\
+\hline
+\end{tabular}
+\caption{不同矩阵乘法实现方案运行时间与加速比}
+\end{table}
+
+
+\subsection{资源占用分析}
+
+我们对比分析了Baseline（朴素实现）、OpenMP、Block Parallel、SIMD、MPI和HIP/DCU（加速器）等多种矩阵乘法实现方案的资源占用情况。主要关注CPU利用率、主机内存峰值以及加速器（GPU/DCU）显存与利用率等核心指标。各方案的详细资源占用数据见表\ref{tab:resource}。
+
+
+\begin{table}[H]
+\centering
+\begin{tabular}{lccc}
+\hline
+\textbf{方案} & \textbf{CPU利用率 (\%)} & \textbf{最大内存占用 (MB)} & \textbf{加速器显存 (MB)} \\
+\hline
+Baseline      & 99   & 34.5  & --     \\
+OpenMP        & 152  & 34.6  & --     \\
+Block Parallel& 99   & 34.5  & --     \\
+SIMD          & 99   & 42.5  & --     \\
+MPI           & 383  & 45.1  & --     \\
+HIP/DCU       & 99   & 169.2 & 10     \\
+\hline
+\end{tabular}
+\caption{各方案资源占用对比}
+\label{tab:resource}
+\end{table}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\linewidth]{资源对比.png}
+    \caption{资源占用对比}
+    \label{fig:enter-label}
+\end{figure}
+
+从CPU利用率上看，Baseline、Block Parallel和SIMD方案均为99\%，说明主要在单核或单线程下运行。OpenMP和MPI方案则充分利用了多核并行能力，CPU利用率分别达到152\%和383\%，显著提升了处理器资源的利用率，体现了其并行加速的优势。
+
+在主机内存占用方面，除SIMD与MPI略高外，其余CPU端方案最大内存占用均在35MB左右，差异较小。值得注意的是，HIP/DCU方案的主机内存占用显著提升，达到约169MB。这主要由于需要在主机和加速卡之间进行数据交互和缓存，尤其是在大规模数据传输时会有额外开销。
+
+% 针对加速器资源，HIP/DCU方案的显存占用为10MB，且在采样时加速器利用率为0\%。这可能是由于核函数执行极快，资源采样未能捕捉到利用率峰值，或任务本身对显卡压力较小。为精细分析加速器利用率，建议后续采用更高频率的监控手段或专用性能分析工具。
+
+综合来看，OpenMP和MPI方案可以较好地提升CPU利用率与并行效率，适用于多核CPU环境下的加速需求；HIP/DCU方案虽然主机内存消耗较高，但能借助加速卡实现更高的计算性能，适合大规模、对计算性能要求极高的场景。各方案在资源消耗、适用环境和扩展性方面各有优劣，应结合硬件条件和实际需求进行选择。
+
+% \begin{itemize}
+%     \item 各方案的运行时间统计
+%     \item 加速比与效率对比
+%     \item 资源占用情况（CPU利用率、内存、加速器利用率等）
+%     \item 可视化展示（柱状图、折线图等）
+% \end{itemize}
+
+\subsection{GFLOPS分析}
+GFLOPS（每秒十亿次浮点运算）是衡量计算性能的重要指标。通过计算每种实现方案的GFLOPS值，可以更直观地评估其性能表现。
+GFLOPS的计算公式为：
+\begin{equation}
+    GFLOPS = \frac{2 \times N \times M \times P}{T} \times 10^{-9}
+\end{equation}
+其中，$N$、$M$、$P$分别为矩阵的行数、列数和深度，$T$为运行时间（秒）。
+根据实验结果，我们计算了各方案的GFLOPS值，并绘制了柱状图进行对比分析。结果表明，DCU-HIP方案的GFLOPS值远高于其他方案，达到了惊人的5555.43 GFLOPS，充分体现了其在大规模矩阵乘法中的优势。
+\begin{table}[H]
+\centering
+\begin{tabular}{lcc}
+\hline
+\textbf{算法方案} & \textbf{GFLOPS} \\
+\hline
+Baseline（朴素）   & 0.11 \\
+OpenMP            & 1.25 \\
+Block Parallel    & 0.14 \\
+SIMD              & 0.42 \\
+MPI               & 0.56 \\
+DCU-HIP               & 5555.43 \\
+\hline      
+\end{tabular}
+\caption{不同矩阵乘法实现方案GFLOPS}
+\label{tab:GFLOPS}
+\end{table}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\linewidth]{GFLOPS.png}
+    \caption{不同方案GFLOPS对比}
+    \label{fig:enter-label}
+\end{figure}
+%——————————————————————————————————————
+
+\section{问题讨论}
+\begin{itemize}
+    \item 各优化方法优缺点分析
+    \item 适用场景讨论
+    \item 影响性能的关键因素
+    \item 实验中遇到的问题及解决办法
+\end{itemize}
+
+%——————————————————————————————————————
+
+\section{结论与展望}
+\begin{itemize}
+    \item 优化效果总结
+    \item 后续改进方向与应用前景
+\end{itemize}
+
+%----------------------------------------------------------------
+\newpage
+\bibliographystyle{plain}
+\bibliography{references} 
+\end{document}
