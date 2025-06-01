@@ -1,0 +1,227 @@
+
+---
+events:
+  -
+    kind: "message-v1"
+    backtrace:
+      - "/Applications/CMake.app/Contents/share/cmake-3.30/Modules/CMakeDetermineSystem.cmake:205 (message)"
+      - "CMakeLists.txt:3 (project)"
+    message: |
+      The system is: Darwin - 21.4.0 - x86_64
+  -
+    kind: "message-v1"
+    backtrace:
+      - "/Applications/CMake.app/Contents/share/cmake-3.30/Modules/CMakeDetermineCompilerId.cmake:17 (message)"
+      - "/Applications/CMake.app/Contents/share/cmake-3.30/Modules/CMakeDetermineCompilerId.cmake:64 (__determine_compiler_id_test)"
+      - "/Applications/CMake.app/Contents/share/cmake-3.30/Modules/CMakeDetermineCCompiler.cmake:123 (CMAKE_DETERMINE_COMPILER_ID)"
+      - "CMakeLists.txt:3 (project)"
+    message: |
+      Compiling the C compiler identification source file "CMakeCCompilerId.c" failed.
+      Compiler: /usr/local/bin/gcc-14 
+      Build flags: 
+      Id flags:  
+      
+      The output was:
+      1
+      ld: unsupported tapi file type '!tapi-tbd' in YAML file '/Library/Developer/CommandLineTools/SDKs/MacOSX12.sdk/usr/lib/libSystem.tbd' for architecture x86_64
+      collect2: error: ld returned 1 exit status
+      
+      
+  -
+    kind: "message-v1"
+    backtrace:
+      - "/Applications/CMake.app/Contents/share/cmake-3.30/Modules/CMakeDetermineCompilerId.cmake:17 (message)"
+      - "/Applications/CMake.app/Contents/share/cmake-3.30/Modules/CMakeDetermineCompilerId.cmake:64 (__determine_compiler_id_test)"
+      - "/Applications/CMake.app/Contents/share/cmake-3.30/Modules/CMakeDetermineCCompiler.cmake:123 (CMAKE_DETERMINE_COMPILER_ID)"
+      - "CMakeLists.txt:3 (project)"
+    message: |
+      Compiling the C compiler identification source file "CMakeCCompilerId.c" succeeded.
+      Compiler: /usr/local/bin/gcc-14 
+      Build flags: 
+      Id flags: -c 
+      
+      The output was:
+      0
+      
+      
+      Compilation of the C compiler identification source "CMakeCCompilerId.c" produced "CMakeCCompilerId.o"
+      
+      The C compiler identification is GNU, found in:
+        /Users/linshangjin/Desktop/数据结构/text01/build/CMakeFiles/3.30.4/CompilerIdC/CMakeCCompilerId.o
+      
+  -
+    kind: "message-v1"
+    backtrace:
+      - "/Applications/CMake.app/Contents/share/cmake-3.30/Modules/CMakeDetermineCompilerId.cmake:17 (message)"
+      - "/Applications/CMake.app/Contents/share/cmake-3.30/Modules/CMakeDetermineCompilerId.cmake:64 (__determine_compiler_id_test)"
+      - "/Applications/CMake.app/Contents/share/cmake-3.30/Modules/CMakeDetermineCXXCompiler.cmake:126 (CMAKE_DETERMINE_COMPILER_ID)"
+      - "CMakeLists.txt:3 (project)"
+    message: |
+      Compiling the CXX compiler identification source file "CMakeCXXCompilerId.cpp" failed.
+      Compiler: /usr/local/bin/g++-14 
+      Build flags: 
+      Id flags:  
+      
+      The output was:
+      1
+      ld: unsupported tapi file type '!tapi-tbd' in YAML file '/Library/Developer/CommandLineTools/SDKs/MacOSX12.sdk/usr/lib/libSystem.tbd' for architecture x86_64
+      collect2: error: ld returned 1 exit status
+      
+      
+  -
+    kind: "message-v1"
+    backtrace:
+      - "/Applications/CMake.app/Contents/share/cmake-3.30/Modules/CMakeDetermineCompilerId.cmake:17 (message)"
+      - "/Applications/CMake.app/Contents/share/cmake-3.30/Modules/CMakeDetermineCompilerId.cmake:64 (__determine_compiler_id_test)"
+      - "/Applications/CMake.app/Contents/share/cmake-3.30/Modules/CMakeDetermineCXXCompiler.cmake:126 (CMAKE_DETERMINE_COMPILER_ID)"
+      - "CMakeLists.txt:3 (project)"
+    message: |
+      Compiling the CXX compiler identification source file "CMakeCXXCompilerId.cpp" succeeded.
+      Compiler: /usr/local/bin/g++-14 
+      Build flags: 
+      Id flags: -c 
+      
+      The output was:
+      0
+      
+      
+      Compilation of the CXX compiler identification source "CMakeCXXCompilerId.cpp" produced "CMakeCXXCompilerId.o"
+      
+      The CXX compiler identification is GNU, found in:
+        /Users/linshangjin/Desktop/数据结构/text01/build/CMakeFiles/3.30.4/CompilerIdCXX/CMakeCXXCompilerId.o
+      
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "/Applications/CMake.app/Contents/share/cmake-3.30/Modules/CMakeDetermineCompilerABI.cmake:74 (try_compile)"
+      - "/Applications/CMake.app/Contents/share/cmake-3.30/Modules/CMakeTestCCompiler.cmake:26 (CMAKE_DETERMINE_COMPILER_ABI)"
+      - "CMakeLists.txt:3 (project)"
+    checks:
+      - "Detecting C compiler ABI info"
+    directories:
+      source: "/Users/linshangjin/Desktop/\u6570\u636e\u7ed3\u6784/text01/build/CMakeFiles/CMakeScratch/TryCompile-yHUUFo"
+      binary: "/Users/linshangjin/Desktop/\u6570\u636e\u7ed3\u6784/text01/build/CMakeFiles/CMakeScratch/TryCompile-yHUUFo"
+    cmakeVariables:
+      CMAKE_C_FLAGS: ""
+      CMAKE_C_FLAGS_DEBUG: "-g"
+      CMAKE_EXE_LINKER_FLAGS: ""
+      CMAKE_OSX_ARCHITECTURES: ""
+      CMAKE_OSX_DEPLOYMENT_TARGET: ""
+      CMAKE_OSX_SYSROOT: "/Library/Developer/CommandLineTools/SDKs/MacOSX12.3.sdk"
+    buildResult:
+      variable: "CMAKE_C_ABI_COMPILED"
+      cached: true
+      stdout: |
+        Change Dir: '/Users/linshangjin/Desktop/数据结构/text01/build/CMakeFiles/CMakeScratch/TryCompile-yHUUFo'
+        
+        Run Build Command(s): /Applications/CMake.app/Contents/bin/cmake -E env VERBOSE=1 /usr/bin/make -f Makefile cmTC_92b53/fast
+        /Library/Developer/CommandLineTools/usr/bin/make  -f CMakeFiles/cmTC_92b53.dir/build.make CMakeFiles/cmTC_92b53.dir/build
+        Building C object CMakeFiles/cmTC_92b53.dir/CMakeCCompilerABI.c.o
+        /usr/local/bin/gcc-14   -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX12.3.sdk   -v -Wl,-v -o CMakeFiles/cmTC_92b53.dir/CMakeCCompilerABI.c.o -c /Applications/CMake.app/Contents/share/cmake-3.30/Modules/CMakeCCompilerABI.c
+        Using built-in specs.
+        COLLECT_GCC=/usr/local/bin/gcc-14
+        Target: x86_64-apple-darwin21
+        Configured with: ../configure --prefix=/usr/local/opt/gcc --libdir=/usr/local/opt/gcc/lib/gcc/current --disable-nls --enable-checking=release --with-gcc-major-version-only --enable-languages=c,c++,objc,obj-c++,fortran,m2 --program-suffix=-14 --with-gmp=/usr/local/opt/gmp --with-mpfr=/usr/local/opt/mpfr --with-mpc=/usr/local/opt/libmpc --with-isl=/usr/local/opt/isl --with-zstd=/usr/local/opt/zstd --with-pkgversion='Homebrew GCC 14.2.0' --with-bugurl=https://github.com/Homebrew/homebrew-core/issues --with-system-zlib --build=x86_64-apple-darwin21 --with-sysroot=/Library/Developer/CommandLineTools/SDKs/MacOSX12.sdk
+        Thread model: posix
+        Supported LTO compression algorithms: zlib zstd
+        gcc version 14.2.0 (Homebrew GCC 14.2.0) 
+        COLLECT_GCC_OPTIONS='-isysroot' '/Library/Developer/CommandLineTools/SDKs/MacOSX12.3.sdk' '-v' '-o' 'CMakeFiles/cmTC_92b53.dir/CMakeCCompilerABI.c.o' '-c' '-mmacosx-version-min=12.0.0' '-asm_macosx_version_min=12.0' '-nodefaultexport' '-mtune=core2' '-dumpdir' 'CMakeFiles/cmTC_92b53.dir/'
+         /usr/local/Cellar/gcc/14.2.0/bin/../libexec/gcc/x86_64-apple-darwin21/14/cc1 -quiet -v -iprefix /usr/local/Cellar/gcc/14.2.0/bin/../lib/gcc/current/gcc/x86_64-apple-darwin21/14/ -D__DYNAMIC__ -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX12.3.sdk /Applications/CMake.app/Contents/share/cmake-3.30/Modules/CMakeCCompilerABI.c -fPIC -quiet -dumpdir CMakeFiles/cmTC_92b53.dir/ -dumpbase CMakeCCompilerABI.c.c -dumpbase-ext .c -mmacosx-version-min=12.0.0 -mtune=core2 -version -o /var/folders/1n/4skwfl_n6gq3hxvc100399q80000gn/T//ccdouMFq.s
+        GNU C17 (Homebrew GCC 14.2.0) version 14.2.0 (x86_64-apple-darwin21)
+        	compiled by GNU C version 14.2.0, GMP version 6.3.0, MPFR version 4.2.1, MPC version 1.3.1, isl version isl-0.27-GMP
+        
+        GGC heuristics: --param ggc-min-expand=100 --param ggc-min-heapsize=131072
+        ignoring nonexistent directory "/usr/local/Cellar/gcc/14.2.0/bin/../lib/gcc/current/gcc/x86_64-apple-darwin21/14/../../../../../../x86_64-apple-darwin21/include"
+        ignoring duplicate directory "/usr/local/Cellar/gcc/14.2.0/bin/../lib/gcc/current/gcc/../../../../lib/gcc/current/gcc/x86_64-apple-darwin21/14/include"
+        ignoring nonexistent directory "/Library/Developer/CommandLineTools/SDKs/MacOSX12.3.sdk/usr/local/include"
+        ignoring duplicate directory "/usr/local/Cellar/gcc/14.2.0/bin/../lib/gcc/current/gcc/../../../../lib/gcc/current/gcc/x86_64-apple-darwin21/14/include-fixed"
+        ignoring nonexistent directory "/usr/local/Cellar/gcc/14.2.0/bin/../lib/gcc/current/gcc/../../../../lib/gcc/current/gcc/x86_64-apple-darwin21/14/../../../../../../x86_64-apple-darwin21/include"
+        ignoring nonexistent directory "/Library/Developer/CommandLineTools/SDKs/MacOSX12.3.sdk/Library/Frameworks"
+        #include "..." search starts here:
+        #include <...> search starts here:
+         /usr/local/Cellar/gcc/14.2.0/bin/../lib/gcc/current/gcc/x86_64-apple-darwin21/14/include
+         /usr/local/Cellar/gcc/14.2.0/bin/../lib/gcc/current/gcc/x86_64-apple-darwin21/14/include-fixed
+         /Library/Developer/CommandLineTools/SDKs/MacOSX12.3.sdk/usr/include
+         /Library/Developer/CommandLineTools/SDKs/MacOSX12.3.sdk/System/Library/Frameworks
+        End of search list.
+        Compiler executable checksum: 86b9a6cc987c535d47b0a40f79460b8b
+        COLLECT_GCC_OPTIONS='-isysroot' '/Library/Developer/CommandLineTools/SDKs/MacOSX12.3.sdk' '-v' '-o' 'CMakeFiles/cmTC_92b53.dir/CMakeCCompilerABI.c.o' '-c' '-mmacosx-version-min=12.0.0'  '-nodefaultexport' '-mtune=core2' '-dumpdir' 'CMakeFiles/cmTC_92b53.dir/'
+         as -arch x86_64 -v -mmacosx-version-min=12.0 -mllvm -x86-pad-for-align=false -force_cpusubtype_ALL -o CMakeFiles/cmTC_92b53.dir/CMakeCCompilerABI.c.o /var/folders/1n/4skwfl_n6gq3hxvc100399q80000gn/T//ccdouMFq.s
+        Apple clang version 13.1.6 (clang-1316.0.21.2.5)
+        Target: x86_64-apple-darwin21.4.0
+        Thread model: posix
+        InstalledDir: /Library/Developer/CommandLineTools/usr/bin
+         "/Library/Developer/CommandLineTools/usr/bin/clang" -cc1as -triple x86_64-apple-macosx12.0.0 -filetype obj -main-file-name ccdouMFq.s -target-cpu penryn -fdebug-compilation-dir=/Users/linshangjin/Desktop/数据结构/text01/build/CMakeFiles/CMakeScratch/TryCompile-yHUUFo -dwarf-debug-producer "Apple clang version 13.1.6 (clang-1316.0.21.2.5)" -dwarf-version=4 -mrelocation-model pic --mrelax-relocations -mllvm -x86-pad-for-align=false -mllvm -disable-aligned-alloc-awareness=1 -o CMakeFiles/cmTC_92b53.dir/CMakeCCompilerABI.c.o /var/folders/1n/4skwfl_n6gq3hxvc100399q80000gn/T//ccdouMFq.s
+        COMPILER_PATH=/usr/local/Cellar/gcc/14.2.0/bin/../libexec/gcc/x86_64-apple-darwin21/14/:/usr/local/Cellar/gcc/14.2.0/bin/../libexec/gcc/
+        LIBRARY_PATH=/usr/local/Cellar/gcc/14.2.0/bin/../lib/gcc/current/gcc/x86_64-apple-darwin21/14/:/usr/local/Cellar/gcc/14.2.0/bin/../lib/gcc/current/gcc/:/usr/local/Cellar/gcc/14.2.0/bin/../lib/gcc/current/gcc/x86_64-apple-darwin21/14/../../../
+        COLLECT_GCC_OPTIONS='-isysroot' '/Library/Developer/CommandLineTools/SDKs/MacOSX12.3.sdk' '-v' '-o' 'CMakeFiles/cmTC_92b53.dir/CMakeCCompilerABI.c.o' '-c' '-mmacosx-version-min=12.0.0'  '-nodefaultexport' '-mtune=core2' '-dumpdir' 'CMakeFiles/cmTC_92b53.dir/CMakeCCompilerABI.c.'
+        Linking C executable cmTC_92b53
+        /Applications/CMake.app/Contents/bin/cmake -E cmake_link_script CMakeFiles/cmTC_92b53.dir/link.txt --verbose=1
+        /usr/local/bin/gcc-14  -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX12.3.sdk -Wl,-search_paths_first -Wl,-headerpad_max_install_names  -v -Wl,-v CMakeFiles/cmTC_92b53.dir/CMakeCCompilerABI.c.o -o cmTC_92b53
+        Using built-in specs.
+        COLLECT_GCC=/usr/local/bin/gcc-14
+        COLLECT_LTO_WRAPPER=/usr/local/Cellar/gcc/14.2.0/bin/../libexec/gcc/x86_64-apple-darwin21/14/lto-wrapper
+        Target: x86_64-apple-darwin21
+        Configured with: ../configure --prefix=/usr/local/opt/gcc --libdir=/usr/local/opt/gcc/lib/gcc/current --disable-nls --enable-checking=release --with-gcc-major-version-only --enable-languages=c,c++,objc,obj-c++,fortran,m2 --program-suffix=-14 --with-gmp=/usr/local/opt/gmp --with-mpfr=/usr/local/opt/mpfr --with-mpc=/usr/local/opt/libmpc --with-isl=/usr/local/opt/isl --with-zstd=/usr/local/opt/zstd --with-pkgversion='Homebrew GCC 14.2.0' --with-bugurl=https://github.com/Homebrew/homebrew-core/issues --with-system-zlib --build=x86_64-apple-darwin21 --with-sysroot=/Library/Developer/CommandLineTools/SDKs/MacOSX12.sdk
+        Thread model: posix
+        Supported LTO compression algorithms: zlib zstd
+        gcc version 14.2.0 (Homebrew GCC 14.2.0) 
+        COMPILER_PATH=/usr/local/Cellar/gcc/14.2.0/bin/../libexec/gcc/x86_64-apple-darwin21/14/:/usr/local/Cellar/gcc/14.2.0/bin/../libexec/gcc/
+        LIBRARY_PATH=/usr/local/Cellar/gcc/14.2.0/bin/../lib/gcc/current/gcc/x86_64-apple-darwin21/14/:/usr/local/Cellar/gcc/14.2.0/bin/../lib/gcc/current/gcc/:/usr/local/Cellar/gcc/14.2.0/bin/../lib/gcc/current/gcc/x86_64-apple-darwin21/14/../../../
+        COLLECT_GCC_OPTIONS='-isysroot' '/Library/Developer/CommandLineTools/SDKs/MacOSX12.3.sdk' '-v' '-o' 'cmTC_92b53' '-mmacosx-version-min=12.0.0' '-asm_macosx_version_min=12.0' '-nodefaultexport' '-mtune=core2' '-dumpdir' 'cmTC_92b53.'
+         /usr/local/Cellar/gcc/14.2.0/bin/../libexec/gcc/x86_64-apple-darwin21/14/collect2 -demangle -dynamic -arch x86_64 -syslibroot /Library/Developer/CommandLineTools/SDKs/MacOSX12.3.sdk -platform_version macos 12.0.0 0.0 -o cmTC_92b53 -L/usr/local/Cellar/gcc/14.2.0/bin/../lib/gcc/current/gcc/x86_64-apple-darwin21/14 -L/usr/local/Cellar/gcc/14.2.0/bin/../lib/gcc/current/gcc -L/usr/local/Cellar/gcc/14.2.0/bin/../lib/gcc/current/gcc/x86_64-apple-darwin21/14/../../.. -lemutls_w -lheapt_w -search_paths_first -headerpad_max_install_names -v CMakeFiles/cmTC_92b53.dir/CMakeCCompilerABI.c.o -lgcc -lSystem -no_compact_unwind -rpath @loader_path -rpath /usr/local/Cellar/gcc/14.2.0/lib/gcc/current/gcc/x86_64-apple-darwin21/14 -rpath /usr/local/Cellar/gcc/14.2.0/lib/gcc/current/gcc -rpath /usr/local/Cellar/gcc/14.2.0/lib/gcc/current
+        collect2 version 14.2.0
+        /Users/linshangjin/opt/anaconda3/bin/ld -demangle -dynamic -arch x86_64 -syslibroot /Library/Developer/CommandLineTools/SDKs/MacOSX12.3.sdk -platform_version macos 12.0.0 0.0 -o cmTC_92b53 -L/usr/local/Cellar/gcc/14.2.0/bin/../lib/gcc/current/gcc/x86_64-apple-darwin21/14 -L/usr/local/Cellar/gcc/14.2.0/bin/../lib/gcc/current/gcc -L/usr/local/Cellar/gcc/14.2.0/bin/../lib/gcc/current/gcc/x86_64-apple-darwin21/14/../../.. -lemutls_w -lheapt_w -search_paths_first -headerpad_max_install_names -v CMakeFiles/cmTC_92b53.dir/CMakeCCompilerABI.c.o -lgcc -lSystem -no_compact_unwind -rpath @loader_path -rpath /usr/local/Cellar/gcc/14.2.0/lib/gcc/current/gcc/x86_64-apple-darwin21/14 -rpath /usr/local/Cellar/gcc/14.2.0/lib/gcc/current/gcc -rpath /usr/local/Cellar/gcc/14.2.0/lib/gcc/current
+        @(#)PROGRAM:ld  PROJECT:ld64-530
+        BUILD 07:42:29 Sep  7 2022
+        configured to support archs: armv6 armv7 armv7s arm64 arm64e arm64_32 i386 x86_64 x86_64h armv6m armv7k armv7m armv7em (tvOS)
+        Library search paths:
+        	/usr/local/Cellar/gcc/14.2.0/lib/gcc/current/gcc/x86_64-apple-darwin21/14
+        	/usr/local/Cellar/gcc/14.2.0/lib/gcc/current/gcc
+        	/usr/local/Cellar/gcc/14.2.0/lib/gcc/current
+        	/Library/Developer/CommandLineTools/SDKs/MacOSX12.3.sdk/usr/lib
+        Framework search paths:
+        	/Library/Developer/CommandLineTools/SDKs/MacOSX12.3.sdk/System/Library/Frameworks/
+        ld: unsupported tapi file type '!tapi-tbd' in YAML file '/Library/Developer/CommandLineTools/SDKs/MacOSX12.3.sdk/usr/lib/libSystem.tbd' for architecture x86_64
+        collect2: error: ld returned 1 exit status
+        make[1]: *** [cmTC_92b53] Error 1
+        make: *** [cmTC_92b53/fast] Error 2
+        
+      exitCode: 2
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "/Applications/CMake.app/Contents/share/cmake-3.30/Modules/CMakeTestCCompiler.cmake:56 (try_compile)"
+      - "CMakeLists.txt:3 (project)"
+    checks:
+      - "Check for working C compiler: /usr/local/bin/gcc-14"
+    directories:
+      source: "/Users/linshangjin/Desktop/\u6570\u636e\u7ed3\u6784/text01/build/CMakeFiles/CMakeScratch/TryCompile-3E46U7"
+      binary: "/Users/linshangjin/Desktop/\u6570\u636e\u7ed3\u6784/text01/build/CMakeFiles/CMakeScratch/TryCompile-3E46U7"
+    cmakeVariables:
+      CMAKE_C_FLAGS: ""
+      CMAKE_C_FLAGS_DEBUG: "-g"
+      CMAKE_EXE_LINKER_FLAGS: ""
+      CMAKE_OSX_ARCHITECTURES: ""
+      CMAKE_OSX_DEPLOYMENT_TARGET: ""
+      CMAKE_OSX_SYSROOT: "/Library/Developer/CommandLineTools/SDKs/MacOSX12.3.sdk"
+    buildResult:
+      variable: "CMAKE_C_COMPILER_WORKS"
+      cached: true
+      stdout: |
+        Change Dir: '/Users/linshangjin/Desktop/数据结构/text01/build/CMakeFiles/CMakeScratch/TryCompile-3E46U7'
+        
+        Run Build Command(s): /Applications/CMake.app/Contents/bin/cmake -E env VERBOSE=1 /usr/bin/make -f Makefile cmTC_cec70/fast
+        /Library/Developer/CommandLineTools/usr/bin/make  -f CMakeFiles/cmTC_cec70.dir/build.make CMakeFiles/cmTC_cec70.dir/build
+        Building C object CMakeFiles/cmTC_cec70.dir/testCCompiler.c.o
+        /usr/local/bin/gcc-14   -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX12.3.sdk -o CMakeFiles/cmTC_cec70.dir/testCCompiler.c.o -c /Users/linshangjin/Desktop/数据结构/text01/build/CMakeFiles/CMakeScratch/TryCompile-3E46U7/testCCompiler.c
+        Linking C executable cmTC_cec70
+        /Applications/CMake.app/Contents/bin/cmake -E cmake_link_script CMakeFiles/cmTC_cec70.dir/link.txt --verbose=1
+        /usr/local/bin/gcc-14  -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX12.3.sdk -Wl,-search_paths_first -Wl,-headerpad_max_install_names CMakeFiles/cmTC_cec70.dir/testCCompiler.c.o -o cmTC_cec70
+        ld: unsupported tapi file type '!tapi-tbd' in YAML file '/Library/Developer/CommandLineTools/SDKs/MacOSX12.3.sdk/usr/lib/libSystem.tbd' for architecture x86_64
+        collect2: error: ld returned 1 exit status
+        make[1]: *** [cmTC_cec70] Error 1
+        make: *** [cmTC_cec70/fast] Error 2
+        
+      exitCode: 2
+...
