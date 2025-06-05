@@ -1,0 +1,23 @@
+📁 其他方法
+    📁 矩阵分解
+        📄 SVD.py
+        📄 SVD++.py
+        📄 funkSVD.py
+    📁 协同过滤
+        📄 baseline.py
+        📄 toResultFrom.py - 把代码输出的结果转换成提交格式
+        📄 baseline_CF.py - 基于基线预测和物品协同过滤的评分预测
+        📄 knn_means_punish.py
+        📄 SlopeOne.py
+        📁 基础协同过滤 - 这里都是基础实现
+            📄 similarity.py
+            📄 base_user.py
+            📄 base_item.py
+            📄 load_dataset.py
+        📄 knn_mean.py - 基于KNN的协同过滤方法，考虑到每个用户的平均评分,可以选择基于用户还是物品
+        📄 KNN.py - 基于KNN的协同过滤方法，可以选择基于用户还是物品
+	📄 knn_mean_punish.py - 在KNN with means的基础上改进的协同过滤方法，会惩罚热门物品活着活跃用户，可以选择基于用户还是物品
+
+    📁 深度学习
+        📄 NFC.py
+        📄 DeepFM.py
