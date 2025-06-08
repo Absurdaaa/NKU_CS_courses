@@ -17,6 +17,10 @@ class ReplayDataSet(object):
     def add(self, state, action_index, reward, next_state, is_terminal):
         if len(self.Experience) == self.max_size:
             self.Experience.popitem()  # 超越内存最大长度时需要清理空间，具体的删除方式还需改动
+        
+        # 还是别改了
+        # if len(self.Experience) == self.max_size:
+        #     self.Experience.popitem(last=False)  # FIFO: 删除最早插入项
 
         key = (state, action_index)
         if self.Experience.__contains__(key):
