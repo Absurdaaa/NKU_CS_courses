@@ -1,7 +1,0 @@
-train.txt
-<user id>|<numbers of rating items>
-<item id>   <score>
-
-test.txt
-<user id>|<numbers of rating items>
-<item id>
