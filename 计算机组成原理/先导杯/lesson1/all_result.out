@@ -1,0 +1,76 @@
+Matrix size: 1024x2048x512
+Matrix size: 1024x2048x512
+Matrix size: 1024x2048x512
+Matrix size: 1024x2048x512
+[Baseline] Time: 18.317931330 seconds
+Matrix size: 1024x2048x512
+matmul_openmp methods...
+[OpenMP] Time: 1.570506640 seconds
+[OpenMP] Valid: 1
+Matrix size: 1024x2048x512
+matmul_block_tiling methods...
+[Block Parallel] Time: 13.077260750 seconds
+[Block Parallel] Valid: 1
+Matrix size: 1024x2048x512
+[SIMD] Time: 4.205043630 seconds
+[SIMD] Valid: 1
+Matrix size: 1024x2048x512
+Matrix size: 1024x2048x512
+Matrix size: 1024x2048x512
+Matrix size: 1024x2048x512
+[MPI] Time: 3.066610690 seconds
+[MPI] Valid: 1
+
+[HIP] Time: 0.003289680 seconds
+[HIP] Valid: 1
+
+[HIP] Time: 0.003359230 seconds
+[HIP] Valid: 1
+[HIP] Time: 0.000963360 seconds
+[HIP] Valid: 0
+[HIP] Time: 0.003449510 seconds
+[HIP] Valid: 1
+
+[CPU] Time: 10.6007 seconds
+size = 32
+[HIP] Time: 0.0028163 seconds
+[HIP] Valid: True
+[HIP] GFLOPS: 762.519
+
+size = 16
+
+[HIP] Time: 0.00335687 seconds
+[HIP] Valid: True
+[HIP] GFLOPS: 639.728
+[HIP] Time: 0.0033553 seconds
+[HIP] Valid: True
+[HIP] GFLOPS: 640.027
+maxThreadsPerBlock = 1024
+[HIP] Time: 0.00279879 seconds
+[HIP] Valid: True
+[HIP] GFLOPS: 767.29
+maxThreadsPerBlock = 1024
+[HIP] Time: 0.00069923 seconds
+[HIP] Valid: False
+[HIP] GFLOPS: 3071.21
+maxThreadsPerBlock = 1024
+[CPU] Time: 1.31729 seconds
+[HIP] Time: 0.00311775 seconds
+[HIP] Valid: True
+[HIP] GFLOPS: 688.793
+maxThreadsPerBlock = 1024
+maxThreadsDim = [1024, 1024, 1024]
+[CPU] Time: 1.31396 seconds
+[HIP] Time: 0.00319275 seconds
+[HIP] Valid: True
+[HIP] GFLOPS: 672.613
+maxThreadsPerBlock = 1024
+maxThreadsDim = [1024, 1024, 1024]
+
+
+[CPU] Time: 1.31432 seconds
+[HIP] Time: 0.00325212 seconds
+[HIP] Valid: True
+[HIP] GFLOPS: 660.333
+maxThreadsPerBlock = 1024
+maxThreadsDim = [1024, 1024, 1024]

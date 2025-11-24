@@ -1,0 +1,16 @@
+Matrix size: 1024x2048x512
+[Baseline] Time: 26.144668432 seconds
+Matrix size: 1024x2048x512
+matmul_openmp methods...
+[OpenMP] Time: 3.094587341 seconds
+[OpenMP] Valid: 1
+Matrix size: 1024x2048x512
+matmul_block_tiling methods...
+[Block Parallel] Time: 13.088927733 seconds
+[Block Parallel] Valid: 1
+Matrix size: 1024x2048x512
+Matrix size: 1024x2048x512
+Matrix size: 1024x2048x512
+Matrix size: 1024x2048x512
+[MPI] Time: 6.806331071 seconds
+[MPI] Valid: 1
