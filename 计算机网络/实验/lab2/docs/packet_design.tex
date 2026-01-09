@@ -1,0 +1,189 @@
+% packet_design.tex
+\documentclass[11pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{geometry}
+\usepackage{amsmath,amssymb}
+\usepackage{longtable}
+\usepackage{listings}
+\usepackage{hyperref}
+\usepackage{graphicx}
+\usepackage{verbatim}
+\geometry{margin=1in}
+
+\title{自定义 RTP-like 报文设计说明}
+\author{作者: 自动生成}
+\date{\today}
+
+\begin{document}
+\maketitle
+
+\section{设计目标}
+简洁明了、互操作性和容错扩展性。
+
+\section{报文总体结构}
+本协议每个报文包含一个固定长度的报文头和可变长度的负载。所有多字节整数采用网络字节序（Big-endian）。
+
+\section{报文头字段}
+在本项目的实际代码（\texttt{include/rtp.h}）中，\texttt{rtp::PacketHeader} 的定义如下：
+
+\begin{verbatim}
+struct PacketHeader {
+    std::uint32_t seq; // 包的序列号
+    std::uint32_t ack; // 确认号（下一个期望收到的序列号）
+    std::uint32_t sack_bits; // SACK位图
+    std::uint16_t window;   // 接收窗口大小（以数据包数计）
+    std::uint16_t length;   // 负载长度（字节数）
+    std::uint16_t flags;    // 标志位
+    std::uint16_t checksum; // 校验和
+};
+\end{verbatim}
+
+字段按内存/序列化顺序分别为：
+\begin{itemize}
+  \item \texttt{seq}（32-bit）
+  \item \texttt{ack}（32-bit）
+  \item \texttt{sack\_bits}（32-bit）
+  \item \texttt{window}（16-bit）
+  \item \texttt{length}（16-bit）
+  \item \texttt{flags}（16-bit）
+  \item \texttt{checksum}（16-bit）
+\end{itemize}
+
+注意：实际的序列化/反序列化需要显式处理字节序（使用 \texttt{htonl}/\texttt{htons} 等）以保证网络可移植性，并避免直接把 struct 写入网络以免受对齐(padding)影响。
+
+\section{字段细化说明}
+\subsection{序列号（seq）}
+\begin{itemize}
+  \item 类型：\(\text{uint32\_t}\)
+  \item 含义：发送方为每个数据包分配的绝对序号（握手中将分配初始序列号 \(ISN\)）。
+  \item 取值范围：\([0,2^{32}-1]\)。为避免边界问题，通常在生成 ISN 时避免取 0 或最大值。
+\end{itemize}
+
+\subsection{确认号（ack）}
+\begin{itemize}
+  \item 含义：接收方发送的累计确认号，表示发送方已经安全到达并可释放的最小下一个序号。
+  \item 语义：收到 ack = A 表示序号小于 A 的数据都被接收。
+\end{itemize}
+
+\subsubsection{SACK 位图}
+详细说明：
+\begin{itemize}
+  \item 字段：\texttt{sack\_bits}（32-bit，无符号整数）按位表示累计确认 \texttt{cumulative\_ack} 之后的若干分组接收状态。
+  \item 语义：若接收方在发送 ACK 时希望告知发送方在累计确认之外的已接收分组，则在 ACK 包中设置 \texttt{sack\_bits}，并通常同时设置 \texttt{FLAG\_SACK} 或 \texttt{FLAG\_ACK}。位图中第 i 位（从最低位 i=0 开始）对应序号 \texttt{cumulative\_ack + i + 1}。若该位为 1，则表示对应分组已被接收。
+  \item 示例：若 \texttt{cumulative\_ack = 1000} 且 \texttt{sack\_bits = 0b0000...0101}（位 0 和位 2 为 1），则说明序号 1001 和 1003 已接收。
+  \item 限制与注意事项：
+    \begin{itemize}
+      \item 位图长度（本协议为 32 位）限制了可指示的最远偏移；若网络延迟或乱序非常大，位图可能不足，需要组合 SACK 报文或使用更复杂的 SACK 列表结构。
+      \item 位图相对于显式列出序号的优点是紧凑；缺点是无法表示距离很远的单独分组。若需要更广范围的 SACK，可增加字段或在 payload 中编码 SACK 列表。
+      \item 解码时须以无符号算术计算相对序号以处理环绕（wrap-around），例如使用 \texttt{seq\_diff = seq - cumulative\_ack} 的无符号结果判断是否在位图覆盖范围内。
+    \end{itemize}
+\end{itemize}
+
+\subsubsection{标志位}
+详细说明：
+\begin{itemize}
+  \item 标志位字段为 \texttt{flags}（16-bit 位域），在 \texttt{include/rtp.h} 中定义了若干常量：
+    \begin{itemize}
+      \item \texttt{FLAG\_SYN} (1 << 0)：握手 SYN 标志，用于建立连接并携带初始序号/握手参数。
+      \item \texttt{FLAG\_ACK} (1 << 1)：确认标志，指示该包包含 ack 字段的有效确认信息。
+      \item \texttt{FLAG\_FIN} (1 << 2)：关闭/结束标志，表示发送方没有更多数据要发（类似 TCP FIN）。
+      \item \texttt{FLAG\_DATA} (1 << 3)：数据包标志，表示该包携带有效数据负载。
+      \item \texttt{FLAG\_RST} (1 << 4)：复位标志，用于异常恢复或拒绝连接。
+      \item \texttt{FLAG\_SACK} (1 << 5)：SACK 指示位，表示 \texttt{sack\_bits} 字段包含有意义的 SACK 信息。
+    \end{itemize}
+  \item 使用说明与组合：
+    \begin{itemize}
+      \item 标志可以按位组合，例如一个 ACK+SACK 报文可以设置 \texttt{FLAG\_ACK | FLAG\_SACK}，表示该包是确认包并携带 SACK 位图。
+      \item 握手流程中典型使用：
+        \begin{itemize}
+          \item 发送方发送 \texttt{FLAG\_SYN}（携带握手 payload）；
+          \item 接收方回复 \texttt{FLAG\_SYN | FLAG\_ACK}；
+          \item 发送方回复 \texttt{FLAG\_ACK} 完成三次握手。
+        \end{itemize}
+      \item 数据传输中 \texttt{FLAG\_DATA} 用于区分仅携带控制信息的包与携带数据的包；\texttt{FLAG\_FIN} 用于终止序列。
+    \end{itemize}
+\end{itemize}
+
+\subsubsection{校验和}
+详细说明：
+\begin{itemize}
+  \item 字段：\texttt{checksum}（16-bit），位于 \texttt{PacketHeader} 的末尾，用于检测 header 与 payload 在传输过程中是否被损坏。
+  \item 推荐算法与语义：
+    \begin{itemize}
+      \item Internet 校验和（ones' complement 16-bit sum）：这是一个常见且实现简单的 16 位校验和算法，适用于检测偶发位翻转。计算时对报头与负载按 16 位字进行求和（若长度为奇数可在末尾补零），然后取反（ones' complement）。发送前将 \texttt{checksum} 字段置 0 计算校验值，然后把结果写入 \texttt{checksum}；接收端计算得到的校验和应为 0xFFFF（或按实现判断）。
+      \item CRC16：若需要更强的错误检测能力（例如对突发错误更敏感），可使用 CRC16 算法，仍然适配 16 位字段，但需在实现中选择具体的多项式（如 CRC-16-CCITT）。
+      \item 注意：若需要更强的完整性保证（抗篡改），应使用更大位宽（如 CRC32 或 cryptographic hash），但这需要更大的字段或把校验放在 payload 中。
+    \end{itemize}
+  \item 实现要点：
+    \begin{itemize}
+      \item 在 \texttt{serialize} 中：
+        \begin{enumerate}
+          \item 将 \texttt{checksum} 字段临时置为 0（网络字节序）；
+          \item 将 header（按字段转换为网络字节序）和 payload 写入缓冲区；
+          \item 计算校验和（如 ones' complement 或 CRC16）并写回到 header 的 \texttt{checksum} 字段位置（按网络字节序）。
+        \end{enumerate}
+      \item 在 \texttt{deserialize} 中：
+        \begin{enumerate}
+          \item 读取 header 与 payload（或先读取完整缓冲区）；
+          \item 保存原始 \texttt{checksum} 字段，然后将该位置视为 0 再次计算校验和；
+          \item 比较计算值与原始 \texttt{checksum}，若不匹配则视为损坏包并丢弃/忽略。
+        \end{enumerate}
+    \end{itemize}
+\end{itemize}
+
+伪代码（Internet ones' complement 校验和）：
+
+\begin{lstlisting}[language=C]
+uint16_t internet_checksum(const uint8_t* data, size_t len) {
+    uint32_t sum = 0;
+    const uint16_t* ptr = (const uint16_t*)data;
+    while (len > 1) {
+        sum += *ptr++;
+        if (sum & 0x10000) sum = (sum & 0xffff) + 1; // carry
+        len -= 2;
+    }
+    if (len) { // odd byte
+        sum += (uint16_t)(*(const uint8_t*)ptr) << 8;
+    }
+    // fold to 16 bits
+    while (sum >> 16) sum = (sum & 0xffff) + (sum >> 16);
+    return (uint16_t)~sum;
+}
+\end{lstlisting}
+
+安全性与注意：
+\begin{itemize}
+  \item 校验和只能检测随机错误，对恶意篡改无效；如果安全性是目标，应使用认证/加密（如 HMAC、AES-GCM）。
+  \item 校验与字节序：计算时须使用一致的字节序处理（序列化为网络字节序后再计算更简单），并确保接收端用相同算法验证。
+\end{itemize}
+
+\section{序号加减与环绕（wrap-around）}
+序号采用 32 位无符号整数，环绕行为用模运算描述。累计确认与比较常用到下列操作：
+
+\[
+\text{seq\_diff} = (s - a) \bmod 2^{32}
+\]
+如果 $0 < \text{seq\_diff} \le W$ 表示序号 `s` 在 `a`（参考序号）之后且在窗口大小 $W$ 范围内。
+
+注意：在实现时要使用无符号算术并谨慎处理 `+1` 导致的溢出（例如，若 ISN 为 $2^{32}-1$，则 ISN + 1 == 0）。因此建议生成 ISN 时避免 0 与最大值。
+
+\section{握手流程（3 次握手变体）}
+\begin{enumerate}
+  \item 发送方发送 SYN，\texttt{seq = ISN}，\texttt{flags = SYN}，并在 payload 或 header 中发送握手信息（例如文件名、文件大小、报文大小、初始窗口等）。
+  \item 接收方回应 SYN+ACK，\texttt{seq = R\_ISN}，\texttt{ack = ISN + 1}，在 payload 中返回对端窗口大小等信息。
+  \item 发送方发送最后的 ACK，\texttt{seq = ISN + 1}，\texttt{ack = R\_ISN + 1}，握手完成。
+\end{enumerate}
+
+成功握手后，数据从 \texttt{seq = ISN + 1} 开始编号。
+
+\section{实现注意事项}
+\begin{itemize}
+  \item 使用 \texttt{htonl}/\texttt{htons} 与 \texttt{ntohl}/\texttt{ntohs} 处理字节序。
+  \item 使用随机设备种子初始化 PRNG，而不是高频调用 \texttt{std::random_device()}。
+  \item 对 header + payload 做校验（例如 CRC32 或 ones' complement 校验和）。
+\end{itemize}
+
+\section{结论}
+本文档概述了一个适用于基于 UDP 的可靠传输协议的报文设计。设计关注点为边界安全、可扩展性与实现可移植性。
+
+\end{document}

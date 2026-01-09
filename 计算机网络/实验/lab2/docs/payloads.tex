@@ -1,0 +1,138 @@
+% payloads.tex
+\documentclass[11pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{geometry}
+\usepackage{amsmath,amssymb}
+\usepackage{listings}
+\usepackage{hyperref}
+\usepackage{graphicx}
+\usepackage{longtable}
+\geometry{margin=1in}
+\title{项目中设计的 Payload 类型说明}
+\author{自动生成}
+\date{\today}
+\begin{document}
+\maketitle
+
+\section{概述}
+本文件说明代码中实现的多种 payload 类型、它们的编码/解码方法、在报文头中的使用情况以及接收方如何处理这些 payload。文中示例均基于项目源文件（`include/rtp.h` 和 `src/rtp.cpp` / `src/sender_main.cpp` / `src/receiver_main.cpp`）。
+
+\section{总体序列化原则}
+\begin{itemize}
+  \item 所有多字节整数在网络上传输时采用网络字节序（big-endian）。实现中通过 \texttt{htonl}/\texttt{htons}（发送）和 \texttt{ntohl}/\texttt{ntohs}（接收）完成转换，64 位使用自定义函数 \texttt{host\_to\_network64}\,/\texttt{network\_to\_host64}。
+  \item 每个包的二进制内容为：固定长度头（\texttt{rtp::PacketHeader}）紧接着 payload 字节序列（长度为 header.length）。
+  \item 在序列化时会先将 header.checksum 置 0，写入 header+payload 到缓冲区后计算 checksum（见 \texttt{src/rtp.cpp::serialize}）并写回 header 的 checksum 字段。
+\end{itemize}
+
+\section{Payload 类型一：HandshakePayload（握手载荷）}
+\subsection{用途}
+用于三次握手阶段，发送方在 SYN 包中携带文件传输的初始参数（协议版本、分块大小、接收窗口、文件大小、文件名等）；接收方在 SYN+ACK 中返回其自身参数。
+
+\subsection{结构（代码定义）}
+在 \texttt{include/rtp.h} 中：
+\begin{verbatim}
+struct HandshakePayload {
+    std::uint32_t version;
+    std::uint32_t chunk_size;
+    std::uint32_t window_size;
+    std::uint64_t file_size;
+    std::string  filename; // 编码为: uint16_t name_len + name_bytes
+};
+\end{verbatim}
+
+\subsection{编码（实现要点）}
+参考 \texttt{src/rtp.cpp::encode\_handshake}：
+\begin{itemize}
+  \item 前四个固定字段（version/chunk_size/window_size/file_size）按网络字节序写入（32-bit/64-bit）。
+  \item 追加一个 16-bit 的 name length（使用网络字节序），随后写入 name bytes（不含终止符）。
+  \item 返回的字节数组大小为固定字段大小 + 2 + name_len；调用处通常把这个字节数组放入 \texttt{Packet.payload} 并设置 \texttt{PacketHeader.length} 为合适的值（注意：代码中有处将 header.length 设为 sizeof(HandshakePayload)——实际发送长度以 payload.size() 为准）。
+\end{itemize}
+
+\subsection{接收端处理}
+接收端通过 \texttt{rtp::decode\_handshake} 读取上述字段（先读固定字段再读 name length 与 name bytes），并把值回填到 \texttt{HandshakePayload} 结构。若 buffer 长度不足或解析失败则返回 false，握手失败。
+
+\subsection{示例}
+发送端创建 handshake payload：
+\begin{verbatim}
+rtp::HandshakePayload payload{rtp::PROTOCOL_VERSION, packet_size, window_packets, file_size};
+payload.filename = std::filesystem::path(input_file).filename().string();
+packet.header.length = static_cast<uint16_t>(encode_handshake(payload).size());
+packet.payload = encode_handshake(payload);
+packet.header.flags = FLAG_SYN; // 在 SYN 包发送
+\end{verbatim}
+
+\section{Payload 类型二：Data Payload（文件数据块）}
+\subsection{用途}
+实际传输文件内容的二进制块。每个数据包的 payload 为一段文件字节（不做额外封装），长度在 1..MAX\_PAYLOAD\_SIZE。
+
+\subsection{编码与字段使用}
+\begin{itemize}
+  \item 在发送时，构造 \texttt{Packet}：设置 \texttt{header.seq} 为该块的序列号，\texttt{header.flags = FLAG\_DATA}，\texttt{header.length = payload.size()}，并把文件分块字节拷贝到 \texttt{packet.payload}。
+  \item 序列化时 header 会被转换为网络字节序并与 payload 一起打包，最后写入 checksum。
+\end{itemize}
+
+\subsection{接收端处理}
+接收端在收到带有 \texttt{FLAG\_DATA} 的包时：
+\begin{itemize}
+  \item 根据 seq 决定是否为期望序号、重复或窗口外，若在窗口内则把 payload 放入重排序缓冲（reorder\_buffer）。
+  \item 触发对连续段的 flush（写入磁盘），并发送 ACK（同时可能携带 SACK 位图）。
+\end{itemize}
+
+\section{Payload 类型三：Control / ACK（无 payload，header 中承载信息）}
+\subsection{用途}
+确认（ACK）、选择确认（SACK）以及窗口通告等控制信息通常不使用 payload，而是通过 header 字段（ack、sack\_bits、window、flags）传输。
+
+\subsection{字段约定}
+\begin{itemize}
+  \item \texttt{header.length = 0}（无实际 payload 字节）。
+  \item \texttt{header.ack}：累计确认号，表示所有序号小于该值的数据均已被接收并可释放。
+  \item \texttt{header.sack\_bits}：SACK 位图（detail in section below），与 \texttt{FLAG\_SACK} 或 \texttt{FLAG\_ACK} 一起使用。
+  \item \texttt{header.window}：接收方当前可用窗口值（以数据包数计）。
+  \item \texttt{header.flags}：通常为 \texttt{FLAG\_ACK} 或 \texttt{FLAG\_ACK | FLAG\_SACK}。
+\end{itemize}
+
+\subsection{SACK 的使用（位图）}
+接收端在每次发送 ACK 时会计算当前重排序缓冲区中相对于累计确认后的已接收位（参考 \texttt{src/receiver\_main.cpp::build\_sack\_bits}），并把结果写入 \texttt{header.sack\_bits}。
+
+\section{Payload 类型四：FIN / Connection Teardown（无 payload）}
+\subsection{用途}
+用于传输结束信号（类似 TCP FIN）。发送方在数据发送完成后发送一个 FIN（可能带 ACK），接收方确认并发起自己的 FIN/ACK 来完成四次握手式的关闭流程（代码中通过几次 FIN/ACK 交换并等待最终 ACK）。
+
+\subsection{字段使用}
+\begin{itemize}
+  \item \texttt{header.flags = FLAG\_FIN} 或 \texttt{FLAG\_FIN | FLAG\_ACK}
+  \item \texttt{header.length = 0}
+  \item \texttt{header.seq}：FIN 的序列号（通常设置为最后一个数据序号后的一位）
+  \item \texttt{header.ack}：接收方的累计确认号
+\end{itemize}
+
+\section{其他/扩展 payload}
+\begin{itemize}
+  \item \texttt{SackSummary}：头文件定义了一个结构体表示 SACK 摘要（\texttt{cumulative\_ack + sack\_bits}），但在当前实现中 SACK 信息直接放在 header.sack\_bits 字段，因此 \texttt{SackSummary} 并未以独立 payload 发出。
+  \item 若需更复杂的控制信息（例如带时间戳的 ACK 或批量 SACK 列表），可以在 payload 中定义 TLV（Type-Length-Value）格式或扩展握手负载的字段。
+\end{itemize}
+
+\section{示例：接收方发送 ACK+SACK}
+伪代码（摘自接收实现）：
+\begin{verbatim}
+rtp::Packet ack{};
+ack.header.seq = receiver_isn + 1;
+ack.header.ack = expected_seq;
+ack.header.flags = rtp::FLAG_ACK | rtp::FLAG_SACK;
+ack.header.window = rtp::clamp_window(free_window);
+ack.header.sack_bits = build_sack_bits(expected_seq, reorder_buffer);
+ack.header.length = 0;
+send_packet(sock, peer_addr, ack, loss_rate, rng);
+\end{verbatim}
+
+\section{注意事项与建议}
+\begin{itemize}
+  \item "header.length" 值应与实际 \texttt{packet.payload.size()} 保持一致。当前代码中在某些位置使用了 sizeof(HandshakePayload) 给 header.length 赋值，请确保这是期望的行为或改为使用 payload.size()。
+  \item 序列化/反序列化时须显式处理字节序和结构体对齐，避免直接将 struct 内存块原样发送。
+  \item 若将来需要支持更大的 SACK 范围或不规则的 SACK 列表，建议在 payload 中引入可扩展的 SACK 描述格式（如一组 uint32_t 序号或 TLV 列表）。
+\end{itemize}
+
+\section{结语}
+本文档总结了项目中已实现的主要 payload 类型及其处理流程，解释了编码/解码细节并给出若干建议以避免常见陷阱。若你希望我将其中某类 payload 的伪代码替换为可编译的 C++ 样板（例如 handshake 的 encode/decode 或 SACK 列表编码），我可以为你生成并插入到 `src/rtp.cpp` 中。
+
+\end{document}

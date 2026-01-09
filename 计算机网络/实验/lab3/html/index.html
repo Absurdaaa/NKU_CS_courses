@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+  <meta charset="UTF-8">
+  <title>实验3 Web页面</title>
+  <style>
+    /* 简单样式，确保页面简洁，满足实验要求即可 */
+    body {
+      margin: 20px;
+      font-family: Arial, sans-serif;
+    }
+
+    .info {
+      font-size: 18px;
+      margin-bottom: 30px;
+    }
+
+    .images {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      /* 3列布局，美观整洁 */
+      gap: 20px;
+    }
+
+    .images img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+      /* 保持图片比例，不拉伸 */
+      border: 1px solid #ccc;
+    }
+  </style>
+</head>
+
+<body>
+  <!-- 核心信息：专业、学号、姓名 -->
+  <div class="info">
+    <p>专业：计算机科学与技术</p>
+    <p>学号：2312966</p>
+    <p>姓名：林晖鹏</p>
+  </div>
+
+  <!-- 6幅图像展示 -->
+  <div class="images">
+    <img src="./imgs/1.png" alt="图片1">
+    <img src="./imgs/2.png" alt="图片2">
+    <img src="./imgs/3.png" alt="图片3">
+    <img src="./imgs/4.png" alt="图片4">
+    <img src="./imgs/5.png" alt="图片5">
+    <img src="./imgs/6.png" alt="图片6">
+  </div>
+</body>
+
+</html>
