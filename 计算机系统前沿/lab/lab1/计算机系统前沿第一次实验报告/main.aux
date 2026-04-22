@@ -1,0 +1,75 @@
+\relax 
+\providecommand \babel@aux [2]{\global \let \babel@toc \@gobbletwo }
+\@nameuse{bbl@beforestart}
+\providecommand\hyper@newdestlabel[2]{}
+\providecommand*\HyPL@Entry[1]{}
+\providecommand*\new@tpo@label[2]{}
+\HyPL@Entry{0<</S/D>>}
+\babel@aux{UKenglish}{}
+\@writefile{toc}{\contentsline {section}{\numberline {1}实验目的}{3}{section.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {2}实验环境}{3}{section.2}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {1}{\ignorespaces 实验环境参数}}{3}{table.caption.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {3}基本性能}{4}{section.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.1}测试命令}{4}{subsection.3.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.2}测试结果及分析}{4}{subsection.3.2}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {2}{\ignorespaces 基础性能测试结果}}{4}{table.caption.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{顺序访问和随机访问差别很明显}{4}{section*.4}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{随机写结果偏高，需要结合测试方式理解}{4}{section*.5}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{延迟指标更适合和并发度一起看}{5}{section*.6}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {4}多维度参数影响分析}{5}{section.4}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.1}块大小（bs）的影响}{5}{subsection.4.1}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {3}{\ignorespaces 块大小对顺序读写性能的影响}}{5}{table.caption.7}\protected@file@percent }
+\providecommand*\caption@xref[2]{\@setref\relax\@undefined{#1}}
+\newlabel{tab:bs_seq}{{3}{5}{块大小对顺序读写性能的影响}{table.caption.7}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {4}{\ignorespaces 块大小对随机读写性能的影响}}{5}{table.caption.8}\protected@file@percent }
+\newlabel{tab:bs_rnd}{{4}{5}{块大小对随机读写性能的影响}{table.caption.8}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {4{}.1}{\ignorespaces 块大小（bs）对性能指标的影响（IOPS 与延迟子图采用对数坐标）}}{6}{figure.caption.9}\protected@file@percent }
+\newlabel{fig:bs_all}{{4{}.1}{6}{块大小（bs）对性能指标的影响（IOPS 与延迟子图采用对数坐标）}{figure.caption.9}{}}
+\@writefile{toc}{\contentsline {paragraph}{块越大，带宽越容易上去}{6}{section*.10}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{IOPS 和带宽呈现出明显的取舍关系}{6}{section*.11}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{延迟曲线和前两项是一致的}{6}{section*.12}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.2}并发与队列深度（numjobs \& iodepth）的影响}{7}{subsection.4.2}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {5}{\ignorespaces 并发数与队列深度对带宽的影响汇总（bs=4k，单位：MB/s）}}{7}{table.caption.13}\protected@file@percent }
+\newlabel{tab:concurrency_summary}{{5}{7}{并发数与队列深度对带宽的影响汇总（bs=4k，单位：MB/s）}{table.caption.13}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {4{}.2}{\ignorespaces 队列深度（iodepth）对性能指标的影响（IOPS 与延迟子图采用对数坐标）}}{7}{figure.caption.14}\protected@file@percent }
+\newlabel{fig:iodepth_all}{{4{}.2}{7}{队列深度（iodepth）对性能指标的影响（IOPS 与延迟子图采用对数坐标）}{figure.caption.14}{}}
+\@writefile{toc}{\contentsline {paragraph}{单线程下，iodepth 的作用并不明显}{8}{section*.15}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{随机读有小幅改善，但收益有限}{8}{section*.16}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {4{}.3}{\ignorespaces 并发数（numjobs）对性能指标的影响（IOPS 与延迟子图采用对数坐标）}}{8}{figure.caption.17}\protected@file@percent }
+\newlabel{fig:numjobs_all}{{4{}.3}{8}{并发数（numjobs）对性能指标的影响（IOPS 与延迟子图采用对数坐标）}{figure.caption.17}{}}
+\@writefile{toc}{\contentsline {paragraph}{\texttt  {numjobs} 比 \texttt  {iodepth} 更能把性能拉起来}{8}{section*.18}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{读负载的扩展性明显好于写负载}{9}{section*.19}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{写场景的变化没有读那么规整}{9}{section*.20}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.3}I/O 引擎（ioengine）对比}{9}{subsection.4.3}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {6}{\ignorespaces I/O 引擎性能对比（bs=4k, numjobs=1, iodepth=1）}}{9}{table.caption.21}\protected@file@percent }
+\newlabel{tab:ioengine}{{6}{9}{I/O 引擎性能对比（bs=4k, numjobs=1, iodepth=1）}{table.caption.21}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {4{}.4}{\ignorespaces I/O 引擎（ioengine）对性能指标的影响（IOPS 与延迟子图采用对数坐标）}}{10}{figure.caption.22}\protected@file@percent }
+\newlabel{fig:ioengine_all}{{4{}.4}{10}{I/O 引擎（ioengine）对性能指标的影响（IOPS 与延迟子图采用对数坐标）}{figure.caption.22}{}}
+\@writefile{toc}{\contentsline {paragraph}{\texttt  {libaio} 略占优势，但不是压倒性差距}{10}{section*.23}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{\texttt  {mmap} 不适合这组随机写测试}{10}{section*.24}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{关于 \texttt  {io\_uring}}{10}{section*.25}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {5}实验心得与总结}{10}{section.5}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {6}补充实验：Linux 与 Mac 基准对比}{12}{section.6}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {6.1}Mac 测试环境}{12}{subsection.6.1}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {7}{\ignorespaces 补充实验的 Mac 测试环境}}{12}{table.caption.26}\protected@file@percent }
+\newlabel{tab:mac_env}{{7}{12}{补充实验的 Mac 测试环境}{table.caption.26}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {6.2}基准结果对比}{12}{subsection.6.2}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {8}{\ignorespaces Linux 主实验与 Mac 补充实验的基准结果对比}}{12}{table.caption.27}\protected@file@percent }
+\newlabel{tab:linux_mac_compare}{{8}{12}{Linux 主实验与 Mac 补充实验的基准结果对比}{table.caption.27}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {6{}.5}{\ignorespaces Linux 与 Mac 基准实验对比（Latency 子图采用对数坐标）}}{13}{figure.caption.28}\protected@file@percent }
+\newlabel{fig:linux_mac_compare}{{6{}.5}{13}{Linux 与 Mac 基准实验对比（Latency 子图采用对数坐标）}{figure.caption.28}{}}
+\@writefile{toc}{\contentsline {paragraph}{顺序读写差距主要来自平台本身的上限不同}{13}{section*.29}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{随机读在 Mac 上更高，但这项结果要谨慎解读}{13}{section*.30}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{随机写差距极大，APFS 和剩余空间是关键因素}{14}{section*.31}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{延迟列可以参考，但不适合机械地逐项比较}{14}{section*.32}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {A}人工智能使用情况说明}{15}{appendix.A}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {A.1}对话记录 1: 生成打印环境信息 `sh` 脚本}{15}{subsection.A.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {A.2}对话记录 2: 生成人工智能使用情况说明章节 LaTeX 模板}{16}{subsection.A.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {A.3}对话记录 X}{16}{subsection.A.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {A.4}对话记录 3: 润色报告图表与正文表述}{17}{subsection.A.4}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {A.5}对话记录 4: 生成 Mac 基准测试脚本}{17}{subsection.A.5}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {A.6}对话记录 5: 辅助分析 Linux 与 Mac 的差异}{18}{subsection.A.6}\protected@file@percent }
+\newlabel{LastPage}{{A.6}{18}{对话记录 5: 辅助分析 Linux 与 Mac 的差异}{page.18}{}}
+\gdef\lastpage@lastpage{18}
+\gdef\lastpage@lastpageHy{18}
+\gdef \@abspage@last{18}

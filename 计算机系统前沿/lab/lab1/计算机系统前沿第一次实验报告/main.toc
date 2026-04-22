@@ -1,0 +1,39 @@
+\babel@toc {UKenglish}{}\relax 
+\contentsline {section}{\numberline {1}实验目的}{3}{section.1}%
+\contentsline {section}{\numberline {2}实验环境}{3}{section.2}%
+\contentsline {section}{\numberline {3}基本性能}{4}{section.3}%
+\contentsline {subsection}{\numberline {3.1}测试命令}{4}{subsection.3.1}%
+\contentsline {subsection}{\numberline {3.2}测试结果及分析}{4}{subsection.3.2}%
+\contentsline {paragraph}{顺序访问和随机访问差别很明显}{4}{section*.4}%
+\contentsline {paragraph}{随机写结果偏高，需要结合测试方式理解}{4}{section*.5}%
+\contentsline {paragraph}{延迟指标更适合和并发度一起看}{5}{section*.6}%
+\contentsline {section}{\numberline {4}多维度参数影响分析}{5}{section.4}%
+\contentsline {subsection}{\numberline {4.1}块大小（bs）的影响}{5}{subsection.4.1}%
+\contentsline {paragraph}{块越大，带宽越容易上去}{6}{section*.10}%
+\contentsline {paragraph}{IOPS 和带宽呈现出明显的取舍关系}{6}{section*.11}%
+\contentsline {paragraph}{延迟曲线和前两项是一致的}{6}{section*.12}%
+\contentsline {subsection}{\numberline {4.2}并发与队列深度（numjobs \& iodepth）的影响}{7}{subsection.4.2}%
+\contentsline {paragraph}{单线程下，iodepth 的作用并不明显}{8}{section*.15}%
+\contentsline {paragraph}{随机读有小幅改善，但收益有限}{8}{section*.16}%
+\contentsline {paragraph}{\texttt {numjobs} 比 \texttt {iodepth} 更能把性能拉起来}{8}{section*.18}%
+\contentsline {paragraph}{读负载的扩展性明显好于写负载}{9}{section*.19}%
+\contentsline {paragraph}{写场景的变化没有读那么规整}{9}{section*.20}%
+\contentsline {subsection}{\numberline {4.3}I/O 引擎（ioengine）对比}{9}{subsection.4.3}%
+\contentsline {paragraph}{\texttt {libaio} 略占优势，但不是压倒性差距}{10}{section*.23}%
+\contentsline {paragraph}{\texttt {mmap} 不适合这组随机写测试}{10}{section*.24}%
+\contentsline {paragraph}{关于 \texttt {io\_uring}}{10}{section*.25}%
+\contentsline {section}{\numberline {5}实验心得与总结}{10}{section.5}%
+\contentsline {section}{\numberline {6}补充实验：Linux 与 Mac 基准对比}{12}{section.6}%
+\contentsline {subsection}{\numberline {6.1}Mac 测试环境}{12}{subsection.6.1}%
+\contentsline {subsection}{\numberline {6.2}基准结果对比}{12}{subsection.6.2}%
+\contentsline {paragraph}{顺序读写差距主要来自平台本身的上限不同}{13}{section*.29}%
+\contentsline {paragraph}{随机读在 Mac 上更高，但这项结果要谨慎解读}{13}{section*.30}%
+\contentsline {paragraph}{随机写差距极大，APFS 和剩余空间是关键因素}{14}{section*.31}%
+\contentsline {paragraph}{延迟列可以参考，但不适合机械地逐项比较}{14}{section*.32}%
+\contentsline {section}{\numberline {A}人工智能使用情况说明}{15}{appendix.A}%
+\contentsline {subsection}{\numberline {A.1}对话记录 1: 生成打印环境信息 `sh` 脚本}{15}{subsection.A.1}%
+\contentsline {subsection}{\numberline {A.2}对话记录 2: 生成人工智能使用情况说明章节 LaTeX 模板}{16}{subsection.A.2}%
+\contentsline {subsection}{\numberline {A.3}对话记录 X}{16}{subsection.A.3}%
+\contentsline {subsection}{\numberline {A.4}对话记录 3: 润色报告图表与正文表述}{17}{subsection.A.4}%
+\contentsline {subsection}{\numberline {A.5}对话记录 4: 生成 Mac 基准测试脚本}{17}{subsection.A.5}%
+\contentsline {subsection}{\numberline {A.6}对话记录 5: 辅助分析 Linux 与 Mac 的差异}{18}{subsection.A.6}%

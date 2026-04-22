@@ -1,0 +1,59 @@
+# macOS
+ProductName:	macOS
+ProductVersion:	12.3.1
+BuildVersion:	21E258
+
+# Hardware
+Hardware:
+
+    Hardware Overview:
+
+      Model Name: MacBook Pro
+      Model Identifier: MacBookPro15,1
+      Processor Name: 6-Core Intel Core i7
+      Processor Speed: 2.2 GHz
+      Number of Processors: 1
+      Total Number of Cores: 6
+      L2 Cache (per Core): 256 KB
+      L3 Cache: 9 MB
+      Hyper-Threading Technology: Enabled
+      Memory: 16 GB
+      System Firmware Version: 1731.100.130.0.0 (iBridge: 19.16.14243.0.0,0)
+      OS Loader Version: 540.100.7~23
+      Serial Number (system): C02X26L6JG5L
+      Hardware UUID: 33038E56-DB33-58AF-A4CC-3CC207E75E47
+      Provisioning UDID: 33038E56-DB33-58AF-A4CC-3CC207E75E47
+      Activation Lock Status: Enabled
+
+
+# NVMe
+NVMExpress:
+
+    Apple SSD Controller:
+
+        APPLE SSD AP0256M:
+
+          Capacity: 251 GB (251,000,193,024 bytes)
+          TRIM Support: Yes
+          Model: APPLE SSD AP0256M
+          Revision: 1,274.100
+          Serial Number: C028283015DJP4F11
+          Link Width: x4
+          Link Speed: 8.0 GT/s
+          Detachable Drive: No
+          BSD Name: disk0
+          Partition Map Type: GPT (GUID Partition Table)
+          Removable Media: No
+          S.M.A.R.T. status: Verified
+          Volumes:
+            EFI:
+              Capacity: 314.6 MB (314,572,800 bytes)
+              File System: MS-DOS FAT32
+              BSD Name: disk0s1
+              Content: EFI
+              Volume UUID: E783267B-A4C3-3556-B751-DBED770EB996
+            disk0s2:
+              Capacity: 250.69 GB (250,685,575,168 bytes)
+              BSD Name: disk0s2
+              Content: Apple_APFS
+
