@@ -1,0 +1,42 @@
+\section{引言}
+
+\subsection{编写目的}
+本文档用于说明智能城市生成系统的软件设计方案，其目标读者包括课程指导教师、项目成员以及后续补充 UML 图和实现代码的开发者。与需求分析报告相比，本报告不再重点讨论“系统需要做什么”，而是重点回答“系统如何组织起来实现这些需求”。因此，文档需要为后续概要实现、模块拆分、类关系细化、接口对接和图件绘制提供统一设计依据。
+
+\subsection{项目范围}
+智能城市生成系统面向三维城市场景快速生成、布局调整、资产替换、生态塑造、动态仿真和智能交互等任务，服务对象包括场景建模师、行业分析师和系统管理员三类角色。系统以 Blender 作为三维执行环境，以主系统作为任务组织与展示入口，并通过资产库、项目库、日志库和大语言模型服务形成完整的设计闭环。
+
+\subsection{文档结构}
+本报告共分为七个部分。第一部分为引言，说明文档目的与范围；第二部分给出系统概述；第三部分描述系统架构及模块分解；第四部分说明核心数据设计；第五部分从面向对象角度组织八类 UML 图；第六部分说明界面设计；第七部分给出总结。这样的结构基本对应课程提供的 SDD 模板，同时保留了本项目“任务流驱动 + 插件执行 + LLM 解析”的系统特征。
+
+\subsection{参考资料}
+\begin{enumerate}[label=\arabic*.]
+    \item IEEE 1016-2009, \textit{IEEE Standard for Information Technology--Systems Design--Software Design Descriptions}. 可参考：\url{https://standards.ieee.org/standard/1016-2009.html}
+    \item ISO/IEC/IEEE 42010:2022, \textit{Software, systems and enterprise --- Architecture description}. 可参考：\url{https://www.iso.org/standard/74393.html}
+    \item Object Management Group (OMG), \textit{Unified Modeling Language (UML), Version 2.5.1}. 可参考：\url{https://www.omg.org/spec/UML}
+    \item Blender Python API Overview. 官方文档：\url{https://docs.blender.org/api/current/info_overview.html}
+    \item Blender Add-on Tutorial. 官方文档：\url{https://docs.blender.org/manual/en/latest/advanced/scripting/addon_tutorial.html}
+    \item 第二次个人作业《智能城市生成系统需求分析报告》，作为本报告的软件需求与功能边界来源。
+\end{enumerate}
+
+\subsection{术语与缩略语}
+\begin{table}[H]
+\centering
+\caption{术语说明表}
+\rowcolors{2}{gray!8}{white}
+\begin{tabularx}{\textwidth}{p{3cm} Y}
+\rowcolor{gray!20}
+\toprule
+术语 & 含义说明 \\
+\midrule
+主系统 & 面向用户的控制平台，负责登录、任务组织、结果展示和后台治理 \\
+Blender 插件 & 在 Blender 中执行建模、替换、布局更新和场景保存任务的插件组件 \\
+结构化任务 & 由对象、属性、数量、空间关系、目标区域和执行参数构成的统一任务表示 \\
+资产库 & 存储道路、建筑、树木、庭院、水体、山体和动态对象资源的信息集合 \\
+场景版本 & 某一项目在一次生成或修改完成后的可回溯状态快照 \\
+LLM & Large Language Model，大语言模型，用于自然语言和多模态输入解析 \\
+仿真模块 & 为车辆、人群、船只等对象生成动态展示效果的子系统 \\
+SDD & Software Design Description，软件设计说明文档 \\
+\bottomrule
+\end{tabularx}
+\end{table}

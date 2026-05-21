@@ -1,0 +1,57 @@
+@startuml StateDiagram
+left to right direction
+skinparam backgroundColor #FFFFFF
+skinparam shadowing false
+skinparam defaultFontName PingFang SC
+skinparam defaultFontSize 15
+skinparam ranksep 55
+skinparam nodesep 24
+skinparam state {
+  BackgroundColor #F8FBFF
+  BorderColor #355C7D
+  ArrowColor #355C7D
+}
+
+state "草稿" as Draft
+state "解析中" as Parsing
+state "待补充" as WaitingForRevision
+state "待确认" as AwaitingConfirmation
+state "排队中" as Queued
+state "执行中" as Running
+state "已成功" as Succeeded
+state "结果检查" as Reviewing
+state "失败" as Failed
+state "已取消" as Cancelled
+state "已归档" as Archived
+
+[*] --> Draft : 创建任务
+Draft : 收集文本、草图与参数
+Draft --> Parsing : 提交解析
+Parsing : LLM解析并补全上下文
+Parsing --> WaitingForRevision : 歧义或条件缺失
+Parsing --> AwaitingConfirmation : 生成结构化任务
+Parsing --> Failed : 解析失败或超时
+WaitingForRevision : 用户补充信息
+WaitingForRevision --> Parsing : 重新解析
+WaitingForRevision --> Cancelled : 放弃任务
+AwaitingConfirmation : 展示任务解释
+AwaitingConfirmation --> Queued : 用户确认
+AwaitingConfirmation --> Cancelled : 用户取消
+AwaitingConfirmation --> Draft : 返回编辑
+Queued : 等待插件执行
+Queued --> Running : 开始执行
+Queued --> Failed : 插件离线或资源缺失
+Running : 生成场景并回传进度
+Running --> Succeeded : 完整成功
+Running --> Failed : 执行异常
+Succeeded --> Reviewing : 自动进入结果检查
+Reviewing : 预览、仿真与比较
+Reviewing --> Archived : 保存为正式版本
+Reviewing --> Draft : 基于当前结果继续编辑
+Reviewing --> Failed : 导出或回写失败
+Failed : 保留日志与失败原因
+Failed --> Draft : 重试或重新编辑
+Failed --> Archived : 归档失败记录
+Cancelled --> Archived
+Archived --> [*]
+@enduml

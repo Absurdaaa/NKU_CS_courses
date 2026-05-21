@@ -1,0 +1,98 @@
+% -*- coding: utf-8 -*-
+\documentclass[UTF8,a4paper,10pt,fontset=fandol]{ctexart}
+
+\usepackage[left=3.0cm, right=3.0cm, top=2.6cm, bottom=2.6cm]{geometry}
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{caption}
+\usepackage{booktabs}
+\usepackage{multirow}
+\usepackage{tabularx}
+\usepackage{array}
+\usepackage{longtable}
+\usepackage{enumitem}
+\usepackage{hyperref}
+\usepackage{fancyhdr}
+\usepackage[table]{xcolor}
+
+\newcommand{\yihao}{\fontsize{26pt}{36pt}\selectfont}
+\newcommand{\erhao}{\fontsize{22pt}{28pt}\selectfont}
+\newcommand{\xiaoer}{\fontsize{18pt}{18pt}\selectfont}
+\newcommand{\sanhao}{\fontsize{16pt}{24pt}\selectfont}
+\newcommand{\sihao}{\fontsize{14pt}{21pt}\selectfont}
+\newcommand{\xiaosi}{\fontsize{12pt}{18pt}\selectfont}
+\newcommand{\wuhao}{\fontsize{10.5pt}{15.75pt}\selectfont}
+\newcolumntype{Y}{>{\raggedright\arraybackslash}X}
+
+\ctexset{
+    section = {name = {,、}, number = \chinese{section}},
+    subsection = {name = {（,）}, number = \chinese{subsection}}
+}
+
+\pagestyle{fancy}
+\raggedbottom
+\lhead{\kaishu \leftmark}
+\rhead{\kaishu 软件设计报告}
+\lfoot{}
+\cfoot{\thepage}
+\rfoot{}
+\renewcommand{\headrulewidth}{0.1pt}
+\renewcommand{\footrulewidth}{0pt}
+\newcommand{\HRule}{\rule{\linewidth}{0.5mm}}
+
+\hypersetup{
+    colorlinks=true,
+    linkcolor=black,
+    urlcolor=blue
+}
+
+\setlist[itemize]{nosep,leftmargin=2em}
+\setlist[enumerate]{nosep,leftmargin=2.2em}
+\captionsetup[figure]{font=small}
+
+\begin{document}
+
+\begin{titlepage}
+    \begin{center}
+        \includegraphics[width=0.8\textwidth]{NKU.png}\\[1cm]
+        \textsf{\Huge \kaishu{\textbf{南\ \ \ \ \ \ 开\ \ \ \ \ \ 大\ \ \ \ \ \ 学}} }\\[0.9cm]
+        \textsf{\huge \kaishu{\textbf{计\ \ 算\ \ 机\ \ 学\ \ 院}}}\\[0.5cm]
+        \textsf{\Large \textbf{软件工程实验报告}}\\[0.8cm]
+        \HRule \\[0.9cm]
+        {\LARGE \bfseries 智能城市生成系统软件设计报告}\\[0.4cm]
+        \HRule \\[2.0cm]
+        \textsf{\LARGE 林晖鹏}\\[0.5cm]
+        \textsf{\LARGE \kaishu{年级\ :\ 2023级}}\\[0.5cm]
+        \textsf{\LARGE \kaishu{专业\ :\ 计算机科学与技术}}\\[0.5cm]
+        \textsf{\LARGE \kaishu{指导教师\ :\ 李起成}}\\[0.5cm]
+        \vfill
+        {\Large \today}
+    \end{center}
+\end{titlepage}
+
+\newpage
+% \thispagestyle{empty}
+% \renewcommand{\abstractname}{\kaishu \sihao \textbf{摘要}}
+% \begin{abstract}
+% 本文面向课程作业“智能城市生成系统软件设计”，在前期需求分析基础上，进一步给出系统的软件设计说明。报告参考软件设计说明文档（Software Design Description, SDD）的组织方式，围绕系统概述、架构设计、数据设计、面向对象设计和界面设计展开，重点说明主系统、Blender 插件执行端、资产与项目数据层、动态仿真模块以及大语言模型解析服务之间的职责划分与协作关系。
+
+% 相较于需求分析阶段，本报告更加关注“系统如何被组织起来”。一方面，报告从模块视角解释用户工作台、任务调度、插件适配、LLM 解析、资源管理、仿真分析等子系统如何协同；另一方面，报告从对象视角归纳项目、场景、任务、资产、草图、布局、仿真对象与日志等核心实体，并为后续类图、顺序图、状态图和部署图的绘制提供统一语义基础。对于课程要求中的八类 UML 图，本文在面向对象设计章节中给出图的设计目标、建议表达重点与建模边界，便于后续逐步补齐正式图件。
+
+% 本报告的设计原则包括：以角色分工驱动界面组织，以任务流驱动模块协作，以结构化任务驱动 Blender 执行，以版本化数据支撑回溯与比较，以可解释与可确认机制约束 LLM 解析结果。通过这些设计，系统既保留程序化建模的执行确定性，又引入自然语言与多模态交互带来的表达便利性。
+
+% \noindent \textbf{关键词：}软件设计；SDD；UML；Blender；智能城市生成系统；大语言模型
+% \end{abstract}
+
+\tableofcontents
+\newpage
+
+\input{sections/01_introduction}
+\input{sections/02_system_overview}
+\input{sections/03_system_architecture}
+\input{sections/04_data_design}
+\input{sections/05_object_oriented}
+\input{sections/06_human_interface}
+\input{sections/07_conclusion}
+
+\end{document}

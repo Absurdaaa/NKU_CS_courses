@@ -11,8 +11,8 @@ ROOT = Path(__file__).resolve().parents[1]
 OUT_DIR = ROOT / "figures"
 OUT_DIR.mkdir(parents=True, exist_ok=True)
 
-WIDTH = 1800
-HEIGHT = 980
+WIDTH = 1900
+HEIGHT = 1080
 BG = "#FFFFFF"
 LINE = "#4F6F99"
 TEXT = "#26323F"
@@ -318,6 +318,190 @@ def function_structure() -> None:
     save(image, "function_structure.png")
 
 
+def draw_lane_header(draw: ImageDraw.ImageDraw, x: int, w: int, text: str, fill: str) -> None:
+    draw.rounded_rectangle((x, 90, x + w, 160), radius=20, fill=fill, outline=LINE, width=3)
+    bbox = draw.textbbox((0, 0), text, font=FONT_SMALL)
+    tx = x + (w - (bbox[2] - bbox[0])) // 2
+    ty = 113
+    draw.text((tx, ty), text, fill=TEXT, font=FONT_SMALL)
+    draw.line((x + w, 80, x + w, HEIGHT - 80), fill="#D8E0EA", width=3)
+
+
+def draw_circle(draw: ImageDraw.ImageDraw, cx: int, cy: int, r: int, fill: str, outline: str = LINE, width: int = 4) -> None:
+    draw.ellipse((cx - r, cy - r, cx + r, cy + r), fill=fill, outline=outline, width=width)
+
+
+def draw_diamond(draw: ImageDraw.ImageDraw, cx: int, cy: int, w: int, h: int, text: str, fill: str, font: ImageFont.FreeTypeFont = FONT_TINY) -> None:
+    pts = [(cx, cy - h // 2), (cx + w // 2, cy), (cx, cy + h // 2), (cx - w // 2, cy)]
+    shadow = [(x + 6, y + 6) for x, y in pts]
+    draw.polygon(shadow, fill=SHADOW)
+    draw.polygon(pts, fill=fill, outline=LINE)
+    lines = wrap_text(draw, text, font, w - 22)
+    line_h = draw.textbbox((0, 0), "测", font=font)[3] + 6
+    total_h = line_h * len(lines)
+    y = cy - total_h // 2 - 2
+    for line in lines:
+        bbox = draw.textbbox((0, 0), line, font=font)
+        x = cx - (bbox[2] - bbox[0]) // 2
+        draw.text((x, y), line, fill=TEXT, font=font)
+        y += line_h
+
+
+def main_activity_diagram() -> None:
+    image, draw = canvas()
+    lane_x = [90, 500, 910, 1320]
+    lane_w = 300
+    headers = [
+        ("场景建模师", "#EAF1FB"),
+        ("主系统", "#FFF4EA"),
+        ("LLM解析模块", "#EEF8EA"),
+        ("Blender插件", "#FFF0F0"),
+    ]
+    for (text, fill), x in zip(headers, lane_x):
+        draw_lane_header(draw, x, lane_w, text, fill)
+    draw_circle(draw, 240, 205, 18, "#EAF1FB")
+
+    boxes = [
+        Box(115, 245, 250, 90, "输入文本、草图\n或参数配置", "#EAF1FB", text_font=FONT_SMALL),
+        Box(525, 245, 250, 90, "接收输入并读取\n场景上下文", "#FFF4EA", text_font=FONT_SMALL),
+        Box(935, 245, 250, 90, "解析意图并生成\n结构化任务建议", "#EEF8EA", text_font=FONT_SMALL),
+        Box(525, 430, 250, 100, "校验资源、场景条件\n和插件能力", "#FFF4EA", text_font=FONT_SMALL),
+        Box(115, 620, 250, 95, "查看任务建议并\n确认或补充信息", "#EAF1FB", text_font=FONT_SMALL),
+        Box(525, 620, 250, 95, "确认后下发任务\n并登记状态", "#FFF4EA", text_font=FONT_SMALL),
+        Box(1345, 620, 250, 95, "执行生成、替换\n或布局调整", "#FFF0F0", text_font=FONT_SMALL),
+        Box(525, 835, 250, 95, "保存版本、回写日志\n并刷新结果视图", "#FFF4EA", text_font=FONT_SMALL),
+        Box(115, 835, 250, 95, "查看结果预览\n并决定后续处理", "#EAF1FB", text_font=FONT_SMALL),
+    ]
+    for b in boxes:
+        draw_box(draw, b)
+
+    arrow(draw, (240, 223), boxes[0].top())
+    arrow(draw, boxes[0].right(), boxes[1].left())
+    arrow(draw, boxes[1].right(), boxes[2].left())
+    elbow(draw, [boxes[2].bottom(), (boxes[2].center()[0], 390), (1020, 390), (1020, 430)])
+    draw_diamond(draw, 1020, 500, 180, 105, "是否满足\n执行条件", "#FFF6E7")
+    arrow(draw, (1020, 552), (1020, 620))
+    elbow(draw, [(930, 500), (815, 500), boxes[3].right()])
+    elbow(draw, [boxes[3].left(), (420, boxes[3].center()[1]), (420, boxes[4].center()[1]), boxes[4].right()])
+    arrow(draw, boxes[4].right(), boxes[5].left())
+    arrow(draw, boxes[5].right(), boxes[6].left())
+    draw_diamond(draw, 1430, 820, 180, 105, "执行是否\n成功", "#FFF6E7")
+    elbow(draw, [boxes[6].bottom(), (boxes[6].center()[0], 760), (1430, 760), (1430, 768)])
+    elbow(draw, [(1340, 820), (1160, 820), (1160, boxes[7].center()[1]), boxes[7].right()])
+    arrow(draw, boxes[7].left(), boxes[8].right())
+    note(draw, (1240, 900), "失败时返回错误\n并允许重新提交", fill="#FFF6E7")
+    elbow(draw, [(1430, 873), (1430, 950), (1040, 950), (1040, boxes[5].center()[1]), boxes[5].right()])
+    draw_diamond(draw, 450, 885, 180, 105, "是否继续\n修改", "#FFF6E7")
+    elbow(draw, [boxes[8].right(), (450, boxes[8].center()[1]), (450, 833)])
+    elbow(draw, [(360, 885), (85, 885), (85, 480), (115, 480), boxes[0].left()])
+    draw_circle(draw, 250, 1000, 18, "#26323F")
+    draw_circle(draw, 250, 1000, 10, "#FFFFFF", outline="#26323F", width=3)
+    elbow(draw, [(540, 885), (540, 1000), (268, 1000)])
+    save(image, "activity_main.png")
+
+
+def modeler_activity() -> None:
+    image, draw = canvas()
+    title_box = Box(610, 80, 680, 95, "场景建模师活动图", "#EAF1FB", text_font=FONT_BOLD)
+    draw_box(draw, title_box)
+    draw_circle(draw, 950, 215, 18, "#EAF1FB")
+    boxes = [
+        Box(600, 225, 700, 90, "登录并进入建模工作台", "#EAF1FB", text_font=FONT_SMALL),
+        Box(130, 395, 430, 110, "选择项目、创建版本\n或加载既有场景", "#EAF1FB", text_font=FONT_SMALL),
+        Box(930, 395, 430, 110, "输入文本、草图、点线集\n或参数配置", "#EAF1FB", text_font=FONT_SMALL),
+        Box(550, 585, 800, 105, "查看解析后的任务建议\n并确认、补充或调整参数", "#EAF1FB", text_font=FONT_SMALL),
+        Box(130, 805, 430, 105, "观察生成结果与动态预览\n判断是否满足建模目标", "#EAF1FB", text_font=FONT_SMALL),
+        Box(930, 805, 430, 105, "保存版本、导出场景\n或继续局部修改", "#EAF1FB", text_font=FONT_SMALL),
+    ]
+    for b in boxes:
+        draw_box(draw, b)
+    arrow(draw, (950, 233), boxes[0].top())
+    elbow(draw, [boxes[0].bottom(), (boxes[0].center()[0], 350), (345, 350), (345, boxes[1].top()[1]), boxes[1].top()])
+    elbow(draw, [boxes[0].bottom(), (boxes[0].center()[0], 350), (1145, 350), (1145, boxes[2].top()[1]), boxes[2].top()])
+    elbow(draw, [boxes[1].right(), (600, boxes[1].center()[1]), (600, boxes[3].center()[1]), boxes[3].left()])
+    elbow(draw, [boxes[2].left(), (1400, boxes[2].center()[1]), (1400, boxes[3].center()[1]), boxes[3].right()])
+    elbow(draw, [boxes[3].bottom(), (boxes[3].center()[0], 740), (345, 740), (345, boxes[4].top()[1]), boxes[4].top()])
+    elbow(draw, [boxes[3].bottom(), (boxes[3].center()[0], 740), (1145, 740), (1145, boxes[5].top()[1]), boxes[5].top()])
+    draw_diamond(draw, 745, 857, 180, 105, "结果是否\n满足预期", "#FFF6E7")
+    elbow(draw, [boxes[4].right(), (655, boxes[4].center()[1]), (655, 857)])
+    elbow(draw, [(655, 857), (375, 857)])
+    elbow(draw, [(745, 910), (745, 975), (90, 975), (90, 450), boxes[1].left()])
+    draw_circle(draw, 1145, 980, 18, "#26323F")
+    draw_circle(draw, 1145, 980, 10, "#FFFFFF", outline="#26323F", width=3)
+    elbow(draw, [boxes[5].bottom(), (1145, 962)])
+    note(draw, (1460, 255), "覆盖输入、确认、\n执行观察与版本处理", fill="#EEF7FF")
+    note(draw, (80, 610), "支持多轮试错\n与局部重生成", fill="#FFF6E7")
+    save(image, "activity_modeler.png")
+
+
+def analyst_activity() -> None:
+    image, draw = canvas()
+    title_box = Box(610, 80, 680, 95, "行业分析师活动图", "#EEF8EA", text_font=FONT_BOLD)
+    draw_box(draw, title_box)
+    draw_circle(draw, 950, 215, 18, "#EEF8EA")
+    boxes = [
+        Box(600, 225, 700, 90, "登录并进入分析工作台", "#EEF8EA", text_font=FONT_SMALL),
+        Box(130, 395, 430, 110, "选择项目、方案或场景版本\n确定待分析对象", "#EEF8EA", text_font=FONT_SMALL),
+        Box(930, 395, 430, 110, "查看静态结果、关键视图\n和相关指标信息", "#EEF8EA", text_font=FONT_SMALL),
+        Box(550, 585, 800, 105, "运行或回放仿真结果\n观察车辆、人群、船只等动态差异", "#EEF8EA", text_font=FONT_SMALL),
+        Box(130, 805, 430, 105, "比较不同方案并形成\n阶段性分析判断", "#EEF8EA", text_font=FONT_SMALL),
+        Box(930, 805, 430, 105, "导出截图、结果文件\n或分析报告", "#EEF8EA", text_font=FONT_SMALL),
+    ]
+    for b in boxes:
+        draw_box(draw, b)
+    arrow(draw, (950, 233), boxes[0].top())
+    elbow(draw, [boxes[0].bottom(), (boxes[0].center()[0], 350), (345, 350), (345, boxes[1].top()[1]), boxes[1].top()])
+    elbow(draw, [boxes[0].bottom(), (boxes[0].center()[0], 350), (1145, 350), (1145, boxes[2].top()[1]), boxes[2].top()])
+    elbow(draw, [boxes[1].right(), (600, boxes[1].center()[1]), (600, boxes[3].center()[1]), boxes[3].left()])
+    elbow(draw, [boxes[2].left(), (1400, boxes[2].center()[1]), (1400, boxes[3].center()[1]), boxes[3].right()])
+    elbow(draw, [boxes[3].bottom(), (boxes[3].center()[0], 740), (345, 740), (345, boxes[4].top()[1]), boxes[4].top()])
+    elbow(draw, [boxes[3].bottom(), (boxes[3].center()[0], 740), (1145, 740), (1145, boxes[5].top()[1]), boxes[5].top()])
+    draw_diamond(draw, 745, 857, 180, 105, "是否需要\n继续比较", "#FFF6E7")
+    elbow(draw, [boxes[4].right(), (655, boxes[4].center()[1]), (655, 857)])
+    elbow(draw, [(655, 857), (375, 857)])
+    elbow(draw, [(745, 910), (745, 975), (90, 975), (90, 450), boxes[1].left()])
+    draw_circle(draw, 1145, 980, 18, "#26323F")
+    draw_circle(draw, 1145, 980, 10, "#FFFFFF", outline="#26323F", width=3)
+    elbow(draw, [boxes[5].bottom(), (1145, 962)])
+    note(draw, (1460, 255), "以结果消费、仿真观察\n和方案比较为主", fill="#EEF7FF")
+    note(draw, (80, 610), "支持多方案循环比较\n与阶段复盘", fill="#FFF6E7")
+    save(image, "activity_analyst.png")
+
+
+def admin_activity() -> None:
+    image, draw = canvas()
+    title_box = Box(610, 80, 680, 95, "系统管理员活动图", "#FFF1E6", text_font=FONT_BOLD)
+    draw_box(draw, title_box)
+    draw_circle(draw, 950, 215, 18, "#FFF1E6")
+    boxes = [
+        Box(600, 225, 700, 90, "登录并进入后台管理工作台", "#FFF1E6", text_font=FONT_SMALL),
+        Box(130, 395, 430, 110, "维护用户、角色和权限关系\n调整可见菜单与访问范围", "#FFF1E6", text_font=FONT_SMALL),
+        Box(930, 395, 430, 110, "配置插件、模型服务\n和资源库接入状态", "#FFF1E6", text_font=FONT_SMALL),
+        Box(550, 585, 800, 105, "监控任务执行状态、查询日志\n并定位权限或服务异常", "#FFF1E6", text_font=FONT_SMALL),
+        Box(130, 805, 430, 105, "处理越权、失败任务\n或资源失效问题", "#FFF1E6", text_font=FONT_SMALL),
+        Box(930, 805, 430, 105, "保存配置变更并形成\n审计记录", "#FFF1E6", text_font=FONT_SMALL),
+    ]
+    for b in boxes:
+        draw_box(draw, b)
+    arrow(draw, (950, 233), boxes[0].top())
+    elbow(draw, [boxes[0].bottom(), (boxes[0].center()[0], 350), (345, 350), (345, boxes[1].top()[1]), boxes[1].top()])
+    elbow(draw, [boxes[0].bottom(), (boxes[0].center()[0], 350), (1145, 350), (1145, boxes[2].top()[1]), boxes[2].top()])
+    elbow(draw, [boxes[1].right(), (600, boxes[1].center()[1]), (600, boxes[3].center()[1]), boxes[3].left()])
+    elbow(draw, [boxes[2].left(), (1400, boxes[2].center()[1]), (1400, boxes[3].center()[1]), boxes[3].right()])
+    elbow(draw, [boxes[3].bottom(), (boxes[3].center()[0], 740), (345, 740), (345, boxes[4].top()[1]), boxes[4].top()])
+    elbow(draw, [boxes[3].bottom(), (boxes[3].center()[0], 740), (1145, 740), (1145, boxes[5].top()[1]), boxes[5].top()])
+    draw_diamond(draw, 745, 857, 180, 105, "是否存在\n持续异常", "#FFF6E7")
+    elbow(draw, [boxes[4].right(), (655, boxes[4].center()[1]), (655, 857)])
+    elbow(draw, [(655, 857), (375, 857)])
+    elbow(draw, [(745, 910), (745, 975), (90, 975), (90, 450), boxes[1].left()])
+    draw_circle(draw, 1145, 980, 18, "#26323F")
+    draw_circle(draw, 1145, 980, 10, "#FFFFFF", outline="#26323F", width=3)
+    elbow(draw, [boxes[5].bottom(), (1145, 962)])
+    note(draw, (1460, 255), "以治理、配置、\n监控与审计追踪为主", fill="#EEF7FF")
+    note(draw, (80, 610), "支持反复巡检\n和异常处理闭环", fill="#FFF6E7")
+    save(image, "activity_admin.png")
+
+
 def main() -> None:
     system_overview()
     vertical_flow(
@@ -365,6 +549,10 @@ def main() -> None:
     llm_sim_flow()
     data_flow()
     function_structure()
+    main_activity_diagram()
+    modeler_activity()
+    analyst_activity()
+    admin_activity()
 
 
 if __name__ == "__main__":

@@ -1,0 +1,163 @@
+            Software Design Description
+                            On
+                       <Project Title>
+
+
+
+
+                               Guided By: Name of Guide
+                            Prepared By: Name of Students
+
+
+Date: ..............
+
+
+           Mukesh Patel School of Technology
+            Management and Engineering
+                   Session: 2021-22
+                                  Certificate
+
+The SDD Report entitled “Topic Name” being submitted by
+                “Candidate Name” (Roll No.:00000000000000)”
+                “Candidate Name” (Roll No.:00000000000000)”
+                “Candidate Name” (Roll No.:00000000000000)”
+
+
+has been examined by us and is hereby approved for the award of degree
+“Bachelor of Technology in Information Technology Discipline”, for which it
+has been submitted. It is understood that by this approval the undersigned do not
+necessarily endorse or approve any statement made, opinion expressed or
+conclusion drawn therein, but approve the report only for the purpose for which it
+has been submitted.
+
+
+
+
+(Internal Examiner)                                  (External Examiner)
+
+Date:                                                 Date:
+
+
+
+
+           DEPARTMENT OF INFORMATION TECHNOLOGY
+           Mukesh Patel School of Technology Management & Engineering
+                              TABLE OF CONTENTS
+1. INTRODUCTION
+     1.1   Purpose
+     1.2   Scope
+     1.3   Overview
+     1.4   Reference Material
+     1.5   Definitions and Acronyms
+
+2. SYSTEM OVERVIEW
+3. SYSTEM ARCHITECTURE
+     3.1   Architectural Design
+     3.2   Decomposition Description
+
+4. DATA DESIGN
+     4.1   Data Description
+     4.2   Data Dictionary
+
+5. OBJECT ORIENTED APPROACH
+     5.1   Use Case Diagram
+     5.2   Class Diagram
+     5.3   Activity Diagram
+     5.4   Sequence Diagram
+     5.5   Collaboration Diagram
+     5.6   State Chart Diagram
+     5.7   Component Diagram
+     5.8   Deployment Diagram
+
+6. HUMAN INTERFACE DESIGN
+     6.1   Overview of User Interface
+     6.2   Screen Images
+1. INTRODUCTION
+
+       1.1     Purpose
+
+Identify the purpose of this SDD and its intended audience.
+
+       1.2     Scope
+
+Provide a description and scope of the software and explain the goals, objectives and benefits
+of your project. This will provide the basis for the brief description of your product.
+
+       1.3     Overview
+
+Provide an overview of this document and its organization
+
+       1.4     Reference Material
+
+List any documents, if any, which were used as sources of information
+
+       1.5     Definitions and Acronyms
+
+Provide definitions of all terms, acronyms, and abbreviations that might exist to properly
+Interpret the SDD. These definitions should be items used in the SDD that are most likely not
+known to the audience.
+
+2. SYSTEM OVERVIEW
+
+Give a general description of the functionality, context and design of your project. Provide any b
+ackground information if necessary.
+
+3. SYSTEM ARCHITECTURE
+
+       3.1     Architectural Design
+
+Develop a modular program structure and explain the relationships between the modules to achie
+ve the complete functionality of the system. This is a high level overview of                 how
+responsibilities of the system were partitioned and then assigned to subsystems. Identify each hig
+h level subsystem and the roles or responsibilities assigned to it.
+Describe how these subsystems collaborate with each other in order to achieve the desired functi
+onality. Don’t go into too much detail about the individual subsystems. The main purpose is to g
+ain a general understanding              of how              and why the system was decomposed,
+and how the individual parts work together. Provide a diagram showing the major subsystems an
+d data repositories and their interconnections. Describe the diagram if required.
+       3.2     Decomposition Description
+
+Provide a decomposition of the subsystems in the architectural design. Supplement with text as
+needed. You may choose to give a functional description or an object-oriented description. For
+a    functional     description,     put   top-level   data    flow   diagram    (DFD)     and
+structural decomposition diagrams. For an OO description, put subsystem model, object
+diagrams, generalization hierarchy diagram(s) (if any), aggregation hierarchy diagram(s)
+(if any), interface specifications, and sequence diagrams here.
+
+4. DATA DESIGN
+
+       4.1     Data Description
+
+Explain how the information domain of your system is transformed into data structures. Describe
+ how the major data or system entities are stored, processed and organized. List any databases or
+data storage items.
+
+       4.2     Data Dictionary
+
+Alphabetically list the system entities or major data along with their types and descriptions.
+
+5. OBJECT ORIENTED APPROACH
+
+       5.1     Use Case Diagram
+       5.2     Class Diagram
+       5.3     Activity Diagram
+       5.4     Sequence Diagram
+       5.5     Collaboration Diagram
+       5.6     State Chart Diagram
+       5.7     Component Diagram
+
+       5.8     Deployment Diagram
+
+6. HUMAN INTERFACE DESIGN
+
+       6.1     Overview of User Interface
+
+Describe the functionality of the system from the user’s perspective. Explain how the user will
+be able to use your system to complete all the expected features and the
+feedback information that will be displayed for the user.
+       6.2    Screen Images
+
+Display screenshots showing the interface from the user’s perspective. These can be hand-
+drawn or you can use an automated drawing tool. Just make them as accurate as possible.
+(Graph paper works well.)
+

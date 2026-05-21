@@ -1,0 +1,57 @@
+@startuml SequenceDiagram
+autonumber
+hide footbox
+skinparam backgroundColor #FFFFFF
+skinparam shadowing false
+skinparam defaultFontName PingFang SC
+skinparam defaultFontSize 15
+skinparam maxMessageSize 36
+skinparam BoxPadding 16
+skinparam RoundCorner 18
+skinparam sequence {
+  ArrowColor #4F6780
+  LifeLineBorderColor #9DB6D1
+  LifeLineBackgroundColor #FFFFFF
+  ParticipantBorderColor #4C78A8
+  ParticipantBackgroundColor #EEF4FB
+  ParticipantFontColor #24476B
+}
+
+actor "建模师" as Modeler
+boundary "主系统" as UI
+control "任务编排" as Orchestrator
+entity "解析执行服务" as Engine
+database "项目存储" as Storage
+
+Modeler -> UI : submitInput()
+UI -> Orchestrator : createDraft()
+Orchestrator -> Storage : loadContext()
+Storage --> Orchestrator : snapshot
+Orchestrator -> Engine : parseIntent()
+Engine --> Orchestrator : taskPlan
+Orchestrator -> UI : explainTask()
+
+alt 需补充信息
+  Modeler -> UI : refineInput()
+  UI -> Orchestrator : updateDraft()
+  Orchestrator -> Engine : reparse()
+  Engine --> Orchestrator : revisedPlan
+  Orchestrator -> UI : refreshPlan()
+else 可直接执行
+  Modeler -> UI : confirm()
+end
+
+UI -> Orchestrator : submitTask()
+Orchestrator -> Engine : executeTask()
+
+loop 执行期间
+  Engine --> Orchestrator : progress()
+  Orchestrator -> UI : updateStatus()
+end
+
+Engine --> Orchestrator : finalResult
+Orchestrator -> Storage : saveVersion()
+Orchestrator -> UI : showResult()
+UI --> Modeler : preview()
+
+@enduml

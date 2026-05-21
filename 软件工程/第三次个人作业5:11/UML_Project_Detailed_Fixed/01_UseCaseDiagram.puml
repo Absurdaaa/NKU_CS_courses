@@ -1,0 +1,87 @@
+@startuml UseCaseDiagram
+left to right direction
+
+' 背景和字体
+skinparam backgroundColor #FFFFFF
+skinparam shadowing false
+skinparam defaultFontName "PingFang SC"
+skinparam defaultFontSize 15
+skinparam packageStyle rectangle
+skinparam ranksep 20   ' 缩小模块间竖向间距
+skinparam nodesep 15   ' 缩小节点间水平间距
+
+skinparam usecase {
+  BackgroundColor #F7F9FC
+  BorderColor #355C7D
+  ArrowColor #355C7D
+}
+
+skinparam actor {
+  BorderColor #C06C84
+  BackgroundColor #FFF7F1
+}
+
+' 角色
+actor "场景建模师" as Modeler
+actor "行业分析师" as Analyst
+actor "系统管理员" as Admin
+
+' 系统
+rectangle "智能城市生成系统" as System {
+  
+  usecase "登录认证" as UC_Login
+
+  ' 建模工作区 横向排列
+  rectangle "建模工作区" {
+    usecase "项目管理" as UC_Project
+    usecase "场景建模" as UC_Build
+    usecase "布局调整" as UC_Layout
+    usecase "智能修改" as UC_AIEdit
+  }
+
+  ' 分析工作区 横向排列
+  rectangle "分析工作区" {
+    usecase "结果分析" as UC_Analysis
+    usecase "结果导出" as UC_Export
+  }
+
+  ' 治理工作区 横向排列
+  rectangle "治理工作区" {
+    usecase "权限配置" as UC_Permission
+    usecase "日志审计" as UC_Audit
+    usecase "服务监控" as UC_Monitor
+  }
+
+  ' 内部能力 横向排列
+  rectangle "内部能力" {
+    usecase "草图解析" as UC_Sketch
+    usecase "任务确认" as UC_Confirm
+    usecase "插件执行" as UC_Dispatch
+  }
+}
+
+' 角色与用例关系
+Modeler --> UC_Login
+Analyst --> UC_Login
+Admin --> UC_Login
+
+Modeler --> UC_Project
+Modeler --> UC_Build
+Modeler --> UC_Layout
+Modeler --> UC_AIEdit
+Modeler --> UC_Export
+
+Analyst --> UC_Analysis
+Analyst --> UC_Export
+
+Admin --> UC_Permission
+Admin --> UC_Audit
+Admin --> UC_Monitor
+
+' 包含/扩展关系
+UC_AIEdit .> UC_Sketch : <<包含>>
+UC_AIEdit .> UC_Confirm : <<包含>>
+UC_Confirm .> UC_Dispatch : <<包含>>
+UC_Analysis .> UC_Export : <<扩展>>
+
+@enduml

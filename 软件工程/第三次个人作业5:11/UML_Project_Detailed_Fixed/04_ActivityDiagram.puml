@@ -1,0 +1,33 @@
+@startuml ActivityDiagram
+skinparam backgroundColor #FFFFFF
+skinparam shadowing false
+skinparam defaultFontName PingFang SC
+skinparam defaultFontSize 15
+skinparam activity {
+  BackgroundColor #F8FBFF
+  BorderColor #355C7D
+  ArrowColor #355C7D
+}
+
+start
+:接收输入;
+:读取上下文;
+:解析意图;
+if (可直接执行?) then (是)
+  :确认方案;
+  :下发插件;
+  if (执行成功?) then (成功)
+    :保存版本;
+    :执行预览;
+    :展示结果;
+  else (失败)
+    :记录失败;
+    :允许重试;
+  endif
+else (否)
+  :提示歧义;
+  :补充信息;
+  :重新解析;
+endif
+stop
+@enduml

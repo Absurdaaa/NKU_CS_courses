@@ -1,0 +1,158 @@
+@startuml ClassDiagram
+left to right direction
+hide circle
+skinparam backgroundColor #FFFFFF
+skinparam shadowing false
+skinparam defaultFontName PingFang SC
+skinparam defaultFontSize 14
+skinparam linetype ortho
+skinparam ranksep 28
+skinparam nodesep 18
+skinparam class {
+  BackgroundColor #FBFCFE
+  BorderColor #355C7D
+  ArrowColor #355C7D
+}
+
+package "身份与权限" {
+  class "用户" as User {
+    +用户编号: 字符串
+    +姓名: 字符串
+    +状态: Status
+    +login()
+  }
+
+  class "角色" as Role {
+    +角色编号: 字符串
+    +角色名称: 字符串
+  }
+
+  class "权限" as Permission {
+    +权限编号: 字符串
+    +权限编码: 字符串
+  }
+
+  class "会话" as Session {
+    +会话编号: 字符串
+    +失效时间: DateTime
+    +expire()
+  }
+}
+
+package "项目与场景" {
+  class "项目" as Project {
+    +项目编号: 字符串
+    +项目名称: 字符串
+    +createVersion()
+  }
+
+  class "场景版本" as SceneVersion {
+    +版本编号: 字符串
+    +版本状态: Status
+    +bindLayout()
+  }
+
+  class "场景对象" as SceneObject {
+    +对象编号: 字符串
+    +对象类型: 字符串
+    +updateTransform()
+  }
+
+  class "布局模型" as LayoutModel {
+    +布局编号: 字符串
+    +来源类型: SourceType
+    +validateBoundary()
+  }
+
+  class "资产" as Asset {
+    +资产编号: 字符串
+    +名称: 字符串
+    +matchConstraint()
+  }
+}
+
+package "任务与执行" {
+  class "任务输入" as TaskInput {
+    +输入编号: 字符串
+    +来源类型: 字符串
+    +normalize()
+  }
+
+  class "解析结果" as ParseResult {
+    +结果编号: 字符串
+    +置信度: float
+    +toCommands()
+  }
+
+  class "结构化命令" as StructuredCommand {
+    +命令编号: 字符串
+    +目标对象: 字符串
+    +toPluginPayload()
+  }
+
+  class "任务" as Task {
+    +任务编号: 字符串
+    +任务状态: TaskStatus
+    +submit()
+    +confirm()
+  }
+
+  class "插件作业" as PluginJob {
+    +作业编号: 字符串
+    +插件能力: 字符串
+    +dispatch()
+  }
+
+  class "执行结果" as ExecutionResult {
+    +结果编号: 字符串
+    +是否成功: bool
+    +isSuccess()
+  }
+}
+
+package "仿真与治理" {
+  class "仿真方案" as SimulationPlan {
+    +方案编号: 字符串
+    +仿真场景: 字符串
+    +runPreview()
+  }
+
+  class "动态对象" as DynamicObject {
+    +对象编号: 字符串
+    +对象类型: 字符串
+  }
+
+  class "操作日志" as OperationLog {
+    +日志编号: 字符串
+    +日志类型: 字符串
+    +record()
+  }
+}
+
+together {
+  User "1" -- "1..*" Session
+  User "*" -- "*" Role
+  Role "*" -- "*" Permission
+}
+
+together {
+  Project "1" o-- "1..*" SceneVersion
+  SceneVersion "1" o-- "0..*" SceneObject
+  SceneVersion "1" o-- "0..1" LayoutModel
+  SceneObject ..> Asset : ref
+}
+
+together {
+  TaskInput ..> ParseResult
+  ParseResult "1" --> "1..*" StructuredCommand
+  Task "1" --> "0..1" ParseResult
+  Task "1" --> "0..1" PluginJob
+  PluginJob "1" --> "1" ExecutionResult
+}
+
+Project "1" --> "0..*" Task
+SceneVersion "1" --> "0..*" SimulationPlan
+SimulationPlan "1" --> "0..*" DynamicObject
+OperationLog ..> User
+OperationLog ..> Task
+@enduml

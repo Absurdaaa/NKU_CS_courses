@@ -1,0 +1,89 @@
+@startuml ComponentDiagram
+left to right direction
+skinparam backgroundColor #FFFFFF
+skinparam shadowing false
+skinparam defaultFontName PingFang SC
+skinparam defaultFontSize 15
+skinparam componentStyle rectangle
+skinparam ranksep 55
+skinparam nodesep 28
+skinparam component {
+  BackgroundColor #F8FBFF
+  BorderColor #355C7D
+  ArrowColor #355C7D
+}
+skinparam interface {
+  BorderColor #C06C84
+}
+
+package "用户交互层" {
+  [建模工作台] as Workbench
+  [分析工作台] as AnalystUI
+  [管理后台] as AdminUI
+}
+
+package "应用服务层" {
+  [认证与权限服务] as Auth
+  [项目与版本服务] as Project
+  [任务编排服务] as Orchestrator
+  [资源参数服务] as AssetSvc
+  [日志审计服务] as Audit
+  [仿真预览服务] as SimSvc
+}
+
+package "智能解析与执行层" {
+  [多模态解析适配器] as LLMAdapter
+  [约束检查器] as Checker
+  [插件能力适配器] as PluginAdapter
+  [Blender插件执行端] as PluginExec
+}
+
+package "数据与基础设施层" {
+  database "项目数据库" as DB
+  folder "场景文件存储" as FileStore
+  folder "资产资源库" as AssetRepo
+  queue "任务队列" as Queue
+  cloud "LLM服务接口" as LLMAPI
+}
+
+interface "认证接口" as IAuth
+interface "项目接口" as IProject
+interface "任务编排接口" as ITask
+interface "资源查询接口" as IAsset
+interface "插件执行接口" as IPlugin
+interface "解析接口" as ILLM
+
+Workbench - ITask
+AnalystUI - ITask
+AdminUI - IAuth
+AdminUI - IProject
+Auth - IAuth
+Project - IProject
+Orchestrator - ITask
+AssetSvc - IAsset
+PluginAdapter - IPlugin
+LLMAdapter - ILLM
+
+Workbench --> AssetSvc
+Workbench --> Project
+AnalystUI --> Project
+AnalystUI --> SimSvc
+AdminUI --> Audit
+AdminUI --> Auth
+Orchestrator --> Checker
+Orchestrator --> LLMAdapter
+Orchestrator --> PluginAdapter
+Orchestrator --> Queue
+Orchestrator --> Audit
+Orchestrator --> Project
+Project --> DB
+Project --> FileStore
+AssetSvc --> AssetRepo
+Audit --> DB
+SimSvc --> FileStore
+SimSvc --> Project
+LLMAdapter --> LLMAPI
+PluginAdapter --> PluginExec
+PluginExec --> AssetRepo
+PluginExec --> FileStore
+@enduml

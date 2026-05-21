@@ -1,0 +1,60 @@
+@startuml DeploymentDiagram
+left to right direction
+skinparam backgroundColor #FFFFFF
+skinparam shadowing false
+skinparam defaultFontName PingFang SC
+skinparam defaultFontSize 15
+skinparam componentStyle rectangle
+skinparam ranksep 55
+skinparam nodesep 28
+skinparam node {
+  BackgroundColor #F8FBFF
+  BorderColor #355C7D
+  ArrowColor #355C7D
+}
+
+node "用户工作站\nWindows / macOS / Linux" as Client {
+  artifact "主系统前端界面" as Frontend
+  node "Blender运行环境" as BlenderNode {
+    artifact "Blender 桌面端" as Blender
+    artifact "城市生成插件" as Plugin
+  }
+}
+
+node "应用服务节点" as App {
+  artifact "认证与权限服务" as Auth
+  artifact "项目与版本服务" as Project
+  artifact "任务编排服务" as Orchestrator
+  artifact "资源参数服务" as AssetSvc
+  artifact "仿真预览服务" as SimSvc
+  artifact "日志审计服务" as Audit
+}
+
+node "模型服务节点\n本地或云端" as LLMNode {
+  artifact "LLM解析接口" as LLM
+}
+
+node "数据与资源节点" as DataNode {
+  database "项目数据库" as DB
+  folder "场景文件存储" as SceneStore
+  folder "资产资源库" as AssetRepo
+  folder "日志与备份目录" as Backup
+}
+
+Frontend --> Auth : 登录/鉴权
+Frontend --> Project : 项目/版本操作
+Frontend --> Orchestrator : 多模态任务提交
+Frontend --> SimSvc : 结果预览/导出
+Orchestrator --> LLM : 解析请求
+Orchestrator --> Project : 上下文读取/版本回写
+Orchestrator --> Audit : 状态与错误留痕
+Orchestrator --> Plugin : 插件任务分发
+Project --> DB
+Project --> SceneStore
+AssetSvc --> AssetRepo
+Audit --> DB
+Audit --> Backup
+SimSvc --> SceneStore
+Plugin --> AssetRepo : 读取模型与材质
+Plugin --> SceneStore : 写入新场景
+@enduml

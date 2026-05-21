@@ -1,0 +1,41 @@
+@startuml CollaborationDiagram
+left to right direction
+skinparam backgroundColor #FFFFFF
+skinparam shadowing false
+skinparam defaultFontName PingFang SC
+skinparam defaultFontSize 15
+skinparam defaultTextAlignment center
+skinparam ranksep 55
+skinparam nodesep 24
+skinparam object {
+  BackgroundColor #F8FBFF
+  BorderColor #355C7D
+}
+
+object "建模工作台" as Workbench
+object "任务编排器" as Orchestrator
+object "资源上下文服务" as Context
+object "LLM解析服务" as LLM
+object "约束检查器" as Checker
+object "插件适配器" as Adapter
+object "Blender插件" as Plugin
+object "版本管理器" as Versioner
+object "仿真预览服务" as Sim
+
+Workbench --> Orchestrator : 1 submitInput()
+Orchestrator --> Context : 1.1 loadContext()
+Context --> Orchestrator : 1.2 snapshot
+Orchestrator --> LLM : 1.3 parseIntent()
+LLM --> Orchestrator : 1.4 taskPlan
+Orchestrator --> Checker : 1.5 validate()
+Checker --> Orchestrator : 1.6 warnings
+Orchestrator --> Workbench : 1.7 explainTask()
+Workbench --> Orchestrator : 2 confirm()
+Orchestrator --> Adapter : 2.1 dispatchJob()
+Adapter --> Plugin : 2.2 execute()
+Plugin --> Adapter : 2.3 progress/result
+Adapter --> Versioner : 2.4 createVersion()
+Versioner --> Sim : 2.5 requestPreview()
+Sim --> Workbench : 2.6 previewMetrics
+Versioner --> Workbench : 2.7 refreshPanel()
+@enduml

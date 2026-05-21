@@ -1,0 +1,29 @@
+@startuml UseCaseDiagram
+left to right direction
+actor "场景建模师" as Modeler
+actor "行业分析师" as Analyst
+actor "系统管理员" as Admin
+
+rectangle "智能城市生成系统" {
+    Modeler --> (登录认证)
+    Modeler --> (项目管理)
+    Modeler --> (场景生成)
+    Modeler --> (资产替换)
+    Modeler --> (布局编辑)
+    Modeler --> (草图解析)
+    Modeler --> (自然语言建模)
+    Modeler --> (运行仿真)
+
+    Analyst --> (查看结果)
+    Analyst --> (方案比较)
+    Analyst --> (导出结果)
+
+    Admin --> (用户管理)
+    Admin --> (权限配置)
+    Admin --> (资源管理)
+    Admin --> (日志审计)
+}
+
+(Natural Language Modeling) ..> (场景生成) : <<extend>>
+(草图解析) ..> (布局编辑) : <<include>>
+@enduml
