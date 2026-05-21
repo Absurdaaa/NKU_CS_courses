@@ -1,0 +1,26 @@
+\begin{thebibliography}{1}
+
+\bibitem{FiatShamir1986}
+Amos Fiat and Adi Shamir.
+\newblock How to prove yourself: Practical solutions to identification and
+  signature problems.
+\newblock In {\em Advances in Cryptology --- CRYPTO '86}, pages 186--194.
+  Springer, 1987.
+
+\bibitem{GMR1989}
+Shafi Goldwasser, Silvio Micali, and Charles Rackoff.
+\newblock The knowledge complexity of interactive proof systems.
+\newblock {\em SIAM Journal on Computing}, 18(1):186--208, 1989.
+
+\bibitem{Schnorr1991}
+Claus-Peter Schnorr.
+\newblock Efficient signature generation by smart cards.
+\newblock In {\em Advances in Cryptology --- CRYPTO '89 Proceedings}, pages
+  239--252. Springer, 1991.
+
+\bibitem{Libsnark}
+{SCIPR Lab}.
+\newblock libsnark: a c++ library for zksnark proofs.
+\newblock \url{https://github.com/scipr-lab/libsnark}, 2024.
+
+\end{thebibliography}

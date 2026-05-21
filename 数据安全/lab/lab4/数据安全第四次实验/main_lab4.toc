@@ -1,0 +1,17 @@
+\babel@toc {UKenglish}{}\relax 
+\contentsline {section}{\numberline {1}实验要求}{2}{section.1}%
+\contentsline {section}{\numberline {2}实验原理}{2}{section.2}%
+\contentsline {subsection}{\numberline {2.1}FH-OPE 的基本思想}{2}{subsection.2.1}%
+\contentsline {subsection}{\numberline {2.2}系统结构}{2}{subsection.2.2}%
+\contentsline {subsection}{\numberline {2.3}编码树与动态维护机制}{3}{subsection.2.3}%
+\contentsline {subsection}{\numberline {2.4}数据库联动机制}{3}{subsection.2.4}%
+\contentsline {subsection}{\numberline {2.5}实验中的实现与调整}{4}{subsection.2.5}%
+\contentsline {section}{\numberline {3}实验过程}{5}{section.3}%
+\contentsline {subsection}{\numberline {3.1}实验环境}{5}{subsection.3.1}%
+\contentsline {subsection}{\numberline {3.2}基本功能验证}{7}{subsection.3.2}%
+\contentsline {subsection}{\numberline {3.3}重复插入测试}{8}{subsection.3.3}%
+\contentsline {section}{\numberline {4}实验结果与分析}{9}{section.4}%
+\contentsline {subsection}{\numberline {4.1}基本功能验证}{9}{subsection.4.1}%
+\contentsline {subsection}{\numberline {4.2}重复插入测试现象分析}{9}{subsection.4.2}%
+\contentsline {subsection}{\numberline {4.3}安全性与开销讨论}{11}{subsection.4.3}%
+\contentsline {section}{\numberline {5}总结}{12}{section.5}%

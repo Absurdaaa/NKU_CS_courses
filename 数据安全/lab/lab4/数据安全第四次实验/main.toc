@@ -1,0 +1,17 @@
+\babel@toc {UKenglish}{}\relax 
+\contentsline {section}{\numberline {1}实验要求}{2}{section.1}%
+\contentsline {section}{\numberline {2}实验原理}{2}{section.2}%
+\contentsline {subsection}{\numberline {2.1}Shamir 秘密共享算法}{2}{subsection.2.1}%
+\contentsline {paragraph}{分割阶段:}{2}{section*.2}%
+\contentsline {paragraph}{重构阶段:}{2}{section*.3}%
+\contentsline {subsection}{\numberline {2.2}秘密共享的加法同态性}{2}{subsection.2.2}%
+\contentsline {subsection}{\numberline {2.3}隐私均值计算协议}{2}{subsection.2.3}%
+\contentsline {section}{\numberline {3}实验过程}{4}{section.3}%
+\contentsline {subsection}{\numberline {3.1}核心算法实现}{4}{subsection.3.1}%
+\contentsline {subsection}{\numberline {3.2}实验 3.2 复现：隐私投票模拟流程详解}{6}{subsection.3.2}%
+\contentsline {subsection}{\numberline {3.3}隐私计算模拟逻辑详解}{7}{subsection.3.3}%
+\contentsline {section}{\numberline {4}实验结果与分析}{9}{section.4}%
+\contentsline {subsection}{\numberline {4.1}隐私均值计算结果}{9}{subsection.4.1}%
+\contentsline {subsection}{\numberline {4.2}实验 3.2 隐私投票结果}{9}{subsection.4.2}%
+\contentsline {subsection}{\numberline {4.3}安全性分析}{10}{subsection.4.3}%
+\contentsline {section}{\numberline {5}总结与感想}{10}{section.5}%

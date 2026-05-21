@@ -1,0 +1,510 @@
+/home/cz/桌面/lab4/client.py:142: DeprecationWarning: 'passwd' is deprecated, use 'password'
+  dbg = ConnectDB()
+/home/cz/桌面/lab4/client.py:82: DeprecationWarning: 'passwd' is deprecated, use 'password'
+  conn = ConnectDB()
+[client] FHSetDebug(1) enabled, see MySQL error log for rebalance/recode events
+i=1 value=apple pos=0 enc=256 final=256 range=None updated=0
+i=2 value=apple pos=0 enc=128 final=128 range=None updated=0
+i=3 value=apple pos=2 enc=384 final=384 range=None updated=0
+i=4 value=apple pos=0 enc=64 final=64 range=None updated=0
+i=5 value=apple pos=2 enc=192 final=192 range=None updated=0
+i=6 value=apple pos=0 enc=32 final=32 range=None updated=0
+i=7 value=apple pos=3 enc=160 final=160 range=None updated=0
+i=8 value=apple pos=7 enc=448 final=448 range=None updated=0
+i=9 value=apple pos=7 enc=416 final=416 range=None updated=0
+i=10 value=apple pos=6 enc=320 final=320 range=None updated=0
+i=11 value=apple pos=3 enc=144 final=144 range=None updated=0
+i=12 value=apple pos=1 enc=48 final=48 range=None updated=0
+i=13 value=apple pos=7 enc=224 final=224 range=None updated=0
+i=14 value=apple pos=0 enc=16 final=16 range=None updated=0
+i=15 value=apple pos=14 enc=480 final=480 range=None updated=0
+i=16 value=apple pos=12 enc=400 final=400 range=None updated=0
+i=17 value=apple pos=13 enc=408 final=408 range=None updated=0
+i=18 value=apple pos=0 enc=8 final=8 range=None updated=0
+i=19 value=apple pos=14 enc=404 final=404 range=None updated=0
+i=20 value=apple pos=8 enc=176 final=176 range=None updated=0
+i=21 value=apple pos=7 enc=152 final=152 range=None updated=0
+i=22 value=apple pos=18 enc=412 final=412 range=None updated=0
+i=23 value=apple pos=3 enc=40 final=40 range=None updated=0
+i=24 value=apple pos=10 enc=168 final=168 range=None updated=0
+i=25 value=apple pos=0 enc=4 final=4 range=None updated=0
+i=26 value=apple pos=0 enc=2 final=2 range=None updated=0
+i=27 value=apple pos=0 enc=1 final=1 range=None updated=0
+i=28 value=apple pos=20 enc=392 final=392 range=None updated=0
+i=29 value=apple pos=17 enc=240 final=240 range=None updated=0
+i=30 value=apple pos=0 enc=0 final=0 range=(0, 512) updated=29
+i=31 value=apple pos=30 enc=503 final=503 range=None updated=0
+i=32 value=apple pos=24 enc=400 final=400 range=None updated=0
+i=33 value=apple pos=13 enc=213 final=213 range=None updated=0
+i=34 value=apple pos=27 enc=417 final=417 range=None updated=0
+i=35 value=apple pos=1 enc=9 final=9 range=None updated=0
+i=36 value=apple pos=33 enc=485 final=485 range=None updated=0
+i=37 value=apple pos=14 enc=209 final=209 range=None updated=0
+i=38 value=apple pos=28 enc=404 final=404 range=None updated=0
+i=39 value=apple pos=31 enc=421 final=421 range=None updated=0
+i=40 value=apple pos=35 enc=468 final=468 range=None updated=0
+i=41 value=apple pos=14 enc=207 final=207 range=None updated=0
+i=42 value=apple pos=22 enc=298 final=298 range=None updated=0
+i=43 value=apple pos=14 enc=206 final=206 range=None updated=0
+i=44 value=apple pos=43 enc=508 final=508 range=None updated=0
+i=45 value=apple pos=14 enc=205 final=205 range=None updated=0
+i=46 value=apple pos=29 enc=366 final=366 range=None updated=0
+i=47 value=apple pos=18 enc=211 final=211 range=None updated=0
+i=48 value=apple pos=1 enc=5 final=5 range=None updated=0
+i=49 value=apple pos=26 enc=294 final=294 range=None updated=0
+i=50 value=apple pos=35 enc=396 final=396 range=None updated=0
+i=51 value=apple pos=41 enc=423 final=423 range=None updated=0
+i=52 value=apple pos=6 enc=60 final=60 range=None updated=0
+i=53 value=apple pos=11 enc=128 final=128 range=None updated=0
+i=54 value=apple pos=40 enc=406 final=406 range=None updated=0
+i=55 value=apple pos=46 enc=434 final=434 range=None updated=0
+i=56 value=apple pos=55 enc=510 final=510 range=None updated=0
+i=57 value=apple pos=18 enc=0 final=144 range=(0, 512) updated=56
+i=58 value=apple pos=7 enc=52 final=52 range=None updated=0
+i=59 value=apple pos=47 enc=364 final=364 range=None updated=0
+i=60 value=apple pos=21 enc=156 final=156 range=None updated=0
+i=61 value=apple pos=57 enc=428 final=428 range=None updated=0
+i=62 value=apple pos=46 enc=348 final=348 range=None updated=0
+i=63 value=apple pos=62 enc=480 final=480 range=None updated=0
+i=64 value=apple pos=54 enc=396 final=396 range=None updated=0
+i=65 value=apple pos=64 enc=496 final=496 range=None updated=0
+i=66 value=apple pos=24 enc=172 final=172 range=None updated=0
+i=67 value=apple pos=38 enc=276 final=276 range=None updated=0
+i=68 value=apple pos=36 enc=260 final=260 range=None updated=0
+i=69 value=apple pos=63 enc=430 final=430 range=None updated=0
+i=70 value=apple pos=64 enc=431 final=431 range=None updated=0
+i=71 value=apple pos=50 enc=350 final=350 range=None updated=0
+i=72 value=apple pos=4 enc=28 final=28 range=None updated=0
+i=73 value=apple pos=61 enc=404 final=404 range=None updated=0
+i=74 value=apple pos=31 enc=212 final=212 range=None updated=0
+i=75 value=apple pos=51 enc=346 final=346 range=None updated=0
+i=76 value=apple pos=53 enc=349 final=349 range=None updated=0
+i=77 value=apple pos=22 enc=154 final=154 range=None updated=0
+i=78 value=apple pos=46 enc=300 final=300 range=None updated=0
+i=79 value=apple pos=70 enc=426 final=426 range=None updated=0
+i=80 value=apple pos=47 enc=302 final=302 range=None updated=0
+i=81 value=apple pos=11 enc=68 final=68 range=None updated=0
+i=82 value=apple pos=56 enc=347 final=347 range=None updated=0
+i=83 value=apple pos=65 enc=380 final=380 range=None updated=0
+i=84 value=apple pos=13 enc=76 final=76 range=None updated=0
+i=85 value=apple pos=20 enc=124 final=124 range=None updated=0
+i=86 value=apple pos=66 enc=372 final=372 range=None updated=0
+i=87 value=apple pos=50 enc=301 final=301 range=None updated=0
+i=88 value=apple pos=47 enc=284 final=284 range=None updated=0
+i=89 value=apple pos=62 enc=0 final=310 range=(0, 512) updated=88
+i=90 value=apple pos=3 enc=13 final=13 range=None updated=0
+i=91 value=apple pos=60 enc=293 final=293 range=None updated=0
+i=92 value=apple pos=5 enc=18 final=18 range=None updated=0
+i=93 value=apple pos=39 enc=183 final=183 range=None updated=0
+i=94 value=apple pos=90 enc=428 final=428 range=None updated=0
+i=95 value=apple pos=78 enc=368 final=368 range=None updated=0
+i=96 value=apple pos=75 enc=353 final=353 range=None updated=0
+i=97 value=apple pos=74 enc=348 final=348 range=None updated=0
+i=98 value=apple pos=50 enc=233 final=233 range=None updated=0
+i=99 value=apple pos=82 enc=369 final=369 range=None updated=0
+i=100 value=apple pos=21 enc=93 final=93 range=None updated=0
+i=101 value=apple pos=21 enc=92 final=92 range=None updated=0
+i=102 value=apple pos=64 enc=288 final=288 range=None updated=0
+i=103 value=apple pos=29 enc=123 final=123 range=None updated=0
+i=104 value=apple pos=1 enc=3 final=3 range=None updated=0
+i=105 value=apple pos=98 enc=418 final=418 range=None updated=0
+i=106 value=apple pos=25 enc=98 final=98 range=None updated=0
+i=107 value=apple pos=69 enc=292 final=292 range=None updated=0
+i=108 value=apple pos=70 enc=0 final=280 range=(0, 512) updated=104
+i=109 value=apple pos=29 enc=114 final=114 range=None updated=0
+i=110 value=apple pos=51 enc=198 final=198 range=None updated=0
+i=111 value=apple pos=65 enc=250 final=250 range=None updated=0
+i=112 value=apple pos=44 enc=170 final=170 range=None updated=0
+i=113 value=apple pos=108 enc=414 final=414 range=None updated=0
+i=114 value=apple pos=73 enc=274 final=274 range=None updated=0
+i=115 value=apple pos=45 enc=171 final=171 range=None updated=0
+i=116 value=apple pos=58 enc=214 final=214 range=None updated=0
+i=117 value=apple pos=116 enc=470 final=470 range=None updated=0
+i=118 value=apple pos=34 enc=130 final=130 range=None updated=0
+i=119 value=apple pos=84 enc=302 final=302 range=None updated=0
+i=120 value=apple pos=70 enc=251 final=251 range=None updated=0
+i=121 value=apple pos=77 enc=273 final=273 range=None updated=0
+i=122 value=apple pos=93 enc=326 final=326 range=None updated=0
+i=123 value=apple pos=0 enc=0 final=0 range=(0, 512) updated=122
+i=124 value=apple pos=49 enc=194 final=194 range=None updated=0
+i=125 value=apple pos=100 enc=394 final=394 range=None updated=0
+i=126 value=apple pos=109 enc=426 final=426 range=None updated=0
+i=127 value=apple pos=105 enc=410 final=410 range=None updated=0
+i=128 value=apple pos=33 enc=130 final=130 range=None updated=0
+i=129 value=apple pos=52 enc=198 final=198 range=None updated=0
+i=130 value=apple pos=109 enc=414 final=414 range=None updated=0
+i=131 value=apple pos=14 enc=54 final=54 range=None updated=0
+i=132 value=apple pos=123 enc=458 final=458 range=None updated=0
+i=133 value=apple pos=93 enc=354 final=354 range=None updated=0
+i=134 value=apple pos=51 enc=193 final=193 range=None updated=0
+i=135 value=apple pos=129 enc=470 final=470 range=None updated=0
+i=136 value=apple pos=105 enc=393 final=393 range=None updated=0
+i=137 value=apple pos=124 enc=450 final=450 range=None updated=0
+i=138 value=apple pos=91 enc=342 final=342 range=None updated=0
+i=139 value=apple pos=106 enc=0 final=365 range=(248, 512) updated=71
+i=140 value=apple pos=88 enc=310 final=310 range=None updated=0
+i=141 value=apple pos=0 enc=0 final=0 range=(0, 248) updated=66
+i=142 value=apple pos=137 enc=451 final=451 range=None updated=0
+i=143 value=apple pos=138 enc=0 final=458 range=(248, 512) updated=54
+i=144 value=apple pos=84 enc=295 final=295 range=None updated=0
+i=145 value=apple pos=117 enc=391 final=391 range=None updated=0
+i=146 value=apple pos=7 enc=20 final=20 range=None updated=0
+i=147 value=apple pos=58 enc=170 final=170 range=None updated=0
+i=148 value=apple pos=45 enc=131 final=131 range=None updated=0
+i=149 value=apple pos=140 enc=448 final=448 range=None updated=0
+i=150 value=apple pos=149 enc=491 final=491 range=None updated=0
+i=151 value=apple pos=46 enc=0 final=138 range=(0, 248) updated=65
+i=152 value=apple pos=23 enc=68 final=68 range=None updated=0
+i=153 value=apple pos=141 enc=445 final=445 range=None updated=0
+i=154 value=apple pos=65 enc=191 final=191 range=None updated=0
+i=155 value=apple pos=8 enc=23 final=23 range=None updated=0
+i=156 value=apple pos=18 enc=50 final=50 range=None updated=0
+i=157 value=apple pos=21 enc=56 final=56 range=None updated=0
+i=158 value=apple pos=4 enc=11 final=11 range=None updated=0
+i=159 value=apple pos=115 enc=355 final=355 range=None updated=0
+i=160 value=apple pos=3 enc=8 final=8 range=None updated=0
+i=161 value=apple pos=71 enc=0 final=213 range=(0, 248) updated=77
+i=162 value=apple pos=63 enc=188 final=188 range=None updated=0
+i=163 value=apple pos=68 enc=200 final=200 range=None updated=0
+i=164 value=apple pos=28 enc=83 final=83 range=None updated=0
+i=165 value=apple pos=159 enc=460 final=460 range=None updated=0
+i=166 value=apple pos=47 enc=137 final=137 range=None updated=0
+i=167 value=apple pos=88 enc=259 final=259 range=None updated=0
+i=168 value=apple pos=74 enc=209 final=209 range=None updated=0
+i=169 value=apple pos=17 enc=50 final=50 range=None updated=0
+i=170 value=apple pos=42 enc=119 final=119 range=None updated=0
+i=171 value=apple pos=40 enc=113 final=113 range=None updated=0
+i=172 value=apple pos=65 enc=179 final=179 range=None updated=0
+i=173 value=apple pos=135 enc=376 final=376 range=None updated=0
+i=174 value=apple pos=43 enc=118 final=118 range=None updated=0
+i=175 value=apple pos=168 enc=459 final=459 range=None updated=0
+i=176 value=apple pos=69 enc=185 final=185 range=None updated=0
+i=177 value=apple pos=165 enc=0 final=470 range=(248, 512) updated=82
+i=178 value=apple pos=75 enc=197 final=197 range=None updated=0
+i=179 value=apple pos=116 enc=319 final=319 range=None updated=0
+i=180 value=apple pos=179 enc=508 final=508 range=None updated=0
+i=181 value=apple pos=82 enc=0 final=164 range=(0, 248) updated=92
+i=182 value=apple pos=127 enc=346 final=346 range=None updated=0
+i=183 value=apple pos=121 enc=328 final=328 range=None updated=0
+i=184 value=apple pos=29 enc=57 final=57 range=None updated=0
+i=185 value=apple pos=6 enc=11 final=11 range=None updated=0
+i=186 value=apple pos=79 enc=153 final=153 range=None updated=0
+i=187 value=apple pos=98 enc=253 final=253 range=None updated=0
+i=188 value=apple pos=87 enc=167 final=167 range=None updated=0
+i=189 value=apple pos=107 enc=274 final=274 range=None updated=0
+i=190 value=apple pos=48 enc=91 final=91 range=None updated=0
+i=191 value=apple pos=66 enc=125 final=125 range=None updated=0
+i=192 value=apple pos=27 enc=51 final=51 range=None updated=0
+i=193 value=apple pos=64 enc=119 final=119 range=None updated=0
+i=194 value=apple pos=186 enc=487 final=487 range=None updated=0
+i=195 value=apple pos=130 enc=325 final=325 range=None updated=0
+i=196 value=apple pos=53 enc=97 final=97 range=None updated=0
+i=197 value=apple pos=155 enc=388 final=388 range=None updated=0
+i=198 value=apple pos=110 enc=268 final=268 range=None updated=0
+i=199 value=apple pos=5 enc=9 final=9 range=None updated=0
+i=200 value=apple pos=57 enc=101 final=101 range=None updated=0
+i=201 value=apple pos=4 enc=7 final=7 range=None updated=0
+i=202 value=apple pos=101 enc=177 final=177 range=None updated=0
+i=203 value=apple pos=37 enc=63 final=63 range=None updated=0
+i=204 value=apple pos=9 enc=0 final=18 range=(0, 248) updated=104
+i=205 value=apple pos=184 enc=451 final=451 range=None updated=0
+i=206 value=apple pos=41 enc=81 final=81 range=None updated=0
+i=207 value=apple pos=114 enc=259 final=259 range=None updated=0
+i=208 value=apple pos=180 enc=433 final=433 range=None updated=0
+i=209 value=apple pos=129 enc=295 final=295 range=None updated=0
+i=210 value=apple pos=173 enc=409 final=409 range=None updated=0
+i=211 value=apple pos=109 enc=231 final=231 range=None updated=0
+i=212 value=apple pos=139 enc=318 final=318 range=None updated=0
+i=213 value=apple pos=56 enc=109 final=109 range=None updated=0
+i=214 value=apple pos=161 enc=367 final=367 range=None updated=0
+i=215 value=apple pos=204 enc=481 final=481 range=None updated=0
+i=216 value=apple pos=177 enc=408 final=408 range=None updated=0
+i=217 value=apple pos=132 enc=0 final=290 range=(248, 512) updated=103
+i=218 value=apple pos=115 enc=255 final=255 range=None updated=0
+i=219 value=apple pos=57 enc=0 final=114 range=(0, 248) updated=71
+i=220 value=apple pos=134 enc=289 final=289 range=None updated=0
+i=221 value=apple pos=166 enc=351 final=351 range=None updated=0
+i=222 value=apple pos=7 enc=13 final=13 range=None updated=0
+i=223 value=apple pos=101 enc=199 final=199 range=None updated=0
+i=224 value=apple pos=172 enc=357 final=357 range=None updated=0
+i=225 value=apple pos=147 enc=309 final=309 range=None updated=0
+i=226 value=apple pos=205 enc=419 final=419 range=None updated=0
+i=227 value=apple pos=82 enc=161 final=161 range=None updated=0
+i=228 value=apple pos=168 enc=347 final=347 range=None updated=0
+i=229 value=apple pos=161 enc=333 final=333 range=None updated=0
+i=230 value=apple pos=109 enc=211 final=211 range=None updated=0
+i=231 value=apple pos=15 enc=27 final=27 range=None updated=0
+i=232 value=apple pos=188 enc=375 final=375 range=None updated=0
+i=233 value=apple pos=76 enc=147 final=147 range=None updated=0
+i=234 value=apple pos=32 enc=59 final=59 range=None updated=0
+i=235 value=apple pos=54 enc=101 final=101 range=None updated=0
+i=236 value=apple pos=224 enc=437 final=437 range=None updated=0
+i=237 value=apple pos=12 enc=21 final=21 range=None updated=0
+i=238 value=apple pos=78 enc=145 final=145 range=None updated=0
+i=239 value=apple pos=18 enc=29 final=29 range=None updated=0
+i=240 value=apple pos=219 enc=421 final=421 range=None updated=0
+i=241 value=apple pos=19 enc=0 final=38 range=(0, 248) updated=117
+i=242 value=apple pos=79 enc=157 final=157 range=None updated=0
+i=243 value=apple pos=234 enc=443 final=443 range=None updated=0
+i=244 value=apple pos=240 enc=453 final=453 range=None updated=0
+i=245 value=apple pos=76 enc=151 final=151 range=None updated=0
+i=246 value=apple pos=190 enc=361 final=361 range=None updated=0
+i=247 value=apple pos=40 enc=79 final=79 range=None updated=0
+i=248 value=apple pos=106 enc=205 final=205 range=None updated=0
+i=249 value=apple pos=144 enc=277 final=277 range=None updated=0
+i=250 value=apple pos=64 enc=125 final=125 range=None updated=0
+i=251 value=apple pos=33 enc=65 final=65 range=None updated=0
+i=252 value=apple pos=2 enc=3 final=3 range=None updated=0
+i=253 value=apple pos=143 enc=269 final=269 range=None updated=0
+i=254 value=apple pos=224 enc=411 final=411 range=None updated=0
+i=255 value=apple pos=217 enc=397 final=397 range=None updated=0
+i=256 value=apple pos=19 enc=35 final=35 range=None updated=0
+i=257 value=apple pos=111 enc=0 final=169 range=(126, 248) updated=64
+i=258 value=apple pos=235 enc=0 final=452 range=(248, 512) updated=121
+i=259 value=apple pos=87 enc=0 final=145 range=(126, 248) updated=47
+i=260 value=apple pos=19 enc=0 final=19 range=(0, 126) updated=68
+i=261 value=apple pos=193 enc=363 final=363 range=None updated=0
+i=262 value=apple pos=102 enc=0 final=159 range=(126, 248) updated=34
+i=263 value=apple pos=177 enc=329 final=329 range=None updated=0
+i=264 value=apple pos=50 enc=0 final=50 range=(0, 126) updated=20
+i=265 value=apple pos=105 enc=0 final=161 range=(126, 248) updated=33
+i=266 value=apple pos=221 enc=409 final=409 range=None updated=0
+i=267 value=apple pos=99 enc=0 final=155 range=(126, 248) updated=40
+i=268 value=apple pos=252 enc=467 final=467 range=None updated=0
+i=269 value=apple pos=53 enc=0 final=53 range=(0, 126) updated=18
+i=270 value=apple pos=199 enc=0 final=307 range=(248, 372) updated=64
+i=271 value=apple pos=151 enc=0 final=259 range=(248, 372) updated=55
+i=272 value=apple pos=258 enc=471 final=471 range=None updated=0
+i=273 value=apple pos=255 enc=0 final=470 range=(372, 512) updated=48
+i=274 value=apple pos=8 enc=0 final=8 range=(0, 126) updated=64
+i=275 value=apple pos=166 enc=0 final=273 range=(248, 372) updated=42
+i=276 value=apple pos=205 enc=0 final=312 range=(248, 372) updated=4
+i=277 value=apple pos=144 enc=0 final=251 range=(248, 372) updated=66
+i=278 value=apple pos=9 enc=0 final=9 range=(0, 126) updated=64
+i=279 value=apple pos=80 enc=0 final=133 range=(126, 248) updated=63
+i=280 value=apple pos=102 enc=0 final=155 range=(126, 248) updated=42
+i=281 value=apple pos=167 enc=0 final=271 range=(248, 372) updated=47
+i=282 value=apple pos=69 enc=0 final=69 range=(0, 126) updated=5
+i=283 value=apple pos=173 enc=0 final=276 range=(248, 372) updated=43
+i=284 value=apple pos=219 enc=377 final=377 range=None updated=0
+i=285 value=apple pos=109 enc=0 final=161 range=(126, 248) updated=37
+i=286 value=apple pos=136 enc=0 final=188 range=(126, 248) updated=11
+i=287 value=apple pos=49 enc=0 final=49 range=(0, 126) updated=26
+i=288 value=apple pos=194 enc=0 final=294 range=(248, 372) updated=26
+i=289 value=apple pos=280 enc=489 final=489 range=None updated=0
+i=290 value=apple pos=176 enc=0 final=276 range=(248, 372) updated=45
+i=291 value=apple pos=273 enc=473 final=473 range=None updated=0
+i=292 value=apple pos=248 enc=423 final=423 range=None updated=0
+i=293 value=apple pos=272 enc=469 final=469 range=None updated=0
+i=294 value=apple pos=120 enc=0 final=171 range=(126, 248) updated=29
+i=295 value=apple pos=33 enc=0 final=33 range=(0, 126) updated=43
+i=296 value=apple pos=20 enc=0 final=20 range=(0, 126) updated=57
+i=297 value=apple pos=43 enc=0 final=43 range=(0, 126) updated=35
+i=298 value=apple pos=68 enc=0 final=68 range=(0, 126) updated=11
+i=299 value=apple pos=86 enc=0 final=133 range=(126, 248) updated=68
+i=300 value=apple pos=85 enc=0 final=132 range=(126, 248) updated=70
+i=301 value=apple pos=275 enc=461 final=461 range=None updated=0
+i=302 value=apple pos=109 enc=0 final=156 range=(126, 248) updated=47
+i=303 value=apple pos=137 enc=0 final=184 range=(126, 248) updated=20
+i=304 value=apple pos=170 enc=0 final=261 range=(248, 372) updated=61
+i=305 value=apple pos=259 enc=0 final=400 range=(372, 512) updated=73
+i=306 value=apple pos=130 enc=0 final=177 range=(126, 248) updated=28
+i=307 value=apple pos=188 enc=0 final=278 range=(248, 372) updated=45
+i=308 value=apple pos=173 enc=0 final=263 range=(248, 372) updated=61
+i=309 value=apple pos=174 enc=0 final=264 range=(248, 372) updated=61
+i=310 value=apple pos=58 enc=0 final=58 range=(0, 126) updated=22
+i=311 value=apple pos=149 enc=0 final=195 range=(126, 248) updated=11
+i=312 value=apple pos=120 enc=0 final=166 range=(126, 248) updated=41
+i=313 value=apple pos=309 enc=0 final=443 range=(372, 512) updated=4
+i=314 value=apple pos=250 enc=0 final=384 range=(372, 512) updated=64
+i=315 value=apple pos=69 enc=0 final=69 range=(0, 126) updated=12
+i=316 value=apple pos=296 enc=0 final=429 range=(372, 512) updated=20
+i=317 value=apple pos=282 enc=0 final=415 range=(372, 512) updated=35
+i=318 value=apple pos=53 enc=0 final=53 range=(0, 126) updated=29
+i=319 value=apple pos=164 enc=0 final=249 range=(248, 372) updated=77
+i=320 value=apple pos=20 enc=0 final=20 range=(0, 126) updated=63
+i=321 value=apple pos=208 enc=0 final=292 range=(248, 372) updated=35
+i=322 value=apple pos=37 enc=0 final=37 range=(0, 126) updated=47
+i=323 value=apple pos=194 enc=0 final=277 range=(248, 372) updated=51
+i=324 value=apple pos=75 enc=0 final=75 range=(0, 126) updated=10
+i=325 value=apple pos=64 enc=0 final=64 range=(0, 126) updated=22
+i=326 value=apple pos=174 enc=0 final=255 range=(248, 372) updated=74
+i=327 value=apple pos=58 enc=0 final=58 range=(0, 126) updated=29
+i=328 value=apple pos=314 enc=0 final=437 range=(372, 512) updated=14
+i=329 value=apple pos=300 enc=0 final=423 range=(372, 512) updated=29
+i=330 value=apple pos=193 enc=0 final=273 range=(248, 372) updated=57
+i=331 value=apple pos=39 enc=0 final=39 range=(0, 126) updated=49
+i=332 value=apple pos=292 enc=0 final=413 range=(372, 512) updated=40
+i=333 value=apple pos=281 enc=0 final=402 range=(372, 512) updated=52
+i=334 value=apple pos=114 enc=0 final=152 range=(126, 248) updated=56
+i=335 value=apple pos=289 enc=0 final=409 range=(372, 512) updated=46
+i=336 value=apple pos=41 enc=0 final=41 range=(0, 126) updated=48
+i=337 value=apple pos=136 enc=0 final=173 range=(126, 248) updated=36
+i=338 value=apple pos=186 enc=0 final=262 range=(248, 372) updated=69
+i=339 value=apple pos=151 enc=0 final=188 range=(126, 248) updated=22
+i=340 value=apple pos=288 enc=0 final=404 range=(372, 512) updated=52
+i=341 value=apple pos=273 enc=0 final=389 range=(372, 512) updated=68
+i=342 value=apple pos=58 enc=0 final=58 range=(0, 126) updated=32
+i=343 value=apple pos=234 enc=0 final=308 range=(248, 372) updated=24
+i=344 value=apple pos=141 enc=0 final=177 range=(126, 248) updated=34
+i=345 value=apple pos=55 enc=0 final=55 range=(0, 126) updated=36
+i=346 value=apple pos=23 enc=0 final=23 range=(0, 126) updated=69
+i=347 value=apple pos=151 enc=0 final=185 range=(126, 248) updated=27
+i=348 value=apple pos=6 enc=0 final=6 range=(0, 126) updated=87
+i=349 value=apple pos=314 enc=0 final=423 range=(372, 512) updated=35
+i=350 value=apple pos=343 enc=0 final=452 range=(372, 512) updated=7
+i=351 value=apple pos=7 enc=0 final=7 range=(0, 126) updated=87
+i=352 value=apple pos=46 enc=0 final=46 range=(0, 126) updated=49
+i=353 value=apple pos=211 enc=0 final=278 range=(248, 372) updated=55
+i=354 value=apple pos=58 enc=0 final=58 range=(0, 126) updated=38
+i=355 value=apple pos=20 enc=0 final=20 range=(0, 126) updated=77
+i=356 value=apple pos=96 enc=0 final=96 range=(0, 126) updated=2
+i=357 value=apple pos=122 enc=0 final=150 range=(126, 248) updated=63
+i=358 value=apple pos=300 enc=0 final=402 range=(372, 512) updated=58
+i=359 value=apple pos=215 enc=0 final=278 range=(248, 372) updated=56
+i=360 value=apple pos=82 enc=0 final=82 range=(0, 126) updated=17
+i=361 value=apple pos=59 enc=0 final=59 range=(0, 126) updated=41
+i=362 value=apple pos=230 enc=0 final=291 range=(248, 372) updated=44
+i=363 value=apple pos=85 enc=0 final=85 range=(0, 126) updated=16
+i=364 value=apple pos=348 enc=0 final=445 range=(372, 512) updated=16
+i=365 value=apple pos=123 enc=0 final=148 range=(126, 248) updated=66
+i=366 value=apple pos=81 enc=0 final=81 range=(0, 126) updated=21
+i=367 value=apple pos=52 enc=0 final=52 range=(0, 126) updated=51
+i=368 value=apple pos=222 enc=0 final=279 range=(248, 372) updated=57
+i=369 value=apple pos=193 enc=0 final=250 range=(248, 372) updated=87
+i=370 value=apple pos=277 enc=0 final=334 range=(248, 372) updated=4
+i=371 value=apple pos=150 enc=0 final=173 range=(126, 248) updated=42
+i=372 value=apple pos=281 enc=0 final=337 range=(248, 372) updated=2
+i=373 value=apple pos=129 enc=0 final=152 range=(126, 248) updated=64
+i=374 value=apple pos=364 enc=0 final=452 range=(372, 512) updated=10
+i=375 value=apple pos=244 enc=0 final=299 range=(248, 372) updated=41
+i=376 value=apple pos=161 enc=0 final=184 range=(126, 248) updated=33
+i=377 value=apple pos=51 enc=0 final=51 range=(0, 126) updated=53
+i=378 value=apple pos=106 enc=0 final=128 range=(126, 248) updated=90
+i=379 value=apple pos=333 enc=0 final=417 range=(372, 512) updated=46
+i=380 value=apple pos=162 enc=0 final=184 range=(126, 248) updated=35
+i=381 value=apple pos=20 enc=0 final=20 range=(0, 126) updated=85
+i=382 value=apple pos=13 enc=0 final=13 range=(0, 126) updated=93
+i=383 value=apple pos=5 enc=0 final=5 range=(0, 126) updated=102
+i=384 value=apple pos=151 enc=0 final=170 range=(126, 248) updated=50
+i=385 value=apple pos=371 enc=0 final=450 range=(372, 512) updated=14
+i=386 value=apple pos=305 enc=0 final=384 range=(372, 512) updated=81
+i=387 value=apple pos=163 enc=0 final=182 range=(126, 248) updated=39
+i=388 value=apple pos=230 enc=0 final=276 range=(248, 372) updated=65
+i=389 value=apple pos=200 enc=0 final=219 range=(126, 248) updated=3
+i=390 value=apple pos=160 enc=0 final=179 range=(126, 248) updated=44
+i=391 value=apple pos=204 enc=235 final=235 range=None updated=0
+i=392 value=apple pos=32 enc=0 final=32 range=(0, 126) updated=76
+i=393 value=apple pos=32 enc=0 final=32 range=(0, 126) updated=77
+i=394 value=apple pos=162 enc=0 final=179 range=(126, 248) updated=46
+i=395 value=apple pos=307 enc=0 final=378 range=(372, 512) updated=88
+i=396 value=apple pos=233 enc=0 final=273 range=(248, 372) updated=69
+i=397 value=apple pos=57 enc=0 final=57 range=(0, 126) updated=53
+i=398 value=apple pos=128 enc=0 final=144 range=(126, 248) updated=82
+i=399 value=apple pos=110 enc=118 final=118 range=None updated=0
+i=400 value=apple pos=316 enc=0 final=383 range=(372, 512) updated=84
+i=401 value=apple pos=398 enc=0 final=465 range=(372, 512) updated=3
+i=402 value=apple pos=277 enc=0 final=314 range=(248, 372) updated=29
+i=403 value=apple pos=352 enc=0 final=418 range=(372, 512) updated=51
+i=404 value=apple pos=240 enc=0 final=277 range=(248, 372) updated=67
+i=405 value=apple pos=338 enc=0 final=403 range=(372, 512) updated=67
+i=406 value=apple pos=182 enc=0 final=197 range=(126, 248) updated=30
+i=407 value=apple pos=132 enc=0 final=147 range=(126, 248) updated=81
+i=408 value=apple pos=93 enc=0 final=93 range=(0, 126) updated=19
+i=409 value=apple pos=277 enc=0 final=311 range=(248, 372) updated=34
+i=410 value=apple pos=106 enc=0 final=106 range=(0, 126) updated=7
+i=411 value=apple pos=157 enc=0 final=170 range=(126, 248) updated=59
+i=412 value=apple pos=101 enc=0 final=101 range=(0, 126) updated=13
+i=413 value=apple pos=126 enc=0 final=138 range=(126, 248) updated=92
+i=414 value=apple pos=184 enc=0 final=196 range=(126, 248) updated=35
+i=415 value=apple pos=41 enc=0 final=41 range=(0, 126) updated=74
+i=416 value=apple pos=143 enc=0 final=154 range=(126, 248) updated=78
+i=417 value=apple pos=45 enc=0 final=45 range=(0, 126) updated=71
+i=418 value=apple pos=385 enc=0 final=438 range=(372, 512) updated=33
+i=419 value=apple pos=229 enc=0 final=255 range=(248, 372) updated=91
+i=420 value=apple pos=46 enc=0 final=46 range=(0, 126) updated=71
+i=421 value=apple pos=333 enc=0 final=384 range=(372, 512) updated=88
+i=422 value=apple pos=294 enc=0 final=319 range=(248, 372) updated=28
+i=423 value=apple pos=329 enc=0 final=379 range=(372, 512) updated=94
+i=424 value=apple pos=173 enc=0 final=182 range=(126, 248) updated=51
+i=425 value=apple pos=116 enc=0 final=116 range=(0, 126) updated=2
+i=426 value=apple pos=199 enc=0 final=207 range=(126, 248) updated=27
+i=427 value=apple pos=157 enc=0 final=165 range=(126, 248) updated=70
+i=428 value=apple pos=21 enc=0 final=21 range=(0, 126) updated=98
+i=429 value=apple pos=167 enc=0 final=174 range=(126, 248) updated=62
+i=430 value=apple pos=95 enc=0 final=95 range=(0, 126) updated=25
+i=431 value=apple pos=162 enc=0 final=168 range=(126, 248) updated=69
+i=432 value=apple pos=405 enc=0 final=447 range=(372, 512) updated=27
+i=433 value=apple pos=296 enc=0 final=313 range=(248, 372) updated=35
+i=434 value=apple pos=155 enc=0 final=161 range=(126, 248) updated=77
+i=435 value=apple pos=125 enc=0 final=131 range=(126, 248) updated=108
+i=436 value=apple pos=171 enc=0 final=177 range=(126, 248) updated=63
+i=437 value=apple pos=51 enc=0 final=51 range=(0, 126) updated=70
+i=438 value=apple pos=278 enc=0 final=291 range=(248, 372) updated=58
+i=439 value=apple pos=313 enc=0 final=326 range=(248, 372) updated=24
+i=440 value=apple pos=296 enc=0 final=309 range=(248, 372) updated=42
+i=441 value=apple pos=413 enc=0 final=447 range=(372, 512) updated=28
+i=442 value=apple pos=305 enc=0 final=318 range=(248, 372) updated=34
+i=443 value=apple pos=47 enc=0 final=47 range=(0, 126) updated=75
+i=444 value=apple pos=125 enc=0 final=129 range=(126, 248) updated=112
+i=445 value=apple pos=112 enc=0 final=112 range=(0, 126) updated=11
+i=446 value=apple pos=10 enc=0 final=10 range=(0, 126) updated=114
+i=447 value=apple pos=413 enc=0 final=442 range=(372, 512) updated=34
+i=448 value=apple pos=124 enc=125 final=125 range=None updated=0
+i=449 value=apple pos=205 enc=0 final=206 range=(126, 248) updated=36
+i=450 value=apple pos=37 enc=0 final=37 range=(0, 248) updated=88
+i=451 value=apple pos=137 enc=0 final=137 range=(126, 248) updated=106
+i=452 value=apple pos=282 enc=0 final=287 range=(248, 372) updated=66
+i=453 value=apple pos=444 enc=0 final=468 range=(372, 512) updated=9
+i=454 value=apple pos=36 enc=0 final=36 range=(0, 248) updated=208
+i=455 value=apple pos=373 enc=0 final=396 range=(372, 512) updated=82
+i=456 value=apple pos=38 enc=0 final=38 range=(0, 248) updated=207
+i=457 value=apple pos=11 enc=0 final=11 range=(0, 248) updated=235
+i=458 value=apple pos=325 enc=0 final=327 range=(248, 372) updated=27
+i=459 value=apple pos=5 enc=0 final=5 range=(0, 248) updated=242
+i=460 value=apple pos=148 enc=0 final=148 range=(66, 372) updated=100
+i=461 value=apple pos=384 enc=0 final=402 range=(372, 512) updated=77
+i=462 value=apple pos=405 enc=0 final=423 range=(372, 512) updated=57
+i=463 value=apple pos=183 enc=0 final=183 range=(66, 372) updated=172
+i=464 value=apple pos=252 enc=0 final=252 range=(249, 372) updated=104
+i=465 value=apple pos=240 enc=0 final=240 range=(66, 372) updated=117
+i=466 value=apple pos=441 enc=0 final=456 range=(372, 512) updated=25
+i=467 value=apple pos=439 enc=0 final=454 range=(372, 512) updated=28
+i=468 value=apple pos=78 enc=0 final=78 range=(0, 372) updated=280
+i=469 value=apple pos=51 enc=0 final=51 range=(0, 372) updated=308
+i=470 value=apple pos=256 enc=0 final=256 range=(252, 372) updated=104
+i=471 value=apple pos=398 enc=0 final=410 range=(372, 512) updated=73
+i=472 value=apple pos=407 enc=0 final=419 range=(372, 512) updated=65
+i=473 value=apple pos=167 enc=0 final=167 range=(67, 372) updated=194
+i=474 value=apple pos=39 enc=0 final=39 range=(0, 372) updated=323
+i=475 value=apple pos=260 enc=0 final=260 range=(254, 372) updated=103
+i=476 value=apple pos=340 enc=0 final=340 range=(254, 372) updated=24
+i=477 value=apple pos=88 enc=0 final=88 range=(0, 372) updated=277
+i=478 value=apple pos=91 enc=0 final=91 range=(0, 372) updated=275
+i=479 value=apple pos=397 enc=0 final=403 range=(372, 512) updated=82
+i=480 value=apple pos=76 enc=0 final=76 range=(0, 372) updated=291
+i=481 value=apple pos=72 enc=0 final=72 range=(0, 372) updated=296
+i=482 value=apple pos=420 enc=0 final=424 range=(372, 512) updated=62
+i=483 value=apple pos=443 enc=0 final=447 range=(372, 512) updated=40
+i=484 value=apple pos=163 enc=0 final=163 range=(68, 372) updated=206
+i=485 value=apple pos=156 enc=0 final=156 range=(68, 372) updated=214
+i=486 value=apple pos=54 enc=0 final=54 range=(0, 372) updated=317
+i=487 value=apple pos=363 enc=0 final=363 range=(138, 512) updated=9
+i=488 value=apple pos=263 enc=0 final=263 range=(138, 512) updated=225
+i=489 value=apple pos=427 enc=0 final=427 range=(373, 512) updated=62
+i=490 value=apple pos=470 enc=0 final=470 range=(373, 512) updated=20
+i=491 value=apple pos=308 enc=0 final=308 range=(138, 512) updated=183
+i=492 value=apple pos=150 enc=0 final=150 range=(0, 512) updated=342
+i=493 value=apple pos=64 enc=0 final=64 range=(0, 512) updated=429
+i=494 value=apple pos=457 enc=0 final=457 range=(376, 512) updated=37
+i=495 value=apple pos=105 enc=0 final=105 range=(0, 512) updated=390
+i=496 value=apple pos=72 enc=0 final=72 range=(0, 512) updated=424
+i=497 value=apple pos=279 enc=0 final=279 range=(141, 512) updated=218
+i=498 value=apple pos=466 enc=0 final=466 range=(379, 512) updated=32/home/cz/桌面/lab4/client.py:185: DeprecationWarning: 'passwd' is deprecated, use 'password'
+  conn = ConnectDB()
+
+i=499 value=apple pos=369 enc=0 final=369 range=(141, 512) updated=130
+i=500 value=apple pos=16 enc=0 final=16 range=(0, 512) updated=484
+repeat=500 value=apple seed=1 recode=246
+rebalance_cnt=4 recode_cnt(server)=299
+CSV saved to N500.csv

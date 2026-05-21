@@ -1,0 +1,15 @@
+{
+    "files.associations": {
+        "*.cjson": "jsonc",
+        "*.wxss": "css",
+        "*.wxs": "javascript",
+        "*.hip": "cuda-cpp",
+        "*.{a80,z80,asm,inc,s}": "asm-collection",
+        "*.{list,lis}": "asm-collection-list",
+        "__config": "cpp",
+        "__tree": "cpp",
+        "algorithm": "cpp",
+        "istream": "cpp",
+        "sstream": "cpp"
+    }
+}
