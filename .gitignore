@@ -1,5 +1,5 @@
 .DS_Store
-
+/__pycache__/
 # 一些大文件
 
 并行程序设计/大作业选题/PCFG_framework.zip
