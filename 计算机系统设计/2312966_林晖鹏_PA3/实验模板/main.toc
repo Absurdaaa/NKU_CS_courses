@@ -1,0 +1,32 @@
+\babel@toc {UKenglish}{}\relax 
+\contentsline {section}{\numberline {1}概述}{2}{section.1}%
+\contentsline {section}{\numberline {2}实验目的}{2}{section.2}%
+\contentsline {section}{\numberline {3}实验内容}{2}{section.3}%
+\contentsline {section}{\numberline {4}加载第一个用户程序并验证 raw loader}{2}{section.4}%
+\contentsline {subsection}{\numberline {4.1}编译并打包第一个用户程序}{2}{subsection.4.1}%
+\contentsline {subsection}{\numberline {4.2}实现最小化 raw loader}{3}{subsection.4.2}%
+\contentsline {subsection}{\numberline {4.3}运行现象与阶段结论}{3}{subsection.4.3}%
+\contentsline {section}{\numberline {5}异常控制流、trap frame 与系统调用最小闭环}{4}{section.5}%
+\contentsline {subsection}{\numberline {5.1}加入 ASYE 的最小骨架}{4}{subsection.5.1}%
+\contentsline {subsection}{\numberline {5.2}从 \texttt {lidt} 到 \texttt {vecsys()} 的逐步推进}{6}{subsection.5.2}%
+\contentsline {subsection}{\numberline {5.3}trap frame、\texttt {\_RegSet} 与系统调用参数传递}{7}{subsection.5.3}%
+\contentsline {subsection}{\numberline {5.4}实现 \texttt {SYS\_none}、\texttt {SYS\_exit} 与最小系统调用闭环}{8}{subsection.5.4}%
+\contentsline {section}{\numberline {6}文件系统、设备抽象与运行完整用户程序}{9}{section.6}%
+\contentsline {subsection}{\numberline {6.1}实现 \texttt {SYS\_write} 与在 Nanos-lite 上运行 \texttt {hello}}{9}{subsection.6.1}%
+\contentsline {subsection}{\numberline {6.2}实现 \texttt {SYS\_brk} 与用户层 \texttt {\_sbrk()}}{10}{subsection.6.2}%
+\contentsline {subsection}{\numberline {6.3}实现简易文件系统并运行 \texttt {text}}{10}{subsection.6.3}%
+\contentsline {subsection}{\numberline {6.4}将设备抽象为文件}{12}{subsection.6.4}%
+\contentsline {subsection}{\numberline {6.5}运行 \texttt {pal}}{14}{subsection.6.5}%
+\contentsline {section}{\numberline {7}必答题}{16}{section.7}%
+\contentsline {subsection}{\numberline {7.1}仙剑奇侠传中游戏存档的读取过程}{16}{subsection.7.1}%
+\contentsline {subsection}{\numberline {7.2}仙剑奇侠传中屏幕更新的过程}{17}{subsection.7.2}%
+\contentsline {section}{\numberline {8}思考}{18}{section.8}%
+\contentsline {subsection}{\numberline {8.1}对比异常与函数调用}{19}{subsection.8.1}%
+\contentsline {subsection}{\numberline {8.2}\texttt {trap.S} 里为什么要 \texttt {pushl \%esp}}{19}{subsection.8.2}%
+\contentsline {subsection}{\numberline {8.3}缓冲区与系统调用开销}{19}{subsection.8.3}%
+\contentsline {section}{\numberline {9}实验过程中遇到的问题与解决方法}{22}{section.9}%
+\contentsline {subsection}{\numberline {9.1}最开始看到 \texttt {invalid opcode} 时，不能只盯着缺哪条指令}{22}{subsection.9.1}%
+\contentsline {subsection}{\numberline {9.2}\texttt {lidt/int/iret} 不只是 helper 实现，opcode table 的接线同样关键}{22}{subsection.9.2}%
+\contentsline {subsection}{\numberline {9.3}trap frame 问题最怕看起来差不多}{22}{subsection.9.3}%
+\contentsline {subsection}{\numberline {9.4}\texttt {SYS\_brk} 和 \texttt {\_sbrk()} 看似简单，但很容易和标准库递归缠在一起}{22}{subsection.9.4}%
+\contentsline {section}{\numberline {10}总结}{22}{section.10}%

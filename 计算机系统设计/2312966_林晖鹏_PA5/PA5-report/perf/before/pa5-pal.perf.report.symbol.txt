@@ -1,0 +1,482 @@
+# To display the perf.data header info, please use --header/--header-only options.
+#
+#
+# Total Lost Samples: 0
+#
+# Samples: 2K of event 'cpu-clock'
+# Event count (approx.): 23878787640
+#
+# Children      Self  Symbol                          
+# ........  ........  ................................
+#
+    28.17%     0.00%  [.] _fini
+            |          
+            |--4.19%--exec_real
+            |          
+            |--3.09%--vaddr_read
+            |          
+            |--1.69%--check_watchpoints
+            |          
+            |--1.69%--is_mmio
+            |          
+            |--1.65%--decode_mov_G2E
+            |          
+            |--1.40%--paddr_read
+            |          
+            |--1.31%--decode_mov_E2G
+            |          
+            |--1.18%--exec_wrapper
+            |          
+            |--1.18%--operand_write
+            |          
+            |--1.14%--device_update
+            |          
+            |--1.10%--cpu_exec
+            |          
+            |--0.85%--page_translate.part.1
+            |          
+            |--0.76%--decode_G2E
+            |          
+            |--0.51%--__memcpy_sse2_unaligned
+            |          
+            |--0.51%--exec_add
+            |          
+            |--0.51%--decode_J
+            |          
+             --0.51%--read_ModR_M
+
+    28.13%     0.00%  [.] 0x6c706d61
+            |
+            ---_fini
+               |          
+               |--4.19%--exec_real
+               |          
+               |--3.09%--vaddr_read
+               |          
+               |--1.69%--check_watchpoints
+               |          
+               |--1.69%--is_mmio
+               |          
+               |--1.65%--decode_mov_G2E
+               |          
+               |--1.40%--paddr_read
+               |          
+               |--1.31%--decode_mov_E2G
+               |          
+               |--1.18%--exec_wrapper
+               |          
+               |--1.18%--operand_write
+               |          
+               |--1.14%--device_update
+               |          
+               |--1.10%--cpu_exec
+               |          
+               |--0.85%--page_translate.part.1
+               |          
+               |--0.76%--decode_G2E
+               |          
+               |--0.51%--__memcpy_sse2_unaligned
+               |          
+               |--0.51%--exec_add
+               |          
+               |--0.51%--decode_J
+               |          
+                --0.51%--read_ModR_M
+
+    18.49%    18.40%  [.] is_mmio
+            |          
+            |--15.02%--is_mmio
+            |          
+            |--1.69%--0x6c706d61
+            |          _fini
+            |          is_mmio
+            |          
+             --0.63%--0x103
+                       is_mmio
+
+    13.87%    13.83%  [.] page_translate.part.1
+            |          
+            |--12.35%--page_translate.part.1
+            |          
+             --0.85%--0x6c706d61
+                       _fini
+                       page_translate.part.1
+
+    12.56%    12.52%  [.] paddr_read
+            |          
+            |--9.56%--paddr_read
+            |          
+             --1.40%--0x6c706d61
+                       _fini
+                       paddr_read
+
+    11.21%    11.17%  [.] __memcpy_sse2_unaligned
+            |          
+             --10.74%--__memcpy_sse2_unaligned
+
+     9.09%     9.09%  [.] paddr_write
+            |          
+             --8.84%--paddr_write
+
+     6.60%     6.60%  [.] vaddr_read
+            |          
+            |--3.09%--0x6c706d61
+            |          _fini
+            |          vaddr_read
+            |          
+            |--1.06%--0x103
+            |          vaddr_read
+            |          
+             --0.59%--0
+
+     4.19%     4.19%  [.] exec_real
+            |
+            ---_fini
+               exec_real
+
+     3.89%     3.89%  [.] read_ModR_M
+            |          
+            |--0.63%--0
+            |          
+             --0.51%--0x6c706d61
+                       _fini
+                       read_ModR_M
+
+     3.68%     0.00%  [.] 0x00000103
+            |          
+            |--1.35%--load_addr
+            |          
+            |--1.06%--vaddr_read
+            |          
+             --0.63%--is_mmio
+
+     3.17%     0.00%  [.] 00000000
+            |          
+            |--0.76%--read_ModR_M
+            |          
+            |--0.63%--0x600
+            |          
+             --0.51%--0
+
+     2.12%     0.00%  [.] 0x00000100
+            |          
+            |--0.93%--read_ModR_M
+            |          
+             --0.68%--vaddr_read
+
+     1.69%     1.69%  [.] check_watchpoints
+            |
+            ---_fini
+               check_watchpoints
+
+     1.65%     1.65%  [.] decode_mov_G2E
+            |
+            ---_fini
+               decode_mov_G2E
+
+     1.61%     1.61%  [.] load_addr
+            |          
+             --1.35%--0x103
+                       load_addr
+
+     1.52%     0.00%  [.] 0x00000300
+     1.44%     0.00%  [.] 0x00000200
+     1.31%     1.31%  [.] decode_mov_E2G
+            |
+            ---_fini
+               decode_mov_E2G
+
+     1.18%     1.14%  [.] exec_wrapper
+            |          
+             --1.14%--0x6c706d61
+                       _fini
+                       exec_wrapper
+
+     1.18%     1.18%  [.] operand_write
+            |
+            ---_fini
+               operand_write
+
+     1.14%     0.08%  [.] __kernel_vsyscall
+            |          
+             --1.06%--__kernel_vsyscall
+                       entry_SYSENTER_32
+                       do_fast_syscall_32
+                       |          
+                        --0.55%--sys_ioctl
+                                  do_vfs_ioctl
+                                  vmw_unlocked_ioctl
+                                  |          
+                                   --0.51%--vmw_execbuf_ioctl
+
+     1.14%     1.10%  [.] device_update
+            |          
+             --1.10%--0x6c706d61
+                       _fini
+                       device_update
+
+     1.10%     1.10%  [.] cpu_exec
+            |
+            ---_fini
+               cpu_exec
+
+     1.06%     0.00%  [k] entry_SYSENTER_32
+            |
+            ---do_fast_syscall_32
+               |          
+                --0.55%--sys_ioctl
+                          do_vfs_ioctl
+                          vmw_unlocked_ioctl
+                          |          
+                           --0.51%--vmw_execbuf_ioctl
+
+     1.06%     0.13%  [k] do_fast_syscall_32
+            |          
+             --0.93%--do_fast_syscall_32
+                       |          
+                        --0.55%--sys_ioctl
+                                  do_vfs_ioctl
+                                  vmw_unlocked_ioctl
+                                  |          
+                                   --0.51%--vmw_execbuf_ioctl
+
+     1.02%     0.00%  [.] 0x00000600
+     0.76%     0.76%  [.] decode_G2E
+            |
+            ---_fini
+               decode_G2E
+
+     0.59%     0.59%  [.] 0x000010b0
+     0.55%     0.00%  [k] sys_ioctl
+            |
+            ---do_vfs_ioctl
+               vmw_unlocked_ioctl
+               |          
+                --0.51%--vmw_execbuf_ioctl
+
+     0.55%     0.00%  [k] do_vfs_ioctl
+            |
+            ---vmw_unlocked_ioctl
+               |          
+                --0.51%--vmw_execbuf_ioctl
+
+     0.55%     0.00%  [k] vmw_unlocked_ioctl
+            |          
+             --0.51%--vmw_execbuf_ioctl
+
+     0.55%     0.51%  [.] exec_cmp
+     0.55%     0.00%  [.] 0x5c0e4558
+     0.51%     0.00%  [k] vmw_execbuf_ioctl
+     0.51%     0.51%  [.] decode_J
+            |
+            ---_fini
+               decode_J
+
+     0.51%     0.51%  [.] exec_add
+            |
+            ---_fini
+               exec_add
+
+     0.51%     0.00%  [.] 0x00000700
+     0.47%     0.04%  [k] vmw_execbuf_process
+     0.47%     0.47%  [.] decode_r
+     0.42%     0.42%  [.] decode_SI2E
+     0.42%     0.00%  [.] 0x0b45600e
+     0.38%     0.00%  [.] 0x540e0a45
+     0.34%     0.00%  [.] 0x0e45580e
+     0.34%     0.00%  [.] 0x45580e42
+     0.30%     0.30%  [k] vmw_cmdbuf_header_submit
+     0.30%     0.25%  [k] __do_softirq
+     0.30%     0.00%  [k] vmw_execbuf_fence_commands
+     0.30%     0.00%  [k] vmw_fifo_send_fence
+     0.30%     0.00%  [k] apic_timer_interrupt
+     0.30%     0.00%  [k] smp_apic_timer_interrupt
+     0.30%     0.00%  [k] __vmw_cmdbuf_cur_flush
+     0.30%     0.00%  [k] irq_exit
+     0.30%     0.00%  [k] do_softirq_own_stack
+     0.30%     0.00%  [k] vmw_cmdbuf_man_process
+     0.30%     0.30%  [.] exec_2byte_esc
+     0.30%     0.30%  [.] rtl_setcc
+     0.30%     0.00%  [k] call_on_stack
+     0.30%     0.00%  [k] vmw_cmdbuf_ctx_process
+     0.30%     0.00%  [k] vmw_cmdbuf_ctx_submit.isra.8
+     0.25%     0.00%  [k] vmw_fifo_reserve_dx
+     0.25%     0.00%  [k] vmw_cmdbuf_reserve
+     0.25%     0.25%  [.] decode_lea_M2G
+     0.25%     0.25%  [.] exec_inc
+     0.25%     0.25%  [.] vaddr_write
+     0.25%     0.00%  [.] 0x0ec34108
+     0.25%     0.00%  [.] 0x600e455c
+     0.21%     0.00%  [k] 0x11d94500
+     0.21%     0.04%  [k] __do_page_fault
+     0.21%     0.00%  [k] common_exception
+     0.21%     0.00%  [k] do_page_fault
+     0.21%     0.21%  [.] decode_E2G
+     0.21%     0.00%  [k] exit_dns_resolver
+     0.21%     0.00%  [.] 0x000144c4
+     0.21%     0.00%  [.] 0x0e0a450b
+     0.21%     0.00%  [.] 0x42540e0a
+     0.21%     0.00%  [.] 0x450b4560
+     0.21%     0.00%  [.] 0x455c0e45
+     0.17%     0.17%  [.] decode_I2a
+     0.17%     0.17%  [.] exec_imul2
+     0.17%     0.17%  [.] exec_jcc
+     0.17%     0.17%  [.] exec_pop
+     0.17%     0.00%  [k] handle_mm_fault
+     0.17%     0.00%  [.] 0x00028310
+     0.13%     0.00%  [k] 0x7c00bc00
+     0.13%     0.13%  [k] __lock_text_start
+     0.13%     0.00%  [k] 0x00000190
+     0.13%     0.00%  [k] sys_read
+     0.13%     0.00%  [k] sys_writev
+     0.13%     0.00%  [k] vfs_read
+     0.13%     0.00%  [k] __vfs_read
+     0.13%     0.00%  [k] do_writev
+     0.13%     0.00%  [k] new_sync_read
+     0.13%     0.00%  [k] vfs_writev
+     0.13%     0.00%  [k] do_iter_write
+     0.13%     0.00%  [k] ext4_file_read_iter
+     0.13%     0.00%  [k] do_iter_readv_writev
+     0.13%     0.00%  [k] generic_file_read_iter
+     0.13%     0.00%  [k] copy_page_to_iter
+     0.13%     0.00%  [k] sock_write_iter
+     0.13%     0.00%  [k] sock_sendmsg
+     0.13%     0.00%  [k] unix_stream_sendmsg
+     0.13%     0.00%  [k] sock_def_readable
+     0.13%     0.00%  [.] 0x00000003
+     0.13%     0.13%  [.] decode_mov_I2E
+     0.13%     0.13%  [.] exec_gp1
+     0.13%     0.13%  [.] exec_push
+     0.13%     0.13%  [.] exec_shl
+     0.13%     0.13%  [.] exec_sub
+     0.13%     0.00%  [k] __wake_up_sync_key
+     0.13%     0.00%  [.] 0x0e42540e
+     0.13%     0.00%  [.] 0x200e421c
+     0.13%     0.00%  [k] __wake_up_common_lock
+     0.13%     0.00%  [.] 0x00000403
+     0.13%     0.13%  [.] 0x000b5651
+     0.08%     0.08%  [k] native_flush_tlb_one_user
+     0.08%     0.04%  [k] __alloc_pages_nodemask
+     0.08%     0.04%  [.] mmio_write
+     0.08%     0.00%  [k] sys_socketcall
+     0.08%     0.00%  [k] __sys_recvmsg
+     0.08%     0.00%  [k] ___sys_recvmsg
+     0.08%     0.08%  [.] exec_lea
+     0.08%     0.08%  [.] exec_mov
+     0.08%     0.00%  [.] 0x00000283
+     0.08%     0.00%  [.] 0x0a450b45
+     0.08%     0.00%  [.] 0x0e455c0e
+     0.08%     0.00%  [.] 0x0f348805
+     0.08%     0.00%  [.] 0x158b4c24
+     0.08%     0.00%  [.] 0x1c0e5618
+     0.08%     0.00%  [.] 0x29740000
+     0.08%     0.00%  [.] 0x43040ec3
+     0.08%     0.00%  [.] 0x580e4254
+     0.08%     0.00%  [.] 0x74000001
+     0.08%     0.00%  [k] __kunmap_atomic
+     0.08%     0.00%  [.] 0x00000400
+     0.08%     0.00%  [.] 0x00000500
+     0.04%     0.04%  [k] get_page_from_freelist
+     0.04%     0.00%  [.] 0x0002465a
+     0.04%     0.04%  [k] __check_object_size
+     0.04%     0.04%  [k] ttm_bo_add_to_lru
+     0.04%     0.04%  [k] unix_stream_read_generic
+     0.04%     0.04%  [k] kmap_atomic_prot
+     0.04%     0.04%  [k] vmw_bo_to_validate_list
+     0.04%     0.04%  [k] vmw_get_cap_3d_ioctl
+     0.04%     0.04%  [k] rcu_process_callbacks
+     0.04%     0.04%  [k] vmw_resource_needs_backup
+     0.04%     0.00%  [k] vmw_validate_single_buffer
+     0.04%     0.00%  [k] ttm_bo_validate
+     0.04%     0.00%  [k] vmw_fifo_commit_flush
+     0.04%     0.00%  [k] ttm_bo_handle_move_mem
+     0.04%     0.00%  [k] vmw_cmdbuf_commit
+     0.04%     0.04%  [.] .L109
+     0.04%     0.04%  [k] do_sys_poll
+     0.04%     0.00%  [k] ttm_tt_bind
+     0.04%     0.00%  [.] 0x62696c2f
+     0.04%     0.04%  [.] 0x00268e60
+     0.04%     0.00%  [k] copy_msghdr_from_user
+     0.04%     0.00%  [k] vmw_ttm_populate
+     0.04%     0.00%  [.] 0x0076cc20
+     0.04%     0.00%  [.] 0x7c96f087
+     0.04%     0.00%  [k] 0xffffffff
+     0.04%     0.04%  [.] decode_E
+     0.04%     0.04%  [.] decode_I2E
+     0.04%     0.04%  [.] do_lookup_x
+     0.04%     0.04%  [.] exec_gp5
+     0.04%     0.04%  [.] exec_movsx
+     0.04%     0.04%  [.] exec_ret
+     0.04%     0.04%  [.] exec_shr
+     0.04%     0.04%  [.] exec_test
+     0.04%     0.04%  [.] 0x002536af
+     0.04%     0.04%  [.] 0x00428090
+     0.04%     0.00%  [.] _dl_catch_exception
+     0.04%     0.00%  [k] drm_ioctl
+     0.04%     0.00%  [k] import_iovec
+     0.04%     0.00%  [k] sock_recvmsg
+     0.04%     0.00%  [k] ttm_pool_populate
+     0.04%     0.00%  [.] 0x00010101
+     0.04%     0.00%  [.] 0x00015024
+     0.04%     0.00%  [.] 0x003ccf50
+     0.04%     0.00%  [.] 0x01b9b474
+     0.04%     0.00%  [.] 0x040ec341
+     0.04%     0.00%  [.] 0x0509f068
+     0.04%     0.00%  [.] 0x05c62974
+     0.04%     0.00%  [.] 0x0e56180e
+     0.04%     0.00%  [.] 0x0fc084ff
+     0.04%     0.00%  [.] 0x11df7550
+     0.04%     0.00%  [.] 0x20245c89
+     0.04%     0.00%  [.] 0x22436808
+     0.04%     0.00%  [.] 0x244c8b10
+     0.04%     0.00%  [.] 0x421c0e56
+     0.04%     0.00%  [.] 0x4489241c
+     0.04%     0.00%  [.] 0x55200e42
+     0.04%     0.00%  [.] 0x65000001
+     0.04%     0.00%  [.] 0x850f0000
+     0.04%     0.00%  [.] 0x8b000000
+     0.04%     0.00%  [.] 0x8b00080f
+     0.04%     0.00%  [.] 0x8dfffffe
+     0.04%     0.00%  [.] 0x90c35e5b
+     0.04%     0.00%  [.] 0x9d8dffff
+     0.04%     0.00%  [.] 0xc1a9d031
+     0.04%     0.00%  [.] 0xfbc1c329
+     0.04%     0.00%  [.] 0xff86ece8
+     0.04%     0.00%  [.] 0xff9afee8
+     0.04%     0.04%  [.] _glapi_set_dispatch
+     0.04%     0.04%  [.] malloc
+     0.04%     0.04%  [.] 0x000367a1
+     0.04%     0.04%  [.] 0x002105fd
+     0.04%     0.04%  [.] 0x0021068b
+     0.04%     0.04%  [.] 0x0022a410
+     0.04%     0.04%  [.] 0x00761741
+     0.04%     0.00%  [.] dl_open_worker
+     0.04%     0.00%  [k] drm_ioctl_kernel
+     0.04%     0.00%  [k] kmap_atomic
+     0.04%     0.00%  [k] rw_copy_check_uvector
+     0.04%     0.00%  [k] sys_poll
+     0.04%     0.00%  [k] ttm_eu_fence_buffer_objects
+     0.04%     0.00%  [k] unix_stream_recvmsg
+     0.04%     0.00%  [.] 0x00000701
+     0.04%     0.00%  [.] 0x00061b31
+     0.04%     0.00%  [.] 0x006e6967
+     0.04%     0.00%  [.] 0x00752660
+     0.04%     0.00%  [.] 0x039b8600
+     0.04%     0.00%  [.] 0x0566e003
+     0.04%     0.00%  [.] 0x0668e403
+     0.04%     0.00%  [.] 0x06e9b403
+     0.04%     0.00%  [.] 0x07318403
+     0.04%     0.00%  [.] 0x09623403
+     0.04%     0.00%  [.] 0x11e3d690
+     0.04%     0.00%  [.] 0x11e537a0
+     0.04%     0.00%  [.] 0xb7ee64f0
+     0.04%     0.04%  [.] XFixesDestroyRegion
+     0.04%     0.04%  [.] _XimSetICMode
+     0.04%     0.04%  [.] 0x0005d104
+     0.04%     0.04%  [.] 0x000b5635
+     0.04%     0.04%  [.] 0x000b564b
+
+
+#
+# (Cannot load tips.txt file, please install perf!)
+#

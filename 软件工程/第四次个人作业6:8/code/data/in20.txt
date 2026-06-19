@@ -1,0 +1,3 @@
+mode='normal'
+nums=[8, 1, 1, 7]
+k=3

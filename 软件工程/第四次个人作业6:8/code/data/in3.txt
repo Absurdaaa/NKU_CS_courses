@@ -1,0 +1,3 @@
+mode='normal'
+nums=[2, 7, 1, 5]
+k=4

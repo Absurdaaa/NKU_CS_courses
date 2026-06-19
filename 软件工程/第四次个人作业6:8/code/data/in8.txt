@@ -1,0 +1,3 @@
+mode='exception'
+nums='123'
+k=2

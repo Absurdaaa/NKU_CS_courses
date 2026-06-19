@@ -1,0 +1,54 @@
+    1: """滑动窗口最大值算法实现。"""
+       
+    1: from collections import deque
+       
+       
+    1: def validate_inputs(nums, k):
+           """检查输入参数是否合法。"""
+           if not isinstance(nums, list):
+               raise TypeError("nums 必须是整数列表")
+           if not isinstance(k, int):
+               raise TypeError("k 必须是整数")
+           if not nums:
+               raise ValueError("nums 不能为空")
+           if any(not isinstance(value, int) for value in nums):
+               raise TypeError("nums 中的元素必须全部为整数")
+           if k <= 0:
+               raise ValueError("k 必须大于 0")
+           if k > len(nums):
+               raise ValueError("k 不能大于 nums 的长度")
+       
+       
+    1: def max_sliding_window_bruteforce(nums, k):
+           """使用朴素方法计算每个滑动窗口中的最大值。"""
+           validate_inputs(nums, k)
+           result = []
+       
+           # 逐个遍历窗口并直接求最大值，作为性能分析中的对照基线。
+           for start in range(len(nums) - k + 1):
+               result.append(max(nums[start : start + k]))
+       
+           return result
+       
+       
+    1: def max_sliding_window(nums, k):
+           """返回数组在每个长度为 k 的滑动窗口中的最大值。"""
+           validate_inputs(nums, k)
+           # 队列中存放的是数组下标，且对应的值保持单调递减。
+           window_indexes = deque()
+           result = []
+       
+           for index, value in enumerate(nums):
+               # 移除已经滑出窗口左边界的下标。
+               if window_indexes and window_indexes[0] <= index - k:
+                   window_indexes.popleft()
+       
+               # 维护一个单调递减队列，队首始终对应当前窗口最大值。
+               while window_indexes and nums[window_indexes[-1]] <= value:
+                   window_indexes.pop()
+               window_indexes.append(index)
+       
+               if index >= k - 1:
+                   result.append(nums[window_indexes[0]])
+       
+           return result

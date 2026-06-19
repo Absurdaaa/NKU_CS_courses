@@ -1,0 +1,831 @@
+commit b71b510d4ccf98ca9c94176f5e82e0364fcb0204
+Author: tracer-ics2017 <tracer@njuics.org>
+Date:   Wed Apr 22 20:26:22 2026 -0700
+
+    >  run
+    2312966
+    linshangjin
+    Linux ubuntu 4.15.0-142-generic #146~16.04.1-Ubuntu SMP Tue Apr 13 09:26:57 UTC 2021 i686 i686 i686 GNU/Linux
+     20:26:22 up  1:36,  2 users,  load average: 0.16, 0.08, 0.02
+    b672f99afe54f50faa64b72ed87a530cf2c1a13e
+
+commit 3d4d03e3452baee0a17ef4ca867d987278b2cff0
+Author: tracer-ics2017 <tracer@njuics.org>
+Date:   Wed Apr 22 20:26:17 2026 -0700
+
+    >  compile
+    2312966
+    linshangjin
+    Linux ubuntu 4.15.0-142-generic #146~16.04.1-Ubuntu SMP Tue Apr 13 09:26:57 UTC 2021 i686 i686 i686 GNU/Linux
+     20:26:17 up  1:36,  2 users,  load average: 0.16, 0.08, 0.02
+    62927a1ac9e1f6d6190d5354492cbebaa4de565c
+
+commit 31e2b6903d82f9f5ee56ff859e0b27d15a4ab768
+Author: 2312966-HuiPeng Lin <2312966@mail.nankai.edu.cn>
+Date:   Wed Apr 22 20:21:20 2026 -0700
+
+    before starting pa2
+
+commit 4781ef3efe981feb8a0b41ae7e1052487c25d8b5
+Author: 2312966-HuiPeng Lin <2312966@mail.nankai.edu.cn>
+Date:   Wed Apr 22 20:20:14 2026 -0700
+
+    空提交：PA1代码结束
+
+commit bce3403771aa449f4f6717b07504e0a1a15ae665
+Author: 2312966-HuiPeng Lin <2312966@mail.nankai.edu.cn>
+Date:   Wed Apr 22 20:18:56 2026 -0700
+
+    重新实现监视器
+
+commit 14968aec908f0477bcc849fb6475ed015f6f85c6
+Author: tracer-ics2017 <tracer@njuics.org>
+Date:   Wed Apr 22 20:18:01 2026 -0700
+
+    >  run
+    2312966
+    linshangjin
+    Linux ubuntu 4.15.0-142-generic #146~16.04.1-Ubuntu SMP Tue Apr 13 09:26:57 UTC 2021 i686 i686 i686 GNU/Linux
+     20:18:01 up  1:28,  2 users,  load average: 0.00, 0.00, 0.00
+    909d239beacafc161b513a8c13215cdaf4dedf09
+
+commit 2f9eb1b954c37ffdfef1d44f8d71d5dbae59a958
+Author: tracer-ics2017 <tracer@njuics.org>
+Date:   Wed Apr 22 20:03:03 2026 -0700
+
+    >  run
+    2312966
+    linshangjin
+    Linux ubuntu 4.15.0-142-generic #146~16.04.1-Ubuntu SMP Tue Apr 13 09:26:57 UTC 2021 i686 i686 i686 GNU/Linux
+     20:03:03 up  1:13,  2 users,  load average: 0.00, 0.00, 0.00
+    ddb0d98edfb01b83b8da8c4a81e0d403a1a1e035
+
+commit 0aa74926ed84d6060d3bcccddf621240bdadf628
+Author: tracer-ics2017 <tracer@njuics.org>
+Date:   Wed Apr 22 20:00:55 2026 -0700
+
+    >  compile
+    2312966
+    linshangjin
+    Linux ubuntu 4.15.0-142-generic #146~16.04.1-Ubuntu SMP Tue Apr 13 09:26:57 UTC 2021 i686 i686 i686 GNU/Linux
+     20:00:55 up  1:11,  2 users,  load average: 0.00, 0.00, 0.00
+    5a4fe42311250ec817eeaf4b20f5b10b8f4f3334
+
+commit 9ecbe5dcc24f9cdaf07b95bb9d0af941fba092ca
+Author: 2312966-HuiPeng Lin <2312966@mail.nankai.edu.cn>
+Date:   Wed Apr 22 19:52:14 2026 -0700
+
+    实现表达式求值
+
+commit 624e5639dbdcfad89c86beefcda62fdbb235139d
+Author: tracer-ics2017 <tracer@njuics.org>
+Date:   Wed Apr 22 19:46:14 2026 -0700
+
+    >  run
+    2312966
+    linshangjin
+    Linux ubuntu 4.15.0-142-generic #146~16.04.1-Ubuntu SMP Tue Apr 13 09:26:57 UTC 2021 i686 i686 i686 GNU/Linux
+     19:46:14 up 57 min,  2 users,  load average: 0.04, 0.01, 0.00
+    54ac94b942f4b5f4b5d17ca7a4bb62af25ee55ce
+
+commit 2189f6463318d5c784bc5fd0eb10b6808ad8b76d
+Author: tracer-ics2017 <tracer@njuics.org>
+Date:   Wed Apr 22 19:45:55 2026 -0700
+
+    >  compile
+    2312966
+    linshangjin
+    Linux ubuntu 4.15.0-142-generic #146~16.04.1-Ubuntu SMP Tue Apr 13 09:26:57 UTC 2021 i686 i686 i686 GNU/Linux
+     19:45:55 up 57 min,  2 users,  load average: 0.06, 0.01, 0.00
+    ba0d4fc41ec196d1d29ed524ae177c91c2acc966
+
+commit 04e5428be05b39adbd3091dae0b7197da25ab515
+Author: tracer-ics2017 <tracer@njuics.org>
+Date:   Wed Apr 22 19:39:56 2026 -0700
+
+    >  run
+    2312966
+    linshangjin
+    Linux ubuntu 4.15.0-142-generic #146~16.04.1-Ubuntu SMP Tue Apr 13 09:26:57 UTC 2021 i686 i686 i686 GNU/Linux
+     19:39:56 up 51 min,  2 users,  load average: 0.00, 0.00, 0.00
+    aa47303b7b1c3638562ad031b1032dd838cdb69
+
+commit 140dd13d7c213cf727dd60bd5fcb409b1d58eaa6
+Author: tracer-ics2017 <tracer@njuics.org>
+Date:   Wed Apr 22 19:38:41 2026 -0700
+
+    >  run
+    2312966
+    linshangjin
+    Linux ubuntu 4.15.0-142-generic #146~16.04.1-Ubuntu SMP Tue Apr 13 09:26:57 UTC 2021 i686 i686 i686 GNU/Linux
+     19:38:41 up 49 min,  2 users,  load average: 0.00, 0.00, 0.00
+    b1307645c665720e8a0b1ced9e22f0f382657c0
+
+commit 3ad5e147881743d4bf912eceda9664e3ea4d0b7e
+Author: tracer-ics2017 <tracer@njuics.org>
+Date:   Wed Apr 22 19:38:33 2026 -0700
+
+    >  compile
+    2312966
+    linshangjin
+    Linux ubuntu 4.15.0-142-generic #146~16.04.1-Ubuntu SMP Tue Apr 13 09:26:57 UTC 2021 i686 i686 i686 GNU/Linux
+     19:38:33 up 49 min,  2 users,  load average: 0.00, 0.00, 0.00
+    864f7a436d683e5a7ac2a59ae4a37b532320c075
+
+commit ebfa0da82760554bda3a15d13dafecb99aefa407
+Author: tracer-ics2017 <tracer@njuics.org>
+Date:   Wed Apr 22 19:37:55 2026 -0700
+
+    >  compile
+    2312966
+    linshangjin
+    Linux ubuntu 4.15.0-142-generic #146~16.04.1-Ubuntu SMP Tue Apr 13 09:26:57 UTC 2021 i686 i686 i686 GNU/Linux
+     19:37:55 up 49 min,  2 users,  load average: 0.00, 0.00, 0.00
+    aee853a56c3904218076a16a2e0110aa7070e7d3
+
+commit f7f823f7dc3ee7f6437bc13e0bb24703ada31900
+Author: tracer-ics2017 <tracer@njuics.org>
+Date:   Wed Apr 22 19:35:49 2026 -0700
+
+    >  run
+    2312966
+    linshangjin
+    Linux ubuntu 4.15.0-142-generic #146~16.04.1-Ubuntu SMP Tue Apr 13 09:26:57 UTC 2021 i686 i686 i686 GNU/Linux
+     19:35:49 up 47 min,  2 users,  load average: 0.00, 0.00, 0.00
+    b96645b4689653c34152021a39b1730da72d03f
+
+commit 377595b6ecaf23892f4ea57e69c136114e6d324b
+Author: tracer-ics2017 <tracer@njuics.org>
+Date:   Wed Apr 22 19:35:49 2026 -0700
+
+    >  compile
+    2312966
+    linshangjin
+    Linux ubuntu 4.15.0-142-generic #146~16.04.1-Ubuntu SMP Tue Apr 13 09:26:57 UTC 2021 i686 i686 i686 GNU/Linux
+     19:35:49 up 47 min,  2 users,  load average: 0.00, 0.00, 0.00
+    72268f0b9ff44b1e3fb88664e8c86fa6f4424b73
+
+commit 42bb4aaa8451e5fd8509dca9fa0179d3e1c08550
+Author: tracer-ics2017 <tracer@njuics.org>
+Date:   Wed Apr 22 07:05:39 2026 -0700
+
+    >  run
+    2312966
+    linshangjin
+    Linux ubuntu 4.15.0-142-generic #146~16.04.1-Ubuntu SMP Tue Apr 13 09:26:57 UTC 2021 i686 i686 i686 GNU/Linux
+     07:05:39 up  8:48,  2 users,  load average: 0.03, 0.01, 0.00
+    5a4eea2a317e7d5de904b7a96359bf3aff42a7f3
+
+commit 44b5715dc78c90c50b5a116b29cc4a75c28fe6b1
+Author: tracer-ics2017 <tracer@njuics.org>
+Date:   Wed Apr 22 07:05:00 2026 -0700
+
+    >  run
+    2312966
+    linshangjin
+    Linux ubuntu 4.15.0-142-generic #146~16.04.1-Ubuntu SMP Tue Apr 13 09:26:57 UTC 2021 i686 i686 i686 GNU/Linux
+     07:05:00 up  8:47,  2 users,  load average: 0.06, 0.01, 0.00
+    b6ed710c7e00528c10a2fa6c852ee919c0dc291
+
+commit a9ced2e7effb44ca352e53d02db29cb59dcf7c2c
+Author: tracer-ics2017 <tracer@njuics.org>
+Date:   Wed Apr 22 07:03:43 2026 -0700
+
+    >  run
+    2312966
+    linshangjin
+    Linux ubuntu 4.15.0-142-generic #146~16.04.1-Ubuntu SMP Tue Apr 13 09:26:57 UTC 2021 i686 i686 i686 GNU/Linux
+     07:03:43 up  8:46,  2 users,  load average: 0.00, 0.00, 0.00
+    baf32a90b894f05791c0a1c1dcf8302e3a999d66
+
+commit 1d5831eb6baa37304e4eac6919c803af4a9a22be
+Author: tracer-ics2017 <tracer@njuics.org>
+Date:   Wed Apr 22 07:02:57 2026 -0700
+
+    >  run
+    2312966
+    linshangjin
+    Linux ubuntu 4.15.0-142-generic #146~16.04.1-Ubuntu SMP Tue Apr 13 09:26:57 UTC 2021 i686 i686 i686 GNU/Linux
+     07:02:57 up  8:45,  2 users,  load average: 0.00, 0.00, 0.00
+    91de225a9f923110f1dcebf1557b608e8dca6e
+
+commit 0b99031310359130e9303a0864ee6015608e66c2
+Author: tracer-ics2017 <tracer@njuics.org>
+Date:   Wed Apr 22 07:02:45 2026 -0700
+
+    >  run
+    2312966
+    linshangjin
+    Linux ubuntu 4.15.0-142-generic #146~16.04.1-Ubuntu SMP Tue Apr 13 09:26:57 UTC 2021 i686 i686 i686 GNU/Linux
+     07:02:45 up  8:45,  2 users,  load average: 0.00, 0.00, 0.00
+    e110a193f28720f0ac961de41006f054a594a306
+
+commit a7eae551fe0c3fcf99dd399bad45f3de16c79dba
+Author: tracer-ics2017 <tracer@njuics.org>
+Date:   Wed Apr 22 06:59:33 2026 -0700
+
+    >  compile
+    2312966
+    linshangjin
+    Linux ubuntu 4.15.0-142-generic #146~16.04.1-Ubuntu SMP Tue Apr 13 09:26:57 UTC 2021 i686 i686 i686 GNU/Linux
+     06:59:33 up  8:41,  2 users,  load average: 0.00, 0.00, 0.00
+    1662bad5503f3ce9f64f00c7e9293a0bbc41f440
+
+commit 516f0f5f1064669747802bcd46beb8e1e1f773f0
+Author: 2312966-HuiPeng Lin <2312966@mail.nankai.edu.cn>
+Date:   Wed Apr 22 06:56:57 2026 -0700
+
+    词法分析
+
+commit 440cb08217117dcfff5a9b1a317fdb78d8cff937
+Author: tracer-ics2017 <tracer@njuics.org>
+Date:   Wed Apr 22 06:54:20 2026 -0700
+
+    >  run
+    2312966
+    linshangjin
+    Linux ubuntu 4.15.0-142-generic #146~16.04.1-Ubuntu SMP Tue Apr 13 09:26:57 UTC 2021 i686 i686 i686 GNU/Linux
+     06:54:20 up  8:36,  2 users,  load average: 0.01, 0.02, 0.00
+    db508c26239dbef69e2e88e6968a36a499caedcc
+
+commit dd22df3ae76e61c134610c73607d8b86b25c4890
+Author: tracer-ics2017 <tracer@njuics.org>
+Date:   Wed Apr 22 06:36:36 2026 -0700
+
+    >  compile
+    2312966
+    linshangjin
+    Linux ubuntu 4.15.0-142-generic #146~16.04.1-Ubuntu SMP Tue Apr 13 09:26:57 UTC 2021 i686 i686 i686 GNU/Linux
+     06:36:36 up  8:19,  2 users,  load average: 0.00, 0.00, 0.00
+    20bc55c598865a0dbab93a8ece607c3a6bab7dd0
+
+commit 5f8899717c65d44721d67526b9b5aae12d99e3c3
+Author: 2312966-HuiPeng Lin <2312966@mail.nankai.edu.cn>
+Date:   Wed Apr 22 06:26:07 2026 -0700
+
+    实现简易调试器基础命令
+
+commit 5ff4cb219705d1a2f222c625939cb9925d15fab6
+Author: 2312966-HuiPeng Lin <2312966@mail.nankai.edu.cn>
+Date:   Wed Apr 22 06:20:44 2026 -0700
+
+    pa1第一阶段结束！！
+
+commit d86caa336b802ce2cfb7bfcfdc23660fd503a297
+Author: tracer-ics2017 <tracer@njuics.org>
+Date:   Wed Apr 22 06:13:08 2026 -0700
+
+    >  run
+    2312966
+    linshangjin
+    Linux ubuntu 4.15.0-142-generic #146~16.04.1-Ubuntu SMP Tue Apr 13 09:26:57 UTC 2021 i686 i686 i686 GNU/Linux
+     06:13:08 up  7:55,  2 users,  load average: 0.00, 0.00, 0.00
+    7c533f5f279b3cadbddd1650932968be582ae848
+
+commit d8f6d11c8a097b65e282587b8beb9b25da443824
+Author: tracer-ics2017 <tracer@njuics.org>
+Date:   Wed Apr 22 06:12:29 2026 -0700
+
+    >  compile
+    2312966
+    linshangjin
+    Linux ubuntu 4.15.0-142-generic #146~16.04.1-Ubuntu SMP Tue Apr 13 09:26:57 UTC 2021 i686 i686 i686 GNU/Linux
+     06:12:29 up  7:54,  2 users,  load average: 0.00, 0.00, 0.00
+    3ec9cbedf2bdbf209b218650ea503c46b10bcf8a
+
+commit 7d882cb593942cf42773efe04b981c4bf9dabbf3
+Author: tracer-ics2017 <tracer@njuics.org>
+Date:   Wed Apr 22 06:05:43 2026 -0700
+
+    >  run
+    2312966
+    linshangjin
+    Linux ubuntu 4.15.0-142-generic #146~16.04.1-Ubuntu SMP Tue Apr 13 09:26:57 UTC 2021 i686 i686 i686 GNU/Linux
+     06:05:43 up  7:48,  2 users,  load average: 0.00, 0.00, 0.00
+    727ee6baf17f10ebd0fdde1287a5d9c28c6325ca
+
+commit 81cdb4fe829987ee9634479455509d7e2c8b1565
+Author: tracer-ics2017 <tracer@njuics.org>
+Date:   Wed Apr 22 06:05:43 2026 -0700
+
+    >  compile
+    2312966
+    linshangjin
+    Linux ubuntu 4.15.0-142-generic #146~16.04.1-Ubuntu SMP Tue Apr 13 09:26:57 UTC 2021 i686 i686 i686 GNU/Linux
+     06:05:43 up  7:48,  2 users,  load average: 0.00, 0.00, 0.00
+    a5444da8aebe8498c0a884f478e893d6bb23dca2
+
+commit 3f810176cb3af969420b66d7e2eed43078265d2e
+Author: tracer-ics2017 <tracer@njuics.org>
+Date:   Wed Apr 22 06:03:52 2026 -0700
+
+    >  compile
+    2312966
+    linshangjin
+    Linux ubuntu 4.15.0-142-generic #146~16.04.1-Ubuntu SMP Tue Apr 13 09:26:57 UTC 2021 i686 i686 i686 GNU/Linux
+     06:03:52 up  7:46,  2 users,  load average: 0.00, 0.00, 0.00
+    591838295850dc9270fa45527c2d54f8c0d2d01
+
+commit 76c5b6f3d86bc7ed2f5ae9dfed9b20da2fdc00fa
+Author: tracer-ics2017 <tracer@njuics.org>
+Date:   Wed Apr 22 06:01:44 2026 -0700
+
+    >  run
+    2312966
+    linshangjin
+    Linux ubuntu 4.15.0-142-generic #146~16.04.1-Ubuntu SMP Tue Apr 13 09:26:57 UTC 2021 i686 i686 i686 GNU/Linux
+     06:01:44 up  7:44,  2 users,  load average: 0.00, 0.01, 0.00
+    213b0a286dd0ca78183784e3b3dfd2ba295a859
+
+commit 8ea435d7b4d39cbceb0a83047da98d81d3ce7e13
+Author: tracer-ics2017 <tracer@njuics.org>
+Date:   Wed Apr 22 06:00:01 2026 -0700
+
+    >  run
+    2312966
+    linshangjin
+    Linux ubuntu 4.15.0-142-generic #146~16.04.1-Ubuntu SMP Tue Apr 13 09:26:57 UTC 2021 i686 i686 i686 GNU/Linux
+     06:00:01 up  7:42,  2 users,  load average: 0.00, 0.02, 0.00
+    4d1c0c645dfdfd2f49aa15d275654ee2ccf4bce
+
+commit 86791cb97aa20bb6e9520bf0a50c2b7e252e2718
+Author: tracer-ics2017 <tracer@njuics.org>
+Date:   Wed Apr 22 06:00:01 2026 -0700
+
+    >  compile
+    2312966
+    linshangjin
+    Linux ubuntu 4.15.0-142-generic #146~16.04.1-Ubuntu SMP Tue Apr 13 09:26:57 UTC 2021 i686 i686 i686 GNU/Linux
+     06:00:01 up  7:42,  2 users,  load average: 0.00, 0.02, 0.00
+    15ebea208b36b2a33ae7871559fc811397b9b4a
+
+commit 840f38a1a1c3e21be0cc383fba75b7abc37a759c
+Author: tracer-ics2017 <tracer@njuics.org>
+Date:   Wed Apr 22 05:59:14 2026 -0700
+
+    >  compile
+    2312966
+    linshangjin
+    Linux ubuntu 4.15.0-142-generic #146~16.04.1-Ubuntu SMP Tue Apr 13 09:26:57 UTC 2021 i686 i686 i686 GNU/Linux
+     05:59:14 up  7:41,  2 users,  load average: 0.01, 0.02, 0.00
+    a4a2ce7eb2d725232eece394b9c391ab787e90a0
+
+commit f3d4c71f2c6fa3646d15e57d365b095c21610001
+Author: tracer-ics2017 <tracer@njuics.org>
+Date:   Wed Apr 22 05:46:13 2026 -0700
+
+    >  run
+    2312966
+    linshangjin
+    Linux ubuntu 4.15.0-142-generic #146~16.04.1-Ubuntu SMP Tue Apr 13 09:26:57 UTC 2021 i686 i686 i686 GNU/Linux
+     05:46:13 up  7:28,  2 users,  load average: 0.08, 0.02, 0.01
+    3441b0f35762f0aa713b5bd3276688111654b734
+
+commit a808d32dc6d4738ac6d82061b79b14cd85e6f061
+Author: tracer-ics2017 <tracer@njuics.org>
+Date:   Wed Apr 22 05:46:13 2026 -0700
+
+    >  compile
+    2312966
+    linshangjin
+    Linux ubuntu 4.15.0-142-generic #146~16.04.1-Ubuntu SMP Tue Apr 13 09:26:57 UTC 2021 i686 i686 i686 GNU/Linux
+     05:46:13 up  7:28,  2 users,  load average: 0.08, 0.02, 0.01
+    c554ad5e2b611be455f6073e954f334a2cd1c8e4
+
+commit 4121450c9b9a7d53229b415e18ad24993829067d
+Author: tracer-ics2017 <tracer@njuics.org>
+Date:   Wed Apr 22 05:41:36 2026 -0700
+
+    >  run
+    2312966
+    linshangjin
+    Linux ubuntu 4.15.0-142-generic #146~16.04.1-Ubuntu SMP Tue Apr 13 09:26:57 UTC 2021 i686 i686 i686 GNU/Linux
+     05:41:36 up  7:24,  2 users,  load average: 0.00, 0.00, 0.00
+    7d75031762150af6513a299ff80394ed4b9c684
+
+commit 8f7f5fd6a324a7f23de3e7d85da45bf63741813f
+Author: tracer-ics2017 <tracer@njuics.org>
+Date:   Wed Apr 22 05:41:36 2026 -0700
+
+    >  compile
+    2312966
+    linshangjin
+    Linux ubuntu 4.15.0-142-generic #146~16.04.1-Ubuntu SMP Tue Apr 13 09:26:57 UTC 2021 i686 i686 i686 GNU/Linux
+     05:41:36 up  7:24,  2 users,  load average: 0.00, 0.00, 0.00
+    1457ef0dcdf985f4f43c215c3b5dfebfecdba50e
+
+commit 8995c68a0f21bf51468c9a243ee879f69a1bcb2f
+Author: 2312966-HuiPeng Lin <2312966@mail.nankai.edu.cn>
+Date:   Wed Apr 22 05:34:15 2026 -0700
+
+    复习之前写的进度
+
+commit 5152607f97ba37f64f8d4ac71afeba6ccc86c941
+Author: tracer-ics2017 <tracer@njuics.org>
+Date:   Wed Apr 22 05:33:01 2026 -0700
+
+    >  run
+    2312966
+    linshangjin
+    Linux ubuntu 4.15.0-142-generic #146~16.04.1-Ubuntu SMP Tue Apr 13 09:26:57 UTC 2021 i686 i686 i686 GNU/Linux
+     05:33:01 up  7:15,  2 users,  load average: 0.09, 0.02, 0.01
+    3c86054a8371a8a7e82f0c4a353de82e53fb561
+
+commit 17faaa8d0f7369adae7d1be531571313a9b31b92
+Author: tracer-ics2017 <tracer@njuics.org>
+Date:   Wed Apr 22 05:33:01 2026 -0700
+
+    >  compile
+    2312966
+    linshangjin
+    Linux ubuntu 4.15.0-142-generic #146~16.04.1-Ubuntu SMP Tue Apr 13 09:26:57 UTC 2021 i686 i686 i686 GNU/Linux
+     05:33:01 up  7:15,  2 users,  load average: 0.09, 0.02, 0.01
+    6cfe74c0c34bb003ba9f3848b549c1dbcb70fb2f
+
+commit ce0081e5c9277efc896f61fa07f3d49fb2ff4368
+Author: tracer-ics2017 <tracer@njuics.org>
+Date:   Wed Apr 22 05:31:03 2026 -0700
+
+    >  run
+    2312966
+    linshangjin
+    Linux ubuntu 4.15.0-142-generic #146~16.04.1-Ubuntu SMP Tue Apr 13 09:26:57 UTC 2021 i686 i686 i686 GNU/Linux
+     05:31:03 up  7:13,  2 users,  load average: 0.08, 0.02, 0.01
+    b1930b99ddfc2073162ad2e2b2ca6646920746
+
+commit 1bb947629690942b232d115587e45ea7f51305d6
+Author: tracer-ics2017 <tracer@njuics.org>
+Date:   Wed Apr 22 05:31:03 2026 -0700
+
+    >  compile
+    2312966
+    linshangjin
+    Linux ubuntu 4.15.0-142-generic #146~16.04.1-Ubuntu SMP Tue Apr 13 09:26:57 UTC 2021 i686 i686 i686 GNU/Linux
+     05:31:03 up  7:13,  2 users,  load average: 0.08, 0.02, 0.01
+    16af9068ee240e76e320e06a5ef6f89bd97c1c20
+
+commit 1adeccac10809ad239c54b855736e355e3fff857
+Author: tracer-ics2017 <tracer@njuics.org>
+Date:   Wed Apr 22 04:48:04 2026 -0700
+
+    >  run
+    2312966
+    linshangjin
+    Linux ubuntu 4.15.0-142-generic #146~16.04.1-Ubuntu SMP Tue Apr 13 09:26:57 UTC 2021 i686 i686 i686 GNU/Linux
+     04:48:04 up  6:30,  2 users,  load average: 0.09, 0.04, 0.01
+    ddcddbcda14361d0923088d34bcb1f2dad189d07
+
+commit daad62fc1a4f8c462dc5aee8e6f7252ddeb863e5
+Author: tracer-ics2017 <tracer@njuics.org>
+Date:   Wed Apr 22 04:48:01 2026 -0700
+
+    >  compile
+    2312966
+    linshangjin
+    Linux ubuntu 4.15.0-142-generic #146~16.04.1-Ubuntu SMP Tue Apr 13 09:26:57 UTC 2021 i686 i686 i686 GNU/Linux
+     04:48:01 up  6:30,  2 users,  load average: 0.09, 0.05, 0.01
+    ad76eb5db53d211c3bb7a7342ddad8bd379a7fdf
+
+commit 252034d3579bd366dcc3e7d7c64d145abd93a5c9
+Author: tracer-ics2017 <tracer@njuics.org>
+Date:   Thu Mar 19 08:00:09 2026 -0700
+
+    >  compile
+    2312966
+    linshangjin
+    Linux ubuntu 4.15.0-142-generic #146~16.04.1-Ubuntu SMP Tue Apr 13 09:26:57 UTC 2021 i686 i686 i686 GNU/Linux
+     08:00:09 up  3:29,  2 users,  load average: 0.02, 0.02, 0.00
+    d2651459fb1654d566f1d453f2c4bcf4b2ee308c
+
+commit 9059dc2fae4a2a3d47f468ed6aaaa837c1d8ce60
+Author: tracer-ics2017 <tracer@njuics.org>
+Date:   Thu Mar 19 07:46:25 2026 -0700
+
+    >  compile
+    2312966
+    linshangjin
+    Linux ubuntu 4.15.0-142-generic #146~16.04.1-Ubuntu SMP Tue Apr 13 09:26:57 UTC 2021 i686 i686 i686 GNU/Linux
+     07:46:25 up  3:15,  2 users,  load average: 0.00, 0.00, 0.00
+    3f4c3f2383e3700f5a69f13a35b664f63114db0c
+
+commit d259c1657f6a9afe1a9e6459746b17715edd3b53
+Author: tracer-ics2017 <tracer@njuics.org>
+Date:   Thu Mar 19 06:32:14 2026 -0700
+
+    >  compile
+    2312966
+    linshangjin
+    Linux ubuntu 4.15.0-142-generic #146~16.04.1-Ubuntu SMP Tue Apr 13 09:26:57 UTC 2021 i686 i686 i686 GNU/Linux
+     06:32:14 up  2:01,  2 users,  load average: 0.00, 0.00, 0.00
+    f0d23fd5311007ea6adebc4fe0be2c2fdb12ecb0
+
+commit 70fc7acf18622383956201ce5e9eb1434ba10cda
+Author: 2312966-HuiPeng Lin <2312966@mail.nankai.edu.cn>
+Date:   Thu Mar 19 06:32:12 2026 -0700
+
+    实现监视点管理
+
+commit 0a7fd6a9a798f067f3b0d4ebb9feebdc9787a791
+Author: 2312966-HuiPeng Lin <2312966@mail.nankai.edu.cn>
+Date:   Thu Mar 19 06:18:53 2026 -0700
+
+    位运算、逻辑运算
+
+commit 93a5e0048acdeecd2d2a130d630c1e90b855a8de
+Author: tracer-ics2017 <tracer@njuics.org>
+Date:   Thu Mar 19 06:18:27 2026 -0700
+
+    >  compile
+    2312966
+    linshangjin
+    Linux ubuntu 4.15.0-142-generic #146~16.04.1-Ubuntu SMP Tue Apr 13 09:26:57 UTC 2021 i686 i686 i686 GNU/Linux
+     06:18:27 up  1:47,  2 users,  load average: 0.08, 0.02, 0.01
+    2f2f374ae2cb46ba16883f74d3f688f0602da69d
+
+commit 56a75e5c4570c2b4c859be75b6cc50625bbab530
+Author: tracer-ics2017 <tracer@njuics.org>
+Date:   Sun Mar 15 09:13:55 2026 -0700
+
+    >  run
+    2312966
+    linshangjin
+    Linux ubuntu 4.15.0-142-generic #146~16.04.1-Ubuntu SMP Tue Apr 13 09:26:57 UTC 2021 i686 i686 i686 GNU/Linux
+     09:13:55 up 57 min,  2 users,  load average: 0.00, 0.00, 0.00
+    aab8532067e770e170f912cb831189e353ff5ea1
+
+commit 5bb7e75976c5cb4938ea33334ee40065ba696335
+Author: tracer-ics2017 <tracer@njuics.org>
+Date:   Sun Mar 15 09:13:54 2026 -0700
+
+    >  compile
+    2312966
+    linshangjin
+    Linux ubuntu 4.15.0-142-generic #146~16.04.1-Ubuntu SMP Tue Apr 13 09:26:57 UTC 2021 i686 i686 i686 GNU/Linux
+     09:13:54 up 57 min,  2 users,  load average: 0.00, 0.00, 0.00
+    e868b3dc874afe62557d0ab28be281bf806e2358
+
+commit 49fabdecfe86d1d723165a7469a447abab03c746
+Author: 2312966-HuiPeng Lin <2312966@mail.nankai.edu.cn>
+Date:   Sun Mar 15 09:08:17 2026 -0700
+
+    完成负数表达式？
+
+commit 3eb5e6b8dbd014f09aabe077f0af34d9c48a3376
+Author: tracer-ics2017 <tracer@njuics.org>
+Date:   Sun Mar 15 08:41:31 2026 -0700
+
+    >  run
+    2312966
+    linshangjin
+    Linux ubuntu 4.15.0-142-generic #146~16.04.1-Ubuntu SMP Tue Apr 13 09:26:57 UTC 2021 i686 i686 i686 GNU/Linux
+     08:41:31 up 25 min,  2 users,  load average: 0.00, 0.00, 0.02
+    2cdbc58533be2329a82d288c672b4194c1fa908d
+
+commit 8c210ce0b43f16ae913799bc6f1ac2c3522abeff
+Author: tracer-ics2017 <tracer@njuics.org>
+Date:   Sun Mar 15 08:41:31 2026 -0700
+
+    >  compile
+    2312966
+    linshangjin
+    Linux ubuntu 4.15.0-142-generic #146~16.04.1-Ubuntu SMP Tue Apr 13 09:26:57 UTC 2021 i686 i686 i686 GNU/Linux
+     08:41:31 up 25 min,  2 users,  load average: 0.00, 0.00, 0.02
+    ba96337680835317eacabe3c9fd89e93260fb84
+
+commit bb7a2f663c75c3399cf1f0819ea1d4c781eb1690
+Author: 2312966-HuiPeng Lin <2312966@mail.nankai.edu.cn>
+Date:   Sun Mar 15 08:35:30 2026 -0700
+
+    完成表达式递归计算，已编译成功
+
+commit 05da960ab4900fbdc8e8a05dcfd54f7179f1455f
+Author: tracer-ics2017 <tracer@njuics.org>
+Date:   Sun Mar 15 08:34:54 2026 -0700
+
+    >  run
+    2312966
+    linshangjin
+    Linux ubuntu 4.15.0-142-generic #146~16.04.1-Ubuntu SMP Tue Apr 13 09:26:57 UTC 2021 i686 i686 i686 GNU/Linux
+     08:34:54 up 18 min,  2 users,  load average: 0.05, 0.04, 0.06
+    9e94da4ea46e30cb512d6c2ac308047d83a1e3e6
+
+commit a3d6be359274a9747812459d94e9f7aa6b290759
+Author: tracer-ics2017 <tracer@njuics.org>
+Date:   Sun Mar 15 08:34:54 2026 -0700
+
+    >  compile
+    2312966
+    linshangjin
+    Linux ubuntu 4.15.0-142-generic #146~16.04.1-Ubuntu SMP Tue Apr 13 09:26:57 UTC 2021 i686 i686 i686 GNU/Linux
+     08:34:54 up 18 min,  2 users,  load average: 0.05, 0.04, 0.06
+    a684b629f7bd306dca4ffb54d499b39c63202e1a
+
+commit 4035aa4520ae44ce63074905fce2b38a0f5b82f5
+Author: tracer-ics2017 <tracer@njuics.org>
+Date:   Sun Mar 15 04:44:20 2026 -0700
+
+    >  run
+    2312966
+    linshangjin
+    Linux ubuntu 4.13.0-36-generic #40~16.04.1-Ubuntu SMP Fri Feb 16 23:26:51 UTC 2018 i686 i686 i686 GNU/Linux
+     04:44:20 up  4:03,  2 users,  load average: 0.08, 0.02, 0.01
+    7eb12772756c55b57883f5d9a1552d59a32ad4ca
+
+commit 13311dfe5f6355c7d0d9ec707c9a0f1c27f82239
+Author: tracer-ics2017 <tracer@njuics.org>
+Date:   Sun Mar 15 04:44:20 2026 -0700
+
+    >  compile
+    2312966
+    linshangjin
+    Linux ubuntu 4.13.0-36-generic #40~16.04.1-Ubuntu SMP Fri Feb 16 23:26:51 UTC 2018 i686 i686 i686 GNU/Linux
+     04:44:20 up  4:03,  2 users,  load average: 0.08, 0.02, 0.01
+    1ef72b68d730ac396852e5451848ad0817b99358
+
+commit 723eaf3fbab77c29a74e42c9f0ce53164376ec6e
+Author: tracer-ics2017 <tracer@njuics.org>
+Date:   Sun Mar 15 03:09:16 2026 -0700
+
+    >  run
+    2312966
+    linshangjin
+    Linux ubuntu 4.13.0-36-generic #40~16.04.1-Ubuntu SMP Fri Feb 16 23:26:51 UTC 2018 i686 i686 i686 GNU/Linux
+     03:09:16 up  2:29,  3 users,  load average: 0.08, 0.04, 0.01
+    adc6599d209b74e5c3e79fe6f4e7054b3372c050
+
+commit 15b871efa8655133aa69f1ce22eb6d7f60d4fdc6
+Author: tracer-ics2017 <tracer@njuics.org>
+Date:   Sun Mar 15 03:09:15 2026 -0700
+
+    >  compile
+    2312966
+    linshangjin
+    Linux ubuntu 4.13.0-36-generic #40~16.04.1-Ubuntu SMP Fri Feb 16 23:26:51 UTC 2018 i686 i686 i686 GNU/Linux
+     03:09:15 up  2:29,  3 users,  load average: 0.08, 0.04, 0.01
+    94a3b842f7a2876672f29c8c38db17147b5d616
+
+commit 013e149dc393525bf5c9962bd3be32495e0a018b
+Author: tracer-ics2017 <tracer@njuics.org>
+Date:   Sun Mar 15 03:05:31 2026 -0700
+
+    >  run
+    2312966
+    linshangjin
+    Linux ubuntu 4.13.0-36-generic #40~16.04.1-Ubuntu SMP Fri Feb 16 23:26:51 UTC 2018 i686 i686 i686 GNU/Linux
+     03:05:31 up  2:26,  3 users,  load average: 0.07, 0.02, 0.00
+    a69999aeba0a6d7bc1d6a613d47c3b6b639d315d
+
+commit 2f7f6d892da6863af44f72dd1642207fa4f43dd1
+Author: tracer-ics2017 <tracer@njuics.org>
+Date:   Sun Mar 15 03:05:31 2026 -0700
+
+    >  compile
+    2312966
+    linshangjin
+    Linux ubuntu 4.13.0-36-generic #40~16.04.1-Ubuntu SMP Fri Feb 16 23:26:51 UTC 2018 i686 i686 i686 GNU/Linux
+     03:05:31 up  2:26,  3 users,  load average: 0.07, 0.02, 0.00
+    1afdbc813cab62426248c88f9252d24c6364eab
+
+commit 4817a9aa9dca324dd0de18171f0d9e7d4a8c1574
+Author: 2312966-HuiPeng Lin <2312966@mail.nankai.edu.cn>
+Date:   Sun Mar 15 03:02:07 2026 -0700
+
+    完成cpu_state
+
+commit 48accd8f24e8e6c0f64df4d25f70ffd122c5e6cf
+Author: 2312966-HuiPeng Lin <2312966@mail.nankai.edu.cn>
+Date:   Sun Mar 15 01:45:15 2026 -0700
+
+    before starting pa1
+
+commit 714f6b1623f12f4d1fc94dd1805b3cfef0eaf918
+Author: 2312966-HuiPeng Lin <2312966@mail.nankai.edu.cn>
+Date:   Sun Mar 15 01:43:17 2026 -0700
+
+    空提交：Pa0结束
+
+commit 7d544fb92d9d5b4c3dcbfcba2fba7bc6b00f8b0d
+Author: tracer-ics2017 <tracer@njuics.org>
+Date:   Sun Mar 15 01:31:22 2026 -0700
+
+    >  gdb
+    2312966
+    linshangjin
+    Linux ubuntu 4.13.0-36-generic #40~16.04.1-Ubuntu SMP Fri Feb 16 23:26:51 UTC 2018 i686 i686 i686 GNU/Linux
+     01:31:22 up 53 min,  3 users,  load average: 0.60, 0.83, 0.51
+    14329854a3ea001afe25c42367cdffbddbe5f52d
+
+commit 7845e88a3bf6c96ee8e25bf7295a933bff72b532
+Author: tracer-ics2017 <tracer@njuics.org>
+Date:   Sun Mar 15 01:30:57 2026 -0700
+
+    >  run
+    2312966
+    linshangjin
+    Linux ubuntu 4.13.0-36-generic #40~16.04.1-Ubuntu SMP Fri Feb 16 23:26:51 UTC 2018 i686 i686 i686 GNU/Linux
+     01:30:57 up 52 min,  3 users,  load average: 0.85, 0.89, 0.52
+    5c2c732bbcf16b1bd9a772ffcbd31acfb795f911
+
+commit 45691716c0581a148ec0c30568632bc87792ac38
+Author: tracer-ics2017 <tracer@njuics.org>
+Date:   Sun Mar 15 01:30:34 2026 -0700
+
+    >  compile
+    2312966
+    linshangjin
+    Linux ubuntu 4.13.0-36-generic #40~16.04.1-Ubuntu SMP Fri Feb 16 23:26:51 UTC 2018 i686 i686 i686 GNU/Linux
+     01:30:34 up 52 min,  3 users,  load average: 1.10, 0.93, 0.53
+    e8377c5de4897413c7851adf4b6642cf46c4b964
+
+commit f417142e5d3f9ec65041ff3a3e7c716b16c7059a
+Author: tracer-ics2017 <tracer@njuics.org>
+Date:   Sun Mar 15 01:30:01 2026 -0700
+
+    >  compile
+    2312966
+    linshangjin
+    Linux ubuntu 4.13.0-36-generic #40~16.04.1-Ubuntu SMP Fri Feb 16 23:26:51 UTC 2018 i686 i686 i686 GNU/Linux
+     01:30:01 up 51 min,  3 users,  load average: 1.01, 0.89, 0.50
+    c360c6a81a568eaa78ad59364d83a0a95b9c4e1
+
+commit 794f623423f6d3e1c48584bf778027a3af29f8eb
+Author: 2312966-HuiPeng Lin <2312966@mail.nankai.edu.cn>
+Date:   Sat Mar 14 02:06:58 2026 -0700
+
+    first git log
+
+commit ed80e6c2ea5ab3283242f071405571a01ea469da
+Author: 2312966-HuiPeng Lin <2312966@mail.nankai.edu.cn>
+Date:   Sat Mar 14 02:04:36 2026 -0700
+
+    ics2017 initialized
+    
+    nemu 6fb0908184c276453086e745f2bb2b6442efc38b Merge pull request #93 from DGGua/ics2017
+    nexus-am 1256c84659a5726527c9cb43ebe8bcd2bde8093d SPEC.md: more concrete explanation about `_protect.ptr` in PTE
+    nanos-lite da87b33b541164038df7e0a960ecf2f6ad9cc033 fix indention
+    navy-apps 3cb4bc3b35d81d93ee553a72df2fdf5e479240fa apps,pal: display trademark and splash screens
+
+commit 5b5b182ef51f58176117571d6b4780eb312b263a
+Merge: a811862 a7f5ac6
+Author: Zihao Yu <19884013+sashimi-yzh@users.noreply.github.com>
+Date:   Sat Feb 10 15:13:59 2018 +0800
+
+    Merge pull request #2 from CURAS/patch-1
+    
+    Typo
+
+commit a7f5ac6cb38888516858918b60fa669c53f0119d
+Author: CURAS <3398519433@qq.com>
+Date:   Sat Feb 10 11:19:34 2018 +0800
+
+    Typo
+
+commit a8118623d11f2c540825821d29d1737b1f714c8b
+Author: Zihao Yu <yuzihao@ict.ac.cn>
+Date:   Sat Aug 26 11:50:37 2017 +0800
+
+    init.sh: add retry
+
+commit 7d0c8943ce4ee05eda975d3c29678ac25fc59af4
+Author: Zihao Yu <yuzihao@ict.ac.cn>
+Date:   Fri Aug 25 17:24:20 2017 +0800
+
+    add README.md
+
+commit bfdc521994b2df6e29920ae635aa78920936eff4
+Author: Zihao Yu <yuzihao@ict.ac.cn>
+Date:   Wed Aug 23 22:41:17 2017 +0800
+
+    init.sh: record the HEADs of each subproject in the initialization commit log
+
+commit d53485895c5fe21c9b5aafd31bf06f7f7ba681ff
+Author: Zihao Yu <yuzihao@ict.ac.cn>
+Date:   Wed Aug 23 22:40:35 2017 +0800
+
+    init.sh: use readlink to get absolute path
+    
+    * ubuntu may not have realpath installed by default
+
+commit ae4e3e77574ebce23ad4f2d8b212f16ed775c5f4
+Author: Zihao Yu <yuzihao@ict.ac.cn>
+Date:   Wed Aug 23 16:03:56 2017 +0800
+
+    init.sh: source bashrc
+
+commit 1f274c0dd14e79370c7df1e743bec5326d3fe6a4
+Author: Zihao Yu <yuzihao@ict.ac.cn>
+Date:   Wed Aug 23 16:03:14 2017 +0800
+
+    Makefile: print a message by default, instead of cleaning everything
+
+commit 650f6930847f41c6c921806c27ed34ca75ebbeee
+Author: yzh <yuzihao@ict.ac.cn>
+Date:   Thu Aug 17 00:21:47 2017 +0800
+
+    Makefile: fix tar path
+
+commit 322acff6af13038101c6d0647873e6fd7b88f516
+Author: Zihao Yu <yuzihao@ict.ac.cn>
+Date:   Wed Aug 16 20:57:54 2017 +0800
+
+    first commit

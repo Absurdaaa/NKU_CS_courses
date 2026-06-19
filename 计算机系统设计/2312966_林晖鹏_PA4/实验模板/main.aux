@@ -1,0 +1,67 @@
+\relax 
+\providecommand \babel@aux [2]{\global \let \babel@toc \@gobbletwo }
+\@nameuse{bbl@beforestart}
+\providecommand\hyper@newdestlabel[2]{}
+\providecommand*\HyPL@Entry[1]{}
+\providecommand*\new@tpo@label[2]{}
+\HyPL@Entry{0<</S/D>>}
+\babel@aux{UKenglish}{}
+\HyPL@Entry{1<</S/D>>}
+\@writefile{toc}{\contentsline {section}{\numberline {1}概述}{3}{section.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {2}实验目的}{3}{section.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {3}实验内容}{3}{section.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {4}在 NEMU 中实现分页硬件机制}{3}{section.4}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.1}加入 \texttt  {CR0/CR3} 与分页相关状态}{3}{subsection.4.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.2}实现 \texttt  {page\_translate()} 和分页访存}{5}{subsection.4.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.3}关键认识}{6}{subsection.4.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {5}建立地址空间并让用户程序运行在分页机制上}{6}{section.5}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.1}打开 \texttt  {HAS\_PTE} 与建立内核页表}{6}{subsection.5.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.2}实现 \texttt  {\_map()} 与按页建立映射}{7}{subsection.5.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.3}把 \texttt  {loader()} 改成按页加载}{8}{subsection.5.3}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {5{}.1}{\ignorespaces 分页加载后的 \texttt  {dummy} 顺利输出 \texttt  {GOOD TRAP}}}{9}{figure.caption.2}\protected@file@percent }
+\providecommand*\caption@xref[2]{\@setref\relax\@undefined{#1}}
+\newlabel{fig:pa4-paging-good-trap}{{5{}.1}{9}{分页加载后的 \texttt {dummy} 顺利输出 \texttt {GOOD TRAP}}{figure.caption.2}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.4}修复 \texttt  {mm\_brk()} 与堆区映射}{9}{subsection.5.4}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.5}为什么必须把用户程序入口改到 \texttt  {0x8048000}}{10}{subsection.5.5}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {5{}.2}{\ignorespaces \texttt  {pal} 已经在分页机制下启动并开始初始化资源}}{11}{figure.caption.3}\protected@file@percent }
+\newlabel{fig:pa4-pal-startup}{{5{}.2}{11}{\texttt {pal} 已经在分页机制下启动并开始初始化资源}{figure.caption.3}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {6}上下文切换、时钟中断与真正的分时多任务}{11}{section.6}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {6.1}构造新进程初始现场：\texttt  {\_umake()}}{11}{subsection.6.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {6.2}实现 \texttt  {schedule()} 与 \texttt  {trap.S} 中的切栈恢复}{12}{subsection.6.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {6.3}加入时钟中断，建立抢占式调度}{13}{subsection.6.3}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {6{}.3}{\ignorespaces 时钟中断持续触发，并通过 \texttt  {\_EVENT\_IRQ\_TIME} 驱动调度}}{15}{figure.caption.4}\protected@file@percent }
+\newlabel{fig:pa4-timer-log}{{6{}.3}{15}{时钟中断持续触发，并通过 \texttt {\_EVENT\_IRQ\_TIME} 驱动调度}{figure.caption.4}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {6.4}验证 \texttt  {pal + hello} 的分时运行}{15}{subsection.6.4}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {6{}.4}{\ignorespaces \texttt  {pal} 与 \texttt  {hello} 已经能够在时钟中断驱动下分时运行}}{15}{figure.caption.5}\protected@file@percent }
+\newlabel{fig:pa4-pal-hello-timeslice}{{6{}.4}{15}{\texttt {pal} 与 \texttt {hello} 已经能够在时钟中断驱动下分时运行}{figure.caption.5}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {6.5}加入优先级调度，降低 \texttt  {hello} 对图形程序性能的影响}{15}{subsection.6.5}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {7}展示功能完善}{16}{section.7}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {7.1}加载 \texttt  {videotest} 并实现 \texttt  {F12} 切换}{16}{subsection.7.1}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {7{}.5}{\ignorespaces 默认状态下的 \texttt  {pal + hello}}}{16}{figure.caption.6}\protected@file@percent }
+\newlabel{fig:pa4-pal-hello-before-f12}{{7{}.5}{16}{默认状态下的 \texttt {pal + hello}}{figure.caption.6}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {7{}.6}{\ignorespaces 按下 \texttt  {F12} 后切换到 \texttt  {videotest + hello}}}{17}{figure.caption.7}\protected@file@percent }
+\newlabel{fig:pa4-videotest-after-f12}{{7{}.6}{17}{按下 \texttt {F12} 后切换到 \texttt {videotest + hello}}{figure.caption.7}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {8}必答题与分析}{17}{section.8}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {8.1}分页机制和硬件中断是如何共同支撑 \texttt  {pal} 与 \texttt  {hello} 分时运行的}{17}{subsection.8.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {8.1.1}分页机制负责隔离地址空间}{17}{subsubsection.8.1.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {8.1.2}硬件中断负责把 CPU 从当前进程手里抢回来}{17}{subsubsection.8.1.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {8.1.3}上下文切换把两者真正连起来}{18}{subsubsection.8.1.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {8.1.4}为什么两者缺一不可}{18}{subsubsection.8.1.4}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {8.1.5}结合本次运行现象的验证}{18}{subsubsection.8.1.5}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {9}思考}{18}{section.9}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {9.1}为什么页表项中的基地址只有 20 位}{19}{subsection.9.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {9.2}页表中的基地址为什么必须是物理地址}{19}{subsection.9.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {9.3}为什么不采用一级页表}{19}{subsection.9.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {9.4}拷贝内核映射为什么不能省略}{19}{subsection.9.4}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {9.5}为什么分页机制下 \texttt  {mm\_brk()} 必须真实补页映射}{20}{subsection.9.5}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {9.6}空指针真的是空的吗}{20}{subsection.9.6}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {9.7}如果中断信息总是固定写到同一块内存，会发生什么后果}{21}{subsection.9.7}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {10}实验过程中遇到的问题与解决方法}{21}{section.10}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {10.1}分页开了不代表用户程序就真的拥有了独立地址空间}{21}{subsection.10.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {10.2}新页不清零会引出很多非常隐蔽的问题}{21}{subsection.10.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {10.3}上下文切换最关键的一步是切栈}{21}{subsection.10.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {11}总结}{22}{section.11}\protected@file@percent }
+\newlabel{LastPage}{{11}{22}{总结}{page.22}{}}
+\gdef\lastpage@lastpage{22}
+\gdef\lastpage@lastpageHy{22}
+\gdef \@abspage@last{23}

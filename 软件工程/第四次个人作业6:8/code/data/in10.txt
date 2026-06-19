@@ -1,0 +1,3 @@
+mode='exception'
+nums=[]
+k=1

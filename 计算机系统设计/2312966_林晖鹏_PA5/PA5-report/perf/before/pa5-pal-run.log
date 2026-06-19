@@ -1,0 +1,89 @@
+[1;34m[src/monitor/monitor.c,69,load_img] The image is ./nanos-lite/build/nanos-lite-x86-nemu.bin[0m
+Welcome to NEMU!
+[1;34m[src/monitor/monitor.c,32,welcome] Build time: 10:32:04, May 30 2026[0m
+For help, type "help"
+(nemu) c
+[1;35m[src/mm.c,36,init_mm] free physical pages starting from 0x1d92000[0m
+[1;35m[src/main.c,22,main] 'Hello World!' from Nanos-lite[0m
+[1;35m[src/main.c,23,main] Build time: 10:46:22, May 30 2026[0m
+[1;35m[src/ramdisk.c,26,init_ramdisk] ramdisk info: start = 0x1029a0, end = 0x1d4bc49, size = 29659817 byt[1;34m[src/cpu/intr.c,32,dev_raise_intr] dev_raise_intr[0][0m
+es[0m
+[1;35m[src/main.c,30,main] Initializing interrupt/exception handler...[0m
+[1;35m[src/fs.c,44,fs_open] Pathname: /bin/pal[0m
+[1;34m[src/cpu/intr.c,32,dev_raise_intr] dev_raise_intr[1][0m
+[1;34m[src/cpu/intr.c,32,dev_raise_intr] dev_raise_intr[2][0m
+[1;34m[src/cpu/intr.c,32,dev_raise_intr] dev_raise_intr[3][0m
+[1;34m[src/cpu/intr.c,32,dev_raise_intr] dev_raise_intr[4][0m
+[1;34m[src/cpu/intr.c,32,dev_raise_intr] dev_raise_intr[5][0m
+[1;34m[src/cpu/intr.c,32,dev_raise_intr] dev_raise_intr[6][0m
+[1;34m[src/cpu/intr.c,32,dev_raise_intr] dev_raise_intr[7][0m
+[1;35m[src/fs.c,44,fs_open] Pathname: /bin/pal[0m
+[1;35m[src/proc.c,68,schedule] schedule[0]: first -> /bin/pal (current_game=0)[0m
+[1;34m[src/cpu/exec/exec.c,259,exec_wrapper] exec_wrapper irq[0]: eip=0x08048000[0m
+[1;35m[src/irq.c,16,do_event] do_event time[0][0m
+[1;35m[src/proc.c,96,schedule] schedule[1]: switch -> /bin/pal (current_game=0)[0m
+[1;34m[src/cpu/exec/exec.c,259,exec_wrapper] exec_wrapper irq[1]: eip=0x08048000[0m
+[1;35m[src/irq.c,16,do_event] do_event time[1][0m
+[1;35m[src/proc.c,96,schedule] schedule[2]: switch -> /bin/pal (current_game=0)[0m
+[1;35m[src/syscall.c,24,do_syscall] SYS_write(fd=2, buf=0x8071b1b, len=1)[0m
+g[1;35m[src/syscall.c,24,do_syscall] SYS_write(fd=2, buf=0x8071b1b, len=1)[0m
+a[1;35m[src/syscall.c,24,do_syscall] SYS_write(fd=2, buf=0x8071b1b, len=1)[0m
+m[1;35m[src/syscall.c,24,do_syscall] SYS_write(fd=2, buf=0x8071b1b, len=1)[0m
+e start!
+[1;34m[src/cpu/exec/exec.c,259,exec_wrapper] exec_wrapper irq[2]: eip=0x08069d9a[0m
+[1;35m[src/irq.c,16,do_event] do_event time[2][0m
+[1;35m[src/proc.c,96,schedule] schedule[3]: switch -> /bin/pal (current_game=0)[0m
+[1;35m[src/fs.c,44,fs_open] Pathname: /proc/dispinfo[0m
+[1;35m[src/fs.c,44,fs_open] Pathname: /dev/fb[0m
+[1;35m[src/fs.c,44,fs_open] Pathname: /dev/events[0m
+[1;34m[src/cpu/exec/exec.c,259,exec_wrapper] exec_wrapper irq[3]: eip=0x08069d9a[0m
+[1;35m[src/irq.c,16,do_event] do_event time[3][0m
+[1;35m[src/proc.c,96,schedule] schedule[4]: switch -> /bin/pal (current_game=0)[0m
+VIDEO_Init success
+[1;34m[src/cpu/exec/exec.c,259,exec_wrapper] exec_wrapper irq[4]: eip=0x08065e94[0m
+[1;35m[src/irq.c,16,do_event] do_event time[4][0m
+[1;35m[src/proc.c,96,schedule] schedule[5]: switch -> /bin/pal (current_game=0)[0m
+loading fbp.mkf
+[1;35m[src/fs.c,44,fs_open] Pathname: /share/games/pal/fbp.mkf[0m
+loading mgo.mkf
+[1;35m[src/fs.c,44,fs_open] Pathname: /share/games/pal/mgo.mkf[0m
+loading ball.mkf
+[1;35m[src/fs.c,44,fs_open] Pathname: /share/games/pal/ball.mkf[0m
+loading data.mkf
+[1;35m[src/fs.c,44,fs_open] Pathname: /share/games/pal/data.mkf[0m
+loading f.mkf
+[1;35m[src/fs.c,44,fs_open] Pathname: /share/games/pal/f.mkf[0m
+loading fire.mkf
+[1;35m[src/fs.c,44,fs_open] Pathname: /share/games/pal/fire.mkf[0m
+loading rgm.mkf
+[1;35m[src/fs.c,44,fs_open] Pathname: /share/games/pal/rgm.mkf[0m
+[1;34m[src/cpu/exec/exec.c,259,exec_wrapper] exec_wrapper irq[5]: eip=0x08069d54[0m
+[1;35m[src/irq.c,16,do_event] do_event time[5][0m
+[1;35m[src/proc.c,96,schedule] schedule[6]: switch -> /bin/pal (current_game=0)[0m
+loading sss.mkf
+[1;35m[src/fs.c,44,fs_open] Pathname: /share/games/pal/sss.mkf[0m
+loading desc.dat
+[1;35m[src/fs.c,44,fs_open] Pathname: /share/games/pal/desc.dat[0m
+[1;34m[src/cpu/exec/exec.c,259,exec_wrapper] exec_wrapper irq[6]: eip=0x08065e0d[0m
+[1;35m[src/irq.c,16,do_event] do_event time[6][0m
+[1;35m[src/proc.c,96,schedule] schedule[7]: switch -> /bin/pal (current_game=0)[0m
+[1;34m[src/cpu/exec/exec.c,259,exec_wrapper] exec_wrapper irq[7]: eip=0x080695fe[0m
+[1;35m[src/irq.c,16,do_event] do_event time[7][0m
+[1;35m[src/proc.c,96,schedule] schedule[8]: switch -> /bin/pal (current_game=0)[0m
+[1;35m[src/proc.c,96,schedule] schedule[9]: switch -> /bin/pal (current_game=0)[0m
+[1;35m[src/proc.c,96,schedule] schedule[10]: switch -> /bin/pal (current_game=0)[0m
+[1;35m[src/proc.c,96,schedule] schedule[11]: switch -> /bin/pal (current_game=0)[0m
+PAL_InitGolbals success
+[1;35m[src/fs.c,44,fs_open] Pathname: /share/games/pal/wor16.asc[0m
+[1;35m[src/fs.c,44,fs_open] Pathname: /share/games/pal/wor16.fon[0m
+PAL_InitFont success
+PAL_InitUI success
+[1;35m[src/fs.c,44,fs_open] Pathname: /share/games/pal/m.msg[0m
+[1;35m[src/fs.c,44,fs_open] Pathname: /share/games/pal/word.dat[0m
+PAL_InitText success
+PAL_InitInput success
+PAL_InitResources success
+[1;35m[src/fs.c,44,fs_open] Pathname: /share/games/pal/pat.mkf[0m
+[1;35m[src/fs.c,44,fs_open] Pathname: /share/games/pal/rng.mkf[0m
+[ perf record: Woken up 1 times to write data ]
+[ perf record: Captured and wrote 0.180 MB /tmp/pa5-pal.perf.data (2364 samples) ]

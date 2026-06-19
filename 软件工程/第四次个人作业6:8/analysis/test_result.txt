@@ -1,0 +1,49 @@
+test_bruteforce_and_optimized_implementations_match (tests.test_sliding_window.SlidingWindowTests.test_bruteforce_and_optimized_implementations_match)
+朴素解法和优化解法在同一输入上应得到一致结果。 ... ok
+test_bruteforce_api_returns_expected_values_for_standard_case (tests.test_sliding_window.SlidingWindowTests.test_bruteforce_api_returns_expected_values_for_standard_case)
+朴素解法应在标准示例上返回正确结果。 ... ok
+test_raises_type_error_when_input_is_none (tests.test_sliding_window.SlidingWindowTests.test_raises_type_error_when_input_is_none)
+当输入为 None 时，应抛出类型异常。 ... ok
+test_raises_type_error_when_input_is_not_a_list (tests.test_sliding_window.SlidingWindowTests.test_raises_type_error_when_input_is_not_a_list)
+当输入不是列表时，应抛出类型异常。 ... ok
+test_raises_type_error_when_list_contains_non_integer (tests.test_sliding_window.SlidingWindowTests.test_raises_type_error_when_list_contains_non_integer)
+输入数组中的元素应全部为整数。 ... ok
+test_raises_type_error_when_window_size_is_not_integer (tests.test_sliding_window.SlidingWindowTests.test_raises_type_error_when_window_size_is_not_integer)
+窗口大小必须是整数。 ... ok
+test_raises_value_error_when_input_list_is_empty (tests.test_sliding_window.SlidingWindowTests.test_raises_value_error_when_input_list_is_empty)
+空列表不允许作为有效输入。 ... ok
+test_raises_value_error_when_window_exceeds_length (tests.test_sliding_window.SlidingWindowTests.test_raises_value_error_when_window_exceeds_length)
+窗口大小不能超过输入数组长度。 ... ok
+test_raises_value_error_when_window_is_negative (tests.test_sliding_window.SlidingWindowTests.test_raises_value_error_when_window_is_negative)
+窗口大小为负数时应抛出数值异常。 ... ok
+test_raises_value_error_when_window_is_zero (tests.test_sliding_window.SlidingWindowTests.test_raises_value_error_when_window_is_zero)
+窗口大小必须为正整数。 ... ok
+test_returns_expected_values_for_standard_case (tests.test_sliding_window.SlidingWindowTests.test_returns_expected_values_for_standard_case)
+标准示例应返回题目期望结果。 ... ok
+test_returns_expected_values_for_strictly_decreasing_sequence (tests.test_sliding_window.SlidingWindowTests.test_returns_expected_values_for_strictly_decreasing_sequence)
+严格递减数组的窗口最大值应始终为窗口最左端元素。 ... ok
+test_returns_expected_values_for_strictly_increasing_sequence (tests.test_sliding_window.SlidingWindowTests.test_returns_expected_values_for_strictly_increasing_sequence)
+严格递增数组的窗口最大值应始终为窗口最右端元素。 ... ok
+test_returns_expected_values_when_all_numbers_are_same (tests.test_sliding_window.SlidingWindowTests.test_returns_expected_values_when_all_numbers_are_same)
+当所有元素相同时，每个窗口的最大值也应相同。 ... ok
+test_returns_expected_values_when_duplicates_exist (tests.test_sliding_window.SlidingWindowTests.test_returns_expected_values_when_duplicates_exist)
+存在重复最大值时，结果仍应正确。 ... ok
+test_returns_expected_values_when_maximum_appears_at_right_edge (tests.test_sliding_window.SlidingWindowTests.test_returns_expected_values_when_maximum_appears_at_right_edge)
+窗口最大值位于右边界时，应在进入窗口后立即成为最大值。 ... ok
+test_returns_expected_values_when_maximum_starts_at_left_edge (tests.test_sliding_window.SlidingWindowTests.test_returns_expected_values_when_maximum_starts_at_left_edge)
+窗口最大值位于左边界时，应在滑出前保持为最大值。 ... ok
+test_returns_expected_values_when_numbers_are_negative (tests.test_sliding_window.SlidingWindowTests.test_returns_expected_values_when_numbers_are_negative)
+包含负数时也应正确返回每个窗口的最大值。 ... ok
+test_returns_input_when_window_size_is_one (tests.test_sliding_window.SlidingWindowTests.test_returns_input_when_window_size_is_one)
+当窗口大小为 1 时，结果应与原数组一致。 ... ok
+test_returns_single_value_for_single_element_array (tests.test_sliding_window.SlidingWindowTests.test_returns_single_value_for_single_element_array)
+单元素数组在窗口大小为 1 时应返回该元素本身。 ... ok
+test_returns_single_value_when_window_covers_whole_array (tests.test_sliding_window.SlidingWindowTests.test_returns_single_value_when_window_covers_whole_array)
+当窗口覆盖整个数组时，结果应只包含全局最大值。 ... ok
+test_updates_maximum_when_previous_maximum_leaves_window (tests.test_sliding_window.SlidingWindowTests.test_updates_maximum_when_previous_maximum_leaves_window)
+当原最大值滑出窗口后，应正确更新为新的窗口最大值。 ... ok
+
+----------------------------------------------------------------------
+Ran 22 tests in 0.002s
+
+OK

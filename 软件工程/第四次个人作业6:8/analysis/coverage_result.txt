@@ -1,0 +1,3 @@
+lines   cov%   module   (path)
+   34   100%   src.sliding_window   (/Users/linshangjin/NKU_CS_courses/软件工程/第四次个人作业6:8/src/sliding_window.py)
+   97   100%   tests.test_sliding_window   (/Users/linshangjin/NKU_CS_courses/软件工程/第四次个人作业6:8/tests/test_sliding_window.py)

@@ -1,0 +1,12 @@
+== TB_MAX_INSTR=1 ==
+run1=2.04 run2=2.01 avg=2.025 throughput=9876543.21 instr/s
+== TB_MAX_INSTR=4 ==
+run1=1.87 run2=2.09 avg=1.980 throughput=10101010.10 instr/s
+== TB_MAX_INSTR=8 ==
+run1=2.05 run2=1.94 avg=1.995 throughput=10025062.66 instr/s
+== TB_MAX_INSTR=16 ==
+run1=2.00 run2=1.94 avg=1.970 throughput=10152284.26 instr/s
+== TB_MAX_INSTR=32 ==
+run1=1.96 run2=2.03 avg=1.995 throughput=10025062.66 instr/s
+== TB_MAX_INSTR=64 ==
+run1=1.92 run2=1.97 avg=1.945 throughput=10282776.35 instr/s

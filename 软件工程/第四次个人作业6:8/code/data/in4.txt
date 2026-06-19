@@ -1,0 +1,3 @@
+mode='normal'
+nums=[42]
+k=1

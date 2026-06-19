@@ -1,0 +1,35 @@
+滑动窗口最大值性能对比
+窗口大小: 100
+--------------------------------------------------
+数据规模 n=1000
+  朴素解法耗时: 0.002354 秒
+  优化解法耗时: 0.000796 秒
+
+数据规模 n=5000
+  朴素解法耗时: 0.013155 秒
+  优化解法耗时: 0.002286 秒
+
+数据规模 n=10000
+  朴素解法耗时: 0.025859 秒
+  优化解法耗时: 0.004760 秒
+
+优化解法 Profile 结果（前 20 项）：
+         49901 function calls in 0.028 seconds
+
+   Ordered by: cumulative time
+
+   ncalls  tottime  percall  cumtime  percall filename:lineno(function)
+        1    0.017    0.017    0.028    0.028 /Users/linshangjin/NKU_CS_courses/软件工程/第四次个人作业6:8/src/sliding_window.py:34(max_sliding_window)
+        1    0.000    0.000    0.008    0.008 /Users/linshangjin/NKU_CS_courses/软件工程/第四次个人作业6:8/src/sliding_window.py:6(validate_inputs)
+        1    0.002    0.002    0.008    0.008 {built-in method builtins.any}
+    10001    0.005    0.000    0.006    0.000 /Users/linshangjin/NKU_CS_courses/软件工程/第四次个人作业6:8/src/sliding_window.py:14(<genexpr>)
+     9901    0.001    0.000    0.001    0.000 {method 'append' of 'list' objects}
+    10002    0.001    0.000    0.001    0.000 {built-in method builtins.isinstance}
+    10000    0.001    0.000    0.001    0.000 {method 'append' of 'collections.deque' objects}
+     9900    0.001    0.000    0.001    0.000 {method 'pop' of 'collections.deque' objects}
+       92    0.000    0.000    0.000    0.000 {method 'popleft' of 'collections.deque' objects}
+        1    0.000    0.000    0.000    0.000 {built-in method builtins.len}
+        1    0.000    0.000    0.000    0.000 {method 'disable' of '_lsprof.Profiler' objects}
+
+
+

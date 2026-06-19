@@ -1,0 +1,37 @@
+[1;34m[src/monitor/monitor.c,69,load_img] The image is ./nanos-lite/build/nanos-lite-x86-nemu.bin[0m
+Welcome to NEMU!
+[1;34m[src/monitor/monitor.c,32,welcome] Build time: 04:30:15, Jun  3 2026[0m
+For help, type "help"
+(nemu) c
+[1;35m[src/mm.c,36,init_mm] free physical pages starting from 0x1d91000[0m
+[1;35m[src/main.c,22,main] 'Hello World!' from Nanos-lite[0m
+[1;35m[src/main.c,23,main] Build time: 04:31:25, Jun  3 2026[0m
+[1;35m[src/ramdisk.c,26,init_ramdisk] ramdisk info: start = 0x102780, end = 0x1d4ba29, size = 29659817 bytes[0m
+[1;35m[src/main.c,30,main] Initializing interrupt/exception handler...[0m
+[1;34m[src/cpu/intr.c,32,dev_raise_intr] dev_raise_intr[0][0m
+[1;34m[src/cpu/intr.c,32,dev_raise_intr] dev_raise_intr[1][0m
+[1;34m[src/cpu/intr.c,32,dev_raise_intr] dev_raise_intr[2][0m
+[1;34m[src/cpu/intr.c,32,dev_raise_intr] dev_raise_intr[3][0m
+[1;34m[src/cpu/intr.c,32,dev_raise_intr] dev_raise_intr[4][0m
+[1;34m[src/cpu/intr.c,32,dev_raise_intr] dev_raise_intr[5][0m
+[1;34m[src/cpu/intr.c,32,dev_raise_intr] dev_raise_intr[6][0m
+[1;34m[src/cpu/intr.c,32,dev_raise_intr] dev_raise_intr[7][0m
+game start!
+VIDEO_Init success
+loading fbp.mkf
+loading mgo.mkf
+loading ball.mkf
+loading data.mkf
+loading f.mkf
+loading fire.mkf
+loading rgm.mkf
+loading sss.mkf
+loading desc.dat
+PAL_InitGolbals success
+PAL_InitFont success
+PAL_InitUI success
+PAL_InitText success
+PAL_InitInput success
+PAL_InitResources success
+[ perf record: Woken up 1 times to write data ]
+[ perf record: Captured and wrote 0.193 MB /tmp/pa5-pal-opt4.perf.data (2458 samples) ]

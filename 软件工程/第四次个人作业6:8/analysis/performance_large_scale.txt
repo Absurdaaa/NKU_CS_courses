@@ -1,0 +1,23 @@
+数据规模 n=50000
+窗口大小 k=100
+朴素解法耗时: 0.123144 秒
+优化解法耗时: 0.023794 秒
+
+         249904 function calls in 0.138 seconds
+
+   Ordered by: cumulative time
+
+   ncalls  tottime  percall  cumtime  percall filename:lineno(function)
+        1    0.082    0.082    0.138    0.138 /Users/linshangjin/NKU_CS_courses/软件工程/第四次个人作业6:8/src/sliding_window.py:34(max_sliding_window)
+        1    0.000    0.000    0.036    0.036 /Users/linshangjin/NKU_CS_courses/软件工程/第四次个人作业6:8/src/sliding_window.py:6(validate_inputs)
+        1    0.008    0.008    0.036    0.036 {built-in method builtins.any}
+    50001    0.022    0.000    0.028    0.000 /Users/linshangjin/NKU_CS_courses/软件工程/第四次个人作业6:8/src/sliding_window.py:14(<genexpr>)
+    49901    0.007    0.000    0.007    0.000 {method 'append' of 'list' objects}
+    50000    0.007    0.000    0.007    0.000 {method 'append' of 'collections.deque' objects}
+    49521    0.007    0.000    0.007    0.000 {method 'pop' of 'collections.deque' objects}
+    50002    0.006    0.000    0.006    0.000 {built-in method builtins.isinstance}
+      474    0.000    0.000    0.000    0.000 {method 'popleft' of 'collections.deque' objects}
+        1    0.000    0.000    0.000    0.000 {built-in method builtins.len}
+        1    0.000    0.000    0.000    0.000 {method 'disable' of '_lsprof.Profiler' objects}
+
+

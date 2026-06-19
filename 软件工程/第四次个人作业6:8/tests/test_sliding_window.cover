@@ -1,0 +1,122 @@
+    1: """滑动窗口最大值算法的单元测试。"""
+       
+    1: import unittest
+       
+    1: from src import sliding_window
+       
+       
+    2: class SlidingWindowTests(unittest.TestCase):
+    1:     """测试核心功能与输入校验行为。"""
+       
+    1:     def _api(self):
+               self.assertTrue(
+                   hasattr(sliding_window, "max_sliding_window"),
+                   "src.sliding_window must define max_sliding_window(nums, k)",
+               )
+               return sliding_window.max_sliding_window
+       
+    1:     def _bruteforce_api(self):
+               self.assertTrue(
+                   hasattr(sliding_window, "max_sliding_window_bruteforce"),
+                   "src.sliding_window 必须定义 max_sliding_window_bruteforce(nums, k)",
+               )
+               return sliding_window.max_sliding_window_bruteforce
+       
+    1:     def test_returns_expected_values_for_standard_case(self):
+               """标准示例应返回题目期望结果。"""
+               nums = [1, 3, -1, -3, 5, 3, 6, 7]
+       
+               result = self._api()(nums, 3)
+       
+               self.assertEqual(result, [3, 3, 5, 5, 6, 7])
+       
+    1:     def test_returns_input_when_window_size_is_one(self):
+               """当窗口大小为 1 时，结果应与原数组一致。"""
+               nums = [4, -2, 9]
+       
+               result = self._api()(nums, 1)
+       
+               self.assertEqual(result, [4, -2, 9])
+       
+    1:     def test_raises_value_error_when_window_is_zero(self):
+               """窗口大小必须为正整数。"""
+               with self.assertRaises(ValueError):
+                   self._api()([1, 2, 3], 0)
+       
+    1:     def test_raises_value_error_when_window_exceeds_length(self):
+               """窗口大小不能超过输入数组长度。"""
+               with self.assertRaises(ValueError):
+                   self._api()([1, 2], 3)
+       
+    1:     def test_raises_type_error_when_input_is_not_a_list(self):
+               """当输入不是列表时，应抛出类型异常。"""
+               with self.assertRaises(TypeError):
+                   self._api()("123", 2)
+       
+    1:     def test_raises_value_error_when_input_list_is_empty(self):
+               """空列表不允许作为有效输入。"""
+               with self.assertRaises(ValueError):
+                   self._api()([], 1)
+       
+    1:     def test_raises_type_error_when_window_size_is_not_integer(self):
+               """窗口大小必须是整数。"""
+               with self.assertRaises(TypeError):
+                   self._api()([1, 2, 3], 1.5)
+       
+    1:     def test_raises_type_error_when_list_contains_non_integer(self):
+               """输入数组中的元素应全部为整数。"""
+               with self.assertRaises(TypeError):
+                   self._api()([1, "2", 3], 2)
+       
+    1:     def test_returns_expected_values_for_strictly_increasing_sequence(self):
+               """严格递增数组的窗口最大值应始终为窗口最右端元素。"""
+               nums = [1, 2, 3, 4, 5]
+       
+               result = self._api()(nums, 3)
+       
+               self.assertEqual(result, [3, 4, 5])
+       
+    1:     def test_returns_expected_values_for_strictly_decreasing_sequence(self):
+               """严格递减数组的窗口最大值应始终为窗口最左端元素。"""
+               nums = [5, 4, 3, 2, 1]
+       
+               result = self._api()(nums, 2)
+       
+               self.assertEqual(result, [5, 4, 3, 2])
+       
+    1:     def test_returns_expected_values_when_duplicates_exist(self):
+               """存在重复最大值时，结果仍应正确。"""
+               nums = [4, 4, 4, 2, 2]
+       
+               result = self._api()(nums, 2)
+       
+               self.assertEqual(result, [4, 4, 4, 2])
+       
+    1:     def test_returns_expected_values_when_numbers_are_negative(self):
+               """包含负数时也应正确返回每个窗口的最大值。"""
+               nums = [-7, -8, -6, -5, -9]
+       
+               result = self._api()(nums, 2)
+       
+               self.assertEqual(result, [-7, -6, -5, -5])
+       
+    1:     def test_bruteforce_api_returns_expected_values_for_standard_case(self):
+               """朴素解法应在标准示例上返回正确结果。"""
+               nums = [1, 3, -1, -3, 5, 3, 6, 7]
+       
+               result = self._bruteforce_api()(nums, 3)
+       
+               self.assertEqual(result, [3, 3, 5, 5, 6, 7])
+       
+    1:     def test_bruteforce_and_optimized_implementations_match(self):
+               """朴素解法和优化解法在同一输入上应得到一致结果。"""
+               nums = [9, 1, 3, 7, 2, 6, 8, 4]
+       
+               optimized_result = self._api()(nums, 4)
+               bruteforce_result = self._bruteforce_api()(nums, 4)
+       
+               self.assertEqual(bruteforce_result, optimized_result)
+       
+       
+    1: if __name__ == "__main__":
+    1:     unittest.main()
