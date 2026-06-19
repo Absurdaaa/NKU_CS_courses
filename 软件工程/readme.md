@@ -10,4 +10,4 @@
 
 上课：老师会每节课点人回答问题。
 
-大作业链接：https://github.com/Absurdaaa/SCGS
+大作业太大了放不上来，可以看这个大作业链接：https://github.com/Absurdaaa/SCGS
