@@ -1,121 +1,122 @@
-# Clover HTML Slides Design
+# Clover HTML 幻灯片设计规格
 
-## Goal
+## 目标
 
-Build `clover_demo.html` as the formal presentation deck for a data security course paper report. The HTML file replaces a PPT, so it should behave like a slide deck rather than a long webpage.
+将 `clover_demo.html` 做成数据安全课程论文汇报的正式展示稿。这个 HTML 文件用于替代 PPT，因此它应该像幻灯片一样逐页展示，而不是做成长网页。
 
-The presentation is speaker-led. Slides should carry the main visual argument while the presenter explains details orally. Text density should stay low, but the principle section must be detailed enough to show real paper understanding.
+整体形式采用演讲主导型。页面负责承载主线观点和关键视觉演示，具体细节由汇报人现场讲解。单页文字密度保持较低，但原理部分需要足够具体，体现对论文方法的理解。
 
-## Scope
+## 范围
 
-The deck explains the Clover paper:
+本展示围绕 Clover 论文展开：
 
 - Harnessing Sparsification in Federated Learning: A Secure, Efficient, and Differentially Private Realization
-- Topic: federated learning, top-k sparsification, secure aggregation, index/value privacy, distributed differential privacy
+- 主题：联邦学习、top-k 梯度稀疏化、安全聚合、index/value 隐私、分布式差分隐私
 
-The deck does not:
+本展示不做以下内容：
 
-- implement Clover's real cryptographic protocol;
-- reproduce training experiments;
-- prove the full security theorem;
-- simulate exact distributed ORAM or DP accounting.
+- 不实现 Clover 的真实密码协议；
+- 不复现论文训练实验；
+- 不证明完整安全性定理；
+- 不模拟精确的分布式 ORAM 或差分隐私会计过程。
 
-Interactive animations are concept demonstrations only. They should help explain the paper's key ideas, not claim to be protocol implementations.
+所有交互动画都只是概念演示。它们的作用是帮助解释论文关键思想，而不是声称实现了论文协议。
 
-## Format
+## 展示形式
 
-- Single self-contained HTML file.
-- Fixed 16:9 slide stage suitable for projection and screen recording.
-- Keyboard navigation and visible previous/next controls.
-- No vertical scrolling presentation flow.
-- Low-density, speaker-led slides.
-- 12 slides total.
+- 单个自包含 HTML 文件。
+- 固定 16:9 幻灯片舞台，适合投影和录屏。
+- 支持键盘翻页，并保留可见的上一页/下一页按钮。
+- 不采用纵向滚动的展示方式。
+- 低密度、演讲主导型页面。
+- 总页数固定为 12 页。
 
-## Slide Structure
+## 页面结构
 
-1. **Title: Clover**
-   - Paper title, venue, and keywords.
-   - Establish the main thread: communication efficiency, secure sparse aggregation, and differential privacy.
+1. **标题页：Clover**
+   - 展示论文题目、会议信息和关键词。
+   - 建立主线：通信效率、安全稀疏聚合、差分隐私。
 
-2. **Background: Federated Learning's Privacy Illusion**
-   - Explain that raw data stays local, but gradients and model updates can still leak information.
+2. **背景：联邦学习的隐私错觉**
+   - 说明原始数据留在本地，并不意味着完全隐私安全。
+   - 梯度和模型更新仍然可能泄露信息。
 
-3. **Problem 1: Full Gradients Are Expensive**
-   - Show why model dimension, number of clients, and training rounds amplify communication cost.
-   - Include an animation where clients upload dense gradients.
+3. **问题一：完整梯度通信成本高**
+   - 说明模型维度、客户端数量和训练轮次如何放大通信开销。
+   - 加入客户端上传密集梯度的动画。
 
-4. **Starting Point: top-k Sparsification**
-   - Explain how top-k selects the largest gradient coordinates.
-   - Show dense gradients becoming sparse `(index, value)` pairs.
+4. **方法起点：top-k 梯度稀疏化**
+   - 说明 top-k 如何选择绝对值最大的梯度坐标。
+   - 展示密集梯度变成稀疏的 `(index, value)` 对。
 
-5. **Problem 2: Index Leakage**
-   - Explain that value is not the only sensitive part; selected positions can reveal data distribution clues.
-   - Include an attacker/server-view animation that highlights visible index patterns.
+5. **问题二：index 也会泄露隐私**
+   - 说明敏感的不只是梯度值 value，被选中的位置 index 也可能暴露数据分布线索。
+   - 加入服务器/攻击者视角动画，突出可见 index 模式带来的风险。
 
-6. **Clover's Goal and Threat Model**
-   - State what Clover protects: value, index, and individual client updates.
-   - State what is revealed: only the aggregate result needed for model update.
-   - Present the three-server non-collusion trust setting at a high level.
+6. **Clover 的目标与威胁模型**
+   - 说明 Clover 要保护的内容：value、index、单个客户端更新。
+   - 说明系统允许暴露的内容：用于更新模型的聚合结果。
+   - 高层次介绍三服务器非合谋信任设置。
 
-7. **Principle 1: Sparse Vector Representation**
-   - Show sparse gradients as `(index, value)` entries.
-   - Explain why different clients choose different top-k locations.
-   - Explain why expanding everything into dense vectors would lose the communication benefit.
+7. **原理一：稀疏向量表示**
+   - 展示稀疏梯度如何表示为 `(index, value)` 条目。
+   - 说明不同客户端选择的 top-k 位置可能不同。
+   - 说明如果直接展开成密集向量，会损失稀疏化带来的通信收益。
 
-8. **Principle 2: Hidden Sparse Aggregation**
-   - Show clients sending hidden/sharded sparse updates to three servers.
-   - Servers collaborate, but no single visible path should expose a client's index/value.
-   - Final visual output is an aggregate dense gradient, not individual sparse updates.
+8. **原理二：隐藏 index/value 的稀疏聚合**
+   - 展示客户端把隐藏或分片后的稀疏更新发送给三个服务器。
+   - 三个服务器协作完成聚合，但单一路径不应暴露某个客户端的 index/value。
+   - 最终展示的是聚合后的密集梯度，而不是单个客户端的稀疏更新。
 
-9. **Principle 3: Why Not Generic ORAM**
-   - Compare generic ORAM-style access-pattern hiding with Clover's task-specific sparse aggregation.
-   - Main message: ORAM is general but heavy; Clover is specialized and more efficient for this task.
+9. **原理三：为什么不用通用 ORAM**
+   - 对比通用 ORAM 式访问模式隐藏和 Clover 的任务专用稀疏聚合。
+   - 核心信息：ORAM 更通用但更重；Clover 针对稀疏聚合任务专门设计，因此更高效。
 
-10. **Principle 4: Distributed Differential Privacy**
-    - Explain the separation of roles:
-      - secure aggregation protects individual round updates;
-      - differential privacy limits leakage from the final model/output.
-    - Include a conceptual epsilon/noise/utility trade-off animation.
+10. **原理四：分布式差分隐私**
+    - 说明安全聚合和差分隐私解决的是不同问题：
+      - 安全聚合保护单轮训练中的单个客户端更新；
+      - 差分隐私限制最终模型或输出泄露训练数据。
+    - 加入 epsilon、噪声规模、模型效用之间权衡的概念动画。
 
-11. **Experiments and Limitations**
-    - Combine key evaluation points and critical discussion.
-    - Experiments: much faster than generic distributed ORAM baseline, lower client communication, utility close to vanilla FL with central DP.
-    - Limitations: three-server trust assumption, system complexity, mainly top-k oriented, large-model scenarios need further validation.
+11. **实验结论与局限**
+    - 合并展示主要实验结果和批判性讨论。
+    - 实验结论：相比通用分布式 ORAM 基线更快；客户端通信成本更低；模型效用接近带中心化 DP 的普通联邦学习。
+    - 局限：三服务器信任假设、系统复杂度、主要围绕 top-k、超大模型场景仍需进一步验证。
 
-12. **Summary**
-    - One-sentence thesis: Clover integrates sparsification, secure aggregation, and differential privacy to balance communication efficiency and privacy in federated learning.
-    - End with the system trade-off rather than a feature list.
+12. **总结**
+    - 用一句话收束：Clover 将梯度稀疏化、安全聚合和差分隐私结合起来，在联邦学习中平衡通信效率和隐私保护。
+    - 结尾强调系统权衡，而不是简单罗列功能。
 
-## Interaction Boundary
+## 交互边界
 
-Interactive or animated slides:
+需要交互或动画的页面：
 
-- Slide 3: dense gradient upload.
-- Slide 4: top-k sparsification.
-- Slide 5: index leakage view.
-- Slide 7: sparse `(index, value)` representation.
-- Slide 8: hidden sparse aggregation through three servers.
-- Slide 10: DP noise and privacy-utility trade-off.
+- 第 3 页：密集梯度上传。
+- 第 4 页：top-k 稀疏化。
+- 第 5 页：index 泄露视角。
+- 第 7 页：稀疏 `(index, value)` 表示。
+- 第 8 页：三服务器隐藏稀疏聚合。
+- 第 10 页：DP 噪声与隐私-效用权衡。
 
-Static explanatory slides:
+静态讲解页面：
 
-- Slides 1, 2, 6, 9, 11, 12.
+- 第 1、2、6、9、11、12 页。
 
-The interactions should be deterministic and easy to reset. They should not require network access during presentation.
+交互应当是确定性的，方便现场重置，不依赖展示时的网络访问。
 
-## Visual Direction
+## 视觉方向
 
-The deck should feel like a technical security presentation, not a marketing website. Use a clear visual grammar:
+整体风格应像技术型数据安全汇报，而不是营销网页。视觉系统保持清晰一致：
 
-- clients, servers, gradients, hidden shares, and aggregate outputs as recurring visual objects;
-- high contrast between exposed information and hidden information;
-- restrained colors with sharp accents for risk, protection, and noise;
-- large headings and concise phrases;
-- no dense paragraphs on slides.
+- 反复使用客户端、服务器、梯度、隐藏分片、聚合结果等视觉对象；
+- 明确区分“暴露的信息”和“被保护的信息”；
+- 使用克制的主色，并为风险、保护、噪声设置清晰强调色；
+- 使用大标题和短语式文字；
+- 避免在单页放入大段文字。
 
-## Success Criteria
+## 成功标准
 
-- The HTML can replace a PPT for a live course presentation.
-- A listener can follow the story: FL background -> communication bottleneck -> top-k benefit -> index leakage -> Clover secure sparse aggregation -> DP -> evaluation and limitations.
-- The principle section is detailed enough to show paper understanding without pretending to implement the protocol.
-- The deck remains 12 slides and does not become a report page.
+- HTML 能够直接替代 PPT，用于课堂现场论文汇报。
+- 听众可以顺着主线理解：联邦学习背景 -> 通信瓶颈 -> top-k 收益 -> index 泄露 -> Clover 安全稀疏聚合 -> 差分隐私 -> 实验与局限。
+- 原理部分足够详细，能体现对论文的理解，但不会误导为真实协议实现。
+- 全文保持 12 页，不变成报告式长页面。
