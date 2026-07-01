@@ -1,0 +1,1596 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Clover 论文汇报 HTML 幻灯片</title>
+  <style>
+    :root {
+      --stage-bg: #101816;
+      --slide-bg: #f8fbf7;
+      --ink: #102426;
+      --muted: #5a6f72;
+      --line: rgba(16, 36, 38, .14);
+      --paper: #ffffff;
+      --teal: #0b8f88;
+      --teal-soft: #dff5f1;
+      --blue: #315fbd;
+      --blue-soft: #e8efff;
+      --risk: #d9552f;
+      --risk-soft: #fff0e8;
+      --gold: #b9860d;
+      --gold-soft: #fff5d5;
+      --noise: #7658c7;
+      --noise-soft: #eee8ff;
+      --shadow: 0 32px 90px rgba(10, 24, 26, .16);
+      --ease: cubic-bezier(.16, 1, .3, 1);
+      --display: "Avenir Next", "Gill Sans", "PingFang SC", "Hiragino Sans GB", sans-serif;
+      --body: "Helvetica Neue", "PingFang SC", "Microsoft YaHei", sans-serif;
+      --mono: "SFMono-Regular", "Cascadia Code", "Consolas", monospace;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    /* ===========================================
+       FIXED 16:9 STAGE: MANDATORY BASE STYLES
+       Include this ENTIRE file in every presentation.
+       Slides are authored at 1920x1080 and scaled as a whole.
+       =========================================== */
+
+    /* 1. Lock the browser viewport */
+    html,
+    body {
+        width: 100%;
+        height: 100%;
+        margin: 0;
+        overflow: hidden;
+        background: var(--stage-bg, #000);
+    }
+
+    /* 2. Full-window deck viewport */
+    .deck-viewport {
+        position: fixed;
+        inset: 0;
+        overflow: hidden;
+        background: var(--stage-bg, #000);
+    }
+
+    /* 3. Fixed 16:9 design canvas.
+       JavaScript sets transform: translate(...) scale(...). */
+    .deck-stage {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 1920px;
+        height: 1080px;
+        overflow: hidden;
+        transform-origin: 0 0;
+        background: var(--slide-bg, #fff);
+    }
+
+    /* 4. Slides stack inside the fixed stage.
+       Content must be laid out at 1920x1080, not reflowed per device. */
+    .slide {
+        position: absolute;
+        inset: 0;
+        width: 1920px;
+        height: 1080px;
+        overflow: hidden;
+        display: block;
+        visibility: hidden;
+        opacity: 0;
+        pointer-events: none;
+        background: var(--slide-bg, #fff);
+    }
+
+    .slide.active,
+    .slide.visible {
+        visibility: visible;
+        opacity: 1;
+        pointer-events: auto;
+        z-index: 1;
+    }
+
+    /* 5. Keep media inside authored slide bounds */
+    img,
+    video,
+    canvas,
+    svg {
+        max-width: 100%;
+        max-height: 100%;
+    }
+
+    /* 6. Presentation chrome stays outside the slide design system */
+    .deck-controls {
+        position: fixed;
+        left: 50%;
+        bottom: 22px;
+        transform: translateX(-50%);
+        z-index: 1000;
+    }
+
+    /* 7. Print one fixed-size slide per page */
+    @media print {
+        html,
+        body {
+            width: 1920px;
+            height: auto;
+            overflow: visible;
+            background: #fff;
+        }
+
+        .deck-viewport {
+            position: static;
+            overflow: visible;
+            background: #fff;
+        }
+
+        .deck-stage {
+            position: static;
+            width: auto;
+            height: auto;
+            transform: none !important;
+            background: none;
+        }
+
+        .slide {
+            position: relative;
+            display: block !important;
+            visibility: visible !important;
+            opacity: 1 !important;
+            pointer-events: auto !important;
+            width: 1920px;
+            height: 1080px;
+            break-after: page;
+            page-break-after: always;
+        }
+
+        .slide:last-child {
+            break-after: auto;
+            page-break-after: auto;
+        }
+
+        .deck-controls {
+            display: none !important;
+        }
+    }
+
+    /* 8. Reduced motion */
+    @media (prefers-reduced-motion: reduce) {
+        *,
+        *::before,
+        *::after {
+            animation-duration: 0.01ms !important;
+            transition-duration: 0.2s !important;
+        }
+    }
+
+    /* === Base Theme === */
+    body {
+      font-family: var(--body);
+      color: var(--ink);
+    }
+
+    .deck-stage {
+      border-radius: 26px;
+      box-shadow: 0 28px 80px rgba(0, 0, 0, .32);
+      isolation: isolate;
+    }
+
+    .deck-stage::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+      background:
+        radial-gradient(circle at 10% 12%, rgba(11, 143, 136, .18), transparent 24%),
+        radial-gradient(circle at 90% 16%, rgba(217, 85, 47, .12), transparent 24%),
+        radial-gradient(circle at 78% 88%, rgba(49, 95, 189, .13), transparent 28%),
+        linear-gradient(135deg, #ffffff 0%, #f7fbfa 45%, #edf7f4 100%);
+    }
+
+    .deck-stage::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+      background-image:
+        linear-gradient(rgba(11, 143, 136, .05) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(11, 143, 136, .05) 1px, transparent 1px);
+      background-size: 44px 44px;
+      mask-image: linear-gradient(to bottom, rgba(0, 0, 0, .8), rgba(0, 0, 0, .14));
+    }
+
+    .slide {
+      padding: 74px 86px;
+      z-index: 1;
+      transition: opacity .34s var(--ease), transform .34s var(--ease);
+      transform: translateX(36px);
+    }
+
+    .slide.visible {
+      transform: translateX(0);
+    }
+
+    .slide > * {
+      position: relative;
+      z-index: 2;
+    }
+
+    .slide-grid {
+      height: 100%;
+      display: grid;
+      grid-template-columns: 740px 1fr;
+      gap: 54px;
+      align-items: center;
+    }
+
+    .slide-grid.wide-copy {
+      grid-template-columns: 820px 1fr;
+    }
+
+    .copy {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      min-width: 0;
+    }
+
+    .visual {
+      min-width: 0;
+      min-height: 0;
+      display: grid;
+      place-items: center;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      width: fit-content;
+      align-items: center;
+      gap: 12px;
+      padding: 12px 18px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: rgba(255, 255, 255, .72);
+      color: var(--teal);
+      font-weight: 900;
+      font-size: 22px;
+      letter-spacing: .04em;
+      text-transform: uppercase;
+      box-shadow: 0 14px 34px rgba(16, 36, 38, .08);
+    }
+
+    h1, h2, h3 {
+      font-family: var(--display);
+      color: var(--ink);
+      line-height: 1.04;
+      letter-spacing: 0;
+      font-weight: 900;
+    }
+
+    h1 {
+      margin-top: 34px;
+      font-size: 124px;
+      max-width: 760px;
+    }
+
+    h2 {
+      margin-top: 30px;
+      font-size: 82px;
+      max-width: 780px;
+    }
+
+    h3 {
+      font-size: 34px;
+    }
+
+    .lead {
+      margin-top: 30px;
+      color: #31565a;
+      font-size: 34px;
+      line-height: 1.42;
+      font-weight: 650;
+      max-width: 770px;
+    }
+
+    .talk-points {
+      margin-top: 36px;
+      display: grid;
+      gap: 18px;
+      list-style: none;
+      max-width: 760px;
+    }
+
+    .talk-points li {
+      display: grid;
+      grid-template-columns: 36px 1fr;
+      gap: 16px;
+      align-items: start;
+      color: #365d61;
+      font-size: 27px;
+      line-height: 1.38;
+      font-weight: 720;
+    }
+
+    .talk-points li::before {
+      content: "";
+      width: 14px;
+      height: 14px;
+      margin-top: 12px;
+      border-radius: 50%;
+      background: var(--teal);
+      box-shadow: 0 0 0 10px rgba(11, 143, 136, .12);
+    }
+
+    .risk-text { color: var(--risk); }
+    .blue-text { color: var(--blue); }
+    .noise-text { color: var(--noise); }
+
+    .action-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 18px;
+      margin-top: 40px;
+    }
+
+    button {
+      appearance: none;
+      border: 0;
+      cursor: pointer;
+      border-radius: 16px;
+      padding: 18px 26px;
+      background: var(--teal);
+      color: #fff;
+      font-family: var(--body);
+      font-size: 23px;
+      font-weight: 900;
+      box-shadow: 0 18px 38px rgba(11, 143, 136, .22);
+      transition: transform .18s ease, background .18s ease, box-shadow .18s ease;
+    }
+
+    button:hover {
+      transform: translateY(-2px);
+      background: #08736f;
+    }
+
+    button.secondary {
+      color: var(--teal);
+      background: rgba(255, 255, 255, .86);
+      border: 1px solid rgba(11, 143, 136, .28);
+      box-shadow: none;
+    }
+
+    button.risk { background: var(--risk); box-shadow: 0 18px 38px rgba(217, 85, 47, .22); }
+    button.blue { background: var(--blue); box-shadow: 0 18px 38px rgba(49, 95, 189, .22); }
+    button.noise { background: var(--noise); box-shadow: 0 18px 38px rgba(118, 88, 199, .22); }
+
+    .tag-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+      margin-top: 36px;
+    }
+
+    .tag {
+      display: inline-flex;
+      align-items: center;
+      min-height: 48px;
+      padding: 10px 18px;
+      border-radius: 999px;
+      border: 1px solid var(--line);
+      background: rgba(255, 255, 255, .76);
+      color: #335b5f;
+      font-size: 22px;
+      font-weight: 850;
+      box-shadow: 0 12px 24px rgba(16, 36, 38, .06);
+    }
+
+    .note {
+      margin-top: 34px;
+      padding: 22px 26px;
+      border-radius: 20px;
+      background: rgba(223, 245, 241, .82);
+      color: #255d61;
+      font-size: 25px;
+      line-height: 1.4;
+      font-weight: 800;
+      border: 1px solid rgba(11, 143, 136, .16);
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity .6s var(--ease), transform .6s var(--ease);
+    }
+
+    .visible .reveal {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .reveal:nth-child(2) { transition-delay: .06s; }
+    .reveal:nth-child(3) { transition-delay: .12s; }
+    .reveal:nth-child(4) { transition-delay: .18s; }
+    .reveal:nth-child(5) { transition-delay: .24s; }
+
+    /* === Diagram Components === */
+    .diagram {
+      width: 100%;
+      min-height: 600px;
+      border: 1px solid rgba(16, 36, 38, .12);
+      border-radius: 34px;
+      background: rgba(255, 255, 255, .72);
+      box-shadow: var(--shadow);
+      padding: 34px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .diagram::before {
+      content: "";
+      position: absolute;
+      inset: 22px;
+      border-radius: 28px;
+      background: linear-gradient(135deg, rgba(223, 245, 241, .7), rgba(255, 255, 255, .2));
+      pointer-events: none;
+    }
+
+    .diagram > * {
+      position: relative;
+      z-index: 1;
+    }
+
+    .mini-label {
+      color: var(--muted);
+      font-family: var(--mono);
+      font-size: 18px;
+      font-weight: 850;
+      text-transform: uppercase;
+      letter-spacing: .04em;
+    }
+
+    .node {
+      position: absolute;
+      width: 188px;
+      min-height: 126px;
+      border: 1px solid var(--line);
+      border-radius: 26px;
+      background: #fff;
+      display: grid;
+      place-items: center;
+      text-align: center;
+      padding: 18px;
+      box-shadow: 0 18px 40px rgba(16, 36, 38, .1);
+      color: var(--ink);
+      font-weight: 950;
+      font-size: 25px;
+      transition: transform .28s var(--ease), border-color .28s ease, background .28s ease;
+    }
+
+    .node small {
+      display: block;
+      margin-top: 5px;
+      color: var(--muted);
+      font-size: 17px;
+      font-weight: 780;
+    }
+
+    .node.server {
+      width: 220px;
+      min-height: 148px;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      border-color: rgba(11, 143, 136, .32);
+      background: linear-gradient(145deg, #fff, #e9fbf8);
+    }
+
+    .node.client-a { left: 44px; top: 74px; }
+    .node.client-b { right: 52px; top: 92px; }
+    .node.client-c { left: 92px; bottom: 70px; }
+    .node.client-d { right: 96px; bottom: 70px; }
+    .node.is-active { transform: translateY(-10px); border-color: var(--teal); background: var(--teal-soft); }
+    .node.server.is-active { transform: translate(-50%, -50%) scale(1.04); }
+
+    .packet, .share {
+      position: absolute;
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      opacity: 0;
+      background: var(--teal);
+      box-shadow: 0 0 0 9px rgba(11, 143, 136, .13);
+      z-index: 3;
+    }
+
+    .packet.p1 { left: 158px; top: 184px; }
+    .packet.p2 { right: 168px; top: 204px; }
+    .packet.p3 { left: 206px; bottom: 168px; }
+    .packet.p4 { right: 212px; bottom: 168px; }
+    .packet.is-active.p1 { animation: denseA 1.1s var(--ease) forwards; }
+    .packet.is-active.p2 { animation: denseB 1.1s .12s var(--ease) forwards; }
+    .packet.is-active.p3 { animation: denseC 1.1s .24s var(--ease) forwards; }
+    .packet.is-active.p4 { animation: denseD 1.1s .36s var(--ease) forwards; }
+
+    @keyframes denseA { 0% { opacity: 1; transform: translate(0, 0); } 80% { opacity: 1; } 100% { opacity: 0; transform: translate(322px, 188px); } }
+    @keyframes denseB { 0% { opacity: 1; transform: translate(0, 0); } 80% { opacity: 1; } 100% { opacity: 0; transform: translate(-316px, 172px); } }
+    @keyframes denseC { 0% { opacity: 1; transform: translate(0, 0); } 80% { opacity: 1; } 100% { opacity: 0; transform: translate(286px, -198px); } }
+    @keyframes denseD { 0% { opacity: 1; transform: translate(0, 0); } 80% { opacity: 1; } 100% { opacity: 0; transform: translate(-282px, -198px); } }
+
+    .vector-panel {
+      width: 100%;
+      max-width: 820px;
+      border: 1px solid var(--line);
+      border-radius: 28px;
+      background: rgba(255, 255, 255, .9);
+      padding: 30px;
+      box-shadow: 0 20px 54px rgba(16, 36, 38, .11);
+    }
+
+    .gradient-vector {
+      display: grid;
+      grid-template-columns: repeat(8, 1fr);
+      gap: 13px;
+      margin-top: 24px;
+    }
+
+    .grad-cell {
+      min-height: 86px;
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      display: grid;
+      place-items: center;
+      position: relative;
+      background: #f7fbfa;
+      color: #355b60;
+      font-family: var(--mono);
+      font-size: 22px;
+      font-weight: 850;
+      transition: transform .25s var(--ease), opacity .25s ease, background .25s ease, color .25s ease, border-color .25s ease;
+    }
+
+    .grad-cell::after {
+      content: "i=" attr(data-index);
+      position: absolute;
+      top: -12px;
+      right: -6px;
+      padding: 4px 9px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: #fff;
+      color: var(--muted);
+      font-size: 14px;
+      font-family: var(--mono);
+      font-weight: 850;
+    }
+
+    .grad-cell.is-active,
+    .grad-cell.keep.is-active {
+      transform: translateY(-10px);
+      border-color: var(--teal);
+      background: var(--teal-soft);
+      color: var(--teal);
+      box-shadow: 0 16px 28px rgba(11, 143, 136, .15);
+    }
+
+    .grad-cell.is-dropped {
+      opacity: .22;
+      transform: scale(.94);
+      filter: grayscale(.8);
+    }
+
+    .grad-cell.is-risk,
+    .index-marker.is-risk {
+      border-color: var(--risk);
+      background: var(--risk-soft);
+      color: var(--risk);
+      animation: riskPulse 1s ease infinite alternate;
+    }
+
+    @keyframes riskPulse {
+      from { box-shadow: 0 0 0 0 rgba(217, 85, 47, .2); }
+      to { box-shadow: 0 0 0 15px rgba(217, 85, 47, 0); }
+    }
+
+    .sparse-pairs {
+      margin-top: 26px;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+      opacity: 0;
+      transform: translateY(16px);
+      transition: opacity .28s ease, transform .28s var(--ease);
+    }
+
+    .sparse-pairs[data-active="true"] {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .pair-card {
+      padding: 18px;
+      border-radius: 18px;
+      background: #fff;
+      border: 1px solid rgba(11, 143, 136, .2);
+      color: #275b5e;
+      font-family: var(--mono);
+      font-size: 20px;
+      font-weight: 850;
+      text-align: center;
+    }
+
+    .pair-card.is-active {
+      border-color: var(--teal);
+      background: var(--teal-soft);
+      color: var(--teal);
+      transform: translateY(-6px);
+      box-shadow: 0 14px 26px rgba(11, 143, 136, .12);
+    }
+
+    .meter-grid {
+      margin-top: 28px;
+      display: grid;
+      gap: 16px;
+    }
+
+    .meter-row {
+      display: grid;
+      grid-template-columns: 142px 1fr 128px;
+      gap: 16px;
+      align-items: center;
+      color: #3c6267;
+      font-size: 21px;
+      font-weight: 850;
+    }
+
+    .bar {
+      height: 16px;
+      border-radius: 999px;
+      background: #e5efed;
+      overflow: hidden;
+    }
+
+    .bar span {
+      display: block;
+      width: 100%;
+      height: 100%;
+      border-radius: inherit;
+      background: linear-gradient(90deg, var(--teal), #57c8bd);
+      transition: width .32s var(--ease);
+    }
+
+    .bar.risk span { background: linear-gradient(90deg, var(--risk), #ed9c68); }
+    .bar.noise span { background: linear-gradient(90deg, var(--noise), #b3a0f0); }
+
+    .risk-board, .sparse-board, .clover-board, .dp-board {
+      width: 100%;
+      max-width: 850px;
+      display: grid;
+      gap: 22px;
+    }
+
+    .observed-indexes {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+    }
+
+    .index-marker {
+      min-height: 108px;
+      border: 1px solid var(--line);
+      border-radius: 22px;
+      background: #fff;
+      display: grid;
+      place-items: center;
+      color: #31565a;
+      font-family: var(--mono);
+      font-size: 25px;
+      font-weight: 900;
+      transition: .25s ease;
+    }
+
+    .attacker-panel {
+      display: grid;
+      grid-template-columns: 112px 1fr;
+      gap: 22px;
+      align-items: center;
+      border: 1px solid var(--line);
+      border-radius: 26px;
+      background: rgba(255, 255, 255, .9);
+      padding: 24px;
+      box-shadow: 0 18px 42px rgba(16, 36, 38, .1);
+    }
+
+    .avatar {
+      width: 92px;
+      height: 92px;
+      border-radius: 26px;
+      display: grid;
+      place-items: center;
+      background: var(--risk-soft);
+      color: var(--risk);
+      font-size: 48px;
+      font-weight: 900;
+    }
+
+    .thought {
+      color: #31565a;
+      font-size: 26px;
+      line-height: 1.38;
+      font-weight: 760;
+    }
+
+    .triple-server {
+      height: 410px;
+      position: relative;
+    }
+
+    .server-card {
+      position: absolute;
+      width: 210px;
+      min-height: 142px;
+      border: 1px solid var(--line);
+      border-radius: 24px;
+      background: #fff;
+      display: grid;
+      place-items: center;
+      text-align: center;
+      color: #31565a;
+      font-size: 27px;
+      font-weight: 930;
+      box-shadow: 0 18px 42px rgba(16, 36, 38, .1);
+      transition: .25s ease;
+    }
+
+    .server-card.s1 { left: 52px; top: 120px; }
+    .server-card.s2 { left: 50%; top: 26px; transform: translateX(-50%); }
+    .server-card.s3 { right: 52px; top: 120px; }
+    .server-card.is-active { border-color: var(--blue); background: var(--blue-soft); color: var(--blue); transform: translateY(-8px); }
+    .server-card.s2.is-active { transform: translateX(-50%) translateY(-8px); }
+
+    .private-update {
+      border: 1px solid rgba(11, 143, 136, .24);
+      border-radius: 22px;
+      background: rgba(255, 255, 255, .9);
+      padding: 20px;
+      color: #295b5e;
+      font-family: var(--mono);
+      font-size: 21px;
+      font-weight: 850;
+      transition: .25s ease;
+    }
+
+    .private-update.is-hidden {
+      filter: blur(5px);
+      opacity: .55;
+      background: #edf3f2;
+    }
+
+    .share-line {
+      position: absolute;
+      left: 50%;
+      top: 310px;
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      opacity: 0;
+      background: var(--blue);
+      box-shadow: 0 0 0 8px rgba(49, 95, 189, .13);
+    }
+
+    .share-line.share-a.is-active { animation: shareA 1.05s var(--ease) forwards; }
+    .share-line.share-b.is-active { animation: shareB 1.05s .12s var(--ease) forwards; }
+    .share-line.share-c.is-active { animation: shareC 1.05s .24s var(--ease) forwards; }
+
+    @keyframes shareA { 0% { opacity: 1; transform: translate(0, 0); } 90% { opacity: 1; } 100% { opacity: 0; transform: translate(-312px, -118px); } }
+    @keyframes shareB { 0% { opacity: 1; transform: translate(0, 0); } 90% { opacity: 1; } 100% { opacity: 0; transform: translate(-10px, -250px); } }
+    @keyframes shareC { 0% { opacity: 1; transform: translate(0, 0); } 90% { opacity: 1; } 100% { opacity: 0; transform: translate(300px, -118px); } }
+
+    .aggregate-vector {
+      opacity: 0;
+      transform: translateY(16px);
+      transition: .3s var(--ease);
+    }
+
+    .aggregate-vector[data-active="true"] {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .compare-grid {
+      width: 100%;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 26px;
+    }
+
+    .compare-card, .result-card, .limit-card {
+      border: 1px solid var(--line);
+      border-radius: 28px;
+      background: rgba(255, 255, 255, .9);
+      padding: 30px;
+      box-shadow: 0 18px 42px rgba(16, 36, 38, .1);
+    }
+
+    .compare-card h3, .result-card h3, .limit-card h3 {
+      margin-bottom: 18px;
+      color: var(--ink);
+    }
+
+    .compare-card p, .result-card p, .limit-card p {
+      color: #3a6064;
+      font-size: 26px;
+      line-height: 1.45;
+      font-weight: 700;
+    }
+
+    .compare-card.heavy { border-color: rgba(217, 85, 47, .24); background: var(--risk-soft); }
+    .compare-card.focused { border-color: rgba(11, 143, 136, .24); background: var(--teal-soft); }
+
+    .dp-metrics {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+    }
+
+    .metric {
+      border: 1px solid var(--line);
+      border-radius: 24px;
+      background: #fff;
+      padding: 22px;
+      text-align: center;
+      box-shadow: 0 14px 30px rgba(16, 36, 38, .08);
+    }
+
+    .metric strong {
+      display: block;
+      color: var(--noise);
+      font-size: 42px;
+      margin-bottom: 8px;
+      font-family: var(--display);
+    }
+
+    .metric span {
+      color: #3a6064;
+      font-size: 22px;
+      font-weight: 850;
+    }
+
+    input[type="range"] {
+      width: 100%;
+      accent-color: var(--noise);
+    }
+
+    .slider-box {
+      border: 1px solid var(--line);
+      border-radius: 26px;
+      background: rgba(255, 255, 255, .9);
+      padding: 28px;
+      box-shadow: 0 18px 42px rgba(16, 36, 38, .1);
+    }
+
+    .results-grid, .limits-grid {
+      width: 100%;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 22px;
+    }
+
+    .result-card strong {
+      display: block;
+      color: var(--teal);
+      font-family: var(--display);
+      font-size: 54px;
+      line-height: 1;
+      margin-bottom: 18px;
+    }
+
+    .limit-card {
+      min-height: 236px;
+    }
+
+    .limit-card h3 {
+      color: var(--risk);
+    }
+
+    .thesis {
+      height: 100%;
+      display: grid;
+      align-content: center;
+      justify-items: center;
+      text-align: center;
+      padding: 0 120px;
+    }
+
+    .thesis h2 {
+      max-width: 1280px;
+      font-size: 92px;
+    }
+
+    .thesis p {
+      margin-top: 34px;
+      max-width: 1160px;
+      color: #31565a;
+      font-size: 36px;
+      line-height: 1.42;
+      font-weight: 700;
+    }
+
+    /* === Deck Chrome === */
+    .deck-controls {
+      width: min(1180px, calc(100vw - 44px));
+      height: 54px;
+      display: grid;
+      grid-template-columns: auto 1fr auto auto;
+      gap: 14px;
+      align-items: center;
+      padding: 8px;
+      border: 1px solid rgba(255, 255, 255, .14);
+      border-radius: 999px;
+      background: rgba(8, 18, 19, .78);
+      backdrop-filter: blur(16px);
+      color: #dcefed;
+    }
+
+    .deck-controls button {
+      min-width: 108px;
+      min-height: 38px;
+      padding: 8px 16px;
+      border-radius: 999px;
+      font-size: 16px;
+      box-shadow: none;
+      background: rgba(255, 255, 255, .12);
+      color: #ecfffc;
+    }
+
+    .deck-controls button:hover {
+      background: rgba(255, 255, 255, .2);
+      transform: translateY(-1px);
+    }
+
+    .progress {
+      height: 8px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, .14);
+      overflow: hidden;
+    }
+
+    .progress span {
+      display: block;
+      height: 100%;
+      width: 0;
+      border-radius: inherit;
+      background: linear-gradient(90deg, #57c8bd, #f0c75e);
+      transition: width .24s var(--ease);
+    }
+
+    .counter {
+      min-width: 66px;
+      color: #dcefed;
+      font-family: var(--mono);
+      font-size: 15px;
+      font-weight: 850;
+      text-align: right;
+    }
+  </style>
+</head>
+<body>
+  <div class="deck-viewport">
+    <main class="deck-stage" id="deckStage" aria-label="Clover HTML presentation">
+      <section class="slide active" data-title="Clover">
+        <div class="slide-grid wide-copy">
+          <div class="copy">
+            <p class="eyebrow reveal">论文汇报</p>
+            <h1 class="reveal">Clover</h1>
+            <p class="lead reveal">安全、差分隐私且通信高效的稀疏联邦学习实现。</p>
+            <div class="tag-row reveal">
+              <span class="tag">ACM CCS 2025</span>
+              <span class="tag">Federated Learning</span>
+              <span class="tag">Secure Aggregation</span>
+              <span class="tag">Differential Privacy</span>
+            </div>
+          </div>
+          <div class="visual">
+            <div class="diagram">
+              <div class="node server">Clover<small>sparse secure aggregation</small></div>
+              <div class="node client-a">Client A<small>medical data</small></div>
+              <div class="node client-b">Client B<small>finance data</small></div>
+              <div class="node client-c">Client C<small>mobile data</small></div>
+              <div class="node client-d">Client D<small>edge data</small></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="slide" data-title="隐私错觉">
+        <div class="slide-grid">
+          <div class="copy">
+            <p class="eyebrow reveal">背景</p>
+            <h2 class="reveal">数据不出本地，不等于安全</h2>
+            <p class="lead reveal">联邦学习减少原始数据集中，但梯度和模型更新仍携带数据线索。</p>
+            <ul class="talk-points reveal">
+              <li>服务器聚合的是更新，不是原始样本。</li>
+              <li>攻击者可能从梯度中推断训练数据特征。</li>
+              <li>Clover 关注的是通信效率和隐私保护同时成立。</li>
+            </ul>
+          </div>
+          <div class="visual">
+            <div class="diagram">
+              <div class="node server">Server<small>global model</small></div>
+              <div class="node client-a">Client A<small>local data</small></div>
+              <div class="node client-b">Client B<small>local data</small></div>
+              <div class="node client-c">Client C<small>local data</small></div>
+              <div class="node client-d">Client D<small>local data</small></div>
+              <div class="note" style="position:absolute;left:280px;right:280px;bottom:70px;">关键问题：上传的梯度本身仍可能暴露本地数据分布。</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="slide" data-title="通信瓶颈">
+        <div class="slide-grid">
+          <div class="copy">
+            <p class="eyebrow reveal">问题一</p>
+            <h2 class="reveal">完整梯度太大，传不起</h2>
+            <p class="lead reveal">模型维度、客户端数量和训练轮次会一起放大通信成本。</p>
+            <ul class="talk-points reveal">
+              <li>每个客户端每轮上传一个高维梯度向量。</li>
+              <li>跨设备或边缘场景中，通信可能成为主要瓶颈。</li>
+              <li>稀疏化是降低上传量的自然起点。</li>
+            </ul>
+            <div class="action-row reveal">
+              <button type="button" onclick="playDenseUpload()">播放密集上传</button>
+              <button class="secondary" type="button" onclick="resetCurrentSlide()">重置</button>
+            </div>
+          </div>
+          <div class="visual">
+            <div class="diagram" id="denseDiagram">
+              <div class="node server" id="denseServer">Server<small>aggregate all gradients</small></div>
+              <div class="node client-a">Client A<small>d-dimensional gradient</small></div>
+              <div class="node client-b">Client B<small>d-dimensional gradient</small></div>
+              <div class="node client-c">Client C<small>d-dimensional gradient</small></div>
+              <div class="node client-d">Client D<small>d-dimensional gradient</small></div>
+              <span class="packet upload-packet p1"></span>
+              <span class="packet upload-packet p2"></span>
+              <span class="packet upload-packet p3"></span>
+              <span class="packet upload-packet p4"></span>
+              <div class="vector-panel" style="position:absolute;left:260px;right:260px;bottom:58px;width:auto;max-width:none;">
+                <div class="mini-label">communication pressure</div>
+                <div class="meter-grid">
+                  <div class="meter-row"><span>上传内容</span><div class="bar"><span id="denseUploadBar"></span></div><strong id="denseCost">100%</strong></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="slide" data-title="top-k 稀疏化">
+        <div class="slide-grid">
+          <div class="copy">
+            <p class="eyebrow reveal">方法起点</p>
+            <h2 class="reveal">top-k 只上传最重要的位置</h2>
+            <p class="lead reveal">客户端保留绝对值最大的 k 个梯度分量，把完整向量变成稀疏条目。</p>
+            <ul class="talk-points reveal">
+              <li>上传内容从完整向量变为 `(index, value)` 对。</li>
+              <li>通信量下降，但上传结构更暴露。</li>
+              <li>Clover 不是发明 top-k，而是保护 top-k。</li>
+            </ul>
+            <div class="action-row reveal">
+              <button type="button" onclick="playTopK()">执行 top-k</button>
+              <button class="secondary" type="button" onclick="resetCurrentSlide()">重置</button>
+            </div>
+          </div>
+          <div class="visual">
+            <div class="vector-panel">
+              <div class="mini-label">gradient vector</div>
+              <div class="gradient-vector" id="topkVector">
+                <span class="grad-cell" data-index="1">+0.12</span>
+                <span class="grad-cell keep" data-index="2">-1.84</span>
+                <span class="grad-cell" data-index="3">+0.05</span>
+                <span class="grad-cell keep" data-index="4">+1.36</span>
+                <span class="grad-cell" data-index="5">-0.22</span>
+                <span class="grad-cell keep" data-index="6">+2.10</span>
+                <span class="grad-cell" data-index="7">+0.08</span>
+                <span class="grad-cell" data-index="8">-0.17</span>
+              </div>
+              <div class="sparse-pairs" id="topkPairs">
+                <div class="pair-card">(2, -1.84)</div>
+                <div class="pair-card">(4, +1.36)</div>
+                <div class="pair-card">(6, +2.10)</div>
+              </div>
+              <div class="meter-grid">
+                <div class="meter-row"><span>上传内容</span><div class="bar"><span id="topkUploadBar"></span></div><strong id="topkUploadText">100%</strong></div>
+                <div class="meter-row"><span>通信节省</span><div class="bar"><span id="topkSaveBar" style="width:0%"></span></div><strong id="topkSaveText">0%</strong></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="slide" data-title="index 泄露">
+        <div class="slide-grid">
+          <div class="copy">
+            <p class="eyebrow reveal">问题二</p>
+            <h2 class="reveal">value 隐藏了，<span class="risk-text">index</span> 仍会泄露</h2>
+            <p class="lead reveal">被选中的位置模式可能反映客户端数据分布，这是稀疏化带来的新风险。</p>
+            <ul class="talk-points reveal">
+              <li>top-k index 表示哪些参数在本地训练中更重要。</li>
+              <li>位置模式本身可能成为侧信道。</li>
+              <li>只加密 value，不能完整保护稀疏梯度。</li>
+            </ul>
+            <div class="action-row reveal">
+              <button class="risk" type="button" onclick="playIndexRisk()">服务器视角</button>
+              <button class="secondary" type="button" onclick="resetCurrentSlide()">重置</button>
+            </div>
+          </div>
+          <div class="visual">
+            <div class="risk-board">
+              <div class="observed-indexes">
+                <div class="index-marker">index 2</div>
+                <div class="index-marker">index 4</div>
+                <div class="index-marker">index 6</div>
+              </div>
+              <div class="attacker-panel" id="indexRiskPanel">
+                <div class="avatar">?</div>
+                <p class="thought" id="riskThought">服务器观察到的是 top-k 位置和值；点击后只突出 index 模式。</p>
+              </div>
+              <div class="gradient-vector">
+                <span class="grad-cell" data-index="1">hidden</span>
+                <span class="grad-cell keep index-marker" data-index="2">selected</span>
+                <span class="grad-cell" data-index="3">hidden</span>
+                <span class="grad-cell keep index-marker" data-index="4">selected</span>
+                <span class="grad-cell" data-index="5">hidden</span>
+                <span class="grad-cell keep index-marker" data-index="6">selected</span>
+                <span class="grad-cell" data-index="7">hidden</span>
+                <span class="grad-cell" data-index="8">hidden</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="slide" data-title="Clover 目标">
+        <div class="slide-grid">
+          <div class="copy">
+            <p class="eyebrow reveal">目标</p>
+            <h2 class="reveal">既要稀疏，也要隐藏</h2>
+            <p class="lead reveal">Clover 的核心目标是在保留通信收益的同时，隐藏单个客户端的稀疏更新。</p>
+            <ul class="talk-points reveal">
+              <li>保护非零梯度值 value。</li>
+              <li>保护被选中的 top-k 位置 index。</li>
+              <li>服务器只得到聚合结果，用于更新全局模型。</li>
+            </ul>
+          </div>
+          <div class="visual">
+            <div class="diagram">
+              <div class="compare-grid" style="height:100%;align-items:center;">
+                <article class="compare-card heavy">
+                  <h3>不能暴露</h3>
+                  <p>单个客户端的 `(index, value)`、本地更新模式、私有训练信号。</p>
+                </article>
+                <article class="compare-card focused">
+                  <h3>允许输出</h3>
+                  <p>所有参与客户端更新的聚合结果，用于下一轮全局模型。</p>
+                </article>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="slide" data-title="三服务器模型">
+        <div class="slide-grid">
+          <div class="copy">
+            <p class="eyebrow reveal">威胁模型</p>
+            <h2 class="reveal">三服务器分布式信任设置</h2>
+            <p class="lead reveal">客户端不把明文稀疏梯度交给单个服务器，而是借助多个服务器协作完成聚合。</p>
+            <ul class="talk-points reveal">
+              <li>单个服务器不应看见完整私密信息。</li>
+              <li>多个服务器协作计算聚合结果。</li>
+              <li>论文还考虑恶意服务器下的完整性增强。</li>
+            </ul>
+          </div>
+          <div class="visual">
+            <div class="diagram">
+              <div class="triple-server">
+                <div class="server-card s1">Server A<small>share</small></div>
+                <div class="server-card s2">Server B<small>share</small></div>
+                <div class="server-card s3">Server C<small>share</small></div>
+                <div class="private-update" style="position:absolute;left:220px;right:220px;bottom:30px;text-align:center;">Client top-k update is split / hidden before aggregation</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="slide" data-title="稀疏表示">
+        <div class="slide-grid">
+          <div class="copy">
+            <p class="eyebrow reveal">原理一</p>
+            <h2 class="reveal">稀疏向量是 `(index, value)`</h2>
+            <p class="lead reveal">不同客户端的 top-k 位置不同，聚合时必须对齐位置并累加值。</p>
+            <ul class="talk-points reveal">
+              <li>稀疏表示节省通信，因为只上传 k 个条目。</li>
+              <li>直接展开成密集向量，会抵消稀疏化收益。</li>
+              <li>难点在于：位置要参与计算，但不能暴露。</li>
+            </ul>
+            <div class="action-row reveal">
+              <button type="button" onclick="playSparseRepresentation()">突出不同位置</button>
+              <button class="secondary" type="button" onclick="resetCurrentSlide()">重置</button>
+            </div>
+          </div>
+          <div class="visual">
+            <div class="sparse-board">
+              <div class="vector-panel">
+                <div class="mini-label">Client A</div>
+                <div class="sparse-pairs" data-active="true">
+                  <div class="pair-card sparse-entry">(2, -1.84)</div>
+                  <div class="pair-card sparse-entry">(4, +1.36)</div>
+                  <div class="pair-card sparse-entry">(6, +2.10)</div>
+                </div>
+              </div>
+              <div class="vector-panel">
+                <div class="mini-label">Client B</div>
+                <div class="sparse-pairs" data-active="true">
+                  <div class="pair-card sparse-entry">(1, +0.93)</div>
+                  <div class="pair-card sparse-entry">(4, -0.77)</div>
+                  <div class="pair-card sparse-entry">(8, +1.26)</div>
+                </div>
+              </div>
+              <div class="note">聚合结果要落回同一个全局坐标系，但不能暴露每个客户端的坐标选择。</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="slide" data-title="隐藏聚合">
+        <div class="slide-grid">
+          <div class="copy">
+            <p class="eyebrow reveal">原理二</p>
+            <h2 class="reveal">隐藏 index/value 后仍能聚合</h2>
+            <p class="lead reveal">Clover 针对稀疏聚合设计协议，让服务器获得聚合结果而非单个客户端更新。</p>
+            <ul class="talk-points reveal">
+              <li>客户端稀疏条目在上传前被隐藏或分片。</li>
+              <li>三个服务器协作完成位置对齐和求和。</li>
+              <li>输出是聚合后的密集梯度。</li>
+            </ul>
+            <div class="action-row reveal">
+              <button class="blue" type="button" onclick="playHiddenAggregation()">播放隐藏聚合</button>
+              <button class="secondary" type="button" onclick="resetCurrentSlide()">重置</button>
+            </div>
+          </div>
+          <div class="visual">
+            <div class="clover-board">
+              <div class="private-update" id="privateUpdate">Client top-k: (2,-1.84), (4,+1.36), (6,+2.10)</div>
+              <div class="diagram" style="min-height:430px;">
+                <div class="server-card s1">Server A</div>
+                <div class="server-card s2">Server B</div>
+                <div class="server-card s3">Server C</div>
+                <span class="share-line share-a"></span>
+                <span class="share-line share-b"></span>
+                <span class="share-line share-c"></span>
+              </div>
+              <div class="vector-panel aggregate-vector" id="aggregateVector">
+                <div class="mini-label">aggregate dense gradient</div>
+                <div class="gradient-vector">
+                  <span class="grad-cell" data-index="1">+0.93</span>
+                  <span class="grad-cell" data-index="2">-1.84</span>
+                  <span class="grad-cell" data-index="3">0</span>
+                  <span class="grad-cell" data-index="4">+0.59</span>
+                  <span class="grad-cell" data-index="5">0</span>
+                  <span class="grad-cell" data-index="6">+2.10</span>
+                  <span class="grad-cell" data-index="7">0</span>
+                  <span class="grad-cell" data-index="8">+1.26</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="slide" data-title="ORAM 对比">
+        <div class="slide-grid">
+          <div class="copy">
+            <p class="eyebrow reveal">原理三</p>
+            <h2 class="reveal">为什么不直接用通用 ORAM？</h2>
+            <p class="lead reveal">通用 ORAM 能隐藏访问模式，但为了通用性付出较高开销。</p>
+            <ul class="talk-points reveal">
+              <li>Clover 的任务更具体：安全聚合 top-k 稀疏梯度。</li>
+              <li>专门设计可以避免通用方案的重负担。</li>
+              <li>这也是论文性能提升的重要来源。</li>
+            </ul>
+          </div>
+          <div class="visual">
+            <div class="diagram">
+              <div class="compare-grid" style="height:100%;align-items:center;">
+                <article class="compare-card heavy">
+                  <h3>通用 ORAM</h3>
+                  <p>隐藏访问模式，适用范围广，但通信和运行成本都更重。</p>
+                </article>
+                <article class="compare-card focused">
+                  <h3>Clover 专用设计</h3>
+                  <p>围绕 top-k 稀疏聚合优化，只处理当前任务真正需要隐藏和计算的部分。</p>
+                </article>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="slide" data-title="分布式 DP">
+        <div class="slide-grid">
+          <div class="copy">
+            <p class="eyebrow reveal">原理四</p>
+            <h2 class="reveal">安全聚合之外，还需要 DP</h2>
+            <p class="lead reveal">安全聚合保护单轮单客户端更新，差分隐私限制最终模型泄露训练数据。</p>
+            <ul class="talk-points reveal">
+              <li>二者解决的问题不同，不是互相替代。</li>
+              <li>Clover 采用分布式噪声生成，避免单点完全信任。</li>
+              <li>隐私预算越强，噪声越大，效用可能下降。</li>
+            </ul>
+          </div>
+          <div class="visual">
+            <div class="dp-board">
+              <div class="slider-box">
+                <div class="mini-label">epsilon: smaller means stronger privacy</div>
+                <input id="epsilonSlider" type="range" min="1" max="10" value="5" />
+              </div>
+              <div class="dp-metrics">
+                <div class="metric"><strong id="privacyLabel">中</strong><span>隐私强度</span></div>
+                <div class="metric"><strong id="noiseLabel">中</strong><span>噪声规模</span></div>
+                <div class="metric"><strong id="utilityLabel">中</strong><span>模型效用</span></div>
+              </div>
+              <div class="meter-grid">
+                <div class="meter-row"><span>噪声</span><div class="bar noise"><span id="noiseBar" style="width:50%"></span></div><strong id="epsilonText">epsilon=5</strong></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="slide" data-title="实验结论">
+        <div class="slide-grid">
+          <div class="copy">
+            <p class="eyebrow reveal">实验</p>
+            <h2 class="reveal">性能和效用之间的系统折中</h2>
+            <p class="lead reveal">论文的重点不是超过无保护 FL，而是在隐私保护下尽量保留可用性。</p>
+            <ul class="talk-points reveal">
+              <li>相比通用分布式 ORAM 基线，服务器侧通信和运行时间提升数个数量级。</li>
+              <li>客户端通信成本更低。</li>
+              <li>模型效用接近 vanilla FL with central DP。</li>
+            </ul>
+          </div>
+          <div class="visual">
+            <div class="results-grid">
+              <article class="result-card"><strong>通信</strong><p>客户端上传量保持稀疏化收益。</p></article>
+              <article class="result-card"><strong>时间</strong><p>专用聚合比通用 ORAM 基线更快。</p></article>
+              <article class="result-card"><strong>效用</strong><p>接近带中心化 DP 的普通联邦学习。</p></article>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="slide" data-title="局限讨论">
+        <div class="slide-grid">
+          <div class="copy">
+            <p class="eyebrow reveal">讨论</p>
+            <h2 class="reveal">安全系统总有部署代价</h2>
+            <p class="lead reveal">Clover 的设计完整，但也带来信任、复杂度和适配范围上的限制。</p>
+            <ul class="talk-points reveal">
+              <li>三服务器非合谋假设在真实部署中需要组织保障。</li>
+              <li>协议和系统实现比普通 FL 更复杂。</li>
+              <li>目前主要围绕 top-k，大模型微调仍需进一步验证。</li>
+            </ul>
+          </div>
+          <div class="visual">
+            <div class="limits-grid">
+              <article class="limit-card"><h3>信任假设</h3><p>三个服务器需要相互独立，不能完全合谋。</p></article>
+              <article class="limit-card"><h3>系统复杂度</h3><p>安全聚合、DP 噪声和完整性检查都增加实现成本。</p></article>
+              <article class="limit-card"><h3>适配范围</h3><p>其他压缩方式和超大模型训练还需要更多研究。</p></article>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="slide" data-title="总结">
+        <div class="thesis">
+          <p class="eyebrow reveal">总结</p>
+          <h2 class="reveal">Clover 把稀疏化、安全聚合和差分隐私放进同一个系统权衡里</h2>
+          <p class="reveal">它保留 top-k 带来的通信优势，同时隐藏稀疏梯度的位置和值，并通过分布式 DP 限制最终模型泄露风险。</p>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <nav class="deck-controls" aria-label="幻灯片导航">
+    <button id="prevBtn" type="button">上一页</button>
+    <div class="progress"><span id="progressBar"></span></div>
+    <div class="counter" id="counter">1 / 1</div>
+    <button id="nextBtn" type="button">下一页</button>
+  </nav>
+
+  <script>
+    class SlidePresentation {
+      constructor() {
+        this.slides = Array.from(document.querySelectorAll(".slide"));
+        this.currentSlide = 0;
+        this.stage = document.getElementById("deckStage");
+        this.progressBar = document.getElementById("progressBar");
+        this.counter = document.getElementById("counter");
+        this.setupStageScale();
+        this.setupKeyboardNav();
+        this.setupTouchNav();
+        this.setupButtons();
+        const requestedSlide = Number(new URLSearchParams(window.location.search).get("slide"));
+        this.showSlide(Number.isInteger(requestedSlide) && requestedSlide > 0 ? requestedSlide - 1 : 0);
+      }
+
+      setupStageScale() {
+        const scale = () => {
+          const chrome = 84;
+          const factor = Math.min(window.innerWidth / 1920, (window.innerHeight - chrome) / 1080);
+          const x = (window.innerWidth - 1920 * factor) / 2;
+          const y = Math.max(10, (window.innerHeight - chrome - 1080 * factor) / 2);
+          this.stage.style.transform = `translate(${x}px, ${y}px) scale(${factor})`;
+        };
+        scale();
+        window.addEventListener("resize", scale);
+      }
+
+      setupButtons() {
+        document.getElementById("nextBtn").addEventListener("click", () => this.next());
+        document.getElementById("prevBtn").addEventListener("click", () => this.prev());
+      }
+
+      setupKeyboardNav() {
+        document.addEventListener("keydown", (event) => {
+          if (event.key === "ArrowRight" || event.key === " " || event.key === "PageDown") {
+            event.preventDefault();
+            this.next();
+          }
+          if (event.key === "ArrowLeft" || event.key === "PageUp") {
+            event.preventDefault();
+            this.prev();
+          }
+          if (event.key === "Home") this.showSlide(0);
+          if (event.key === "End") this.showSlide(this.slides.length - 1);
+        });
+      }
+
+      setupTouchNav() {
+        let startX = 0;
+        this.stage.addEventListener("touchstart", (event) => {
+          startX = event.changedTouches[0].clientX;
+        }, { passive: true });
+        this.stage.addEventListener("touchend", (event) => {
+          const dx = event.changedTouches[0].clientX - startX;
+          if (Math.abs(dx) > 60) {
+            if (dx < 0) this.next();
+            else this.prev();
+          }
+        }, { passive: true });
+      }
+
+      showSlide(index) {
+        this.currentSlide = (index + this.slides.length) % this.slides.length;
+        this.slides.forEach((slide, i) => {
+          slide.classList.toggle("active", i === this.currentSlide);
+          slide.classList.toggle("visible", i === this.currentSlide);
+        });
+        this.progressBar.style.width = `${((this.currentSlide + 1) / this.slides.length) * 100}%`;
+        this.counter.textContent = `${this.currentSlide + 1} / ${this.slides.length}`;
+        resetSlideAnimations(this.slides[this.currentSlide]);
+      }
+
+      next() { this.showSlide(this.currentSlide + 1); }
+      prev() { this.showSlide(this.currentSlide - 1); }
+    }
+
+    let deck;
+
+    function activeSlide() {
+      return deck.slides[deck.currentSlide];
+    }
+
+    function resetSlideAnimations(slide) {
+      slide.querySelectorAll("[data-active]").forEach((el) => el.removeAttribute("data-active"));
+      slide.querySelectorAll(".is-active, .is-risk, .is-hidden, .is-noisy, .is-dropped").forEach((el) => {
+        el.classList.remove("is-active", "is-risk", "is-hidden", "is-noisy", "is-dropped");
+      });
+      if (slide.querySelector("#denseUploadBar")) {
+        document.getElementById("denseUploadBar").style.width = "100%";
+        document.getElementById("denseCost").textContent = "100%";
+      }
+      if (slide.querySelector("#topkVector")) {
+        document.querySelectorAll("#topkVector .grad-cell").forEach((cell) => {
+          cell.classList.remove("is-active", "is-dropped");
+        });
+        document.getElementById("topkUploadBar").style.width = "100%";
+        document.getElementById("topkUploadText").textContent = "100%";
+        document.getElementById("topkSaveBar").style.width = "0%";
+        document.getElementById("topkSaveText").textContent = "0%";
+      }
+      if (slide.querySelector("#riskThought")) {
+        document.getElementById("riskThought").textContent = "服务器观察到的是 top-k 位置和值；点击后只突出 index 模式。";
+      }
+      if (slide.querySelector("#epsilonSlider")) {
+        document.getElementById("epsilonSlider").value = "5";
+        updateDPTradeoff();
+      }
+    }
+
+    function resetCurrentSlide() {
+      resetSlideAnimations(deck.slides[deck.currentSlide]);
+    }
+
+    function playDenseUpload() {
+      const slide = activeSlide();
+      slide.querySelectorAll(".upload-packet").forEach((packet, i) => {
+        packet.style.animationDelay = `${i * 120}ms`;
+        packet.classList.add("is-active");
+      });
+      slide.querySelector("#denseServer").classList.add("is-active");
+      document.getElementById("denseUploadBar").style.width = "100%";
+      document.getElementById("denseCost").textContent = "每轮 N x d";
+    }
+
+    function playTopK() {
+      const slide = activeSlide();
+      slide.querySelectorAll("#topkVector .grad-cell").forEach((cell) => {
+        const keep = cell.classList.contains("keep");
+        cell.classList.toggle("is-dropped", !keep);
+        cell.classList.toggle("is-active", keep);
+      });
+      document.getElementById("topkPairs").setAttribute("data-active", "true");
+      document.getElementById("topkUploadBar").style.width = "38%";
+      document.getElementById("topkUploadText").textContent = "3/8 + index";
+      document.getElementById("topkSaveBar").style.width = "62%";
+      document.getElementById("topkSaveText").textContent = "约 62%";
+    }
+
+    function playIndexRisk() {
+      const slide = activeSlide();
+      slide.querySelectorAll(".index-marker").forEach((marker) => marker.classList.add("is-risk"));
+      document.getElementById("indexRiskPanel").setAttribute("data-active", "true");
+      document.getElementById("riskThought").textContent = "即使 value 被隐藏，index=2、4、6 的模式仍可能暗示本地数据分布。";
+    }
+
+    function playSparseRepresentation() {
+      const slide = activeSlide();
+      slide.querySelectorAll(".sparse-entry").forEach((entry, i) => {
+        setTimeout(() => entry.classList.add("is-active"), i * 90);
+      });
+    }
+
+    function playHiddenAggregation() {
+      const slide = activeSlide();
+      slide.querySelector("#privateUpdate").classList.add("is-hidden");
+      slide.querySelectorAll(".share-line").forEach((line, i) => {
+        line.style.animationDelay = `${i * 120}ms`;
+        line.classList.add("is-active");
+      });
+      slide.querySelectorAll(".server-card").forEach((server) => server.classList.add("is-active"));
+      document.getElementById("aggregateVector").setAttribute("data-active", "true");
+    }
+
+    function updateDPTradeoff() {
+      const epsilon = Number(document.getElementById("epsilonSlider").value);
+      const strongPrivacy = epsilon <= 3;
+      const weakPrivacy = epsilon >= 8;
+      const noiseWidth = Math.max(18, 100 - epsilon * 8);
+      document.getElementById("privacyLabel").textContent = strongPrivacy ? "强" : weakPrivacy ? "弱" : "中";
+      document.getElementById("noiseLabel").textContent = strongPrivacy ? "大" : weakPrivacy ? "小" : "中";
+      document.getElementById("utilityLabel").textContent = strongPrivacy ? "较低" : weakPrivacy ? "较高" : "中";
+      document.getElementById("noiseBar").style.width = `${noiseWidth}%`;
+      document.getElementById("epsilonText").textContent = `epsilon=${epsilon}`;
+    }
+
+    document.getElementById("epsilonSlider").addEventListener("input", updateDPTradeoff);
+    deck = new SlidePresentation();
+    updateDPTradeoff();
+  </script>
+</body>
+</html>
