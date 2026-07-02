@@ -918,6 +918,336 @@
       font-weight: 700;
     }
 
+    /* === Content-Specific Layouts === */
+    .cover-slide {
+      display: grid;
+      grid-template-rows: 1fr auto;
+      gap: 34px;
+      height: 100%;
+    }
+
+    .paper-title {
+      max-width: 1450px;
+      align-self: center;
+    }
+
+    .paper-title h1 {
+      max-width: 1420px;
+      font-size: 76px;
+      line-height: 1.08;
+    }
+
+    .system-name {
+      margin-top: 36px;
+      display: flex;
+      align-items: baseline;
+      gap: 28px;
+    }
+
+    .system-name strong {
+      font-family: var(--display);
+      font-size: 96px;
+      line-height: 1;
+      color: var(--teal);
+    }
+
+    .system-name span {
+      color: #31565a;
+      font-size: 34px;
+      font-weight: 800;
+    }
+
+    .cover-meta {
+      display: grid;
+      grid-template-columns: 1.15fr .85fr;
+      gap: 22px;
+      align-items: stretch;
+    }
+
+    .meta-box {
+      border: 1px solid var(--line);
+      border-radius: 26px;
+      background: rgba(255, 255, 255, .82);
+      padding: 26px 30px;
+      box-shadow: 0 16px 36px rgba(16, 36, 38, .08);
+      color: #31565a;
+      font-size: 27px;
+      line-height: 1.48;
+      font-weight: 760;
+    }
+
+    .meta-box strong {
+      color: var(--ink);
+      font-weight: 950;
+    }
+
+    .full-flow {
+      height: 100%;
+      display: grid;
+      grid-template-rows: auto 1fr auto;
+      gap: 26px;
+    }
+
+    .center-title {
+      text-align: center;
+      justify-self: center;
+    }
+
+    .center-title h2 {
+      max-width: 1420px;
+      font-size: 76px;
+    }
+
+    .fl-flow {
+      position: relative;
+      min-height: 620px;
+      border: 1px solid var(--line);
+      border-radius: 34px;
+      background: rgba(255, 255, 255, .72);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+    }
+
+    .flow-step {
+      position: absolute;
+      min-width: 210px;
+      padding: 18px 22px;
+      border-radius: 22px;
+      background: #fff;
+      border: 1px solid var(--line);
+      color: #31565a;
+      font-family: var(--mono);
+      font-size: 20px;
+      font-weight: 850;
+      text-align: center;
+      box-shadow: 0 16px 34px rgba(16, 36, 38, .1);
+      opacity: .35;
+      transition: .28s ease;
+    }
+
+    .flow-step.is-active {
+      opacity: 1;
+      border-color: var(--teal);
+      background: var(--teal-soft);
+      color: var(--teal);
+      transform: translateY(-6px);
+    }
+
+    .flow-step.down { left: 50%; top: 70px; transform: translateX(-50%); }
+    .flow-step.local { left: 80px; bottom: 90px; }
+    .flow-step.up { right: 80px; bottom: 90px; }
+    .flow-step.aggregate { left: 50%; bottom: 36px; transform: translateX(-50%); }
+
+    .source-cards {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+      margin-top: 30px;
+    }
+
+    .source-card {
+      border: 1px solid var(--line);
+      border-radius: 24px;
+      background: rgba(255, 255, 255, .9);
+      padding: 22px;
+      box-shadow: 0 16px 34px rgba(16, 36, 38, .08);
+    }
+
+    .source-card strong {
+      display: block;
+      color: var(--teal);
+      font-family: var(--display);
+      font-size: 42px;
+      line-height: 1;
+      margin-bottom: 12px;
+    }
+
+    .source-card span {
+      color: #3a6064;
+      font-size: 21px;
+      line-height: 1.35;
+      font-weight: 760;
+    }
+
+    .formula-box {
+      border: 1px solid rgba(11, 143, 136, .22);
+      border-radius: 26px;
+      background: rgba(223, 245, 241, .82);
+      padding: 28px;
+      color: #255d61;
+      font-family: var(--mono);
+      font-size: 29px;
+      font-weight: 850;
+      line-height: 1.45;
+    }
+
+    .attack-chain {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 22px;
+      width: 100%;
+    }
+
+    .chain-card {
+      min-height: 260px;
+      border: 1px solid var(--line);
+      border-radius: 28px;
+      background: rgba(255, 255, 255, .9);
+      padding: 30px;
+      box-shadow: 0 18px 42px rgba(16, 36, 38, .1);
+    }
+
+    .chain-card h3 {
+      color: var(--risk);
+      margin-bottom: 18px;
+    }
+
+    .chain-card p {
+      color: #3a6064;
+      font-size: 26px;
+      line-height: 1.42;
+      font-weight: 740;
+    }
+
+    .strawman-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 28px;
+      width: 100%;
+    }
+
+    .strawman-card {
+      border: 1px solid var(--line);
+      border-radius: 30px;
+      background: rgba(255, 255, 255, .9);
+      padding: 30px;
+      box-shadow: 0 20px 46px rgba(16, 36, 38, .1);
+      min-height: 500px;
+    }
+
+    .strawman-card h3 {
+      color: var(--blue);
+      margin-bottom: 18px;
+    }
+
+    .strawman-card p {
+      color: #3a6064;
+      font-size: 25px;
+      line-height: 1.42;
+      font-weight: 740;
+    }
+
+    .mini-vector {
+      margin: 22px 0;
+      padding: 18px;
+      border-radius: 18px;
+      background: #f7fbfa;
+      border: 1px dashed rgba(16, 36, 38, .18);
+      color: #31565a;
+      font-family: var(--mono);
+      font-size: 20px;
+      line-height: 1.55;
+      font-weight: 850;
+    }
+
+    .constraint-triangle {
+      width: 760px;
+      height: 620px;
+      position: relative;
+    }
+
+    .constraint {
+      position: absolute;
+      width: 300px;
+      min-height: 154px;
+      border-radius: 28px;
+      background: #fff;
+      border: 1px solid var(--line);
+      padding: 24px;
+      text-align: center;
+      box-shadow: 0 20px 46px rgba(16, 36, 38, .1);
+    }
+
+    .constraint h3 { color: var(--teal); margin-bottom: 10px; }
+    .constraint p { color: #3a6064; font-size: 22px; line-height: 1.35; font-weight: 760; }
+    .constraint.top { left: 230px; top: 0; }
+    .constraint.left { left: 0; bottom: 28px; }
+    .constraint.right { right: 0; bottom: 28px; }
+    .constraint.center {
+      left: 244px;
+      top: 250px;
+      width: 272px;
+      min-height: 112px;
+      background: var(--teal-soft);
+      border-color: rgba(11, 143, 136, .28);
+      display: grid;
+      place-items: center;
+      color: var(--teal);
+      font-family: var(--display);
+      font-size: 34px;
+      font-weight: 950;
+    }
+
+    .hide-aggregate {
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      gap: 30px;
+      align-items: center;
+      width: 100%;
+    }
+
+    .hidden-box {
+      border: 1px solid var(--line);
+      border-radius: 28px;
+      background: rgba(255, 255, 255, .9);
+      padding: 30px;
+      min-height: 300px;
+      box-shadow: 0 18px 42px rgba(16, 36, 38, .1);
+    }
+
+    .hidden-box h3 { margin-bottom: 18px; }
+    .hidden-box p {
+      color: #3a6064;
+      font-family: var(--mono);
+      font-size: 22px;
+      line-height: 1.55;
+      font-weight: 850;
+    }
+
+    .arrow-big {
+      color: var(--teal);
+      font-size: 70px;
+      font-weight: 950;
+    }
+
+    .sparvec-steps {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+      width: 100%;
+    }
+
+    .sparvec-step {
+      border: 1px solid var(--line);
+      border-radius: 28px;
+      background: rgba(255, 255, 255, .9);
+      padding: 26px;
+      min-height: 390px;
+      box-shadow: 0 18px 42px rgba(16, 36, 38, .1);
+    }
+
+    .sparvec-step h3 {
+      color: var(--teal);
+      margin-bottom: 18px;
+    }
+
+    .sparvec-step p {
+      color: #3a6064;
+      font-size: 23px;
+      line-height: 1.42;
+      font-weight: 740;
+    }
+
     /* === Deck Chrome === */
     .deck-controls {
       width: min(1180px, calc(100vw - 44px));
@@ -979,87 +1309,88 @@
 <body>
   <div class="deck-viewport">
     <main class="deck-stage" id="deckStage" aria-label="Clover HTML presentation">
-      <section class="slide active" data-title="Clover">
-        <div class="slide-grid wide-copy">
-          <div class="copy">
-            <p class="eyebrow reveal">论文汇报</p>
-            <h1 class="reveal">Clover</h1>
-            <p class="lead reveal">安全、差分隐私且通信高效的稀疏联邦学习实现。</p>
-            <div class="tag-row reveal">
-              <span class="tag">ACM CCS 2025</span>
-              <span class="tag">Federated Learning</span>
-              <span class="tag">Secure Aggregation</span>
-              <span class="tag">Differential Privacy</span>
+      <section class="slide active" data-title="论文标题">
+        <div class="cover-slide">
+          <div class="paper-title">
+            <p class="eyebrow reveal">数据安全课程论文汇报</p>
+            <h1 class="reveal">Harnessing Sparsification in Federated Learning:<br>A Secure, Efficient, and Differentially Private Realization</h1>
+            <div class="system-name reveal">
+              <strong>Clover</strong>
+              <span>安全、高效、差分隐私的稀疏联邦学习实现</span>
             </div>
           </div>
-          <div class="visual">
-            <div class="diagram">
-              <div class="node server">Clover<small>sparse secure aggregation</small></div>
-              <div class="node client-a">Client A<small>medical data</small></div>
-              <div class="node client-b">Client B<small>finance data</small></div>
-              <div class="node client-c">Client C<small>mobile data</small></div>
-              <div class="node client-d">Client D<small>edge data</small></div>
+          <div class="cover-meta reveal">
+            <div class="meta-box">
+              <strong>Shuangqing Xu, Yifeng Zheng, Zhongyun Hua</strong><br>
+              ACM CCS 2025
             </div>
-          </div>
-        </div>
-      </section>
-
-      <section class="slide" data-title="隐私错觉">
-        <div class="slide-grid">
-          <div class="copy">
-            <p class="eyebrow reveal">背景</p>
-            <h2 class="reveal">数据不出本地，不等于安全</h2>
-            <p class="lead reveal">联邦学习减少原始数据集中，但梯度和模型更新仍携带数据线索。</p>
-            <ul class="talk-points reveal">
-              <li>服务器聚合的是更新，不是原始样本。</li>
-              <li>攻击者可能从梯度中推断训练数据特征。</li>
-              <li>Clover 关注的是通信效率和隐私保护同时成立。</li>
-            </ul>
-          </div>
-          <div class="visual">
-            <div class="diagram">
-              <div class="node server">Server<small>global model</small></div>
-              <div class="node client-a">Client A<small>local data</small></div>
-              <div class="node client-b">Client B<small>local data</small></div>
-              <div class="node client-c">Client C<small>local data</small></div>
-              <div class="node client-d">Client D<small>local data</small></div>
-              <div class="note" style="position:absolute;left:280px;right:280px;bottom:70px;">关键问题：上传的梯度本身仍可能暴露本地数据分布。</div>
+            <div class="meta-box">
+              汇报人：林晖鹏<br>
+              2026.7.3
             </div>
           </div>
         </div>
       </section>
 
-      <section class="slide" data-title="通信瓶颈">
-        <div class="slide-grid">
-          <div class="copy">
-            <p class="eyebrow reveal">问题一</p>
-            <h2 class="reveal">完整梯度太大，传不起</h2>
-            <p class="lead reveal">模型维度、客户端数量和训练轮次会一起放大通信成本。</p>
-            <ul class="talk-points reveal">
-              <li>每个客户端每轮上传一个高维梯度向量。</li>
-              <li>跨设备或边缘场景中，通信可能成为主要瓶颈。</li>
-              <li>稀疏化是降低上传量的自然起点。</li>
-            </ul>
-            <div class="action-row reveal">
-              <button type="button" onclick="playDenseUpload()">播放密集上传</button>
+      <section class="slide" data-title="联邦学习">
+        <div class="full-flow">
+          <div class="center-title">
+            <p class="eyebrow reveal">Background</p>
+            <h2 class="reveal">联邦学习：数据不出本地，共同训练模型</h2>
+            <div class="action-row reveal" style="justify-content:center;">
+              <button type="button" onclick="playFLFlow()">播放训练流程</button>
               <button class="secondary" type="button" onclick="resetCurrentSlide()">重置</button>
             </div>
           </div>
+          <div class="fl-flow reveal" id="flFlow">
+            <div class="node server" id="flServer">Server<small>global model</small></div>
+            <div class="node client-a">Client A<small>local data</small></div>
+            <div class="node client-b">Client B<small>local data</small></div>
+            <div class="node client-c">Client C<small>local data</small></div>
+            <div class="node client-d">Client D<small>local data</small></div>
+            <div class="flow-step down">1. global model</div>
+            <div class="flow-step local">2. local training</div>
+            <div class="flow-step up">3. gradient/update</div>
+            <div class="flow-step aggregate">4. aggregation</div>
+            <span class="packet upload-packet p1"></span>
+            <span class="packet upload-packet p2"></span>
+            <span class="packet upload-packet p3"></span>
+            <span class="packet upload-packet p4"></span>
+          </div>
+          <div class="note reveal" style="margin:0 auto;max-width:1180px;text-align:center;">关键转折：虽然原始数据没有上传，但上传的梯度并不一定安全。</div>
+        </div>
+      </section>
+
+      <section class="slide" data-title="稀疏化动机">
+        <div class="slide-grid wide-copy">
+          <div class="copy">
+            <p class="eyebrow reveal">Motivation</p>
+            <h2 class="reveal">为什么要稀疏化：梯度通信太贵</h2>
+            <p class="lead reveal">模型参数越多，梯度越大；客户端越多、训练轮次越多，通信成本越高。</p>
+            <ul class="talk-points reveal">
+              <li>很多梯度分量很小，可以只上传最重要的一部分。</li>
+              <li>top-k 是降低联邦学习通信成本的常用手段。</li>
+              <li>这些数据是稀疏化动机，不是 Clover 自身实验结果。</li>
+            </ul>
+          </div>
           <div class="visual">
-            <div class="diagram" id="denseDiagram">
-              <div class="node server" id="denseServer">Server<small>aggregate all gradients</small></div>
-              <div class="node client-a">Client A<small>d-dimensional gradient</small></div>
-              <div class="node client-b">Client B<small>d-dimensional gradient</small></div>
-              <div class="node client-c">Client C<small>d-dimensional gradient</small></div>
-              <div class="node client-d">Client D<small>d-dimensional gradient</small></div>
-              <span class="packet upload-packet p1"></span>
-              <span class="packet upload-packet p2"></span>
-              <span class="packet upload-packet p3"></span>
-              <span class="packet upload-packet p4"></span>
-              <div class="vector-panel" style="position:absolute;left:260px;right:260px;bottom:58px;width:auto;max-width:none;">
-                <div class="mini-label">communication pressure</div>
-                <div class="meter-grid">
-                  <div class="meter-row"><span>上传内容</span><div class="bar"><span id="denseUploadBar"></span></div><strong id="denseCost">100%</strong></div>
+            <div class="diagram">
+              <div class="source-cards">
+                <div class="source-card"><strong>99%</strong><span>Aji &amp; Heafield: many small updates can be zeroed.</span></div>
+                <div class="source-card"><strong>270x-600x</strong><span>Deep Gradient Compression reports large compression ratios.</span></div>
+                <div class="source-card"><strong>97MB -> 0.35MB</strong><span>ResNet-50 gradient communication example from DGC.</span></div>
+              </div>
+              <div class="vector-panel" style="margin-top:36px;max-width:none;">
+                <div class="mini-label">dense gradient vs sparse gradient</div>
+                <div class="gradient-vector">
+                  <span class="grad-cell" data-index="1">0.02</span>
+                  <span class="grad-cell keep is-active" data-index="2">-1.84</span>
+                  <span class="grad-cell" data-index="3">0.05</span>
+                  <span class="grad-cell keep is-active" data-index="4">+1.36</span>
+                  <span class="grad-cell" data-index="5">0.01</span>
+                  <span class="grad-cell keep is-active" data-index="6">+2.10</span>
+                  <span class="grad-cell" data-index="7">0.03</span>
+                  <span class="grad-cell" data-index="8">-0.04</span>
                 </div>
               </div>
             </div>
@@ -1067,17 +1398,13 @@
         </div>
       </section>
 
-      <section class="slide" data-title="top-k 稀疏化">
+      <section class="slide" data-title="top-k 结构">
         <div class="slide-grid">
           <div class="copy">
-            <p class="eyebrow reveal">方法起点</p>
-            <h2 class="reveal">top-k 只上传最重要的位置</h2>
-            <p class="lead reveal">客户端保留绝对值最大的 k 个梯度分量，把完整向量变成稀疏条目。</p>
-            <ul class="talk-points reveal">
-              <li>上传内容从完整向量变为 `(index, value)` 对。</li>
-              <li>通信量下降，但上传结构更暴露。</li>
-              <li>Clover 不是发明 top-k，而是保护 top-k。</li>
-            </ul>
+            <p class="eyebrow reveal">Top-k</p>
+            <h2 class="reveal">top-k 上传的不是向量，而是若干个 (index, value)</h2>
+            <p class="lead reveal">客户端从完整梯度中选择绝对值最大的 k 个坐标，只上传这些坐标和值。</p>
+            <div class="formula-box reveal">TopK(g) = {(i, g_i) | i belongs to largest-k coordinates of |g|}</div>
             <div class="action-row reveal">
               <button type="button" onclick="playTopK()">执行 top-k</button>
               <button class="secondary" type="button" onclick="resetCurrentSlide()">重置</button>
@@ -1110,213 +1437,126 @@
         </div>
       </section>
 
-      <section class="slide" data-title="index 泄露">
-        <div class="slide-grid">
-          <div class="copy">
-            <p class="eyebrow reveal">问题二</p>
-            <h2 class="reveal">value 隐藏了，<span class="risk-text">index</span> 仍会泄露</h2>
-            <p class="lead reveal">被选中的位置模式可能反映客户端数据分布，这是稀疏化带来的新风险。</p>
-            <ul class="talk-points reveal">
-              <li>top-k index 表示哪些参数在本地训练中更重要。</li>
-              <li>位置模式本身可能成为侧信道。</li>
-              <li>只加密 value，不能完整保护稀疏梯度。</li>
-            </ul>
-            <div class="action-row reveal">
-              <button class="risk" type="button" onclick="playIndexRisk()">服务器视角</button>
-              <button class="secondary" type="button" onclick="resetCurrentSlide()">重置</button>
-            </div>
+      <section class="slide" data-title="index 隐私">
+        <div class="full-flow">
+          <div class="center-title">
+            <p class="eyebrow reveal">Privacy Risk</p>
+            <h2 class="reveal">top-k index 本身也是隐私暴露面</h2>
+            <p class="lead reveal" style="max-width:1160px;margin-left:auto;margin-right:auto;">已有工作表明，仅利用 top-k indices 也可能进行 label inference attack；因此 Clover 同时隐藏 value 和 index。</p>
           </div>
-          <div class="visual">
-            <div class="risk-board">
-              <div class="observed-indexes">
-                <div class="index-marker">index 2</div>
-                <div class="index-marker">index 4</div>
-                <div class="index-marker">index 6</div>
-              </div>
-              <div class="attacker-panel" id="indexRiskPanel">
-                <div class="avatar">?</div>
-                <p class="thought" id="riskThought">服务器观察到的是 top-k 位置和值；点击后只突出 index 模式。</p>
-              </div>
-              <div class="gradient-vector">
-                <span class="grad-cell" data-index="1">hidden</span>
-                <span class="grad-cell keep index-marker" data-index="2">selected</span>
-                <span class="grad-cell" data-index="3">hidden</span>
-                <span class="grad-cell keep index-marker" data-index="4">selected</span>
-                <span class="grad-cell" data-index="5">hidden</span>
-                <span class="grad-cell keep index-marker" data-index="6">selected</span>
-                <span class="grad-cell" data-index="7">hidden</span>
-                <span class="grad-cell" data-index="8">hidden</span>
-              </div>
-            </div>
+          <div class="attack-chain reveal">
+            <article class="chain-card"><h3>Observe</h3><p>服务器看到某客户端反复选择哪些 top-k index。</p></article>
+            <article class="chain-card"><h3>Link</h3><p>这些坐标反映本地数据对模型参数的影响。</p></article>
+            <article class="chain-card"><h3>Infer</h3><p>攻击者可能获得标签分布或数据特征线索。</p></article>
           </div>
+          <div class="note reveal" style="margin:0 auto;max-width:1120px;text-align:center;">论文动机：保护 value 不够，index 也不是普通元数据。</div>
         </div>
       </section>
 
-      <section class="slide" data-title="Clover 目标">
-        <div class="slide-grid">
-          <div class="copy">
-            <p class="eyebrow reveal">目标</p>
-            <h2 class="reveal">既要稀疏，也要隐藏</h2>
-            <p class="lead reveal">Clover 的核心目标是在保留通信收益的同时，隐藏单个客户端的稀疏更新。</p>
-            <ul class="talk-points reveal">
-              <li>保护非零梯度值 value。</li>
-              <li>保护被选中的 top-k 位置 index。</li>
-              <li>服务器只得到聚合结果，用于更新全局模型。</li>
-            </ul>
+      <section class="slide" data-title="普通安全聚合不够">
+        <div class="full-flow">
+          <div class="center-title">
+            <p class="eyebrow reveal">Why Not Direct SecAgg?</p>
+            <h2 class="reveal">为什么不能直接套普通安全聚合？</h2>
           </div>
-          <div class="visual">
-            <div class="diagram">
-              <div class="compare-grid" style="height:100%;align-items:center;">
-                <article class="compare-card heavy">
-                  <h3>不能暴露</h3>
-                  <p>单个客户端的 `(index, value)`、本地更新模式、私有训练信号。</p>
-                </article>
-                <article class="compare-card focused">
-                  <h3>允许输出</h3>
-                  <p>所有参与客户端更新的聚合结果，用于下一轮全局模型。</p>
-                </article>
-              </div>
-            </div>
+          <div class="strawman-grid reveal">
+            <article class="strawman-card">
+              <h3>方案 A：展开成密集向量</h3>
+              <div class="mini-vector">Sparse: A = (2,+0.8), (7,-1.1)<br>Dense: [0,+0.8,0,0,0,0,-1.1,0,...]</div>
+              <p>优点：可以直接用密集 SecAgg。<br>问题：通信回到 d 维，稀疏化优势消失。</p>
+            </article>
+            <article class="strawman-card">
+              <h3>方案 B：所有客户端使用同一组 index</h3>
+              <div class="mini-vector">Shared index set: {2,7}<br>A: use {2,7}<br>B/C: forced to use {2,7}</div>
+              <p>优点：位置对齐，聚合容易。<br>问题：不是每个客户端自己的 top-k，可能损害模型效用。</p>
+            </article>
           </div>
+          <div class="note reveal" style="margin:0 auto;max-width:1200px;text-align:center;">Clover 要保留标准 top-k：每个客户端自己选 index，同时隐藏 index/value 并完成聚合。</div>
         </div>
       </section>
 
-      <section class="slide" data-title="三服务器模型">
-        <div class="slide-grid">
-          <div class="copy">
-            <p class="eyebrow reveal">威胁模型</p>
-            <h2 class="reveal">三服务器分布式信任设置</h2>
-            <p class="lead reveal">客户端不把明文稀疏梯度交给单个服务器，而是借助多个服务器协作完成聚合。</p>
-            <ul class="talk-points reveal">
-              <li>单个服务器不应看见完整私密信息。</li>
-              <li>多个服务器协作计算聚合结果。</li>
-              <li>论文还考虑恶意服务器下的完整性增强。</li>
-            </ul>
+      <section class="slide" data-title="Clover 问题定义">
+        <div class="full-flow">
+          <div class="center-title">
+            <p class="eyebrow reveal">Problem Definition</p>
+            <h2 class="reveal">Clover 要解决什么问题？</h2>
           </div>
-          <div class="visual">
-            <div class="diagram">
-              <div class="triple-server">
-                <div class="server-card s1">Server A<small>share</small></div>
-                <div class="server-card s2">Server B<small>share</small></div>
-                <div class="server-card s3">Server C<small>share</small></div>
-                <div class="private-update" style="position:absolute;left:220px;right:220px;bottom:30px;text-align:center;">Client top-k update is split / hidden before aggregation</div>
-              </div>
+          <div class="visual reveal">
+            <div class="constraint-triangle">
+              <div class="constraint top"><h3>通信高效</h3><p>keep top-k sparse<br>不能退回 d 维上传</p></div>
+              <div class="constraint left"><h3>隐私保护</h3><p>hide index/value<br>隐藏单个客户端更新</p></div>
+              <div class="constraint right"><h3>正确聚合</h3><p>aggregate to dense gradient<br>用于更新模型</p></div>
+              <div class="constraint center">Clover Problem</div>
             </div>
           </div>
+          <div class="note reveal" style="margin:0 auto;max-width:1180px;text-align:center;">能否在隐藏 value 和 index 的同时，正确聚合多个客户端的 top-k 稀疏梯度？</div>
         </div>
       </section>
 
-      <section class="slide" data-title="稀疏表示">
-        <div class="slide-grid">
-          <div class="copy">
-            <p class="eyebrow reveal">原理一</p>
-            <h2 class="reveal">稀疏向量是 `(index, value)`</h2>
-            <p class="lead reveal">不同客户端的 top-k 位置不同，聚合时必须对齐位置并累加值。</p>
-            <ul class="talk-points reveal">
-              <li>稀疏表示节省通信，因为只上传 k 个条目。</li>
-              <li>直接展开成密集向量，会抵消稀疏化收益。</li>
-              <li>难点在于：位置要参与计算，但不能暴露。</li>
-            </ul>
-            <div class="action-row reveal">
-              <button type="button" onclick="playSparseRepresentation()">突出不同位置</button>
-              <button class="secondary" type="button" onclick="resetCurrentSlide()">重置</button>
+      <section class="slide" data-title="核心难点">
+        <div class="full-flow">
+          <div class="center-title">
+            <p class="eyebrow reveal">Core Difficulty</p>
+            <h2 class="reveal">隐藏单个更新，仍要完成聚合</h2>
+            <p class="lead reveal" style="max-width:1120px;margin-left:auto;margin-right:auto;">服务器不能看到某个客户端具体选了哪些位置、每个位置的值是多少，但最后仍然要得到所有客户端更新的聚合结果。</p>
+          </div>
+          <div class="hide-aggregate reveal">
+            <div class="hidden-box">
+              <h3>Individual updates</h3>
+              <p>Client A: (2,+0.8), (7,-1.1)<br>Client B: (3,-0.5), (7,+0.6)<br>Client C: (1,+1.2), (5,-0.4)</p>
+            </div>
+            <div class="arrow-big">-></div>
+            <div class="hidden-box">
+              <h3>Aggregated result</h3>
+              <p>G[1]=+1.2<br>G[2]=+0.8<br>G[3]=-0.5<br>G[5]=-0.4<br>G[7]=-0.5</p>
             </div>
           </div>
-          <div class="visual">
-            <div class="sparse-board">
-              <div class="vector-panel">
-                <div class="mini-label">Client A</div>
-                <div class="sparse-pairs" data-active="true">
-                  <div class="pair-card sparse-entry">(2, -1.84)</div>
-                  <div class="pair-card sparse-entry">(4, +1.36)</div>
-                  <div class="pair-card sparse-entry">(6, +2.10)</div>
-                </div>
-              </div>
-              <div class="vector-panel">
-                <div class="mini-label">Client B</div>
-                <div class="sparse-pairs" data-active="true">
-                  <div class="pair-card sparse-entry">(1, +0.93)</div>
-                  <div class="pair-card sparse-entry">(4, -0.77)</div>
-                  <div class="pair-card sparse-entry">(8, +1.26)</div>
-                </div>
-              </div>
-              <div class="note">聚合结果要落回同一个全局坐标系，但不能暴露每个客户端的坐标选择。</div>
-            </div>
-          </div>
+          <div class="note reveal" style="margin:0 auto;max-width:1080px;text-align:center;">Reveal the aggregate, hide each individual update.</div>
         </div>
       </section>
 
-      <section class="slide" data-title="隐藏聚合">
-        <div class="slide-grid">
-          <div class="copy">
-            <p class="eyebrow reveal">原理二</p>
-            <h2 class="reveal">隐藏 index/value 后仍能聚合</h2>
-            <p class="lead reveal">Clover 针对稀疏聚合设计协议，让服务器获得聚合结果而非单个客户端更新。</p>
-            <ul class="talk-points reveal">
-              <li>客户端稀疏条目在上传前被隐藏或分片。</li>
-              <li>三个服务器协作完成位置对齐和求和。</li>
-              <li>输出是聚合后的密集梯度。</li>
-            </ul>
-            <div class="action-row reveal">
-              <button class="blue" type="button" onclick="playHiddenAggregation()">播放隐藏聚合</button>
-              <button class="secondary" type="button" onclick="resetCurrentSlide()">重置</button>
-            </div>
+      <section class="slide" data-title="三服务器思路">
+        <div class="full-flow">
+          <div class="center-title">
+            <p class="eyebrow reveal">Distributed Trust</p>
+            <h2 class="reveal">用三个服务器分散信任</h2>
+            <p class="lead reveal" style="max-width:1120px;margin-left:auto;margin-right:auto;">客户端不把明文 top-k 更新交给单个服务器，而是将更新拆分/编码后发给三个服务器。</p>
           </div>
-          <div class="visual">
-            <div class="clover-board">
-              <div class="private-update" id="privateUpdate">Client top-k: (2,-1.84), (4,+1.36), (6,+2.10)</div>
-              <div class="diagram" style="min-height:430px;">
-                <div class="server-card s1">Server A</div>
-                <div class="server-card s2">Server B</div>
-                <div class="server-card s3">Server C</div>
-                <span class="share-line share-a"></span>
-                <span class="share-line share-b"></span>
-                <span class="share-line share-c"></span>
-              </div>
-              <div class="vector-panel aggregate-vector" id="aggregateVector">
-                <div class="mini-label">aggregate dense gradient</div>
-                <div class="gradient-vector">
-                  <span class="grad-cell" data-index="1">+0.93</span>
-                  <span class="grad-cell" data-index="2">-1.84</span>
-                  <span class="grad-cell" data-index="3">0</span>
-                  <span class="grad-cell" data-index="4">+0.59</span>
-                  <span class="grad-cell" data-index="5">0</span>
-                  <span class="grad-cell" data-index="6">+2.10</span>
-                  <span class="grad-cell" data-index="7">0</span>
-                  <span class="grad-cell" data-index="8">+1.26</span>
-                </div>
-              </div>
-            </div>
+          <div class="diagram reveal" style="min-height:520px;">
+            <div class="private-update" style="position:absolute;left:120px;top:80px;">Client top-k update<br>(index, value)</div>
+            <div class="server-card s1">Server 1<small>share</small></div>
+            <div class="server-card s2">Server 2<small>share</small></div>
+            <div class="server-card s3">Server 3<small>share</small></div>
+            <div class="private-update" style="position:absolute;right:92px;bottom:62px;max-width:430px;">三个服务器协作计算聚合结果；单个服务器看不到完整的 index/value。</div>
           </div>
+          <div class="note reveal" style="margin:0 auto;max-width:1180px;text-align:center;">核心思想：分散“看见单个更新”的能力，保留“计算总和”的能力。</div>
         </div>
       </section>
 
-      <section class="slide" data-title="ORAM 对比">
-        <div class="slide-grid">
-          <div class="copy">
-            <p class="eyebrow reveal">原理三</p>
-            <h2 class="reveal">为什么不直接用通用 ORAM？</h2>
-            <p class="lead reveal">通用 ORAM 能隐藏访问模式，但为了通用性付出较高开销。</p>
-            <ul class="talk-points reveal">
-              <li>Clover 的任务更具体：安全聚合 top-k 稀疏梯度。</li>
-              <li>专门设计可以避免通用方案的重负担。</li>
-              <li>这也是论文性能提升的重要来源。</li>
-            </ul>
+      <section class="slide" data-title="SparVecAgg">
+        <div class="full-flow">
+          <div class="center-title">
+            <p class="eyebrow reveal">SparVecAgg</p>
+            <h2 class="reveal">SparVecAgg：用“重排 + 秘密洗牌”还原稀疏向量</h2>
           </div>
-          <div class="visual">
-            <div class="diagram">
-              <div class="compare-grid" style="height:100%;align-items:center;">
-                <article class="compare-card heavy">
-                  <h3>通用 ORAM</h3>
-                  <p>隐藏访问模式，适用范围广，但通信和运行成本都更重。</p>
-                </article>
-                <article class="compare-card focused">
-                  <h3>Clover 专用设计</h3>
-                  <p>围绕 top-k 稀疏聚合优化，只处理当前任务真正需要隐藏和计算的部分。</p>
-                </article>
-              </div>
-            </div>
+          <div class="sparvec-steps reveal">
+            <article class="sparvec-step">
+              <h3>1. 重排 sparse vector</h3>
+              <div class="mini-vector">x = [0,+0.8,0,0,0,0,-1.1,0]<br>x' = [+0.8,-1.1,0,0,0,0,0,0]</div>
+              <p>客户端把非零值移动到向量前面，后面补 0。</p>
+            </article>
+            <article class="sparvec-step">
+              <h3>2. index 编码进 permutation</h3>
+              <div class="mini-vector">x = permutation(x')</div>
+              <p>原来的位置不再作为明文 index 上传，而是由 permutation 表达。</p>
+            </article>
+            <article class="sparvec-step">
+              <h3>3. secret-shared shuffle</h3>
+              <div class="mini-vector">shares(value) + shares(permutation)<br>-> dense vector shares</div>
+              <p>服务器在秘密分享域里执行洗牌，恢复位置并聚合。</p>
+            </article>
           </div>
+          <div class="note reveal" style="margin:0 auto;max-width:1300px;text-align:center;">Clover 不对每个 (index, value) 做 ORAM 写入；它把 index 隐藏进 permutation，再用 secret-shared shuffle 恢复位置。</div>
         </div>
       </section>
 
@@ -1524,6 +1764,20 @@
 
     function resetCurrentSlide() {
       resetSlideAnimations(deck.slides[deck.currentSlide]);
+    }
+
+    function playFLFlow() {
+      const slide = activeSlide();
+      slide.querySelectorAll(".flow-step").forEach((step, i) => {
+        setTimeout(() => step.classList.add("is-active"), i * 280);
+      });
+      slide.querySelectorAll(".upload-packet").forEach((packet, i) => {
+        packet.style.animationDelay = `${700 + i * 120}ms`;
+        packet.classList.add("is-active");
+      });
+      slide.querySelectorAll(".node").forEach((node, i) => {
+        setTimeout(() => node.classList.add("is-active"), i * 90);
+      });
     }
 
     function playDenseUpload() {
