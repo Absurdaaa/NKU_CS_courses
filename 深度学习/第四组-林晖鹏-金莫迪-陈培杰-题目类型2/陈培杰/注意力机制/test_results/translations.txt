@@ -1,0 +1,90 @@
+Sentence 1
+----------------
+FR (raw): Bonjour, comment allez-vous aujourd'hui ?
+EN (raw): Hello, how are you today?
+FR (norm): bonjour comment allez vous aujourd hui ?
+EN (norm): hello how are you today ?
+Base RNN: who are you today ?
+Attention RNN: hello how close you today ?
+
+Sentence 2
+----------------
+FR (raw): Le chat noir dort sur le canapé.
+EN (raw): The black cat is sleeping on the couch.
+FR (norm): le chat noir dort sur le canape
+EN (norm): the black cat is sleeping on the couch
+Base RNN: the cat is sleeping on the black market
+Attention RNN: the cat black is on the couch
+
+Sentence 3
+----------------
+FR (raw): Où est la gare la plus proche s'il vous plaît ?
+EN (raw): Where is the nearest train station, please?
+FR (norm): ou est la gare la plus proche s il vous plait ?
+EN (norm): where is the nearest train station please ?
+Base RNN: where s the nearest train station ?
+Attention RNN: where s the closest train please ?
+
+Sentence 4
+----------------
+FR (raw): Je ne comprends pas ce que vous dites.
+EN (raw): I do not understand what you are saying.
+FR (norm): je ne comprends pas ce que vous dites
+EN (norm): i do not understand what you are saying
+Base RNN: i don t understand what you re saying
+Attention RNN: i don t understand what you re saying
+
+Sentence 5
+----------------
+FR (raw): Nous voyagerons en France l'année prochaine.
+EN (raw): We will travel to France next year.
+FR (norm): nous voyagerons en france l annee prochaine
+EN (norm): we will travel to france next year
+Base RNN: we will go to france next year
+Attention RNN: we considered him next year
+
+Sentence 6
+----------------
+FR (raw): Elle a fini son travail avant de partir.
+EN (raw): She finished her work before leaving.
+FR (norm): elle a fini son travail avant de partir
+EN (norm): she finished her work before leaving
+Base RNN: she finished his work by time
+Attention RNN: she finished her job before leaving leave
+
+Sentence 7
+----------------
+FR (raw): Le livre que tu m'as prêté est très intéressant.
+EN (raw): The book that you lent me is very interesting.
+FR (norm): le livre que tu m as prete est tres interessant
+EN (norm): the book that you lent me is very interesting
+Base RNN: the book i took that you is the book
+Attention RNN: the book you lent me very interesting interesting
+
+Sentence 8
+----------------
+FR (raw): Si j'avais su, je serais venu plus tôt.
+EN (raw): If I had known, I would have come earlier.
+FR (norm): si j avais su je serais venu plus tot
+EN (norm): if i had known i would have come earlier
+Base RNN: i knew i d be earlier back
+Attention RNN: if i had known i d come on earlier
+
+Sentence 9
+----------------
+FR (raw): Bien qu'il pleuve, ils ont décidé de faire une promenade.
+EN (raw): Although it is raining, they decided to take a walk.
+FR (norm): bien qu il pleuve ils ont decide de faire une promenade
+EN (norm): although it is raining they decided to take a walk
+Base RNN: although it s raining are raining than a walk
+Attention RNN: even though they will have decided to take a walk
+
+Sentence 10
+----------------
+FR (raw): L'algorithme que j'ai écrit fonctionne parfaitement sur ces données.
+EN (raw): The algorithm I wrote works perfectly on this data.
+FR (norm): l algorithme que j ai ecrit fonctionne parfaitement sur ces donnees
+EN (norm): the algorithm i wrote works perfectly on this data
+Base RNN: the time i wrote this book from your university
+Attention RNN: what i wrote out of all the facts
+

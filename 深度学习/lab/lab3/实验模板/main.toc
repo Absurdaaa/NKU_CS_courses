@@ -1,0 +1,23 @@
+\babel@toc {UKenglish}{}\relax 
+\contentsline {section}{\numberline {1}实验目的}{1}{section.1}%
+\contentsline {section}{\numberline {2}实验设置}{1}{section.2}%
+\contentsline {subsection}{\numberline {2.1}数据集与任务}{1}{subsection.2.1}%
+\contentsline {subsection}{\numberline {2.2}统一实验设置}{1}{subsection.2.2}%
+\contentsline {subsection}{\numberline {2.3}评价指标}{1}{subsection.2.3}%
+\contentsline {section}{\numberline {3}模型结构设计}{2}{section.3}%
+\contentsline {subsection}{\numberline {3.1}纯 RNN Seq2Seq}{2}{subsection.3.1}%
+\contentsline {subsection}{\numberline {3.2}Bahdanau Attention}{2}{subsection.3.2}%
+\contentsline {subsection}{\numberline {3.3}Luong Attention}{2}{subsection.3.3}%
+\contentsline {subsection}{\numberline {3.4}Scheduled Sampling}{2}{subsection.3.4}%
+\contentsline {subsection}{\numberline {3.5}网络结构打印结果}{2}{subsection.3.5}%
+\contentsline {section}{\numberline {4}实验结果分析}{3}{section.4}%
+\contentsline {subsection}{\numberline {4.1}主实验：三种模型对比}{3}{subsection.4.1}%
+\contentsline {subsection}{\numberline {4.2}训练过程曲线}{4}{subsection.4.2}%
+\contentsline {subsection}{\numberline {4.3}长度分桶分析}{4}{subsection.4.3}%
+\contentsline {subsection}{\numberline {4.4}注意力可视化分析}{5}{subsection.4.4}%
+\contentsline {subsection}{\numberline {4.5}扩展实验：Scheduled Sampling}{6}{subsection.4.5}%
+\contentsline {subsection}{\numberline {4.6}扩展实验：Luong 不同打分方法比较}{6}{subsection.4.6}%
+\contentsline {subsection}{\numberline {4.7}为什么注意力机制有效}{7}{subsection.4.7}%
+\contentsline {subsection}{\numberline {4.8}Bahdanau 与 Luong 的差异}{7}{subsection.4.8}%
+\contentsline {section}{\numberline {5}实验心得}{7}{section.5}%
+\contentsline {section}{\numberline {A}代码目录说明}{9}{appendix.A}%

@@ -1,0 +1,15 @@
+\begin{table}[htbp]
+\centering
+\caption{各模型效率与资源开销对比}
+\begin{tabular}{lccc}
+\toprule
+Model & Params & Train Time / s & Infer Time / ms \\
+\midrule
+RNN & \textbf{26386} & 85.53 & 0.0207 \\
+LSTM & 99090 & \textbf{47.62} & \textbf{0.0145} \\
+MyLSTM & 98578 & 305.91 & 0.0465 \\
+MyGRU & 74514 & 256.83 & 0.0407\\
+\bottomrule
+\end{tabular}
+\label{tab:efficiency_summary}
+\end{table}

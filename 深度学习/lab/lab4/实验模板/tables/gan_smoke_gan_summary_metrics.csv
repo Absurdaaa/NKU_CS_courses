@@ -1,0 +1,14 @@
+metric,value
+best_val_generator_loss,0.7200574278831482
+best_val_discriminator_loss,1.195029377937317
+best_epoch,1
+test_generator_loss,0.7156857252120972
+test_discriminator_loss,1.2669984102249146
+test_d_real_mean,0.5522948503494263
+test_d_fake_mean,0.48897290229797363
+generator_param_count,114064
+generator_trainable_param_count,114064
+discriminator_param_count,100609
+discriminator_trainable_param_count,100609
+total_train_time_sec,0.8199949290001314
+avg_epoch_time_sec,0.8199949290001314

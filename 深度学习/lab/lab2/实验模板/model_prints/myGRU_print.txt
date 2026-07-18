@@ -1,0 +1,10 @@
+MyGRUClassifier(
+  (x2z): Linear(in_features=59, out_features=128, bias=True)
+  (h2z): Linear(in_features=128, out_features=128, bias=False)
+  (x2r): Linear(in_features=59, out_features=128, bias=True)
+  (h2r): Linear(in_features=128, out_features=128, bias=False)
+  (x2h): Linear(in_features=59, out_features=128, bias=True)
+  (h2h): Linear(in_features=128, out_features=128, bias=False)
+  (output): Linear(in_features=128, out_features=18, bias=True)
+  (log_softmax): LogSoftmax(dim=1)
+)

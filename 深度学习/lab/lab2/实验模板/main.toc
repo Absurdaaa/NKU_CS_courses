@@ -1,0 +1,19 @@
+\babel@toc {UKenglish}{}\relax 
+\contentsline {section}{\numberline {1}实验目的}{1}{section.1}%
+\contentsline {section}{\numberline {2}实验设置}{1}{section.2}%
+\contentsline {section}{\numberline {3}模型结构设计}{1}{section.3}%
+\contentsline {subsection}{\numberline {3.1}原始 RNN}{1}{subsection.3.1}%
+\contentsline {subsection}{\numberline {3.2}LSTM}{1}{subsection.3.2}%
+\contentsline {subsection}{\numberline {3.3}GRU}{1}{subsection.3.3}%
+\contentsline {subsection}{\numberline {3.4}网络结构打印结果}{2}{subsection.3.4}%
+\contentsline {section}{\numberline {4}实验部分}{2}{section.4}%
+\contentsline {subsection}{\numberline {4.1}综合性能对比}{2}{subsection.4.1}%
+\contentsline {subsection}{\numberline {4.2}曲线图和预测矩阵图展示}{3}{subsection.4.2}%
+\contentsline {subsection}{\numberline {4.3}内置 LSTM 与手写模型的补充对比}{4}{subsection.4.3}%
+\contentsline {subsection}{\numberline {4.4}梯度稳定性实验}{5}{subsection.4.4}%
+\contentsline {subsection}{\numberline {4.5}名字生成实验}{5}{subsection.4.5}%
+\contentsline {subsubsection}{\numberline {4.5.1}生成任务设置}{5}{subsubsection.4.5.1}%
+\contentsline {subsubsection}{\numberline {4.5.2}类别一致性评估}{5}{subsubsection.4.5.2}%
+\contentsline {section}{\numberline {5}为什么 LSTM 网络的性能优于 RNN 网络}{6}{section.5}%
+\contentsline {section}{\numberline {6}实验结论}{7}{section.6}%
+\contentsline {section}{\numberline {A}代码目录说明}{9}{appendix.A}%

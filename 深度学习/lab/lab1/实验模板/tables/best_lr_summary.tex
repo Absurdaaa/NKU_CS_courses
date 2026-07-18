@@ -1,0 +1,16 @@
+\begin{table*}[htbp]
+\centering
+\caption{Best configurations selected from learning-rate sweep}
+\begin{tabular}{lccc}
+\toprule
+Model & Best LR & Best Val Acc & Test Acc \\
+\midrule
+CNN & 0.1 & 81.06\% & 76.58\% \\
+ResNet20 & 0.05 & 87.14\% & 82.40\% \\
+DenseNet-BC-100 & 0.2 & 87.62\% & 85.13\% \\
+MobileNetV1 & 0.05 & 87.28\% & \textbf{85.64\%} \\
+Res2Net & 0.05 & \textbf{89.52\%} & 85.34\% \\
+\bottomrule
+\end{tabular}
+\label{tab:best_lr}
+\end{table*}

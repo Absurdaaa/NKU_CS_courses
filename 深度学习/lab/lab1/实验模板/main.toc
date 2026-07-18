@@ -1,0 +1,28 @@
+\babel@toc {UKenglish}{}\relax 
+\contentsline {section}{\numberline {1}实验目的}{2}{section.1}%
+\contentsline {section}{\numberline {2}实验设置}{2}{section.2}%
+\contentsline {section}{\numberline {3}模型结构设计}{2}{section.3}%
+\contentsline {subsection}{\numberline {3.1}原始 CNN}{2}{subsection.3.1}%
+\contentsline {subsection}{\numberline {3.2}ResNet}{2}{subsection.3.2}%
+\contentsline {subsection}{\numberline {3.3}DenseNet}{2}{subsection.3.3}%
+\contentsline {subsection}{\numberline {3.4}MobileNet}{2}{subsection.3.4}%
+\contentsline {subsection}{\numberline {3.5}Res2Net（扩展）}{2}{subsection.3.5}%
+\contentsline {subsection}{\numberline {3.6}网络结构打印结果}{3}{subsection.3.6}%
+\contentsline {section}{\numberline {4}实验结果分析}{3}{section.4}%
+\contentsline {subsection}{\numberline {4.1}学习率搜索结果}{3}{subsection.4.1}%
+\contentsline {subsection}{\numberline {4.2}模型综合性能对比}{4}{subsection.4.2}%
+\contentsline {subsection}{\numberline {4.3}各模型训练曲线}{4}{subsection.4.3}%
+\contentsline {subsection}{\numberline {4.4}类别准确率分析}{4}{subsection.4.4}%
+\contentsline {subsection}{\numberline {4.5}不同卷积网络训练过程差异分析}{5}{subsection.4.5}%
+\contentsline {subsection}{\numberline {4.6}学习率敏感性与泛化稳定性补充分析}{6}{subsection.4.6}%
+\contentsline {paragraph}{学习率敏感性}{6}{section*.8}%
+\contentsline {paragraph}{泛化稳定性}{7}{section*.9}%
+\contentsline {subsection}{\numberline {4.7}Res2Net 与其他网络的优缺点分析}{7}{subsection.4.7}%
+\contentsline {paragraph}{Insight}{7}{section*.10}%
+\contentsline {paragraph}{与 ResNet 的比较}{7}{section*.11}%
+\contentsline {paragraph}{与 DenseNet 的比较}{7}{section*.12}%
+\contentsline {paragraph}{与 MobileNet 的比较}{7}{section*.13}%
+\contentsline {paragraph}{综合评价}{8}{section*.14}%
+\contentsline {subsection}{\numberline {4.8}类激活映射可视化分析}{8}{subsection.4.8}%
+\contentsline {section}{\numberline {5}实验结论}{8}{section.5}%
+\contentsline {section}{\numberline {A}代码目录说明}{9}{appendix.A}%

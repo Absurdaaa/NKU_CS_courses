@@ -1,0 +1,13 @@
+=== gan 生成器 (Generator) ===
+GANGenerator(
+  (fc1): Linear(in_features=100, out_features=128, bias=True)
+  (nonlin1): LeakyReLU(negative_slope=0.2)
+  (fc2): Linear(in_features=128, out_features=784, bias=True)
+)
+
+=== gan 判别器 (Discriminator) ===
+GANDiscriminator(
+  (fc1): Linear(in_features=784, out_features=128, bias=True)
+  (nonlin1): LeakyReLU(negative_slope=0.2)
+  (fc2): Linear(in_features=128, out_features=1, bias=True)
+)

@@ -1,0 +1,10 @@
+model,source_text,target_text,prediction_text,source_length
+seq2seq_rnn,elle a cinq ans de moins que moi .,she s five years younger than me .,she s five years younger than i am .,11
+seq2seq_rnn,je me rejouis que tu le voies ainsi .,i m glad you see it that way .,i m glad you re all right .,11
+seq2seq_rnn,j ai quelques difficultes a compiler ce programme .,i m having some problems compiling this software .,i m tired of waiting in all their lies .,11
+seq2seq_attn,elle a cinq ans de moins que moi .,she s five years younger than me .,she s five years younger than i am .,11
+seq2seq_attn,je me rejouis que tu le voies ainsi .,i m glad you see it that way .,i m glad you re the same .,11
+seq2seq_attn,j ai quelques difficultes a compiler ce programme .,i m having some problems compiling this software .,i m now a lot this country .,11
+seq2seq_luong,je me fais du souci a leur sujet .,i m worried about them .,i m worried by them .,11
+seq2seq_luong,je me rejouis que tu le voies ainsi .,i m glad you see it that way .,i m glad that you re again .,11
+seq2seq_luong,j ai quelques difficultes a compiler ce programme .,i m having some problems compiling this software .,i m feeling kind of them .,11

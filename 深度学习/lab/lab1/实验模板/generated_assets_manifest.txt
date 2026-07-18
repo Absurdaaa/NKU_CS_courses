@@ -1,0 +1,18 @@
+Generated figure files:
+- 实验模板/fig/generated/simple_cnn_curves.png
+- 实验模板/fig/generated/resnet20_curves.png
+- 实验模板/fig/generated/densenet_bc_100_curves.png
+- 实验模板/fig/generated/mobilenet_v1_curves.png
+- 实验模板/fig/generated/res2net29_8c64w_curves.png
+- 实验模板/fig/generated/all_models_loss_curves.png
+- 实验模板/fig/generated/all_models_accuracy_curves.png
+- 实验模板/fig/generated/all_models_train_loss.png
+- 实验模板/fig/generated/all_models_val_loss.png
+- 实验模板/fig/generated/all_models_train_acc.png
+- 实验模板/fig/generated/all_models_val_acc.png
+- 实验模板/fig/generated/all_models_val_grid.png
+- 实验模板/fig/generated/class_accuracy.png
+
+Generated table files:
+- 实验模板/tables/model_comparison.tex
+- 实验模板/tables/best_lr_summary.tex

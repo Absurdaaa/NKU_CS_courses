@@ -1,0 +1,16 @@
+\begin{table*}[htbp]
+\centering
+\caption{Performance comparison of each model under its best learning rate}
+\begin{tabular}{lcccc}
+\toprule
+Model & Params & FLOPs & Train Time / s & Infer Time / ms \\
+\midrule
+CNN & \textbf{111,050} & \textbf{10,409,472} & \textbf{243.6} & \textbf{0.017} \\
+ResNet20 & 272,474 & 41,403,072 & 781.3 & 0.054 \\
+DenseNet-BC-100 & 769,162 & 300,797,106 & 2921.7 & 0.262 \\
+MobileNetV1 & 1,618,250 & 41,195,008 & 775.9 & 0.054 \\
+Res2Net & 3,461,834 & 913,271,808 & 3389.6 & 0.259 \\
+\bottomrule
+\end{tabular}
+\label{tab:model_compare}
+\end{table*}

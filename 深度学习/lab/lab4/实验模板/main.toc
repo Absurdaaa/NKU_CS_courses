@@ -1,0 +1,30 @@
+\babel@toc {UKenglish}{}\relax 
+\contentsline {section}{\numberline {1}实验目的}{1}{section.1}%
+\contentsline {section}{\numberline {2}实验设置}{1}{section.2}%
+\contentsline {section}{\numberline {3}评估指标}{1}{section.3}%
+\contentsline {section}{\numberline {4}模型结构设计}{1}{section.4}%
+\contentsline {subsection}{\numberline {4.1}原始全连接 GAN}{1}{subsection.4.1}%
+\contentsline {subsection}{\numberline {4.2}加深全连接 GAN}{2}{subsection.4.2}%
+\contentsline {subsection}{\numberline {4.3}卷积版 DCGAN}{2}{subsection.4.3}%
+\contentsline {subsection}{\numberline {4.4}网络结构打印结果}{2}{subsection.4.4}%
+\contentsline {section}{\numberline {5}实验结果分析}{2}{section.5}%
+\contentsline {subsection}{\numberline {5.1}学习率扫描}{2}{subsection.5.1}%
+\contentsline {subsection}{\numberline {5.2}最终模型综合性能对比}{2}{subsection.5.2}%
+\contentsline {subsection}{\numberline {5.3}训练 loss 与 FID 曲线}{3}{subsection.5.3}%
+\contentsline {subsection}{\numberline {5.4}训练轮数的影响}{4}{subsection.5.4}%
+\contentsline {subsection}{\numberline {5.5}固定噪声生成样例（8 张）}{4}{subsection.5.5}%
+\contentsline {subsection}{\numberline {5.6}三种网络生成质量差异分析}{4}{subsection.5.6}%
+\contentsline {section}{\numberline {6}隐变量扰动对生成结果的影响}{5}{section.6}%
+\contentsline {subsection}{\numberline {6.1}分析方法}{5}{subsection.6.1}%
+\contentsline {subsection}{\numberline {6.2}扰动现象与解释}{5}{subsection.6.2}%
+\contentsline {section}{\numberline {7}进阶分析}{6}{section.7}%
+\contentsline {subsection}{\numberline {7.1}潜空间插值}{6}{subsection.7.1}%
+\contentsline {subsection}{\numberline {7.2}生成多样性与模式崩溃}{6}{subsection.7.2}%
+\contentsline {subsection}{\numberline {7.3}最近邻过拟合检验}{7}{subsection.7.3}%
+\contentsline {subsection}{\numberline {7.4}判别器特征的表示学习能力}{7}{subsection.7.4}%
+\contentsline {section}{\numberline {8}实验结论}{8}{section.8}%
+\contentsline {section}{\numberline {A}训练诊断与优化}{9}{appendix.A}%
+\contentsline {section}{\numberline {B}评估指标的探索过程}{9}{appendix.B}%
+\contentsline {section}{\numberline {C}多样性评估所用的 FashionMNIST 分类器}{9}{appendix.C}%
+\contentsline {section}{\numberline {D}网络结构的完整 \texttt {print(net)} 输出}{10}{appendix.D}%
+\contentsline {section}{\numberline {E}代码目录说明}{11}{appendix.E}%

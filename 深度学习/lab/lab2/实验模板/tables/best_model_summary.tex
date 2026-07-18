@@ -1,0 +1,15 @@
+\begin{table}[htbp]
+\centering
+\caption{各模型最优学习率与主要精度指标}
+\begin{tabular}{lcccccc}
+\toprule
+Model & Best LR & Best Val Acc & Best Val Loss & Best Epoch & Test Acc & Test Loss \\
+\midrule
+RNN & 0.001 & 0.8147 & 0.6767 & 52 & 0.8001 & 0.7147 \\
+LSTM & 0.01 & 0.8303 & 0.8507 & 40 & 0.8144 & 0.9250 \\
+MyLSTM & 0.01 & 0.8336 & \textbf{0.5682} & 8 & \textbf{0.8227} & \textbf{0.6101} \\
+MyGRU & 0.005 & \textbf{0.8346} & 0.6789 & 13 & 0.8201 & 0.7185 \\
+\bottomrule
+\end{tabular}
+\label{tab:best_model_summary}
+\end{table}

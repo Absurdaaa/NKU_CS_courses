@@ -1,0 +1,7 @@
+Model,Test_Accuracy
+SimpleNet,0.6382
+CustomNet,0.8475
+ResNet,0.8586
+DenseNet,0.8368
+MobileNet,0.5398
+Res2Net,0.8684

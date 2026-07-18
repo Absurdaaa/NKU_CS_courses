@@ -1,0 +1,24 @@
+\begin{thebibliography}{1}
+
+\bibitem{Res2Net}
+Shang-Hua Gao, Ming-Ming Cheng, Kai Zhao, Xin-Yu Zhang, Ming-Hsuan Yang, and
+  Philip Torr.
+\newblock Res2net: A new multi-scale backbone architecture.
+\newblock {\em IEEE Transactions on Pattern Analysis and Machine Intelligence},
+  43(2):652–662, February 2021.
+
+\bibitem{resnet}
+Kaiming He, Xiangyu Zhang, Shaoqing Ren, and Jian Sun.
+\newblock Deep residual learning for image recognition, 2015.
+
+\bibitem{mobilenet}
+Andrew~G. Howard, Menglong Zhu, Bo~Chen, Dmitry Kalenichenko, Weijun Wang,
+  Tobias Weyand, Marco Andreetto, and Hartwig Adam.
+\newblock Mobilenets: Efficient convolutional neural networks for mobile vision
+  applications, 2017.
+
+\bibitem{densenet}
+Gao Huang, Zhuang Liu, Laurens van~der Maaten, and Kilian~Q. Weinberger.
+\newblock Densely connected convolutional networks, 2018.
+
+\end{thebibliography}

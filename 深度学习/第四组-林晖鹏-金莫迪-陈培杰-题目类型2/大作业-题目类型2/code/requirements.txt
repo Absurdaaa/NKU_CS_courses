@@ -1,0 +1,6 @@
+torch>=2.2.0
+torchvision>=0.17.0
+pillow>=10.0.0
+numpy>=1.24.0
+thop>=0.1.1.post2209072238
+pytest>=7.0.0

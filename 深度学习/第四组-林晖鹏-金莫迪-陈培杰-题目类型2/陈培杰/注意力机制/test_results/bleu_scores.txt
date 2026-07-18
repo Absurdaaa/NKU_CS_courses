@@ -1,0 +1,4 @@
+Test BLEU Scores
+================
+Base RNN BLEU: 24.33
+Attention RNN BLEU: 24.66

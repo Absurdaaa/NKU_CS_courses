@@ -1,0 +1,8 @@
+__pycache__/
+*.pyc
+
+.matplotlib/
+
+outputs/
+
+data/cifar-10-batches-py/

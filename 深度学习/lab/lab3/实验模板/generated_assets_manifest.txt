@@ -1,0 +1,16 @@
+实验模板/tables/model_comparison.csv
+实验模板/tables/model_comparison.tex
+实验模板/tables/length_bucket_comparison.csv
+实验模板/tables/length_bucket_comparison.tex
+实验模板/tables/lengthwise_metrics.csv
+实验模板/tables/qualitative_examples.csv
+实验模板/fig/generated/best_run_val_curves.png
+实验模板/fig/generated/best_run_test_metrics.png
+实验模板/fig/generated/length_bucket_comparison.png
+实验模板/fig/generated/lengthwise_line_plot.png
+实验模板/fig/generated/seq2seq_attn_adam_lr_sweep_summary.png
+实验模板/fig/generated/seq2seq_luong_adam_lr_sweep_summary.png
+实验模板/fig/generated/seq2seq_luong_concat_adam_lr_sweep_summary.png
+实验模板/fig/generated/seq2seq_luong_dot_adam_lr_sweep_summary.png
+实验模板/fig/generated/seq2seq_luong_general_adam_lr_sweep_summary.png
+实验模板/fig/generated/seq2seq_rnn_adam_lr_sweep_summary.png

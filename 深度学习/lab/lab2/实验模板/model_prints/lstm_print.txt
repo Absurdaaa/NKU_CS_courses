@@ -1,0 +1,5 @@
+LSTMClassifier(
+  (lstm): LSTM(59, 128)
+  (output): Linear(in_features=128, out_features=18, bias=True)
+  (log_softmax): LogSoftmax(dim=1)
+)
