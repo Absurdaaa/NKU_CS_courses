@@ -1,0 +1,39 @@
+<section class="slide" data-title="传统基线不足">
+        <div class="full-flow">
+      <div class="center-title">
+            <p class="eyebrow reveal">传统基线与限制</p>
+            <h2 class="reveal">要保留 top-k，传统路线仍有缺口</h2>
+            <p class="lead reveal" style="margin: 0 auto; text-align: center; max-width: 1240px;">常见方案要么假设梯度是密集向量，要么隐私保护不完整，要么开销过高，难以同时满足效率与安全。</p>
+          </div>
+          <div class="strawman-grid reveal">
+            <article class="strawman-card">
+              <h3>方法1：FedAvg + 全量梯度 + SecAgg</h3>
+              <div class="mini-vector">Dense update: g ∈ R^d（每轮上传完整梯度）</div>
+              <ul class="strawman-points">
+                <li>与传统 SecAgg 语义匹配，协议成熟。</li>
+                <li>通信成本随模型规模线性，面对大模型/弱网络时压力大。</li>
+                <li>直接违背 top-k 目标，无法享受稀疏压缩收益。</li>
+              </ul>
+            </article>
+            <article class="strawman-card">
+              <h3>方法2：top-k + 通用 ORAM / 通用安全计算</h3>
+              <div class="mini-vector">Index + value 全部隐藏（理论上更全面）</div>
+              <ul class="strawman-points">
+                <li>可以规避位置与数值一起泄露的问题。</li>
+                <li>密态/访问模式开销高，轮次与通信都更重。</li>
+                <li>对大规模联邦训练，性能常不够实用。</li>
+              </ul>
+            </article>
+            <article class="strawman-card">
+              <h3>方法3：只保护值，不保护 index</h3>
+              <div class="mini-vector">上传 (index, value) 中 value 加密，index 明文</div>
+              <ul class="strawman-points">
+                <li>实现相对容易，工程负担较低。</li>
+                <li>index 暴露仍泄露客户端特征与数据分布信息。</li>
+                <li>无法满足 Clover 对 top-k 完整隐私的目标。</li>
+              </ul>
+            </article>
+          </div>
+          <div class="note reveal" style="margin:0 auto;max-width:1200px;text-align:center;">因此 Clover 的核心是：在保留标准 top-k 的同时，隐藏 index 与 value，并高效完成稀疏聚合与 DP 控制。</div>
+        </div>
+      </section>

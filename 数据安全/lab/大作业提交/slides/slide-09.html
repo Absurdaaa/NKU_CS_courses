@@ -1,0 +1,55 @@
+<section class="slide" data-title="三服务器思路">
+        <div class="full-flow">
+          <div class="center-title">
+            <p class="eyebrow reveal">Distributed Trust</p>
+            <h2 class="reveal">用三个服务器分散信任</h2>
+            <p class="lead reveal" style="max-width:1160px;margin-left:auto;margin-right:auto;">客户端不把明文 top-k 交给单个服务器，而是拆成多份 share；服务器协作计算，但单台服务器看不全 index/value。</p>
+          </div>
+          <div class="diagram trust-flow reveal" style="min-height:520px;">
+            <svg class="trust-lines" viewBox="0 0 1360 520" aria-hidden="true">
+              <path id="sharePath1" class="share-path path-s1" d="M 292 248 C 444 170, 520 138, 620 116" />
+              <path id="sharePath2" class="share-path path-s2" d="M 292 260 C 438 242, 516 242, 620 246" />
+              <path id="sharePath3" class="share-path path-s3" d="M 292 272 C 444 342, 520 382, 620 386" />
+              <path id="resultPath1" class="result-path path-r1" d="M 740 116 C 840 138, 916 170, 1068 248" />
+              <path id="resultPath2" class="result-path path-r2" d="M 740 246 C 844 242, 922 242, 1068 260" />
+              <path id="resultPath3" class="result-path path-r3" d="M 740 386 C 840 382, 916 342, 1068 272" />
+
+              <g class="flow-particles share-particles">
+                <circle r="6"><animateMotion dur="2.4s" repeatCount="indefinite" begin="0s"><mpath href="#sharePath1" /></animateMotion></circle>
+                <circle r="6"><animateMotion dur="2.4s" repeatCount="indefinite" begin=".35s"><mpath href="#sharePath2" /></animateMotion></circle>
+                <circle r="6"><animateMotion dur="2.4s" repeatCount="indefinite" begin=".7s"><mpath href="#sharePath3" /></animateMotion></circle>
+              </g>
+              <g class="flow-particles result-particles">
+                <circle r="6"><animateMotion dur="2.6s" repeatCount="indefinite" begin=".2s"><mpath href="#resultPath1" /></animateMotion></circle>
+                <circle r="6"><animateMotion dur="2.6s" repeatCount="indefinite" begin=".55s"><mpath href="#resultPath2" /></animateMotion></circle>
+                <circle r="6"><animateMotion dur="2.6s" repeatCount="indefinite" begin=".9s"><mpath href="#resultPath3" /></animateMotion></circle>
+              </g>
+            </svg>
+
+            <div class="private-update trust-input" id="privateUpdate">
+              <span class="trust-kicker">Client private update</span>
+              <strong>客户端 top-k</strong>
+              <p>(index, value)</p>
+              <code>(2,+0.8), (7,-1.1)</code>
+            </div>
+
+            <div class="server-stack-trust">
+              <div class="server-card s1"><strong>Server 1</strong><small>share 1</small></div>
+              <div class="server-card s2"><strong>Server 2</strong><small>share 2</small></div>
+              <div class="server-card s3"><strong>Server 3</strong><small>share 3</small></div>
+            </div>
+
+            <span class="share-token share-line share-a">s1</span>
+            <span class="share-token share-line share-b">s2</span>
+            <span class="share-token share-line share-c">s3</span>
+
+            <div class="aggregate-result aggregate-vector" id="aggregateVector" data-active="false">
+              <span class="trust-kicker">Collaborative output</span>
+              <strong>聚合结果</strong>
+              <p>只恢复总和，不恢复单个客户端</p>
+              <code>G = sum(top-k shares)</code>
+            </div>
+          </div>
+          <div class="note reveal" style="margin:0 auto;max-width:1180px;text-align:center;">核心思想：单个服务器看不全 index/value，多个服务器协作才能完成聚合。</div>
+        </div>
+      </section>

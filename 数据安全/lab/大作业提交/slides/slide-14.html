@@ -1,0 +1,74 @@
+<section class="slide" data-title="实验：DP 噪声误差">
+        <div class="experiment-page">
+          <div class="experiment-header reveal">
+            <p class="eyebrow">Experiment 3 · DP Noise Error</p>
+            <h2>误差主要来自 DP 噪声，而不是稀疏聚合错误</h2>
+            <p>论文用 synthetic sparse vector summation 单独评估差分隐私噪声带来的误差。设置为 100 个客户端、d = 10<sup>4</sup>，比较不同 privacy budget ε 和稀疏密度 λ 下的 MSE。</p>
+          </div>
+
+          <div class="experiment-visual reveal">
+            <div class="dp-error-chart">
+              <div class="chart-title">
+                <strong>MSE mainly follows privacy budget ε</strong>
+                <span>from Fig. 7: larger ε means less noise; density λ has little effect when ε is fixed</span>
+              </div>
+              <div class="mse-panels">
+                <div class="mse-panel">
+                  <span>MSE vs ε</span>
+                  <div class="y-axis-title">MSE</div>
+                  <svg viewBox="0 0 420 230" aria-hidden="true">
+                    <path class="grid-line" d="M42 30H390M42 82H390M42 134H390M42 186H390" />
+                    <path class="mse-line high" d="M58 44 C120 74, 180 120, 246 156 S330 190, 376 198" />
+                    <path class="mse-line mid" d="M58 50 C120 78, 180 122, 246 158 S330 188, 376 196" />
+                    <path class="mse-line low" d="M58 56 C120 84, 180 126, 246 160 S330 190, 376 198" />
+                  </svg>
+                  <div class="chart-legend">
+                    <span class="legend-risk">λ=0.1%</span>
+                    <span class="legend-noise">λ=0.5%</span>
+                    <span class="legend-teal">λ=1%</span>
+                  </div>
+                  <div class="x-axis-title">Privacy budget ε</div>
+                  <p>ε 增大，噪声减小，MSE 下降。</p>
+                </div>
+                <div class="mse-panel">
+                  <span>MSE vs λ</span>
+                  <div class="y-axis-title">MSE</div>
+                  <svg viewBox="0 0 420 230" aria-hidden="true">
+                    <path class="grid-line" d="M42 30H390M42 82H390M42 134H390M42 186H390" />
+                    <path class="mse-line high" d="M58 78 C140 77, 220 80, 300 78 S354 79, 376 78" />
+                    <path class="mse-line mid" d="M58 132 C140 131, 220 134, 300 132 S354 133, 376 132" />
+                    <path class="mse-line low" d="M58 178 C140 177, 220 180, 300 178 S354 179, 376 178" />
+                  </svg>
+                  <div class="chart-legend">
+                    <span class="legend-risk">ε=1</span>
+                    <span class="legend-noise">ε=5</span>
+                    <span class="legend-teal">ε=10</span>
+                  </div>
+                  <div class="x-axis-title">Sparse density λ</div>
+                  <p>固定 ε 时，不同 λ 的 MSE 基本稳定。</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="insight-stack">
+              <article class="insight-card">
+                <span>Privacy-utility trade-off</span>
+                <strong>ε ↑ → MSE ↓</strong>
+                <p>privacy budget 越大，允许的噪声越小，因此输出更接近真实聚合。</p>
+              </article>
+              <article class="insight-card">
+                <span>Aggregation correctness</span>
+                <strong>MSE ≈ DP noise</strong>
+                <p>论文指出，协议正确聚合非零元素；估计均值和真实均值的差异主要就是 DP 噪声。</p>
+              </article>
+              <article class="insight-card">
+                <span>Sparsity density</span>
+                <strong>λ effect is small</strong>
+                <p>固定 ε 后，MSE 基本不随 λ 改变，说明误差不是由稀疏位置恢复失败导致。</p>
+              </article>
+            </div>
+          </div>
+
+          <div class="experiment-takeaway reveal">结论：Clover 的聚合过程仍然正确；最终误差主要是为了 DP 而有意加入的噪声，这是隐私和效用之间的可控权衡。</div>
+        </div>
+      </section>

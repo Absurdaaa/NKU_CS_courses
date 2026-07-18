@@ -1,0 +1,41 @@
+<section class="slide" data-title="局限性">
+        <div class="discussion-page">
+          <div class="discussion-header reveal">
+            <p class="eyebrow">Discussion · Limitations</p>
+            <h2>Clover 解决了核心聚合问题，但部署仍有边界</h2>
+            <p>论文的设计重点是让 top-k、安全聚合和 DP 同时成立；真正落地时，还需要面对信任组织、系统复杂度和威胁模型边界。</p>
+          </div>
+
+          <div class="limitation-map reveal">
+            <div class="limit-core">
+              <span>Core contribution</span>
+              <strong>Clover</strong>
+              <p>top-k 稀疏上传 + 安全聚合 + DP 输出保护</p>
+            </div>
+
+            <article class="limit-node trust">
+              <span>Trust</span>
+              <h3>三服务器部署</h3>
+              <p>需要不同信任域支撑“不完全合谋”假设。</p>
+            </article>
+            <article class="limit-node complexity">
+              <span>System</span>
+              <h3>协议链路变长</h3>
+              <p>shuffle、聚合、噪声和恶意检查都提高实现成本。</p>
+            </article>
+            <article class="limit-node scope">
+              <span>Threat model</span>
+              <h3>不覆盖所有攻击</h3>
+              <p>不能直接替代投毒、后门和异常客户端检测。</p>
+            </article>
+
+            <svg class="limit-lines" viewBox="0 0 980 480" aria-hidden="true">
+              <path d="M490 240 L170 130" />
+              <path d="M490 240 L810 130" />
+              <path d="M490 240 L490 390" />
+            </svg>
+          </div>
+
+          <div class="discussion-takeaway reveal">结论：Clover 更像一个面向 top-k 稀疏联邦学习的安全聚合与 DP 框架，而不是完整替代联邦学习部署中的所有安全机制。</div>
+        </div>
+      </section>

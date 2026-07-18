@@ -1,0 +1,4522 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Clover 论文汇报 HTML 幻灯片</title>
+  <style>
+    :root {
+      --stage-bg: #101816;
+      --slide-bg: #f8fbf7;
+      --ink: #102426;
+      --muted: #5a6f72;
+      --line: rgba(16, 36, 38, .14);
+      --paper: #ffffff;
+      --teal: #0b8f88;
+      --teal-soft: #dff5f1;
+      --blue: #315fbd;
+      --blue-soft: #e8efff;
+      --risk: #d9552f;
+      --risk-soft: #fff0e8;
+      --gold: #b9860d;
+      --gold-soft: #fff5d5;
+      --noise: #7658c7;
+      --noise-soft: #eee8ff;
+      --shadow: 0 32px 90px rgba(10, 24, 26, .16);
+      --ease: cubic-bezier(.16, 1, .3, 1);
+      --display: "Avenir Next", "Gill Sans", "PingFang SC", "Hiragino Sans GB", sans-serif;
+      --body: "Helvetica Neue", "PingFang SC", "Microsoft YaHei", sans-serif;
+      --mono: "SFMono-Regular", "Cascadia Code", "Consolas", monospace;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    /* ===========================================
+       FIXED 16:9 STAGE: MANDATORY BASE STYLES
+       Include this ENTIRE file in every presentation.
+       Slides are authored at 1920x1080 and scaled as a whole.
+       =========================================== */
+
+    /* 1. Lock the browser viewport */
+    html,
+    body {
+        width: 100%;
+        height: 100%;
+        margin: 0;
+        overflow: hidden;
+        background: var(--stage-bg, #000);
+    }
+
+    /* 2. Full-window deck viewport */
+    .deck-viewport {
+        position: fixed;
+        inset: 0;
+        overflow: hidden;
+        background: var(--stage-bg, #000);
+    }
+
+    /* 3. Fixed 16:9 design canvas.
+       JavaScript sets transform: translate(...) scale(...). */
+    .deck-stage {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 1920px;
+        height: 1080px;
+        overflow: hidden;
+        transform-origin: 0 0;
+        background: var(--slide-bg, #fff);
+    }
+
+    /* 4. Slides stack inside the fixed stage.
+       Content must be laid out at 1920x1080, not reflowed per device. */
+    .slide {
+        position: absolute;
+        inset: 0;
+        width: 1920px;
+        height: 1080px;
+        overflow: hidden;
+        display: block;
+        visibility: hidden;
+        opacity: 0;
+        pointer-events: none;
+        background: var(--slide-bg, #fff);
+    }
+
+    .slide.active,
+    .slide.visible {
+        visibility: visible;
+        opacity: 1;
+        pointer-events: auto;
+        z-index: 1;
+    }
+
+    /* 5. Keep media inside authored slide bounds */
+    img,
+    video,
+    canvas,
+    svg {
+        max-width: 100%;
+        max-height: 100%;
+    }
+
+    /* 6. Presentation chrome stays outside the slide design system */
+    .deck-controls {
+        position: fixed;
+        left: 50%;
+        bottom: 22px;
+        transform: translateX(-50%);
+        z-index: 1000;
+    }
+
+    /* 7. Print one fixed-size slide per page */
+    @media print {
+        @page {
+            size: 16in 9in;
+            margin: 0;
+        }
+
+        html,
+        body {
+            width: 1920px;
+            height: auto;
+            overflow: visible;
+            background: #fff;
+        }
+
+        .deck-viewport {
+            position: static;
+            overflow: visible;
+            background: #fff;
+        }
+
+        .deck-stage {
+            position: static;
+            width: auto;
+            height: auto;
+            transform: none !important;
+            background: none;
+        }
+
+        .slide {
+            position: relative;
+            display: block !important;
+            visibility: visible !important;
+            opacity: 1 !important;
+            pointer-events: auto !important;
+            width: 1920px;
+            height: 1080px;
+            break-after: page;
+            page-break-after: always;
+        }
+
+        .slide:last-child {
+            break-after: auto;
+            page-break-after: auto;
+        }
+
+        .slide .reveal {
+            opacity: 1 !important;
+            transform: none !important;
+        }
+
+        .deck-controls {
+            display: none !important;
+        }
+    }
+
+    /* 8. Reduced motion */
+    @media (prefers-reduced-motion: reduce) {
+        *,
+        *::before,
+        *::after {
+            animation-duration: 0.01ms !important;
+            transition-duration: 0.2s !important;
+        }
+    }
+
+    /* === Base Theme === */
+    body {
+      font-family: var(--body);
+      color: var(--ink);
+    }
+
+    .deck-stage {
+      border-radius: 26px;
+      box-shadow: 0 28px 80px rgba(0, 0, 0, .32);
+      isolation: isolate;
+    }
+
+    .deck-stage::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+      background:
+        radial-gradient(circle at 10% 12%, rgba(11, 143, 136, .18), transparent 24%),
+        radial-gradient(circle at 90% 16%, rgba(217, 85, 47, .12), transparent 24%),
+        radial-gradient(circle at 78% 88%, rgba(49, 95, 189, .13), transparent 28%),
+        linear-gradient(135deg, #ffffff 0%, #f7fbfa 45%, #edf7f4 100%);
+    }
+
+    .deck-stage::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+      background-image:
+        linear-gradient(rgba(11, 143, 136, .05) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(11, 143, 136, .05) 1px, transparent 1px);
+      background-size: 44px 44px;
+      mask-image: linear-gradient(to bottom, rgba(0, 0, 0, .8), rgba(0, 0, 0, .14));
+    }
+
+    .slide {
+      padding: 74px 86px;
+      z-index: 1;
+      transition: opacity .34s var(--ease), transform .34s var(--ease);
+      transform: translateX(36px);
+    }
+
+    .slide.visible {
+      transform: translateX(0);
+    }
+
+    .slide > * {
+      position: relative;
+      z-index: 2;
+    }
+
+    .slide-grid {
+      height: 100%;
+      display: grid;
+      grid-template-columns: 740px 1fr;
+      gap: 54px;
+      align-items: center;
+    }
+
+    .slide-grid.wide-copy {
+      grid-template-columns: 820px 1fr;
+    }
+
+    .copy {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      min-width: 0;
+    }
+
+    .visual {
+      min-width: 0;
+      min-height: 0;
+      display: grid;
+      place-items: center;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      width: fit-content;
+      align-items: center;
+      gap: 12px;
+      padding: 12px 18px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: rgba(255, 255, 255, .72);
+      color: var(--teal);
+      font-weight: 900;
+      font-size: 22px;
+      letter-spacing: .04em;
+      text-transform: uppercase;
+      box-shadow: 0 14px 34px rgba(16, 36, 38, .08);
+    }
+
+    h1, h2, h3 {
+      font-family: var(--display);
+      color: var(--ink);
+      line-height: 1.04;
+      letter-spacing: 0;
+      font-weight: 900;
+    }
+
+    h1 {
+      margin-top: 34px;
+      font-size: 124px;
+      max-width: 760px;
+    }
+
+    h2 {
+      margin-top: 30px;
+      font-size: 82px;
+      max-width: 780px;
+    }
+
+    h3 {
+      font-size: 34px;
+    }
+
+    .lead {
+      margin-top: 30px;
+      color: #31565a;
+      font-size: 34px;
+      line-height: 1.42;
+      font-weight: 650;
+      max-width: 770px;
+    }
+
+    .talk-points {
+      margin-top: 36px;
+      display: grid;
+      gap: 18px;
+      list-style: none;
+      max-width: 760px;
+    }
+
+    .talk-points li {
+      display: grid;
+      grid-template-columns: 36px 1fr;
+      gap: 16px;
+      align-items: start;
+      color: #365d61;
+      font-size: 27px;
+      line-height: 1.38;
+      font-weight: 720;
+    }
+
+    .talk-points li::before {
+      content: "";
+      width: 14px;
+      height: 14px;
+      margin-top: 12px;
+      border-radius: 50%;
+      background: var(--teal);
+      box-shadow: 0 0 0 10px rgba(11, 143, 136, .12);
+    }
+
+    .risk-text { color: var(--risk); }
+    .blue-text { color: var(--blue); }
+    .noise-text { color: var(--noise); }
+
+    .action-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 18px;
+      margin-top: 40px;
+    }
+
+    button {
+      appearance: none;
+      border: 0;
+      cursor: pointer;
+      border-radius: 16px;
+      padding: 18px 26px;
+      background: var(--teal);
+      color: #fff;
+      font-family: var(--body);
+      font-size: 23px;
+      font-weight: 900;
+      box-shadow: 0 18px 38px rgba(11, 143, 136, .22);
+      transition: transform .18s ease, background .18s ease, box-shadow .18s ease;
+    }
+
+    button:hover {
+      transform: translateY(-2px);
+      background: #08736f;
+    }
+
+    button.secondary {
+      color: var(--teal);
+      background: rgba(255, 255, 255, .86);
+      border: 1px solid rgba(11, 143, 136, .28);
+      box-shadow: none;
+    }
+
+    button.risk { background: var(--risk); box-shadow: 0 18px 38px rgba(217, 85, 47, .22); }
+    button.blue { background: var(--blue); box-shadow: 0 18px 38px rgba(49, 95, 189, .22); }
+    button.noise { background: var(--noise); box-shadow: 0 18px 38px rgba(118, 88, 199, .22); }
+
+    .tag-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+      margin-top: 36px;
+    }
+
+    .tag {
+      display: inline-flex;
+      align-items: center;
+      min-height: 48px;
+      padding: 10px 18px;
+      border-radius: 999px;
+      border: 1px solid var(--line);
+      background: rgba(255, 255, 255, .76);
+      color: #335b5f;
+      font-size: 22px;
+      font-weight: 850;
+      box-shadow: 0 12px 24px rgba(16, 36, 38, .06);
+    }
+
+    .note {
+      margin-top: 34px;
+      padding: 22px 26px;
+      border-radius: 20px;
+      background: rgba(223, 245, 241, .82);
+      color: #255d61;
+      font-size: 25px;
+      line-height: 1.4;
+      font-weight: 800;
+      border: 1px solid rgba(11, 143, 136, .16);
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity .6s var(--ease), transform .6s var(--ease);
+    }
+
+    .visible .reveal {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .reveal:nth-child(2) { transition-delay: .06s; }
+    .reveal:nth-child(3) { transition-delay: .12s; }
+    .reveal:nth-child(4) { transition-delay: .18s; }
+    .reveal:nth-child(5) { transition-delay: .24s; }
+
+    /* === Diagram Components === */
+    .diagram {
+      width: 100%;
+      min-height: 600px;
+      border: 1px solid rgba(16, 36, 38, .12);
+      border-radius: 34px;
+      background: rgba(255, 255, 255, .72);
+      box-shadow: var(--shadow);
+      padding: 34px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .interactive-module {
+      cursor: pointer;
+      transition: transform .18s ease, border-color .18s ease, box-shadow .18s ease;
+    }
+
+    .interactive-module:hover {
+      transform: translateY(-3px);
+      border-color: rgba(11, 143, 136, .28);
+      box-shadow: 0 26px 70px rgba(11, 143, 136, .13);
+    }
+
+    .diagram::before {
+      content: "";
+      position: absolute;
+      inset: 22px;
+      border-radius: 28px;
+      background: linear-gradient(135deg, rgba(223, 245, 241, .7), rgba(255, 255, 255, .2));
+      pointer-events: none;
+    }
+
+    .diagram > * {
+      position: relative;
+      z-index: 1;
+    }
+
+    .mini-label {
+      color: var(--muted);
+      font-family: var(--mono);
+      font-size: 18px;
+      font-weight: 850;
+      text-transform: uppercase;
+      letter-spacing: .04em;
+    }
+
+    .node {
+      position: absolute;
+      width: 188px;
+      min-height: 126px;
+      border: 1px solid var(--line);
+      border-radius: 26px;
+      background: #fff;
+      display: grid;
+      place-items: center;
+      text-align: center;
+      padding: 18px;
+      box-shadow: 0 18px 40px rgba(16, 36, 38, .1);
+      color: var(--ink);
+      font-weight: 950;
+      font-size: 25px;
+      transition: transform .28s var(--ease), border-color .28s ease, background .28s ease;
+    }
+
+    .node small {
+      display: block;
+      margin-top: 5px;
+      color: var(--muted);
+      font-size: 17px;
+      font-weight: 780;
+    }
+
+    .node.server {
+      width: 220px;
+      min-height: 148px;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      border-color: rgba(11, 143, 136, .32);
+      background: linear-gradient(145deg, #fff, #e9fbf8);
+    }
+
+    .node.client-a { left: 44px; top: 74px; }
+    .node.client-b { right: 52px; top: 92px; }
+    .node.client-c { left: 92px; bottom: 70px; }
+    .node.client-d { right: 96px; bottom: 70px; }
+    .node.is-active { transform: translateY(-10px); border-color: var(--teal); background: var(--teal-soft); }
+    .node.server.is-active { transform: translate(-50%, -50%) scale(1.04); }
+
+    .packet, .share {
+      position: absolute;
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      opacity: 0;
+      background: var(--teal);
+      box-shadow: 0 0 0 9px rgba(11, 143, 136, .13);
+      z-index: 3;
+    }
+
+    .packet.p1 { left: 158px; top: 184px; }
+    .packet.p2 { right: 168px; top: 204px; }
+    .packet.p3 { left: 206px; bottom: 168px; }
+    .packet.p4 { right: 212px; bottom: 168px; }
+    .packet.is-active.p1 { animation: denseA 1.1s var(--ease) forwards; }
+    .packet.is-active.p2 { animation: denseB 1.1s .12s var(--ease) forwards; }
+    .packet.is-active.p3 { animation: denseC 1.1s .24s var(--ease) forwards; }
+    .packet.is-active.p4 { animation: denseD 1.1s .36s var(--ease) forwards; }
+
+    @keyframes denseA { 0% { opacity: 1; transform: translate(0, 0); } 80% { opacity: 1; } 100% { opacity: 0; transform: translate(322px, 188px); } }
+    @keyframes denseB { 0% { opacity: 1; transform: translate(0, 0); } 80% { opacity: 1; } 100% { opacity: 0; transform: translate(-316px, 172px); } }
+    @keyframes denseC { 0% { opacity: 1; transform: translate(0, 0); } 80% { opacity: 1; } 100% { opacity: 0; transform: translate(286px, -198px); } }
+    @keyframes denseD { 0% { opacity: 1; transform: translate(0, 0); } 80% { opacity: 1; } 100% { opacity: 0; transform: translate(-282px, -198px); } }
+
+    .vector-panel {
+      width: 100%;
+      max-width: 820px;
+      border: 1px solid var(--line);
+      border-radius: 28px;
+      background: rgba(255, 255, 255, .9);
+      padding: 30px;
+      box-shadow: 0 20px 54px rgba(16, 36, 38, .11);
+    }
+
+    .gradient-vector {
+      display: grid;
+      grid-template-columns: repeat(8, 1fr);
+      gap: 13px;
+      margin-top: 24px;
+    }
+
+    .grad-cell {
+      min-height: 86px;
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      display: grid;
+      place-items: center;
+      position: relative;
+      background: #f7fbfa;
+      color: #355b60;
+      font-family: var(--mono);
+      font-size: 22px;
+      font-weight: 850;
+      transition: transform .25s var(--ease), opacity .25s ease, background .25s ease, color .25s ease, border-color .25s ease;
+    }
+
+    .grad-cell::after {
+      content: "i=" attr(data-index);
+      position: absolute;
+      top: -12px;
+      right: -6px;
+      padding: 4px 9px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: #fff;
+      color: var(--muted);
+      font-size: 14px;
+      font-family: var(--mono);
+      font-weight: 850;
+    }
+
+    .grad-cell.is-active,
+    .grad-cell.keep.is-active {
+      transform: translateY(-10px);
+      border-color: var(--teal);
+      background: var(--teal-soft);
+      color: var(--teal);
+      box-shadow: 0 16px 28px rgba(11, 143, 136, .15);
+    }
+
+    .grad-cell.is-dropped {
+      opacity: .22;
+      transform: scale(.94);
+      filter: grayscale(.8);
+    }
+
+    .grad-cell.is-risk,
+    .index-marker.is-risk {
+      border-color: var(--risk);
+      background: var(--risk-soft);
+      color: var(--risk);
+      animation: riskPulse 1s ease infinite alternate;
+    }
+
+    @keyframes riskPulse {
+      from { box-shadow: 0 0 0 0 rgba(217, 85, 47, .2); }
+      to { box-shadow: 0 0 0 15px rgba(217, 85, 47, 0); }
+    }
+
+    .sparse-pairs {
+      margin-top: 26px;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+      opacity: 0;
+      transform: translateY(16px);
+      transition: opacity .28s ease, transform .28s var(--ease);
+    }
+
+    .sparse-pairs[data-active="true"] {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .pair-card {
+      padding: 18px;
+      border-radius: 18px;
+      background: #fff;
+      border: 1px solid rgba(11, 143, 136, .2);
+      color: #275b5e;
+      font-family: var(--mono);
+      font-size: 20px;
+      font-weight: 850;
+      text-align: center;
+    }
+
+    .pair-card.is-active {
+      border-color: var(--teal);
+      background: var(--teal-soft);
+      color: var(--teal);
+      transform: translateY(-6px);
+      box-shadow: 0 14px 26px rgba(11, 143, 136, .12);
+    }
+
+    .meter-grid {
+      margin-top: 28px;
+      display: grid;
+      gap: 16px;
+    }
+
+    .meter-row {
+      display: grid;
+      grid-template-columns: 142px 1fr 128px;
+      gap: 16px;
+      align-items: center;
+      color: #3c6267;
+      font-size: 21px;
+      font-weight: 850;
+    }
+
+    .bar {
+      height: 16px;
+      border-radius: 999px;
+      background: #e5efed;
+      overflow: hidden;
+    }
+
+    .bar span {
+      display: block;
+      width: 100%;
+      height: 100%;
+      border-radius: inherit;
+      background: linear-gradient(90deg, var(--teal), #57c8bd);
+      transition: width .32s var(--ease);
+    }
+
+    .bar.risk span { background: linear-gradient(90deg, var(--risk), #ed9c68); }
+    .bar.noise span { background: linear-gradient(90deg, var(--noise), #b3a0f0); }
+
+    .risk-board, .sparse-board, .clover-board, .dp-board {
+      width: 100%;
+      max-width: 850px;
+      display: grid;
+      gap: 22px;
+    }
+
+    .observed-indexes {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+    }
+
+    .index-marker {
+      min-height: 108px;
+      border: 1px solid var(--line);
+      border-radius: 22px;
+      background: #fff;
+      display: grid;
+      place-items: center;
+      color: #31565a;
+      font-family: var(--mono);
+      font-size: 25px;
+      font-weight: 900;
+      transition: .25s ease;
+    }
+
+    .attacker-panel {
+      display: grid;
+      grid-template-columns: 112px 1fr;
+      gap: 22px;
+      align-items: center;
+      border: 1px solid var(--line);
+      border-radius: 26px;
+      background: rgba(255, 255, 255, .9);
+      padding: 24px;
+      box-shadow: 0 18px 42px rgba(16, 36, 38, .1);
+    }
+
+    .avatar {
+      width: 92px;
+      height: 92px;
+      border-radius: 26px;
+      display: grid;
+      place-items: center;
+      background: var(--risk-soft);
+      color: var(--risk);
+      font-size: 48px;
+      font-weight: 900;
+    }
+
+    .thought {
+      color: #31565a;
+      font-size: 26px;
+      line-height: 1.38;
+      font-weight: 760;
+    }
+
+    .leak-methods {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+    }
+
+    .leak-method {
+      min-height: 118px;
+      border: 1px solid var(--line);
+      border-radius: 22px;
+      background: rgba(255, 255, 255, .92);
+      padding: 20px 22px;
+      box-shadow: 0 14px 30px rgba(16, 36, 38, .08);
+      transition: .25s ease;
+    }
+
+    .leak-method strong {
+      display: block;
+      color: var(--risk);
+      font-size: 25px;
+      font-weight: 950;
+      margin-bottom: 10px;
+    }
+
+    .leak-method span {
+      color: #3a6064;
+      font-size: 20px;
+      line-height: 1.35;
+      font-weight: 760;
+    }
+
+    .leak-method.is-risk {
+      border-color: rgba(217, 85, 47, .55);
+      background: var(--risk-soft);
+      transform: translateY(-5px);
+      box-shadow: 0 18px 36px rgba(217, 85, 47, .12);
+    }
+
+    .triple-server,
+    .trust-flow {
+      height: 520px;
+      position: relative;
+    }
+
+    .trust-flow {
+      overflow: hidden;
+      border-radius: 34px;
+    }
+
+    .trust-lines {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    .trust-lines path {
+      fill: none;
+      stroke-linecap: round;
+      stroke-width: 4;
+    }
+
+    .share-path {
+      stroke: rgba(49, 95, 189, .32);
+      stroke-dasharray: 10 12;
+    }
+
+    .result-path {
+      stroke: rgba(11, 143, 136, .32);
+    }
+
+    .flow-particles circle {
+      opacity: .88;
+      filter: drop-shadow(0 0 8px rgba(49, 95, 189, .28));
+    }
+
+    .share-particles circle {
+      fill: var(--blue);
+    }
+
+    .result-particles circle {
+      fill: var(--teal);
+      filter: drop-shadow(0 0 8px rgba(11, 143, 136, .3));
+    }
+
+    .private-update,
+    .aggregate-result {
+      position: absolute;
+      left: var(--card-x, auto);
+      top: var(--card-y, auto);
+      z-index: 2;
+      width: 300px;
+      min-height: 220px;
+      border: 1px solid rgba(11, 143, 136, .24);
+      border-radius: 26px;
+      background: rgba(255, 255, 255, .92);
+      padding: 26px;
+      color: #295b5e;
+      box-shadow: 0 18px 42px rgba(16, 36, 38, .1);
+      transition: .25s ease;
+    }
+
+    .trust-input {
+      --card-x: 122px;
+      --card-y: 150px;
+      border-color: rgba(49, 95, 189, .24);
+      background: rgba(232, 239, 255, .68);
+    }
+
+    .aggregate-result {
+      --card-x: 1328px;
+      --card-y: 150px;
+      background: rgba(223, 245, 241, .72);
+    }
+
+    .trust-kicker {
+      display: block;
+      margin-bottom: 12px;
+      color: #6a7475;
+      font-family: var(--mono);
+      font-size: 14px;
+      font-weight: 900;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+    }
+
+    .private-update strong,
+    .aggregate-result strong {
+      display: block;
+      color: #123f43;
+      font-size: 31px;
+      line-height: 1.12;
+      font-weight: 950;
+      margin-bottom: 12px;
+    }
+
+    .private-update p,
+    .aggregate-result p {
+      color: #3a6064;
+      font-size: 20px;
+      line-height: 1.35;
+      font-weight: 780;
+      margin-bottom: 16px;
+    }
+
+    .private-update code,
+    .aggregate-result code {
+      display: block;
+      color: #315fbd;
+      font-family: var(--mono);
+      font-size: 18px;
+      line-height: 1.35;
+      font-weight: 850;
+      white-space: normal;
+    }
+
+    .aggregate-result code { color: var(--teal); }
+
+    .private-update.is-hidden {
+      filter: blur(4px);
+      opacity: .58;
+      background: #edf3f2;
+    }
+
+    .server-stack-trust {
+      position: absolute;
+      left: 50%;
+      top: 42px;
+      width: 300px;
+      transform: translateX(-50%);
+      display: grid;
+      gap: 28px;
+      z-index: 2;
+    }
+
+    .server-card {
+      width: 300px;
+      min-height: 118px;
+      border: 1px solid var(--line);
+      border-radius: 24px;
+      background: rgba(255, 255, 255, .96);
+      display: grid;
+      place-items: center;
+      align-content: center;
+      gap: 7px;
+      text-align: center;
+      color: #31565a;
+      box-shadow: 0 18px 42px rgba(16, 36, 38, .1);
+      transition: .25s ease;
+    }
+
+    .server-card strong {
+      font-size: 28px;
+      line-height: 1;
+      font-weight: 950;
+    }
+
+    .server-card small {
+      color: #6a7475;
+      font-family: var(--mono);
+      font-size: 17px;
+      line-height: 1;
+      font-weight: 850;
+    }
+
+    .server-card.is-active {
+      border-color: rgba(49, 95, 189, .42);
+      background: var(--blue-soft);
+      color: var(--blue);
+      transform: translateY(-5px);
+    }
+
+    .share-line {
+      position: absolute;
+      left: 292px;
+      top: 260px;
+      z-index: 3;
+      width: 38px;
+      height: 30px;
+      border-radius: 999px;
+      opacity: 0;
+      display: grid;
+      place-items: center;
+      color: #fff;
+      background: var(--blue);
+      font-family: var(--mono);
+      font-size: 14px;
+      font-weight: 900;
+      box-shadow: 0 0 0 8px rgba(49, 95, 189, .13);
+    }
+
+    .share-line.share-a.is-active { animation: shareA 1.05s var(--ease) forwards; }
+    .share-line.share-b.is-active { animation: shareB 1.05s .12s var(--ease) forwards; }
+    .share-line.share-c.is-active { animation: shareC 1.05s .24s var(--ease) forwards; }
+
+    @keyframes shareA { 0% { opacity: 1; transform: translate(0, 0); } 90% { opacity: 1; } 100% { opacity: 0; transform: translate(350px, -142px); } }
+    @keyframes shareB { 0% { opacity: 1; transform: translate(0, 0); } 90% { opacity: 1; } 100% { opacity: 0; transform: translate(350px, -12px); } }
+    @keyframes shareC { 0% { opacity: 1; transform: translate(0, 0); } 90% { opacity: 1; } 100% { opacity: 0; transform: translate(350px, 128px); } }
+
+    .aggregate-vector {
+      opacity: .72;
+      transform: translateY(12px);
+      transition: .3s var(--ease);
+    }
+
+    .aggregate-vector[data-active="true"] {
+      opacity: 1;
+      transform: translateY(0);
+      border-color: rgba(11, 143, 136, .38);
+      box-shadow: 0 22px 54px rgba(11, 143, 136, .15);
+    }
+
+    .compare-grid {
+      width: 100%;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 26px;
+    }
+
+    .compare-card, .result-card, .limit-card {
+      border: 1px solid var(--line);
+      border-radius: 28px;
+      background: rgba(255, 255, 255, .9);
+      padding: 30px;
+      box-shadow: 0 18px 42px rgba(16, 36, 38, .1);
+    }
+
+    .compare-card h3, .result-card h3, .limit-card h3 {
+      margin-bottom: 18px;
+      color: var(--ink);
+    }
+
+    .compare-card p, .result-card p, .limit-card p {
+      color: #3a6064;
+      font-size: 26px;
+      line-height: 1.45;
+      font-weight: 700;
+    }
+
+    .compare-card.heavy { border-color: rgba(217, 85, 47, .24); background: var(--risk-soft); }
+    .compare-card.focused { border-color: rgba(11, 143, 136, .24); background: var(--teal-soft); }
+
+    .dp-metrics {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+    }
+
+    .noise-flow {
+      display: grid;
+      grid-template-columns: 1fr auto 1.35fr auto 1fr;
+      grid-template-rows: auto auto;
+      gap: 14px;
+      align-items: center;
+      margin-bottom: 18px;
+    }
+
+    .aggregate-share,
+    .released-output,
+    .noise-equation {
+      border: 1px solid var(--line);
+      border-radius: 22px;
+      background: rgba(255, 255, 255, .92);
+      padding: 18px 20px;
+      box-shadow: 0 16px 34px rgba(16, 36, 38, .08);
+    }
+
+    .flow-node {
+      min-height: 172px;
+      display: grid;
+      align-content: center;
+    }
+
+    .aggregate-share {
+      border-color: rgba(49, 95, 189, .24);
+      background: rgba(232, 239, 255, .68);
+    }
+
+    .released-output {
+      border-color: rgba(118, 88, 199, .26);
+      background: rgba(238, 232, 255, .72);
+    }
+
+    .aggregate-share span,
+    .released-output span {
+      display: block;
+      color: #6a7475;
+      font-family: var(--mono);
+      font-size: 14px;
+      font-weight: 900;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      margin-bottom: 9px;
+    }
+
+    .aggregate-share strong,
+    .released-output strong {
+      display: block;
+      color: var(--noise);
+      font-family: var(--display);
+      font-size: 44px;
+      line-height: 1;
+      font-weight: 950;
+      margin-bottom: 9px;
+    }
+
+    .aggregate-share p,
+    .released-output p {
+      color: #3a6064;
+      font-size: 19px;
+      line-height: 1.32;
+      font-weight: 760;
+    }
+
+    .noise-servers {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+      align-content: stretch;
+    }
+
+    .noise-server {
+      min-height: 172px;
+      border: 1px solid rgba(118, 88, 199, .24);
+      border-radius: 20px;
+      background: rgba(255, 255, 255, .9);
+      padding: 16px 12px;
+      display: grid;
+      place-items: center;
+      align-content: center;
+      gap: 9px;
+      text-align: center;
+      box-shadow: 0 16px 34px rgba(16, 36, 38, .08);
+    }
+
+    .noise-server strong {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      background: var(--noise);
+      color: white;
+      font-family: var(--mono);
+      font-size: 20px;
+      font-weight: 950;
+      box-shadow: 0 12px 26px rgba(118, 88, 199, .18);
+    }
+
+    .noise-server span {
+      color: #3a6064;
+      font-size: 17px;
+      line-height: 1.2;
+      font-weight: 850;
+    }
+
+    .noise-server code {
+      border-radius: 999px;
+      background: var(--noise-soft);
+      color: var(--noise);
+      padding: 7px 10px;
+      font-family: var(--mono);
+      font-size: 15px;
+      font-weight: 900;
+    }
+
+    .flow-arrow {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      color: white;
+      background: var(--noise);
+      font-family: var(--display);
+      font-size: 30px;
+      line-height: 1;
+      font-weight: 950;
+      box-shadow: 0 12px 26px rgba(118, 88, 199, .2);
+    }
+
+    .noise-equation {
+      grid-column: 1 / -1;
+      display: grid;
+      grid-template-columns: 1fr auto;
+      align-items: center;
+      gap: 14px;
+      border-color: rgba(11, 143, 136, .22);
+      background: rgba(223, 245, 241, .72);
+      padding: 14px 18px;
+    }
+
+    .noise-equation span {
+      color: #21474b;
+      font-family: var(--mono);
+      font-size: 20px;
+      line-height: 1.25;
+      font-weight: 900;
+    }
+
+    .noise-equation strong {
+      color: var(--teal);
+      font-family: var(--display);
+      font-size: 24px;
+      line-height: 1;
+      font-weight: 950;
+      white-space: nowrap;
+    }
+
+    .dp-control-panel {
+      display: grid;
+      gap: 16px;
+    }
+
+    .metric {
+      border: 1px solid var(--line);
+      border-radius: 24px;
+      background: #fff;
+      padding: 22px;
+      text-align: center;
+      box-shadow: 0 14px 30px rgba(16, 36, 38, .08);
+    }
+
+    .metric strong {
+      display: block;
+      color: var(--noise);
+      font-size: 42px;
+      margin-bottom: 8px;
+      font-family: var(--display);
+    }
+
+    .metric span {
+      color: #3a6064;
+      font-size: 22px;
+      font-weight: 850;
+    }
+
+    input[type="range"] {
+      width: 100%;
+      accent-color: var(--noise);
+    }
+
+    .slider-box {
+      border: 1px solid var(--line);
+      border-radius: 26px;
+      background: rgba(255, 255, 255, .9);
+      padding: 28px;
+      box-shadow: 0 18px 42px rgba(16, 36, 38, .1);
+    }
+
+    .results-grid, .limits-grid {
+      width: 100%;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 22px;
+    }
+
+    .result-card strong {
+      display: block;
+      color: var(--teal);
+      font-family: var(--display);
+      font-size: 54px;
+      line-height: 1;
+      margin-bottom: 18px;
+    }
+
+    .limit-card {
+      min-height: 236px;
+    }
+
+    .limit-card h3 {
+      color: var(--risk);
+    }
+
+    .experiment-page {
+      width: 100%;
+      height: 100%;
+      display: grid;
+      grid-template-areas:
+        "header"
+        "takeaway"
+        "visual";
+      grid-template-rows: auto auto 1fr;
+      gap: 18px;
+      padding: 64px 86px 54px;
+    }
+
+    .experiment-header {
+      grid-area: header;
+      max-width: 1500px;
+    }
+
+    .experiment-header h2 {
+      max-width: 1500px;
+      font-size: 55px;
+      line-height: 1.08;
+      margin-bottom: 12px;
+    }
+
+    .experiment-header p:not(.eyebrow) {
+      max-width: 1280px;
+      color: #3a6064;
+      font-size: 24px;
+      line-height: 1.34;
+      font-weight: 720;
+    }
+
+    .experiment-visual {
+      grid-area: visual;
+      display: grid;
+      grid-template-columns: 1.35fr .85fr;
+      gap: 24px;
+      min-height: 0;
+      align-items: stretch;
+    }
+
+    .utility-chart,
+    .efficiency-chart,
+    .dp-error-chart,
+    .insight-card,
+    .big-result,
+    .overhead-card {
+      border: 1px solid var(--line);
+      border-radius: 26px;
+      background: rgba(255, 255, 255, .92);
+      box-shadow: 0 18px 42px rgba(16, 36, 38, .1);
+    }
+
+    .utility-chart,
+    .efficiency-chart,
+    .dp-error-chart {
+      padding: 28px 30px;
+      display: grid;
+      grid-template-rows: auto 1fr;
+      gap: 18px;
+    }
+
+    .chart-title strong {
+      display: block;
+      color: #123f43;
+      font-size: 31px;
+      line-height: 1.1;
+      font-weight: 950;
+      margin-bottom: 8px;
+    }
+
+    .chart-title span {
+      color: #6a7475;
+      font-size: 18px;
+      line-height: 1.25;
+      font-weight: 760;
+    }
+
+    .bar-chart {
+      position: relative;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 22px;
+      align-items: end;
+      min-height: 320px;
+      padding: 20px 12px 30px 36px;
+      border-left: 2px solid rgba(16, 36, 38, .1);
+      border-bottom: 2px solid rgba(16, 36, 38, .1);
+    }
+
+    .y-axis-title {
+      position: absolute;
+      left: 8px;
+      top: 50%;
+      transform: translateY(-50%) rotate(-90deg);
+      transform-origin: left center;
+      color: #6a7475;
+      font-family: var(--mono);
+      font-size: 14px;
+      font-weight: 900;
+      letter-spacing: .04em;
+      white-space: nowrap;
+    }
+
+    .x-axis-title {
+      position: absolute;
+      left: 50%;
+      bottom: 6px;
+      transform: translateX(-50%);
+      color: #6a7475;
+      font-family: var(--mono);
+      font-size: 14px;
+      font-weight: 900;
+      letter-spacing: .04em;
+      white-space: nowrap;
+    }
+
+    .bar-item {
+      height: 100%;
+      display: grid;
+      grid-template-rows: auto 1fr auto;
+      gap: 12px;
+      justify-items: center;
+      text-align: center;
+    }
+
+    .bar-label {
+      color: #31565a;
+      font-size: 21px;
+      line-height: 1.08;
+      font-weight: 900;
+    }
+
+    .bar-label small {
+      color: #6a7475;
+      font-size: 15px;
+      font-weight: 800;
+    }
+
+    .bar-track {
+      width: 64px;
+      height: 220px;
+      border-radius: 18px 18px 10px 10px;
+      background: #edf3f2;
+      display: flex;
+      align-items: end;
+      overflow: hidden;
+      box-shadow: inset 0 0 0 1px rgba(16, 36, 38, .08);
+    }
+
+    .bar-track i {
+      display: block;
+      width: 100%;
+      border-radius: inherit;
+      background: linear-gradient(180deg, #57c8bd, var(--teal));
+      box-shadow: 0 -10px 24px rgba(11, 143, 136, .18);
+    }
+
+    .bar-track.muted i {
+      background: linear-gradient(180deg, #aab6b7, #657071);
+    }
+
+    .bar-track.risk i {
+      background: linear-gradient(180deg, #ed9c68, var(--risk));
+    }
+
+    .bar-item > strong {
+      color: #123f43;
+      font-family: var(--display);
+      font-size: 34px;
+      line-height: 1;
+      font-weight: 950;
+    }
+
+    .insight-stack {
+      display: grid;
+      gap: 18px;
+    }
+
+    .insight-card {
+      padding: 25px 27px;
+    }
+
+    .insight-card span,
+    .overhead-card span,
+    .big-result span {
+      display: block;
+      color: #6a7475;
+      font-family: var(--mono);
+      font-size: 15px;
+      font-weight: 900;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+      margin-bottom: 10px;
+    }
+
+    .insight-card strong {
+      display: block;
+      color: var(--teal);
+      font-family: var(--display);
+      font-size: 35px;
+      line-height: 1;
+      font-weight: 950;
+      margin-bottom: 12px;
+    }
+
+    .insight-card p,
+    .overhead-card p,
+    .big-result p {
+      color: #3a6064;
+      font-size: 21px;
+      line-height: 1.36;
+      font-weight: 740;
+    }
+
+    .experiment-takeaway {
+      grid-area: takeaway;
+      border: 1px solid rgba(11, 143, 136, .22);
+      border-radius: 20px;
+      background: rgba(223, 245, 241, .72);
+      color: #21474b;
+      padding: 16px 22px;
+      font-size: 23px;
+      line-height: 1.28;
+      font-weight: 860;
+      text-align: left;
+      box-shadow: 0 14px 34px rgba(16, 36, 38, .08);
+    }
+
+    .efficiency-hero {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+    }
+
+    .big-result {
+      padding: 25px 27px;
+      min-height: 176px;
+      background: rgba(223, 245, 241, .7);
+      border-color: rgba(11, 143, 136, .22);
+    }
+
+    .big-result strong {
+      display: block;
+      color: var(--teal);
+      font-family: var(--display);
+      font-size: 62px;
+      line-height: .95;
+      font-weight: 950;
+      margin-bottom: 12px;
+    }
+
+    .line-chart {
+      position: relative;
+      min-height: 286px;
+      border-left: 2px solid rgba(16, 36, 38, .1);
+      border-bottom: 2px solid rgba(16, 36, 38, .1);
+      overflow: hidden;
+      padding-bottom: 28px;
+    }
+
+    .line-chart svg {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+    }
+
+    .grid-line {
+      fill: none;
+      stroke: rgba(16, 36, 38, .08);
+      stroke-width: 1.5;
+    }
+
+    .oram-line,
+    .spar-line {
+      fill: none;
+      stroke-width: 7;
+      stroke-linecap: round;
+    }
+
+    .oram-line { stroke: var(--risk); }
+    .spar-line { stroke: var(--teal); }
+    .oram-dot { fill: var(--risk); }
+    .spar-dot { fill: var(--teal); }
+
+    .axis-label,
+    .series-label {
+      position: absolute;
+      color: #6a7475;
+      font-family: var(--mono);
+      font-size: 15px;
+      font-weight: 850;
+    }
+
+    .axis-label { bottom: 10px; }
+    .x1 { left: 44px; }
+    .x2 { left: 180px; }
+    .x3 { left: 316px; }
+    .x4 { right: 26px; }
+
+    .series-label.oram {
+      right: 28px;
+      top: 22px;
+      color: var(--risk);
+    }
+
+    .series-label.spar {
+      right: 28px;
+      bottom: 42px;
+      color: var(--teal);
+    }
+
+    .overhead-card {
+      padding: 22px 27px;
+      border-color: rgba(49, 95, 189, .22);
+      background: rgba(232, 239, 255, .68);
+    }
+
+    .overhead-card strong {
+      display: block;
+      color: var(--blue);
+      font-family: var(--display);
+      font-size: 35px;
+      line-height: 1;
+      font-weight: 950;
+      margin-bottom: 10px;
+    }
+
+    .mse-panels {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 18px;
+      min-height: 320px;
+    }
+
+    .mse-panel {
+      position: relative;
+      border: 1px solid rgba(16, 36, 38, .1);
+      border-radius: 22px;
+      background: #f7fbfa;
+      padding: 20px 20px 34px 34px;
+      display: grid;
+      grid-template-rows: auto 1fr auto;
+      gap: 10px;
+      overflow: hidden;
+    }
+
+    .chart-legend {
+      position: absolute;
+      right: 18px;
+      top: 52px;
+      display: grid;
+      gap: 6px;
+      padding: 9px 10px;
+      border: 1px solid rgba(16, 36, 38, .1);
+      border-radius: 14px;
+      background: rgba(255, 255, 255, .82);
+      box-shadow: 0 8px 18px rgba(16, 36, 38, .06);
+    }
+
+    .chart-legend span {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      color: #31565a;
+      font-family: var(--mono);
+      font-size: 13px;
+      line-height: 1;
+      font-weight: 900;
+      white-space: nowrap;
+    }
+
+    .chart-legend span::before {
+      content: "";
+      width: 18px;
+      height: 4px;
+      border-radius: 999px;
+      background: currentColor;
+    }
+
+    .legend-risk { color: var(--risk) !important; }
+    .legend-noise { color: var(--noise) !important; }
+    .legend-teal { color: var(--teal) !important; }
+
+    .mse-panel > span {
+      color: #123f43;
+      font-size: 24px;
+      line-height: 1;
+      font-weight: 950;
+    }
+
+    .mse-panel svg {
+      width: 100%;
+      height: 100%;
+      min-height: 220px;
+    }
+
+    .mse-panel p {
+      color: #3a6064;
+      font-size: 20px;
+      line-height: 1.28;
+      font-weight: 760;
+    }
+
+    .mse-line {
+      fill: none;
+      stroke-width: 6;
+      stroke-linecap: round;
+    }
+
+    .mse-line.high { stroke: var(--risk); }
+    .mse-line.mid { stroke: var(--noise); }
+    .mse-line.low { stroke: var(--teal); }
+
+    .discussion-page {
+      width: 100%;
+      height: 100%;
+      display: grid;
+      grid-template-rows: auto 1fr auto;
+      gap: 24px;
+      padding: 64px 86px 54px;
+    }
+
+    .discussion-page.future-page {
+      gap: 18px;
+      padding-bottom: 30px;
+    }
+
+    .discussion-header {
+      max-width: 1500px;
+    }
+
+    .discussion-header h2 {
+      max-width: 1500px;
+      font-size: 55px;
+      line-height: 1.08;
+      margin-bottom: 12px;
+      white-space: nowrap;
+    }
+
+    .discussion-header p:not(.eyebrow) {
+      max-width: 1220px;
+      color: #3a6064;
+      font-size: 24px;
+      line-height: 1.34;
+      font-weight: 720;
+    }
+
+    .discussion-grid {
+      min-height: 0;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 22px;
+      align-items: stretch;
+    }
+
+    .discussion-card,
+    .roadmap-step {
+      position: relative;
+      border: 1px solid var(--line);
+      border-radius: 26px;
+      background: rgba(255, 255, 255, .92);
+      box-shadow: 0 18px 42px rgba(16, 36, 38, .1);
+      overflow: hidden;
+    }
+
+    .discussion-card {
+      min-height: 360px;
+      padding: 30px 30px 28px;
+      display: grid;
+      grid-template-rows: auto auto 1fr;
+      gap: 18px;
+    }
+
+    .discussion-card::before,
+    .roadmap-step::before {
+      content: "";
+      position: absolute;
+      inset: 0 0 auto;
+      height: 7px;
+      background: var(--teal);
+    }
+
+    .discussion-card.trust::before { background: var(--blue); }
+    .discussion-card.complexity::before { background: var(--risk); }
+    .discussion-card.scope::before { background: var(--noise); }
+
+    .discussion-card span,
+    .roadmap-step span {
+      color: #6a7475;
+      font-family: var(--mono);
+      font-size: 15px;
+      font-weight: 900;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+    }
+
+    .discussion-card h3,
+    .roadmap-step h3 {
+      color: #123f43;
+      font-size: 34px;
+      line-height: 1.12;
+      font-weight: 950;
+    }
+
+    .discussion-card p,
+    .roadmap-step p {
+      color: #31565a;
+      font-size: 23px;
+      line-height: 1.42;
+      font-weight: 740;
+    }
+
+    .discussion-card strong,
+    .roadmap-step strong {
+      color: var(--teal);
+      font-weight: 950;
+    }
+
+    .discussion-takeaway {
+      border: 1px solid rgba(11, 143, 136, .22);
+      border-radius: 20px;
+      background: rgba(223, 245, 241, .72);
+      color: #21474b;
+      padding: 16px 22px;
+      font-size: 23px;
+      line-height: 1.28;
+      font-weight: 860;
+      text-align: left;
+      box-shadow: 0 14px 34px rgba(16, 36, 38, .08);
+    }
+
+    .roadmap {
+      min-height: 0;
+      display: grid;
+      grid-template-columns: 1fr auto 1fr auto 1fr;
+      gap: 18px;
+      align-items: stretch;
+    }
+
+    .roadmap-step {
+      min-height: 370px;
+      padding: 30px 30px 28px;
+      display: grid;
+      grid-template-rows: auto auto 1fr;
+      gap: 18px;
+    }
+
+    .roadmap-step:nth-of-type(1)::before { background: var(--teal); }
+    .roadmap-step:nth-of-type(2)::before { background: var(--blue); }
+    .roadmap-step:nth-of-type(3)::before { background: var(--noise); }
+
+    .roadmap-arrow {
+      align-self: center;
+      justify-self: center;
+      width: 52px;
+      height: 52px;
+      border-radius: 999px;
+      border: 1px solid rgba(16, 36, 38, .12);
+      background: rgba(255, 255, 255, .86);
+      color: #31565a;
+      display: grid;
+      place-items: center;
+      font-family: var(--display);
+      font-size: 30px;
+      line-height: 1;
+      font-weight: 950;
+      box-shadow: 0 12px 28px rgba(16, 36, 38, .08);
+    }
+
+    .limitation-map {
+      position: relative;
+      min-height: 0;
+      border: 1px solid var(--line);
+      border-radius: 30px;
+      background:
+        radial-gradient(circle at 50% 48%, rgba(223, 245, 241, .86), transparent 34%),
+        linear-gradient(135deg, rgba(255, 255, 255, .94), rgba(247, 251, 250, .86));
+      box-shadow: 0 20px 50px rgba(16, 36, 38, .1);
+      overflow: hidden;
+    }
+
+    .limit-lines {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 1;
+      pointer-events: none;
+    }
+
+    .limit-lines path {
+      fill: none;
+      stroke: rgba(49, 86, 90, .18);
+      stroke-width: 4;
+      stroke-linecap: round;
+      stroke-dasharray: 10 12;
+    }
+
+    .limit-core,
+    .limit-node {
+      position: absolute;
+      z-index: 2;
+      border: 1px solid var(--line);
+      background: rgba(255, 255, 255, .93);
+      box-shadow: 0 18px 42px rgba(16, 36, 38, .11);
+    }
+
+    .limit-core {
+      left: 50%;
+      top: 30%;
+      width: 360px;
+      min-height: 188px;
+      transform: translate(-50%, -50%);
+      border-radius: 30px;
+      padding: 28px 30px;
+      text-align: center;
+      border-color: rgba(11, 143, 136, .28);
+      background: rgba(223, 245, 241, .92);
+    }
+
+    .limit-core span,
+    .limit-node span,
+    .future-item span {
+      display: block;
+      color: #6a7475;
+      font-family: var(--mono);
+      font-size: 15px;
+      font-weight: 900;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+      margin-bottom: 10px;
+    }
+
+    .limit-core strong {
+      display: block;
+      color: var(--teal);
+      font-family: var(--display);
+      font-size: 64px;
+      line-height: .95;
+      font-weight: 950;
+      margin-bottom: 16px;
+    }
+
+    .limit-core p,
+    .limit-node p,
+    .future-item p,
+    .crypto-note {
+      color: #31565a;
+      font-size: 22px;
+      line-height: 1.34;
+      font-weight: 760;
+    }
+
+    .limit-node {
+      width: 350px;
+      min-height: 168px;
+      border-radius: 24px;
+      padding: 24px 26px;
+    }
+
+    .limit-node h3,
+    .future-item h3 {
+      color: #123f43;
+      font-size: 31px;
+      line-height: 1.12;
+      font-weight: 950;
+      margin-bottom: 12px;
+    }
+
+    .limit-node.trust {
+      left: 92px;
+      top: 64px;
+      border-color: rgba(49, 95, 189, .22);
+      background: rgba(232, 239, 255, .9);
+    }
+
+    .limit-node.complexity {
+      right: 92px;
+      top: 64px;
+      border-color: rgba(217, 85, 47, .22);
+      background: rgba(255, 240, 232, .9);
+    }
+
+    .limit-node.scope {
+      left: 50%;
+      bottom: 10px;
+      transform: translateX(-50%);
+      border-color: rgba(118, 88, 199, .22);
+      background: rgba(238, 232, 255, .9);
+    }
+
+    .future-workboard {
+      min-height: 0;
+      display: grid;
+      grid-template-columns: 1.05fr .95fr;
+      gap: 24px;
+      align-items: stretch;
+    }
+
+    .crypto-complement {
+      border: 1px solid rgba(11, 143, 136, .2);
+      border-radius: 30px;
+      background:
+        linear-gradient(180deg, rgba(223, 245, 241, .82), rgba(255, 255, 255, .94)),
+        radial-gradient(circle at 18% 20%, rgba(49, 95, 189, .14), transparent 32%);
+      box-shadow: 0 20px 50px rgba(16, 36, 38, .1);
+      padding: 36px;
+      display: grid;
+      align-content: center;
+      gap: 26px;
+    }
+
+    .crypto-row {
+      display: grid;
+      grid-template-columns: 190px 84px 1fr;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .crypto-pill {
+      min-height: 74px;
+      border-radius: 999px;
+      display: grid;
+      place-items: center;
+      color: #fff;
+      font-family: var(--display);
+      font-size: 28px;
+      line-height: 1;
+      font-weight: 950;
+      box-shadow: 0 14px 30px rgba(16, 36, 38, .14);
+    }
+
+    .crypto-pill.he { background: var(--blue); }
+    .crypto-pill.dp { background: var(--noise); }
+
+    .crypto-arrow {
+      color: #31565a;
+      font-size: 22px;
+      font-weight: 950;
+      text-align: center;
+    }
+
+    .crypto-box {
+      border: 1px solid var(--line);
+      border-radius: 22px;
+      background: rgba(255, 255, 255, .88);
+      padding: 22px 24px;
+      color: #123f43;
+      font-size: 33px;
+      line-height: 1.12;
+      font-weight: 950;
+    }
+
+    .crypto-box span {
+      display: block;
+      margin-top: 10px;
+      color: #6a7475;
+      font-size: 19px;
+      line-height: 1.24;
+      font-weight: 760;
+    }
+
+    .crypto-note {
+      border-left: 6px solid var(--teal);
+      background: rgba(255, 255, 255, .78);
+      border-radius: 16px;
+      padding: 18px 20px;
+    }
+
+    .future-stack {
+      display: grid;
+      gap: 12px;
+      min-height: 0;
+    }
+
+    .future-item {
+      border: 1px solid var(--line);
+      border-radius: 24px;
+      background: rgba(255, 255, 255, .92);
+      box-shadow: 0 16px 36px rgba(16, 36, 38, .08);
+      padding: 19px 24px;
+    }
+
+    .future-item.highlight {
+      border-color: rgba(118, 88, 199, .24);
+      background: rgba(238, 232, 255, .78);
+    }
+
+    .future-item h3 {
+      font-size: 29px;
+      margin-bottom: 8px;
+    }
+
+    .future-item p {
+      font-size: 20px;
+      line-height: 1.28;
+    }
+
+    .future-item span {
+      margin-bottom: 7px;
+    }
+
+    .closing-page {
+      width: 100%;
+      height: 100%;
+      display: grid;
+      grid-template-columns: .95fr 1.05fr;
+      grid-template-rows: 1fr auto;
+      gap: 28px 34px;
+      padding: 72px 86px 58px;
+      background:
+        radial-gradient(circle at 12% 18%, rgba(223, 245, 241, .75), transparent 28%),
+        radial-gradient(circle at 88% 22%, rgba(232, 239, 255, .68), transparent 30%),
+        linear-gradient(135deg, #f8fbf7 0%, #eef7f4 100%);
+    }
+
+    .closing-hero {
+      align-self: center;
+      min-width: 0;
+    }
+
+    .closing-hero h2 {
+      max-width: 760px;
+      font-size: 70px;
+      line-height: 1.08;
+      margin-top: 28px;
+    }
+
+    .closing-hero p:not(.eyebrow) {
+      max-width: 720px;
+      margin-top: 28px;
+      color: #31565a;
+      font-size: 30px;
+      line-height: 1.42;
+      font-weight: 720;
+    }
+
+    .closing-summary {
+      align-self: center;
+      display: grid;
+      gap: 18px;
+      min-height: 0;
+    }
+
+    .summary-tile {
+      position: relative;
+      min-height: 156px;
+      border: 1px solid var(--line);
+      border-radius: 26px;
+      background: rgba(255, 255, 255, .9);
+      box-shadow: 0 18px 42px rgba(16, 36, 38, .09);
+      padding: 25px 30px 24px 112px;
+      overflow: hidden;
+    }
+
+    .summary-tile::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      inset-block: 0;
+      width: 10px;
+      background: var(--teal);
+    }
+
+    .summary-tile span {
+      position: absolute;
+      left: 28px;
+      top: 30px;
+      width: 56px;
+      height: 56px;
+      border-radius: 18px;
+      display: grid;
+      place-items: center;
+      color: #fff;
+      background: var(--teal);
+      font-family: var(--display);
+      font-size: 24px;
+      line-height: 1;
+      font-weight: 950;
+      box-shadow: 0 12px 26px rgba(16, 36, 38, .12);
+    }
+
+    .summary-tile.security::before,
+    .summary-tile.security span {
+      background: var(--blue);
+    }
+
+    .summary-tile.privacy::before,
+    .summary-tile.privacy span {
+      background: var(--noise);
+    }
+
+    .summary-tile h3 {
+      color: #123f43;
+      font-size: 34px;
+      line-height: 1;
+      font-weight: 950;
+      margin-bottom: 13px;
+    }
+
+    .summary-tile p {
+      color: #31565a;
+      font-size: 24px;
+      line-height: 1.34;
+      font-weight: 740;
+    }
+
+    .closing-outlook {
+      grid-column: 1 / -1;
+      min-height: 132px;
+      border: 1px solid rgba(11, 143, 136, .22);
+      border-radius: 28px;
+      background: rgba(255, 255, 255, .84);
+      box-shadow: 0 20px 50px rgba(16, 36, 38, .1);
+      padding: 25px 30px;
+      display: grid;
+      grid-template-columns: .9fr 1.1fr;
+      gap: 28px;
+      align-items: center;
+    }
+
+    .closing-outlook span {
+      display: block;
+      color: var(--teal);
+      font-family: var(--mono);
+      font-size: 15px;
+      font-weight: 900;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+      margin-bottom: 10px;
+    }
+
+    .closing-outlook strong {
+      display: block;
+      color: #123f43;
+      font-size: 29px;
+      line-height: 1.25;
+      font-weight: 950;
+    }
+
+    .closing-outlook p {
+      color: #31565a;
+      font-size: 24px;
+      line-height: 1.36;
+      font-weight: 760;
+    }
+
+    .thesis {
+      height: 100%;
+      display: grid;
+      align-content: center;
+      justify-items: center;
+      text-align: center;
+      padding: 0 120px;
+    }
+
+    .thesis h2 {
+      max-width: 1280px;
+      font-size: 92px;
+    }
+
+    .thesis p {
+      margin-top: 34px;
+      max-width: 1160px;
+      color: #31565a;
+      font-size: 36px;
+      line-height: 1.42;
+      font-weight: 700;
+    }
+
+    /* === Content-Specific Layouts === */
+    .cover-slide {
+      display: grid;
+      grid-template-rows: 1fr auto;
+      gap: 34px;
+      height: 100%;
+    }
+
+    .paper-title {
+      max-width: 1450px;
+      align-self: center;
+    }
+
+    .paper-title h1 {
+      max-width: 1580px;
+      font-size: 56px;
+      line-height: 1.14;
+    }
+
+    .system-name {
+      margin-top: 36px;
+      display: flex;
+      align-items: baseline;
+      gap: 28px;
+    }
+
+    .system-name strong {
+      font-family: var(--display);
+      font-size: 96px;
+      line-height: 1;
+      color: var(--teal);
+    }
+
+    .system-name span {
+      color: #31565a;
+      font-size: 34px;
+      font-weight: 800;
+    }
+
+    .cover-meta {
+      display: grid;
+      grid-template-columns: 1.15fr .85fr;
+      gap: 22px;
+      align-items: stretch;
+    }
+
+    .meta-box {
+      border: 1px solid var(--line);
+      border-radius: 26px;
+      background: rgba(255, 255, 255, .82);
+      padding: 26px 30px;
+      box-shadow: 0 16px 36px rgba(16, 36, 38, .08);
+      color: #31565a;
+      font-size: 27px;
+      line-height: 1.48;
+      font-weight: 760;
+    }
+
+    .meta-box strong {
+      color: var(--ink);
+      font-weight: 950;
+    }
+
+    .full-flow {
+      height: 100%;
+      display: grid;
+      grid-template-rows: auto 1fr auto;
+      gap: 26px;
+    }
+
+    .center-title {
+      text-align: center;
+      justify-self: center;
+    }
+
+    .center-title h2 {
+      max-width: 1420px;
+      font-size: 76px;
+    }
+
+    .fl-flow {
+      position: relative;
+      min-height: 620px;
+      border: 1px solid var(--line);
+      border-radius: 34px;
+      background: rgba(255, 255, 255, .72);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+    }
+
+    .fed-diagram {
+      position: relative;
+      min-height: 560px;
+      border: 1px solid var(--line);
+      border-radius: 34px;
+      background: rgba(255, 255, 255, .9);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+      cursor: pointer;
+    }
+
+    .fed-lines {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 1;
+      pointer-events: none;
+    }
+
+    .fed-lines path {
+      transition: opacity .24s ease, stroke .24s ease;
+    }
+
+    .fed-lines .down-line {
+      fill: none;
+      stroke: rgba(49, 86, 90, .32);
+      stroke-width: 4;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    .fed-lines .up-line,
+    .fed-lines .local-line {
+      fill: none;
+      stroke: rgba(106, 116, 117, .34);
+      stroke-width: 3.5;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      stroke-dasharray: 9 11;
+    }
+
+    .fed-lines .align-line {
+      fill: none;
+      stroke: rgba(106, 116, 117, .24);
+      stroke-width: 4;
+      stroke-linecap: round;
+      stroke-dasharray: 3 12;
+    }
+
+    .fed-lines [data-fed-flows] {
+      opacity: 0;
+      transition: opacity .2s ease;
+    }
+
+    .fed-server {
+      position: absolute;
+      left: 50%;
+      top: 28px;
+      width: 210px;
+      transform: translateX(-50%);
+      display: grid;
+      justify-items: center;
+      gap: 8px;
+      color: var(--ink);
+      font-weight: 950;
+      font-size: 22px;
+      opacity: .88;
+      transition: .28s ease;
+      z-index: 4;
+    }
+
+    .server-stack {
+      width: 116px;
+      display: grid;
+      gap: 8px;
+    }
+
+    .server-unit {
+      height: 42px;
+      border-radius: 8px;
+      background: #657071;
+      box-shadow: 10px 8px 0 rgba(16, 36, 38, .12);
+      position: relative;
+    }
+
+    .server-unit::before {
+      content: "";
+      position: absolute;
+      left: 15px;
+      top: 17px;
+      width: 12px;
+      height: 12px;
+      border-radius: 3px;
+      background: #eef5f3;
+    }
+
+    .server-unit::after {
+      content: "";
+      position: absolute;
+      left: 43px;
+      top: 18px;
+      width: 58px;
+      height: 10px;
+      border-radius: 999px;
+      background: #eef5f3;
+    }
+
+    .fed-server-ports {
+      position: absolute;
+      left: 50%;
+      top: 154px;
+      width: 178px;
+      height: 30px;
+      transform: translateX(-50%);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0 8px;
+      border-top: 3px solid rgba(106, 116, 117, .24);
+      z-index: 4;
+      opacity: .7;
+      transition: .28s ease;
+    }
+
+    .fed-port {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: #6a7475;
+      box-shadow: 0 0 0 6px rgba(106, 116, 117, .08);
+    }
+
+    .fed-clients {
+      position: absolute;
+      left: 68px;
+      right: 68px;
+      bottom: 72px;
+      display: flex;
+      justify-content: space-evenly;
+      align-items: flex-end;
+      gap: 36px;
+      z-index: 4;
+    }
+
+    .fed-client {
+      width: 156px;
+      display: grid;
+      justify-items: center;
+      grid-template-rows: 84px 30px 72px 30px;
+      gap: 10px;
+      color: #3b5558;
+      font-weight: 900;
+      font-size: 22px;
+      transition: .28s ease;
+      z-index: 4;
+    }
+
+    .data-stack {
+      width: 88px;
+      display: grid;
+      gap: 6px;
+      opacity: .68;
+      transition: .28s ease;
+    }
+
+    .data-unit {
+      height: 30px;
+      border-radius: 7px;
+      background: #6d7778;
+      position: relative;
+    }
+
+    .data-unit::before {
+      content: "";
+      position: absolute;
+      left: 10px;
+      top: 11px;
+      width: 8px;
+      height: 8px;
+      border-radius: 2px;
+      background: #f2f7f5;
+    }
+
+    .data-unit::after {
+      content: "";
+      position: absolute;
+      left: 28px;
+      top: 12px;
+      width: 42px;
+      height: 7px;
+      border-radius: 999px;
+      background: #f2f7f5;
+    }
+
+    .model-cube {
+      width: 88px;
+      height: 80px;
+      position: relative;
+      opacity: .7;
+      transition: .28s ease;
+    }
+
+    .model-cube::before {
+      content: "";
+      position: absolute;
+      inset: 2px 4px;
+      border: 2px solid rgba(106, 116, 117, .22);
+      border-radius: 18px;
+      background: rgba(255, 255, 255, .42);
+    }
+
+    .model-cube .dot {
+      position: absolute;
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: #6a7475;
+      box-shadow: 0 0 0 5px rgba(106, 116, 117, .08);
+      z-index: 2;
+    }
+
+    .model-cube .d1 { left: 12px; top: 20px; }
+    .model-cube .d2 { left: 12px; top: 50px; }
+    .model-cube .d3 { left: 38px; top: 14px; }
+    .model-cube .d4 { left: 38px; top: 56px; }
+    .model-cube .d5 { left: 66px; top: 20px; }
+    .model-cube .d6 { left: 66px; top: 50px; }
+
+    .model-cube .edge {
+      position: absolute;
+      height: 4px;
+      border-radius: 999px;
+      background: rgba(106, 116, 117, .62);
+      transform-origin: left center;
+      z-index: 1;
+    }
+
+    .model-cube .e1 { left: 23px; top: 26px; width: 28px; transform: rotate(-16deg); }
+    .model-cube .e2 { left: 23px; top: 56px; width: 29px; transform: rotate(16deg); }
+    .model-cube .e3 { left: 49px; top: 20px; width: 30px; transform: rotate(16deg); }
+    .model-cube .e4 { left: 49px; top: 62px; width: 30px; transform: rotate(-16deg); }
+    .model-cube .e5 { left: 44px; top: 39px; width: 27px; }
+
+
+    .fed-note {
+      position: absolute;
+      left: 50%;
+      top: 400px;
+      width: 560px;
+      transform: translateX(-50%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 18px;
+      color: #718284;
+      font-size: 19px;
+      font-weight: 950;
+      opacity: .68;
+      z-index: 2;
+    }
+
+    .fed-note::before,
+    .fed-note::after {
+      content: "";
+      height: 3px;
+      flex: 1;
+      background: rgba(106, 116, 117, .26);
+    }
+
+    .fed-diagram.is-active .fed-server,
+    .fed-diagram.is-active .fed-server-ports,
+    .fed-diagram.is-active .data-stack,
+    .fed-diagram.is-active .model-cube,
+    .fed-diagram.is-active .fed-note,
+    .fed-diagram.is-active .fed-lines .down-line,
+    .fed-diagram.is-active .fed-lines .up-line,
+    .fed-diagram.is-active .fed-lines .local-line,
+    .fed-diagram.is-active .fed-lines [data-fed-flows] {
+      opacity: 1;
+    }
+
+    .fed-diagram.is-active .fed-server {
+      color: var(--teal);
+      transform: translateX(-50%) translateY(-4px);
+    }
+
+    .fed-diagram.is-active .model-cube .dot,
+    .fed-diagram.is-active .model-cube .edge {
+      background: var(--teal);
+    }
+
+    .fed-client-label {
+      color: #263f42;
+      font-size: 24px;
+      font-weight: 950;
+    }
+
+    .flow-circle {
+      fill: var(--teal);
+      filter: drop-shadow(0 0 8px rgba(11, 143, 136, .35));
+      opacity: 0;
+    }
+
+    .fed-diagram.is-active .flow-circle {
+      opacity: 1;
+    }
+
+    .flow-circle.down {
+      fill: #31565a;
+    }
+
+    .flow-dot {
+      position: absolute;
+      width: 15px;
+      height: 15px;
+      border-radius: 50%;
+      background: var(--teal);
+      box-shadow: 0 0 0 8px rgba(11, 143, 136, .13);
+      opacity: 0;
+      z-index: 4;
+    }
+
+    .fed-diagram.is-active .flow-dot {
+      opacity: 1;
+      animation-duration: 4.8s;
+      animation-timing-function: var(--ease);
+      animation-iteration-count: infinite;
+    }
+
+    .fed-diagram.is-active .flow-dot.d1 { animation-name: flowC1; }
+    .fed-diagram.is-active .flow-dot.d2 { animation-name: flowC2; animation-delay: .5s; }
+    .fed-diagram.is-active .flow-dot.d3 { animation-name: flowC3; animation-delay: 1s; }
+    .fed-diagram.is-active .flow-dot.dn { animation-name: flowCn; animation-delay: 1.5s; }
+
+    @keyframes flowC1 {
+      0% { opacity: 0; transform: translate(186px, 464px); }
+      12% { opacity: 1; transform: translate(186px, 372px); }
+      38% { opacity: 1; transform: translate(394px, 270px); }
+      70% { opacity: 0; transform: translate(530px, 130px); }
+      100% { opacity: 0; transform: translate(530px, 130px); }
+    }
+
+    @keyframes flowC2 {
+      0% { opacity: 0; transform: translate(460px, 464px); }
+      12% { opacity: 1; transform: translate(460px, 372px); }
+      38% { opacity: 1; transform: translate(540px, 274px); }
+      70% { opacity: 0; transform: translate(595px, 130px); }
+      100% { opacity: 0; transform: translate(595px, 130px); }
+    }
+
+    @keyframes flowC3 {
+      0% { opacity: 0; transform: translate(734px, 464px); }
+      12% { opacity: 1; transform: translate(734px, 372px); }
+      38% { opacity: 1; transform: translate(690px, 274px); }
+      70% { opacity: 0; transform: translate(650px, 130px); }
+      100% { opacity: 0; transform: translate(650px, 130px); }
+    }
+
+    @keyframes flowCn {
+      0% { opacity: 0; transform: translate(1010px, 464px); }
+      12% { opacity: 1; transform: translate(1010px, 372px); }
+      38% { opacity: 1; transform: translate(840px, 270px); }
+      70% { opacity: 0; transform: translate(710px, 130px); }
+      100% { opacity: 0; transform: translate(710px, 130px); }
+    }
+
+    .flow-step {
+      position: absolute;
+      min-width: 210px;
+      padding: 18px 22px;
+      border-radius: 22px;
+      background: #fff;
+      border: 1px solid var(--line);
+      color: #31565a;
+      font-family: var(--mono);
+      font-size: 20px;
+      font-weight: 850;
+      text-align: center;
+      box-shadow: 0 16px 34px rgba(16, 36, 38, .1);
+      opacity: .35;
+      transition: .28s ease;
+    }
+
+    .flow-step.is-active {
+      opacity: 1;
+      border-color: var(--teal);
+      background: var(--teal-soft);
+      color: var(--teal);
+      transform: translateY(-6px);
+    }
+
+    .flow-step.down { left: 50%; top: 70px; transform: translateX(-50%); }
+    .flow-step.local { left: 80px; bottom: 90px; }
+    .flow-step.up { right: 80px; bottom: 90px; }
+    .flow-step.aggregate { left: 50%; bottom: 36px; transform: translateX(-50%); }
+
+    .source-cards {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+      margin-top: 30px;
+    }
+
+    .source-card {
+      border: 1px solid var(--line);
+      border-radius: 24px;
+      background: rgba(255, 255, 255, .9);
+      padding: 22px;
+      box-shadow: 0 16px 34px rgba(16, 36, 38, .08);
+    }
+
+    .source-card strong {
+      display: block;
+      color: var(--teal);
+      font-family: var(--display);
+      font-size: 42px;
+      line-height: 1;
+      margin-bottom: 12px;
+    }
+
+    .source-card span {
+      color: #3a6064;
+      font-size: 21px;
+      line-height: 1.35;
+      font-weight: 760;
+    }
+
+    .formula-box {
+      border: 1px solid rgba(11, 143, 136, .22);
+      border-radius: 26px;
+      background: rgba(223, 245, 241, .82);
+      padding: 28px;
+      color: #255d61;
+      font-family: var(--mono);
+      font-size: 29px;
+      font-weight: 850;
+      line-height: 1.45;
+    }
+
+    .attack-chain {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 22px;
+      width: 100%;
+    }
+
+    .chain-card {
+      min-height: 260px;
+      border: 1px solid var(--line);
+      border-radius: 28px;
+      background: rgba(255, 255, 255, .9);
+      padding: 30px;
+      box-shadow: 0 18px 42px rgba(16, 36, 38, .1);
+    }
+
+    .chain-card h3 {
+      color: var(--risk);
+      margin-bottom: 18px;
+    }
+
+    .chain-card p {
+      color: #3a6064;
+      font-size: 26px;
+      line-height: 1.42;
+      font-weight: 740;
+    }
+
+    .compact-chain {
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+    }
+
+    .compact-chain .chain-card {
+      min-height: 150px;
+      padding: 20px;
+      border-radius: 22px;
+    }
+
+    .compact-chain .chain-card h3 {
+      margin-bottom: 10px;
+      font-size: 26px;
+    }
+
+    .compact-chain .chain-card p {
+      font-size: 20px;
+      line-height: 1.35;
+    }
+
+    .strawman-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 20px;
+      width: 100%;
+    }
+
+    .strawman-card {
+      border: 1px solid var(--line);
+      border-radius: 30px;
+      background: rgba(255, 255, 255, .9);
+      padding: 30px;
+      box-shadow: 0 20px 46px rgba(16, 36, 38, .1);
+      min-height: 340px;
+    }
+
+    .strawman-card h3 {
+      color: var(--blue);
+      margin-bottom: 18px;
+    }
+
+    .strawman-points {
+      margin: 16px 0 0;
+      padding-left: 22px;
+      color: #3a6064;
+      font-size: 24px;
+      line-height: 1.42;
+      font-weight: 700;
+    }
+
+    .strawman-points li + li {
+      margin-top: 10px;
+    }
+
+    .strawman-card p {
+      color: #3a6064;
+      font-size: 25px;
+      line-height: 1.42;
+      font-weight: 740;
+    }
+
+    .mini-vector {
+      margin: 22px 0;
+      padding: 18px;
+      border-radius: 18px;
+      background: #f7fbfa;
+      border: 1px dashed rgba(16, 36, 38, .18);
+      color: #31565a;
+      font-family: var(--mono);
+      font-size: 20px;
+      line-height: 1.55;
+      font-weight: 850;
+    }
+
+    .constraint-triangle {
+      width: 760px;
+      height: 560px;
+      position: relative;
+      margin: 0 auto;
+    }
+
+    .sparse-context {
+      margin: 0 auto 16px;
+      width: 100%;
+      text-align: center;
+    }
+
+    .sparse-context p {
+      display: inline-block;
+      color: #2e5357;
+      font-family: var(--mono);
+      font-size: 24px;
+      font-weight: 900;
+      letter-spacing: .02em;
+    }
+
+    .constraint-line {
+      position: absolute;
+      height: 2px;
+      background: linear-gradient(90deg, transparent 0%, rgba(22, 56, 60, .55) 16%, rgba(22, 56, 60, .65) 84%, transparent 100%);
+      border-radius: 999px;
+      opacity: .75;
+      z-index: 0;
+    }
+
+    .constraint-line.line-top {
+      width: 2px;
+      height: 132px;
+      border-radius: 999px;
+      left: 50%;
+      top: 128px;
+      background: linear-gradient(to bottom, rgba(22, 56, 60, 0), rgba(22, 56, 60, .7));
+      opacity: .8;
+      transform: translateX(-50%);
+    }
+
+    .constraint-line.line-left {
+      width: 370px;
+      left: 380px;
+      top: 298px;
+      transform-origin: left center;
+      transform: rotate(150deg);
+      opacity: .72;
+    }
+
+    .constraint-line.line-right {
+      width: 370px;
+      left: 380px;
+      top: 298px;
+      transform-origin: left center;
+      transform: rotate(30deg);
+      opacity: .72;
+    }
+
+    .constraint {
+      position: absolute;
+      left: var(--card-x, 0px);
+      top: var(--card-y, 0px);
+      width: 270px;
+      height: 145px;
+      border-radius: 28px;
+      background: #fff;
+      border: 1px solid var(--line);
+      padding: 24px;
+      text-align: center;
+      display: grid;
+      justify-items: center;
+      align-content: center;
+      align-items: center;
+      box-shadow: 0 20px 46px rgba(16, 36, 38, .1);
+    }
+
+    .constraint h3 { margin-bottom: 8px; font-size: 30px; }
+    .constraint strong { color: #21474b; font-family: var(--mono); font-size: 20px; line-height: 1.25; margin-bottom: 8px; }
+    .constraint p { color: #3a6064; font-size: 20px; line-height: 1.35; font-weight: 760; }
+    .constraint-icon {
+      width: 20px;
+      height: 20px;
+      margin-bottom: 10px;
+      color: inherit;
+    }
+
+    .constraint-icon svg {
+      width: 100%;
+      height: 100%;
+      stroke-width: 1.6;
+      stroke: currentColor;
+      fill: none;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    /* 直接改以下数值可手动移动三角形卡片位置 */
+    .constraint.top { --card-x: 245px; --card-y: 0px; color: var(--teal); }
+    .constraint.left { --card-x: -100px; --card-y: 415px; color: var(--blue); }
+    .constraint.right { --card-x: 570px; --card-y: 415px; color: var(--risk); }
+
+    .constraint.center {
+      --card-x: 215px;
+      --card-y: 255px;
+      width: 300px;
+      min-height: 130px;
+      background: #e9f7f5;
+      border-color: rgba(11, 143, 136, .42);
+      display: grid;
+      padding: 24px 20px;
+      place-items: center;
+      color: #004f52;
+      box-shadow: 0 20px 60px rgba(11, 143, 136, .22);
+      font-family: var(--display);
+      font-size: 46px;
+      line-height: 1.03;
+      font-weight: 950;
+    }
+
+    .constraint.top h3,
+    .constraint.left h3,
+    .constraint.right h3 {
+      font-size: 31px;
+    }
+
+    .constraint-comm {
+      border-color: rgba(11, 143, 136, .22);
+      background: rgba(223, 245, 241, .75);
+    }
+
+    .constraint-comm h3 { color: var(--teal); }
+    .constraint-priv {
+      border-color: rgba(49, 95, 189, .22);
+      background: rgba(232, 239, 255, .68);
+    }
+
+    .constraint-priv h3 { color: var(--blue); }
+
+    .constraint-agg {
+      border-color: rgba(185, 134, 13, .22);
+      background: rgba(255, 245, 213, .72);
+    }
+
+    .constraint-agg h3 { color: var(--gold); }
+
+    .constraint.center::before {
+      content: "";
+    }
+
+    .problem-question {
+      max-width: 70%;
+      font-size: 30px;
+      line-height: 1.34;
+      text-align: center;
+    }
+
+    .hide-aggregate {
+      display: grid;
+      grid-template-columns: 1fr 330px 1fr;
+      gap: 28px;
+      align-items: center;
+      width: 100%;
+    }
+
+    .hidden-box {
+      border: 1px solid var(--line);
+      border-radius: 28px;
+      background: rgba(255, 255, 255, .9);
+      padding: 28px 30px;
+      min-height: 382px;
+      box-shadow: 0 18px 42px rgba(16, 36, 38, .1);
+    }
+
+    .hidden-box h3 {
+      margin-bottom: 18px;
+      font-size: 34px;
+      line-height: 1.12;
+    }
+
+    .hidden-box p {
+      color: #3a6064;
+      font-family: var(--mono);
+      font-size: 22px;
+      line-height: 1.55;
+      font-weight: 850;
+    }
+
+    .box-kicker {
+      display: inline-block;
+      margin-bottom: 12px;
+      color: #6a7475;
+      font-family: var(--mono);
+      font-size: 15px;
+      font-weight: 900;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+    }
+
+    .input-box {
+      border-color: rgba(49, 95, 189, .2);
+      background: rgba(232, 239, 255, .66);
+    }
+
+    .input-box h3 { color: var(--blue); }
+
+    .output-box {
+      border-color: rgba(11, 143, 136, .24);
+      background: rgba(223, 245, 241, .68);
+    }
+
+    .output-box h3 { color: var(--teal); }
+
+    .privacy-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 24px;
+    }
+
+    .privacy-tags span {
+      border: 1px solid rgba(49, 95, 189, .22);
+      border-radius: 999px;
+      background: rgba(255, 255, 255, .75);
+      color: #315fbd;
+      padding: 8px 13px;
+      font-size: 18px;
+      line-height: 1;
+      font-weight: 850;
+      white-space: nowrap;
+    }
+
+    .result-tags span {
+      border-color: rgba(11, 143, 136, .24);
+      color: var(--teal);
+    }
+
+    .aggregate-core {
+      display: grid;
+      grid-template-columns: 1fr;
+      justify-items: center;
+      gap: 18px;
+      color: var(--teal);
+    }
+
+    .core-box {
+      width: 250px;
+      min-height: 154px;
+      border: 1px solid rgba(11, 143, 136, .38);
+      border-radius: 26px;
+      background: #e9f7f5;
+      box-shadow: 0 20px 60px rgba(11, 143, 136, .18);
+      display: grid;
+      place-items: center;
+      align-content: center;
+      gap: 10px;
+      text-align: center;
+    }
+
+    .core-box strong {
+      color: #004f52;
+      font-family: var(--display);
+      font-size: 44px;
+      line-height: 1;
+      font-weight: 950;
+    }
+
+    .core-box span {
+      color: #2e5357;
+      font-size: 24px;
+      line-height: 1;
+      font-weight: 900;
+    }
+
+    .arrow-big {
+      color: var(--teal);
+      font-size: 58px;
+      line-height: .8;
+      font-weight: 950;
+    }
+
+    .sparvec-steps {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+      width: 100%;
+    }
+
+    .sparvec-title {
+      white-space: nowrap;
+      font-size: 67px;
+      line-height: 1.06;
+    }
+
+    .sparvec-step {
+      border: 1px solid var(--line);
+      border-radius: 28px;
+      background: rgba(255, 255, 255, .9);
+      padding: 26px;
+      min-height: 390px;
+      box-shadow: 0 18px 42px rgba(16, 36, 38, .1);
+    }
+
+    .sparvec-step h3 {
+      color: var(--teal);
+      margin-bottom: 18px;
+    }
+
+    .sparvec-step p {
+      color: #3a6064;
+      font-size: 23px;
+      line-height: 1.42;
+      font-weight: 740;
+    }
+
+    .sparvec-pipeline {
+      display: grid;
+      grid-template-columns: 1fr auto 1fr auto 1fr auto 1fr;
+      gap: 14px;
+      align-items: stretch;
+      width: 100%;
+    }
+
+    .sparvec-stage {
+      position: relative;
+      min-height: 390px;
+      border: 1px solid var(--line);
+      border-radius: 28px;
+      background: rgba(255, 255, 255, .9);
+      padding: 28px 22px 26px;
+      box-shadow: 0 18px 42px rgba(16, 36, 38, .1);
+      display: grid;
+      grid-template-rows: auto auto 1fr auto;
+      align-items: start;
+    }
+
+    .step-index {
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      background: var(--teal);
+      color: white;
+      font-family: var(--mono);
+      font-size: 18px;
+      font-weight: 950;
+      margin-bottom: 14px;
+      box-shadow: 0 10px 22px rgba(11, 143, 136, .18);
+    }
+
+    .sparvec-stage h3 {
+      color: #123f43;
+      font-size: 29px;
+      line-height: 1.12;
+      margin-bottom: 20px;
+    }
+
+    .sparvec-stage p {
+      color: #3a6064;
+      font-size: 20px;
+      line-height: 1.36;
+      font-weight: 760;
+      margin-top: 20px;
+    }
+
+    .vector-row {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 8px;
+      align-content: center;
+    }
+
+    .vector-row span,
+    .vector-row strong {
+      min-width: 0;
+      height: 44px;
+      border-radius: 12px;
+      border: 1px solid rgba(16, 36, 38, .12);
+      background: #f7fbfa;
+      display: grid;
+      place-items: center;
+      color: #6a7475;
+      font-family: var(--mono);
+      font-size: 18px;
+      line-height: 1;
+      font-weight: 850;
+    }
+
+    .vector-row strong {
+      border-color: rgba(11, 143, 136, .34);
+      background: rgba(223, 245, 241, .9);
+      color: var(--teal);
+      box-shadow: 0 10px 20px rgba(11, 143, 136, .12);
+    }
+
+    .vector-row.compacted strong {
+      border-color: rgba(49, 95, 189, .3);
+      background: rgba(232, 239, 255, .9);
+      color: var(--blue);
+    }
+
+    .vector-row.shuffled strong {
+      border-color: rgba(185, 134, 13, .3);
+      background: rgba(255, 245, 213, .9);
+      color: var(--gold);
+    }
+
+    .perm-box {
+      min-height: 168px;
+      border: 1px dashed rgba(49, 95, 189, .34);
+      border-radius: 22px;
+      background: rgba(232, 239, 255, .62);
+      display: grid;
+      place-items: center;
+      align-content: center;
+      gap: 14px;
+      text-align: center;
+    }
+
+    .perm-box span {
+      color: var(--blue);
+      font-family: var(--display);
+      font-size: 38px;
+      line-height: 1;
+      font-weight: 950;
+      white-space: nowrap;
+    }
+
+    .perm-box p {
+      margin: 0;
+      max-width: 220px;
+      color: #315fbd;
+      font-size: 20px;
+      line-height: 1.3;
+      font-weight: 850;
+    }
+
+    .pipeline-arrow {
+      align-self: center;
+      color: var(--teal);
+      font-size: 42px;
+      line-height: 1;
+      font-weight: 950;
+      opacity: .85;
+    }
+
+    /* === Deck Chrome === */
+    .deck-controls {
+      width: min(760px, calc(100vw - 44px));
+      height: 34px;
+      display: grid;
+      grid-template-columns: auto 1fr auto auto;
+      gap: 10px;
+      align-items: center;
+      padding: 5px 6px;
+      border: 1px solid rgba(255, 255, 255, .12);
+      border-radius: 999px;
+      background: rgba(8, 18, 19, .52);
+      backdrop-filter: blur(16px);
+      color: #dcefed;
+      opacity: .74;
+      transition: opacity .18s ease, background .18s ease;
+    }
+
+    .deck-controls:hover {
+      opacity: 1;
+      background: rgba(8, 18, 19, .76);
+    }
+
+    .deck-controls button {
+      width: 28px;
+      min-width: 28px;
+      height: 24px;
+      min-height: 24px;
+      padding: 0;
+      border-radius: 999px;
+      font-size: 15px;
+      line-height: 1;
+      box-shadow: none;
+      background: rgba(255, 255, 255, .08);
+      color: #ecfffc;
+    }
+
+    .deck-controls button:hover {
+      background: rgba(255, 255, 255, .2);
+      transform: translateY(-1px);
+    }
+
+    .progress {
+      height: 3px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, .12);
+      overflow: hidden;
+    }
+
+    .progress span {
+      display: block;
+      height: 100%;
+      width: 0;
+      border-radius: inherit;
+      background: linear-gradient(90deg, #57c8bd, #f0c75e);
+      transition: width .24s var(--ease);
+    }
+
+    .counter {
+      min-width: 52px;
+      color: #dcefed;
+      font-family: var(--mono);
+      font-size: 12px;
+      font-weight: 850;
+      text-align: right;
+    }
+  </style>
+</head>
+<body>
+  <div class="deck-viewport">
+    <main class="deck-stage" id="deckStage" aria-label="Clover HTML presentation">
+<section class="slide" data-title="论文标题">
+        <div class="cover-slide">
+          <div class="paper-title">
+            <!-- <p class="eyebrow reveal">数据安全课程论文汇报</p> -->
+            <h1 class="reveal">Harnessing Sparsification in Federated Learning:<br>A Secure, Efficient, and Differentially Private Realization</h1>
+            <div class="system-name reveal">
+              <strong>Clover</strong>
+              <span>安全、高效、差分隐私的稀疏联邦学习实现</span>
+            </div>
+          </div>
+          <div class="cover-meta reveal">
+            <div class="meta-box">
+              <strong>Shuangqing Xu, Yifeng Zheng, Zhongyun Hua</strong><br>
+              ACM CCS 2025
+            </div>
+            <div class="meta-box">
+              汇报人：林晖鹏<br>
+              2026.7.3
+            </div>
+          </div>
+        </div>
+      </section>
+<section class="slide" data-title="联邦学习">
+        <div class="full-flow">
+          <div class="center-title">
+            <p class="eyebrow reveal">Background</p>
+            <h2 class="reveal">联邦学习：数据不出本地，共同训练模型</h2>
+          </div>
+          <div class="fed-diagram reveal interactive-module" id="flFlow" data-action="fl">
+            <svg class="fed-lines" viewBox="0 0 1500 560" aria-hidden="true">
+              <defs>
+                <marker id="fedArrow" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto">
+                  <path d="M0,0 L10,5 L0,10 Z" fill="rgba(106, 116, 117, .62)"></path>
+                </marker>
+                <marker id="fedArrowDown" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto">
+                  <path d="M0,0 L10,5 L0,10 Z" fill="rgba(49, 86, 90, .62)"></path>
+                </marker>
+              </defs>
+              <g data-fed-static></g>
+              <g data-fed-flows></g>
+            </svg>
+            <div class="fed-server">
+              <div class="server-stack">
+                <div class="server-unit"></div>
+                <div class="server-unit"></div>
+              </div>
+              <span>中央服务器</span>
+            </div>
+            <div class="fed-server-ports" aria-hidden="true"></div>
+            <div class="fed-clients">
+              <div class="fed-client">
+                <div class="model-cube"><span class="dot d1"></span><span class="dot d2"></span><span class="dot d3"></span><span class="dot d4"></span><span class="dot d5"></span><span class="dot d6"></span><span class="edge e1"></span><span class="edge e2"></span><span class="edge e3"></span><span class="edge e4"></span><span class="edge e5"></span></div>
+                <span>模型1</span>
+                <div class="data-stack"><div class="data-unit"></div><div class="data-unit"></div></div>
+                <span class="fed-client-label">C1</span>
+              </div>
+              <div class="fed-client">
+                <div class="model-cube"><span class="dot d1"></span><span class="dot d2"></span><span class="dot d3"></span><span class="dot d4"></span><span class="dot d5"></span><span class="dot d6"></span><span class="edge e1"></span><span class="edge e2"></span><span class="edge e3"></span><span class="edge e4"></span><span class="edge e5"></span></div>
+                <span>模型2</span>
+                <div class="data-stack"><div class="data-unit"></div><div class="data-unit"></div></div>
+                <span class="fed-client-label">C2</span>
+              </div>
+              <div class="fed-client">
+                <div class="model-cube"><span class="dot d1"></span><span class="dot d2"></span><span class="dot d3"></span><span class="dot d4"></span><span class="dot d5"></span><span class="dot d6"></span><span class="edge e1"></span><span class="edge e2"></span><span class="edge e3"></span><span class="edge e4"></span><span class="edge e5"></span></div>
+                <span>模型3</span>
+                <div class="data-stack"><div class="data-unit"></div><div class="data-unit"></div></div>
+                <span class="fed-client-label">C3</span>
+              </div>
+              <div class="fed-client">
+                <div class="model-cube"><span class="dot d1"></span><span class="dot d2"></span><span class="dot d3"></span><span class="dot d4"></span><span class="dot d5"></span><span class="dot d6"></span><span class="edge e1"></span><span class="edge e2"></span><span class="edge e3"></span><span class="edge e4"></span><span class="edge e5"></span></div>
+                <span>模型n</span>
+                <div class="data-stack"><div class="data-unit"></div><div class="data-unit"></div></div>
+                <span class="fed-client-label">Cn</span>
+              </div>
+            </div>
+            <!-- <div class="fed-note">下发全局模型 · 本地训练 · 上传更新</div> -->
+          </div>
+          <div class="note reveal" style="margin:0 auto;max-width:1180px;text-align:center;">关键转折：虽然原始数据没有上传，但上传的梯度并不一定安全。</div>
+        </div>
+      </section>
+<section class="slide" data-title="稀疏化动机">
+        <div class="slide-grid wide-copy">
+          <div class="copy">
+            <p class="eyebrow reveal">Motivation</p>
+            <h2 class="reveal">为什么要稀疏化：梯度通信太贵</h2>
+            <p class="lead reveal">每轮每个客户端都上传完整梯度，通信量会随着模型维度和客户端数量线性放大。</p>
+            <ul class="talk-points reveal">
+              <li>大量梯度分量很小，不一定都值得上传。</li>
+              <li>已有梯度压缩工作显示，top-k/稀疏化能带来数量级通信节省。</li>
+            </ul>
+          </div>
+          <div class="visual">
+            <div class="diagram reveal">
+              <div class="source-cards">
+                <div class="source-card"><strong>99%</strong><span>Aji &amp; Heafield：许多小更新可以被置零。</span></div>
+                <div class="source-card"><strong>270x-600x</strong><span>Deep Gradient Compression 报告的大幅压缩比。</span></div>
+                <div class="source-card"><strong>97MB -> 0.35MB</strong><span>DGC 中 ResNet-50 梯度通信的示例量级。</span></div>
+              </div>
+              <div class="vector-panel" style="margin-top:36px;max-width:none;">
+                <div class="mini-label">dense gradient vs sparse gradient</div>
+                <div class="gradient-vector">
+                  <span class="grad-cell is-dropped" data-index="1">0.02</span>
+                  <span class="grad-cell keep is-active" data-index="2">-1.84</span>
+                  <span class="grad-cell is-dropped" data-index="3">0.05</span>
+                  <span class="grad-cell keep is-active" data-index="4">+1.36</span>
+                  <span class="grad-cell is-dropped" data-index="5">0.01</span>
+                  <span class="grad-cell keep is-active" data-index="6">+2.10</span>
+                  <span class="grad-cell is-dropped" data-index="7">0.03</span>
+                  <span class="grad-cell is-dropped" data-index="8">-0.04</span>
+                </div>
+              </div>
+              <div class="note" style="margin-top:28px;">稀疏化可以大大减少通信；Clover 接下来解决的是：稀疏 top-k 在隐私保护下如何聚合。</div>
+              </div>
+            </div>
+          </div>
+      </section>
+<section class="slide" data-title="top-k 稀疏化">
+        <div class="slide-grid">
+          <div class="copy">
+            <p class="eyebrow reveal">Top-k</p>
+            <h2 class="reveal">top-k 稀疏化：</h2>
+            <h2 class="reveal">只上传最重要的梯度坐标</h2>
+            <p class="lead reveal">客户端从完整梯度中选择绝对值最大的 k 个坐标，只上传这些坐标和值。</p>
+            <div class="formula-box reveal">TopK(g) = {(i, g_i) | i belongs to largest-k coordinates of |g|}</div>
+          </div>
+          <div class="visual">
+            <div class="vector-panel interactive-module" data-action="topk">
+              <div class="mini-label">gradient vector</div>
+              <div class="gradient-vector" id="topkVector">
+                <span class="grad-cell" data-index="1">+0.12</span>
+                <span class="grad-cell keep" data-index="2">-1.84</span>
+                <span class="grad-cell" data-index="3">+0.05</span>
+                <span class="grad-cell keep" data-index="4">+1.36</span>
+                <span class="grad-cell" data-index="5">-0.22</span>
+                <span class="grad-cell keep" data-index="6">+2.10</span>
+                <span class="grad-cell" data-index="7">+0.08</span>
+                <span class="grad-cell" data-index="8">-0.17</span>
+              </div>
+              <div class="sparse-pairs" id="topkPairs">
+                <div class="pair-card">(2, -1.84)</div>
+                <div class="pair-card">(4, +1.36)</div>
+                <div class="pair-card">(6, +2.10)</div>
+              </div>
+              <div class="meter-grid">
+                <div class="meter-row"><span>上传内容</span><div class="bar"><span id="topkUploadBar"></span></div><strong id="topkUploadText">100%</strong></div>
+                <div class="meter-row"><span>通信节省</span><div class="bar"><span id="topkSaveBar" style="width:0%"></span></div><strong id="topkSaveText">0%</strong></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+<section class="slide" data-title="index 隐私">
+        <div class="slide-grid">
+          <div class="copy">
+            <p class="eyebrow reveal">Privacy Risk</p>
+            <h2 class="reveal">top-k index 本身也是隐私暴露面</h2>
+            <p class="lead reveal">即使梯度值被保护，客户端反复选中的坐标仍会暴露本地数据对模型参数的影响。</p>
+            <ul class="talk-points reveal">
+              <li>服务器可观察每轮被选中的 top-k 坐标。</li>
+              <li>坐标模式与本地标签、特征分布存在相关性。</li>
+              <li>Clover 的目标是同时隐藏 value 和 index。</li>
+            </ul>
+            <div class="formula-box reveal">泄露面：selected indices over rounds</div>
+          </div>
+          <div class="visual">
+            <div class="risk-board reveal interactive-module" data-action="risk">
+              <div class="mini-label">server-observed top-k indices</div>
+              <div class="observed-indexes">
+                <div class="index-marker">i = 2</div>
+                <div class="index-marker">i = 4</div>
+                <div class="index-marker">i = 6</div>
+              </div>
+              <div class="attacker-panel" id="indexRiskPanel">
+                <div class="avatar">?</div>
+                <p class="thought" id="riskThought">服务器观察到的是 top-k 位置和值</p>
+              </div>
+              <div class="leak-methods">
+                <article class="leak-method"><strong>标签推断</strong><span>哪些类别更可能出现在本地数据中</span></article>
+                <article class="leak-method"><strong>分布推断</strong><span>客户端数据是否偏向某类样本</span></article>
+                <article class="leak-method"><strong>相似性分析</strong><span>哪些客户端的数据分布更接近</span></article>
+                <article class="leak-method"><strong>跨轮追踪</strong><span>多轮 index 模式会累积泄露</span></article>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+<section class="slide" data-title="传统基线不足">
+        <div class="full-flow">
+      <div class="center-title">
+            <p class="eyebrow reveal">传统基线与限制</p>
+            <h2 class="reveal">要保留 top-k，传统路线仍有缺口</h2>
+            <p class="lead reveal" style="margin: 0 auto; text-align: center; max-width: 1240px;">常见方案要么假设梯度是密集向量，要么隐私保护不完整，要么开销过高，难以同时满足效率与安全。</p>
+          </div>
+          <div class="strawman-grid reveal">
+            <article class="strawman-card">
+              <h3>方法1：FedAvg + 全量梯度 + SecAgg</h3>
+              <div class="mini-vector">Dense update: g ∈ R^d（每轮上传完整梯度）</div>
+              <ul class="strawman-points">
+                <li>与传统 SecAgg 语义匹配，协议成熟。</li>
+                <li>通信成本随模型规模线性，面对大模型/弱网络时压力大。</li>
+                <li>直接违背 top-k 目标，无法享受稀疏压缩收益。</li>
+              </ul>
+            </article>
+            <article class="strawman-card">
+              <h3>方法2：top-k + 通用 ORAM / 通用安全计算</h3>
+              <div class="mini-vector">Index + value 全部隐藏（理论上更全面）</div>
+              <ul class="strawman-points">
+                <li>可以规避位置与数值一起泄露的问题。</li>
+                <li>密态/访问模式开销高，轮次与通信都更重。</li>
+                <li>对大规模联邦训练，性能常不够实用。</li>
+              </ul>
+            </article>
+            <article class="strawman-card">
+              <h3>方法3：只保护值，不保护 index</h3>
+              <div class="mini-vector">上传 (index, value) 中 value 加密，index 明文</div>
+              <ul class="strawman-points">
+                <li>实现相对容易，工程负担较低。</li>
+                <li>index 暴露仍泄露客户端特征与数据分布信息。</li>
+                <li>无法满足 Clover 对 top-k 完整隐私的目标。</li>
+              </ul>
+            </article>
+          </div>
+          <div class="note reveal" style="margin:0 auto;max-width:1200px;text-align:center;">因此 Clover 的核心是：在保留标准 top-k 的同时，隐藏 index 与 value，并高效完成稀疏聚合与 DP 控制。</div>
+        </div>
+      </section>
+<section class="slide" data-title="Clover 问题定义">
+        <div class="full-flow">
+          <div class="center-title">
+            <p class="eyebrow reveal">Problem Definition</p>
+            <h2 class="reveal">为什么需要 Clover？</h2>
+          </div>
+          <div class="visual reveal">
+            <div class="sparse-context">
+              <p>Top-k 稀疏联邦学习</p>
+            </div>
+            <div class="constraint-triangle">
+              <div class="constraint-line line-top"></div>
+              <div class="constraint-line line-left"></div>
+              <div class="constraint-line line-right"></div>
+              <div class="constraint top constraint-comm">
+                <span class="constraint-icon">
+                  <svg viewBox="0 0 20 20" aria-hidden="true">
+                    <path d="M3.4 8a6.6 6.6 0 0 1 13.2 0" />
+                    <path d="M5.8 10a3.6 3.6 0 0 1 8.4 0" />
+                    <circle cx="10" cy="13.2" r="2.3" />
+                  </svg>
+                </span>
+                <h3>通信高效</h3>
+                <strong>保持 Top-k 稀疏上传</strong>
+                <p>避免恢复为 dense 上传</p>
+              </div>
+              <div class="constraint left constraint-priv">
+                <span class="constraint-icon">
+                  <svg viewBox="0 0 20 20" aria-hidden="true">
+                    <path d="M5.2 9.1V7.2a4.8 4.8 0 0 1 9.6 0v1.9" />
+                    <rect x="4.2" y="9" width="11.6" height="6.8" rx="1.6" />
+                    <circle cx="10" cy="12.4" r="1.2" />
+                    <path d="M10 10.6v1.2" />
+                  </svg>
+                </span>
+                <h3>隐私保护</h3>
+                <strong>隐藏 index 和 value</strong>
+                <p>单客户端更新不外泄</p>
+              </div>
+              <div class="constraint right constraint-agg">
+                <span class="constraint-icon">
+                  <svg viewBox="0 0 20 20" aria-hidden="true">
+                    <rect x="4" y="8.2" width="4" height="4" rx="1" />
+                    <rect x="8.2" y="8.2" width="4" height="4" rx="1" />
+                    <rect x="12.4" y="8.2" width="4" height="4" rx="1" />
+                    <path d="M6 8.2L6 6.4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v1.8" />
+                  </svg>
+                </span>
+                <h3>正确聚合</h3>
+                <strong>聚合多个 top-k 稀疏向量</strong>
+                <p>恢复可用于更新的结果</p>
+              </div>
+              <div class="constraint center">Clover</div>
+            </div>
+          </div>
+          <div class="note reveal problem-question" style="margin:0 auto;text-align:center;">如何在隐藏 index 与 value 的情况下，正确聚合多个客户端的 top-k 稀疏梯度？</div>
+        </div>
+      </section>
+<section class="slide" data-title="核心难点">
+        <div class="full-flow">
+          <div class="center-title">
+            <p class="eyebrow reveal">Core Difficulty</p>
+            <h2 class="reveal">隐藏单个更新，只暴露聚合结果</h2>
+            <p class="lead reveal" style="max-width:1160px;margin-left:auto;margin-right:auto;">服务器不能看到任一客户端选择的 index 和 value，但最终仍要得到按坐标求和后的全局更新。</p>
+          </div>
+          <div class="hide-aggregate reveal">
+            <div class="hidden-box input-box">
+              <span class="box-kicker">Private input</span>
+              <h3>客户端私有 top-k</h3>
+              <p>
+                Client A: (2,+0.8), (7,-1.1)<br>
+                Client B: (3,-0.5), (7,+0.6)<br>
+                Client C: (1,+1.2), (5,-0.4)
+              </p>
+              <div class="privacy-tags">
+                <span>隐藏 index</span>
+                <span>隐藏 value</span>
+              </div>
+            </div>
+            <div class="aggregate-core">
+              <span class="arrow-big">-></span>
+              <div class="core-box">
+                <strong>Clover</strong>
+                <span>安全聚合</span>
+              </div>
+              <span class="arrow-big">-></span>
+            </div>
+            <div class="hidden-box output-box">
+              <span class="box-kicker">Public output</span>
+              <h3>只暴露全局聚合</h3>
+              <p>
+                G[1]=+1.2<br>
+                G[2]=+0.8<br>
+                G[3]=-0.5<br>
+                G[5]=-0.4<br>
+                G[7]=-0.5
+              </p>
+              <div class="privacy-tags result-tags">
+                <span>按坐标求和</span>
+                <span>不可回溯单个客户端</span>
+              </div>
+            </div>
+          </div>
+          <div class="note reveal" style="margin:0 auto;max-width:1180px;text-align:center;">目标不是恢复每个客户端的更新，而是在隐藏 index 和 value 的前提下得到按坐标求和的结果。</div>
+        </div>
+      </section>
+<section class="slide" data-title="三服务器思路">
+        <div class="full-flow">
+          <div class="center-title">
+            <p class="eyebrow reveal">Distributed Trust</p>
+            <h2 class="reveal">用三个服务器分散信任</h2>
+            <p class="lead reveal" style="max-width:1160px;margin-left:auto;margin-right:auto;">客户端不把明文 top-k 交给单个服务器，而是拆成多份 share；服务器协作计算，但单台服务器看不全 index/value。</p>
+          </div>
+          <div class="diagram trust-flow reveal" style="min-height:520px;">
+            <svg class="trust-lines" viewBox="0 0 1360 520" aria-hidden="true">
+              <path id="sharePath1" class="share-path path-s1" d="M 292 248 C 444 170, 520 138, 620 116" />
+              <path id="sharePath2" class="share-path path-s2" d="M 292 260 C 438 242, 516 242, 620 246" />
+              <path id="sharePath3" class="share-path path-s3" d="M 292 272 C 444 342, 520 382, 620 386" />
+              <path id="resultPath1" class="result-path path-r1" d="M 740 116 C 840 138, 916 170, 1068 248" />
+              <path id="resultPath2" class="result-path path-r2" d="M 740 246 C 844 242, 922 242, 1068 260" />
+              <path id="resultPath3" class="result-path path-r3" d="M 740 386 C 840 382, 916 342, 1068 272" />
+
+              <g class="flow-particles share-particles">
+                <circle r="6"><animateMotion dur="2.4s" repeatCount="indefinite" begin="0s"><mpath href="#sharePath1" /></animateMotion></circle>
+                <circle r="6"><animateMotion dur="2.4s" repeatCount="indefinite" begin=".35s"><mpath href="#sharePath2" /></animateMotion></circle>
+                <circle r="6"><animateMotion dur="2.4s" repeatCount="indefinite" begin=".7s"><mpath href="#sharePath3" /></animateMotion></circle>
+              </g>
+              <g class="flow-particles result-particles">
+                <circle r="6"><animateMotion dur="2.6s" repeatCount="indefinite" begin=".2s"><mpath href="#resultPath1" /></animateMotion></circle>
+                <circle r="6"><animateMotion dur="2.6s" repeatCount="indefinite" begin=".55s"><mpath href="#resultPath2" /></animateMotion></circle>
+                <circle r="6"><animateMotion dur="2.6s" repeatCount="indefinite" begin=".9s"><mpath href="#resultPath3" /></animateMotion></circle>
+              </g>
+            </svg>
+
+            <div class="private-update trust-input" id="privateUpdate">
+              <span class="trust-kicker">Client private update</span>
+              <strong>客户端 top-k</strong>
+              <p>(index, value)</p>
+              <code>(2,+0.8), (7,-1.1)</code>
+            </div>
+
+            <div class="server-stack-trust">
+              <div class="server-card s1"><strong>Server 1</strong><small>share 1</small></div>
+              <div class="server-card s2"><strong>Server 2</strong><small>share 2</small></div>
+              <div class="server-card s3"><strong>Server 3</strong><small>share 3</small></div>
+            </div>
+
+            <span class="share-token share-line share-a">s1</span>
+            <span class="share-token share-line share-b">s2</span>
+            <span class="share-token share-line share-c">s3</span>
+
+            <div class="aggregate-result aggregate-vector" id="aggregateVector" data-active="false">
+              <span class="trust-kicker">Collaborative output</span>
+              <strong>聚合结果</strong>
+              <p>只恢复总和，不恢复单个客户端</p>
+              <code>G = sum(top-k shares)</code>
+            </div>
+          </div>
+          <div class="note reveal" style="margin:0 auto;max-width:1180px;text-align:center;">核心思想：单个服务器看不全 index/value，多个服务器协作才能完成聚合。</div>
+        </div>
+      </section>
+<section class="slide" data-title="SparVecAgg">
+        <div class="full-flow">
+          <div class="center-title">
+            <p class="eyebrow reveal">SparVecAgg</p>
+            <h2 class="reveal sparvec-title">SparVecAgg：用随机置换掩码隐藏 index</h2>
+          </div>
+          <div class="sparvec-pipeline reveal">
+            <article class="sparvec-stage">
+              <span class="step-index">1</span>
+              <h3>原始 sparse vector</h3>
+              <div class="vector-row">
+                <span>0</span><strong>+0.8</strong><span>0</span><span>0</span><span>0</span><span>0</span><strong>-1.1</strong><span>0</span>
+              </div>
+              <p>这里的 2 和 7 表示客户端选择了哪些梯度坐标；即使 value 加密，位置模式本身也会泄露信息。</p>
+            </article>
+            <div class="pipeline-arrow">-></div>
+            <article class="sparvec-stage">
+              <span class="step-index">2</span>
+              <h3>compact 后只保留值</h3>
+              <div class="vector-row compacted">
+                <strong>+0.8</strong><strong>-1.1</strong><span>0</span><span>0</span><span>0</span><span>0</span><span>0</span><span>0</span>
+              </div>
+              <p>先把真正要上传的 value 收到前面，让通信仍然保持 top-k 稀疏，而不是上传完整 d 维向量。</p>
+            </article>
+            <div class="pipeline-arrow">-></div>
+            <article class="sparvec-stage">
+              <span class="step-index">3</span>
+              <h3>随机置换掩码位置</h3>
+              <div class="perm-box">
+                <span>π0 ∘ π1 ∘ π2</span>
+                <p>两个随机置换掩码真实位置</p>
+              </div>
+              <p>客户端用随机 π0、π1 掩码真实 π，只发送 π2 的前 k 项；服务器无法直接读出真实 top-k index。</p>
+            </article>
+            <div class="pipeline-arrow">-></div>
+            <article class="sparvec-stage">
+              <span class="step-index">4</span>
+              <h3>secret-shared shuffle</h3>
+              <div class="vector-row shuffled">
+                <span>0</span><strong>+0.8</strong><span>0</span><span>0</span><span>0</span><span>0</span><strong>-1.1</strong><span>0</span>
+              </div>
+              <p>三台服务器在 share 上完成洗牌和求和，最后只得到聚合后的向量 share，看不到单个客户端的位置和值。</p>
+            </article>
+          </div>
+          <div class="note reveal" style="margin:0 auto;max-width:1300px;text-align:center;">Clover 不直接上传 index；它用随机 permutation shares 掩码位置关系，再让服务器在秘密分享域里完成 shuffle 和聚合。</div>
+        </div>
+      </section>
+<section class="slide" data-title="分布式 DP">
+        <div class="slide-grid">
+          <div class="copy">
+            <p class="eyebrow reveal">Distributed DP Noise</p>
+            <h2 class="reveal">安全聚合之后，还要给输出加噪</h2>
+            <p class="lead reveal">SparVecAgg 隐藏单个客户端更新；DP 噪声限制最终释放的聚合结果继续泄露训练数据。</p>
+            <ul class="talk-points reveal">
+              <li>服务器先得到聚合梯度的 secret share：JΔK。</li>
+              <li>每台服务器本地采样一份噪声，并把噪声也 secret-share 成 JηK。</li>
+              <li>最终释放的是 Δ + η，而不是无噪的真实聚合。</li>
+            </ul>
+          </div>
+          <div class="visual">
+            <div class="dp-board">
+              <div class="noise-flow">
+                <div class="aggregate-share flow-node">
+                  <span>Secure aggregate</span>
+                  <strong>JΔK</strong>
+                  <p>真实聚合仍保持 secret-shared</p>
+                </div>
+                <div class="flow-arrow">+</div>
+                <div class="noise-servers">
+                  <div class="noise-server n0"><strong>S0</strong><span>采样 η0</span><code>share η0</code></div>
+                  <div class="noise-server n1"><strong>S1</strong><span>采样 η1</span><code>share η1</code></div>
+                  <div class="noise-server n2"><strong>S2</strong><span>采样 η2</span><code>share η2</code></div>
+                </div>
+                <div class="flow-arrow">=</div>
+                <div class="released-output flow-node">
+                  <span>Released output</span>
+                  <strong>Δ + η</strong>
+                  <p>只释放带噪聚合结果</p>
+                </div>
+                <div class="noise-equation">
+                  <span>JΔK + Jη0K + Jη1K + Jη2K</span>
+                  <strong>secret-shared addition</strong>
+                </div>
+              </div>
+              <div class="dp-control-panel">
+                <div class="slider-box">
+                  <div class="mini-label">epsilon 越小，隐私越强，噪声越大</div>
+                  <input id="epsilonSlider" type="range" min="1" max="10" value="5" />
+                </div>
+                <div class="dp-metrics">
+                  <div class="metric"><strong id="privacyLabel">中</strong><span>隐私强度</span></div>
+                  <div class="metric"><strong id="noiseLabel">中</strong><span>噪声规模</span></div>
+                  <div class="metric"><strong id="utilityLabel">中</strong><span>模型效用</span></div>
+                </div>
+                <div class="meter-grid">
+                  <div class="meter-row"><span>噪声</span><div class="bar noise"><span id="noiseBar" style="width:50%"></span></div><strong id="epsilonText">epsilon=5</strong></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+<section class="slide" data-title="实验：模型效用">
+        <div class="experiment-page">
+          <div class="experiment-header reveal">
+            <p class="eyebrow">Experiment 1 · Model Utility</p>
+            <h2>Clover 保留标准 top-k，模型效用接近 DP-FedAvg</h2>
+            <p>论文在 MNIST、CIFAR-10、Fashion-MNIST 上比较 Clover、DP-FedAvg、FedSMP-randk 和 FedSel。核心问题是：安全聚合和 DP 加噪之后，模型还能不能训练好。</p>
+          </div>
+
+          <div class="experiment-visual reveal">
+            <div class="utility-chart">
+              <div class="chart-title">
+                <strong>MNIST final accuracy under practical privacy budget</strong>
+                <span>from Fig. 3 / Fig. 4, approximate values reported in paper</span>
+              </div>
+              <div class="bar-chart">
+                <div class="y-axis-title">Test Accuracy (%)</div>
+                <div class="bar-item">
+                  <span class="bar-label">Clover<br><small>λ = 0.5%</small></span>
+                  <div class="bar-track"><i style="height:97%"></i></div>
+                  <strong>≈97%</strong>
+                </div>
+                <div class="bar-item">
+                  <span class="bar-label">DP-FedAvg<br><small>dense</small></span>
+                  <div class="bar-track muted"><i style="height:98%"></i></div>
+                  <strong>≈98%</strong>
+                </div>
+                <div class="bar-item">
+                  <span class="bar-label">FedSMP-randk<br><small>λ = 0.5%</small></span>
+                  <div class="bar-track risk"><i style="height:80%"></i></div>
+                  <strong>≈80%</strong>
+                </div>
+                <div class="bar-item">
+                  <span class="bar-label">FedSel<br><small>LDP baseline</small></span>
+                  <div class="bar-track risk"><i style="height:70%"></i></div>
+                  <strong>≈70%</strong>
+                </div>
+                <div class="x-axis-title">Method / baseline</div>
+              </div>
+            </div>
+
+            <div class="insight-stack">
+              <article class="insight-card">
+                <span>Across datasets</span>
+                <strong>3 datasets</strong>
+                <p>MNIST、CIFAR-10、Fashion-MNIST 上都观察到类似趋势：Clover 最终效果接近 DP-FedAvg。</p>
+              </article>
+              <article class="insight-card">
+                <span>Utility</span>
+                <strong>Clover ≈ DP-FedAvg</strong>
+                <p>稀疏化会让前期训练稍慢，但轮数足够后，Clover 的精度接近 dense DP baseline。</p>
+              </article>
+              <article class="insight-card">
+                <span>Privacy budget</span>
+                <strong>ε &lt; 10, MNIST &gt; 96%</strong>
+                <p>相比 LDP 方法 FedSel，Clover 在实际可接受的 privacy budget 下保持更高准确率。</p>
+              </article>
+            </div>
+          </div>
+
+          <div class="experiment-takeaway reveal">结论：Clover 的目标不是超过无保护 FL，而是在隐藏 index/value 并加入 DP 后，仍尽量接近 central DP 的模型效用。</div>
+        </div>
+      </section>
+<section class="slide" data-title="实验：系统效率">
+        <div class="experiment-page">
+          <div class="experiment-header reveal">
+            <p class="eyebrow">Experiment 2 · System Efficiency</p>
+            <h2>SparVecAgg 比通用 ORAM 基线低几个数量级</h2>
+            <p>论文用 synthetic sparse vector aggregation 比较 SparVecAgg 和 distributed ORAM baseline。任务是安全聚合 100 个稀疏向量，观察服务器间通信和服务器计算成本。</p>
+          </div>
+
+          <div class="experiment-visual reveal">
+            <div class="efficiency-chart">
+              <div class="chart-title">
+                <strong>Cost trend when density λ increases</strong>
+                <span>ORAM grows with sparse writes; SparVecAgg stays low by using permutation-based shuffle</span>
+              </div>
+              <div class="line-chart">
+                <div class="y-axis-title">Server-side cost (log scale)</div>
+                <svg viewBox="0 0 560 260" aria-hidden="true">
+                  <path class="grid-line" d="M56 34H530M56 96H530M56 158H530M56 220H530" />
+                  <path class="oram-line" d="M70 210 C170 196, 250 152, 330 92 S470 34, 520 28" />
+                  <path class="spar-line" d="M70 214 C180 212, 300 211, 520 209" />
+                  <circle class="oram-dot" cx="520" cy="28" r="7" />
+                  <circle class="spar-dot" cx="520" cy="209" r="7" />
+                </svg>
+                <div class="axis-label x1">0.01%</div>
+                <div class="axis-label x2">0.1%</div>
+                <div class="axis-label x3">0.5%</div>
+                <div class="axis-label x4">1%</div>
+                <div class="x-axis-title">Sparse density λ</div>
+                <div class="series-label oram">ORAM baseline</div>
+                <div class="series-label spar">SparVecAgg</div>
+              </div>
+            </div>
+
+            <div class="insight-stack">
+              <article class="big-result">
+                <span>Inter-server communication</span>
+                <strong>1602×</strong>
+                <p>当 d = 10<sup>5</sup>、λ = 1% 时，SparVecAgg semi-honest 相比 ORAM 更少通信。</p>
+              </article>
+              <article class="big-result">
+                <span>Server-side computation</span>
+                <strong>12041×</strong>
+                <p>同一设置下，SparVecAgg semi-honest 相比 ORAM 更少服务器侧计算。</p>
+              </article>
+              <article class="overhead-card">
+                <span>Malicious security overhead</span>
+                <strong>2.67× comm. / 3.67× runtime</strong>
+                <p>完整性检查有开销，但相比 ORAM 仍然低很多。</p>
+              </article>
+            </div>
+          </div>
+
+          <div class="experiment-takeaway reveal">结论：Clover 的效率优势来自“把 index 编码成 permutation 并做 secret-shared shuffle”，避免了对每个 index-value pair 执行昂贵 ORAM write。</div>
+        </div>
+      </section>
+<section class="slide" data-title="实验：DP 噪声误差">
+        <div class="experiment-page">
+          <div class="experiment-header reveal">
+            <p class="eyebrow">Experiment 3 · DP Noise Error</p>
+            <h2>误差主要来自 DP 噪声，而不是稀疏聚合错误</h2>
+            <p>论文用 synthetic sparse vector summation 单独评估差分隐私噪声带来的误差。设置为 100 个客户端、d = 10<sup>4</sup>，比较不同 privacy budget ε 和稀疏密度 λ 下的 MSE。</p>
+          </div>
+
+          <div class="experiment-visual reveal">
+            <div class="dp-error-chart">
+              <div class="chart-title">
+                <strong>MSE mainly follows privacy budget ε</strong>
+                <span>from Fig. 7: larger ε means less noise; density λ has little effect when ε is fixed</span>
+              </div>
+              <div class="mse-panels">
+                <div class="mse-panel">
+                  <span>MSE vs ε</span>
+                  <div class="y-axis-title">MSE</div>
+                  <svg viewBox="0 0 420 230" aria-hidden="true">
+                    <path class="grid-line" d="M42 30H390M42 82H390M42 134H390M42 186H390" />
+                    <path class="mse-line high" d="M58 44 C120 74, 180 120, 246 156 S330 190, 376 198" />
+                    <path class="mse-line mid" d="M58 50 C120 78, 180 122, 246 158 S330 188, 376 196" />
+                    <path class="mse-line low" d="M58 56 C120 84, 180 126, 246 160 S330 190, 376 198" />
+                  </svg>
+                  <div class="chart-legend">
+                    <span class="legend-risk">λ=0.1%</span>
+                    <span class="legend-noise">λ=0.5%</span>
+                    <span class="legend-teal">λ=1%</span>
+                  </div>
+                  <div class="x-axis-title">Privacy budget ε</div>
+                  <p>ε 增大，噪声减小，MSE 下降。</p>
+                </div>
+                <div class="mse-panel">
+                  <span>MSE vs λ</span>
+                  <div class="y-axis-title">MSE</div>
+                  <svg viewBox="0 0 420 230" aria-hidden="true">
+                    <path class="grid-line" d="M42 30H390M42 82H390M42 134H390M42 186H390" />
+                    <path class="mse-line high" d="M58 78 C140 77, 220 80, 300 78 S354 79, 376 78" />
+                    <path class="mse-line mid" d="M58 132 C140 131, 220 134, 300 132 S354 133, 376 132" />
+                    <path class="mse-line low" d="M58 178 C140 177, 220 180, 300 178 S354 179, 376 178" />
+                  </svg>
+                  <div class="chart-legend">
+                    <span class="legend-risk">ε=1</span>
+                    <span class="legend-noise">ε=5</span>
+                    <span class="legend-teal">ε=10</span>
+                  </div>
+                  <div class="x-axis-title">Sparse density λ</div>
+                  <p>固定 ε 时，不同 λ 的 MSE 基本稳定。</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="insight-stack">
+              <article class="insight-card">
+                <span>Privacy-utility trade-off</span>
+                <strong>ε ↑ → MSE ↓</strong>
+                <p>privacy budget 越大，允许的噪声越小，因此输出更接近真实聚合。</p>
+              </article>
+              <article class="insight-card">
+                <span>Aggregation correctness</span>
+                <strong>MSE ≈ DP noise</strong>
+                <p>论文指出，协议正确聚合非零元素；估计均值和真实均值的差异主要就是 DP 噪声。</p>
+              </article>
+              <article class="insight-card">
+                <span>Sparsity density</span>
+                <strong>λ effect is small</strong>
+                <p>固定 ε 后，MSE 基本不随 λ 改变，说明误差不是由稀疏位置恢复失败导致。</p>
+              </article>
+            </div>
+          </div>
+
+          <div class="experiment-takeaway reveal">结论：Clover 的聚合过程仍然正确；最终误差主要是为了 DP 而有意加入的噪声，这是隐私和效用之间的可控权衡。</div>
+        </div>
+      </section>
+<section class="slide" data-title="局限性">
+        <div class="discussion-page">
+          <div class="discussion-header reveal">
+            <p class="eyebrow">Discussion · Limitations</p>
+            <h2>Clover 解决了核心聚合问题，但部署仍有边界</h2>
+            <p>论文的设计重点是让 top-k、安全聚合和 DP 同时成立；真正落地时，还需要面对信任组织、系统复杂度和威胁模型边界。</p>
+          </div>
+
+          <div class="limitation-map reveal">
+            <div class="limit-core">
+              <span>Core contribution</span>
+              <strong>Clover</strong>
+              <p>top-k 稀疏上传 + 安全聚合 + DP 输出保护</p>
+            </div>
+
+            <article class="limit-node trust">
+              <span>Trust</span>
+              <h3>三服务器部署</h3>
+              <p>需要不同信任域支撑“不完全合谋”假设。</p>
+            </article>
+            <article class="limit-node complexity">
+              <span>System</span>
+              <h3>协议链路变长</h3>
+              <p>shuffle、聚合、噪声和恶意检查都提高实现成本。</p>
+            </article>
+            <article class="limit-node scope">
+              <span>Threat model</span>
+              <h3>不覆盖所有攻击</h3>
+              <p>不能直接替代投毒、后门和异常客户端检测。</p>
+            </article>
+
+            <svg class="limit-lines" viewBox="0 0 980 480" aria-hidden="true">
+              <path d="M490 240 L170 130" />
+              <path d="M490 240 L810 130" />
+              <path d="M490 240 L490 390" />
+            </svg>
+          </div>
+
+          <div class="discussion-takeaway reveal">结论：Clover 更像一个面向 top-k 稀疏联邦学习的安全聚合与 DP 框架，而不是完整替代联邦学习部署中的所有安全机制。</div>
+        </div>
+      </section>
+<section class="slide" data-title="优化方向">
+        <div class="discussion-page future-page">
+          <div class="discussion-header reveal">
+            <p class="eyebrow">Discussion · Research Outlook</p>
+            <h2>未来展望：从加噪保护到密文域训练</h2>
+            <p>DP 通过扰动输出来限制泄露，但噪声会损伤模型效用；在大模型、多轮训练中，这种损失可能持续累积。</p>
+          </div>
+
+          <div class="future-workboard reveal">
+            <div class="crypto-complement">
+              <div class="crypto-row">
+                <div class="crypto-pill dp">DP Noise</div>
+                <div class="crypto-arrow">问题</div>
+                <div class="crypto-box">效用损失<br><span>多轮训练中噪声影响可能累积</span></div>
+              </div>
+              <div class="crypto-row">
+                <div class="crypto-pill he">HE</div>
+                <div class="crypto-arrow">设想</div>
+                <div class="crypto-box">Encrypted Training<br><span>模型参数、梯度和更新尽量保持密文态</span></div>
+              </div>
+              <div class="crypto-note">研究问题：能否用 FHE-based encrypted training 隐藏梯度、模型参数和更新过程，从而降低 DP 噪声规模？</div>
+            </div>
+
+            <div class="future-stack">
+              <article class="future-item highlight">
+                <span>01 · Main Idea</span>
+                <h3>密文域联邦训练</h3>
+                <p>让聚合、模型更新甚至部分训练步骤在密文域完成，服务器尽量不接触明文梯度和参数。</p>
+              </article>
+              <article class="future-item">
+                <span>02 · Open Question</span>
+                <h3>降低噪声依赖</h3>
+                <p>如果中间过程由密码学隐藏，就可以研究是否只对最终发布结果使用更轻量、更精细的 DP。</p>
+              </article>
+              <article class="future-item">
+                <span>03 · Challenge</span>
+                <h3>大模型下的可行性</h3>
+                <p>FHE 计算开销高，还要处理非线性算子、top-k 选择和多轮训练效率，这是后续创新点。</p>
+              </article>
+            </div>
+          </div>
+
+          <div class="discussion-takeaway reveal">展望：用密文域训练把隐私保护从“加噪隐藏”部分转向“密文不可见”，再结合更轻量的 DP 控制最终模型发布风险。</div>
+        </div>
+      </section>
+<section class="slide" data-title="总结与展望">
+        <div class="closing-page">
+          <div class="closing-hero reveal">
+            <p class="eyebrow">总结与展望</p>
+            <h2>Clover 的核心价值：让 top-k 稀疏联邦学习真正安全可用</h2>
+            <p>它不是只优化通信，也不是只做安全聚合，而是把效率、正确性和隐私保护放进同一个训练流程中一起权衡。</p>
+          </div>
+
+          <div class="closing-summary reveal">
+            <article class="summary-tile efficiency">
+              <span>01</span>
+              <h3>通信效率</h3>
+              <p>保留 top-k 稀疏上传，不退回 d 维密集梯度。</p>
+            </article>
+            <article class="summary-tile security">
+              <span>02</span>
+              <h3>安全聚合</h3>
+              <p>同时隐藏稀疏位置 index 和梯度 value，避免位置模式泄露。</p>
+            </article>
+            <article class="summary-tile privacy">
+              <span>03</span>
+              <h3>输出隐私</h3>
+              <p>通过分布式 DP 噪声限制最终聚合结果暴露的信息量。</p>
+            </article>
+          </div>
+
+          <div class="closing-outlook reveal">
+            <div>
+              <span>Future direction</span>
+              <strong>更少信任假设 · 更低系统开销 · 更强密码学后端 · 更大模型场景</strong>
+            </div>
+            <p>后续工作应继续把 Clover 从“协议可行”推进到“工程可部署”：降低三服务器协作成本，并探索 HE / MPC 与 DP 的互补组合。</p>
+          </div>
+        </div>
+      </section>
+<section class="slide" data-title="Thank You">
+        <div class="thesis">
+          <p class="eyebrow reveal">Thank You</p>
+          <h2 class="reveal">谢谢聆听</h2>
+          <p class="reveal">敬请批评指正</p>
+          <p class="reveal">汇报人：林晖鹏 · 2026.7.3</p>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <nav class="deck-controls" aria-label="幻灯片导航">
+    <button id="prevBtn" type="button" title="上一页">‹</button>
+    <div class="progress"><span id="progressBar"></span></div>
+    <div class="counter" id="counter">1 / 1</div>
+    <button id="nextBtn" type="button" title="下一页">›</button>
+  </nav>
+
+  <script>
+    async function loadSlidePartials() {
+      return Promise.resolve();
+    }
+
+    class SlidePresentation {
+      constructor() {
+        this.slides = Array.from(document.querySelectorAll(".slide"));
+        this.currentSlide = 0;
+        this.stage = document.getElementById("deckStage");
+        this.progressBar = document.getElementById("progressBar");
+        this.counter = document.getElementById("counter");
+        this.setupStageScale();
+        this.setupKeyboardNav();
+        this.setupTouchNav();
+        this.setupClickNav();
+        this.setupButtons();
+        const requestedSlide = Number(new URLSearchParams(window.location.search).get("slide"));
+        this.showSlide(Number.isInteger(requestedSlide) && requestedSlide > 0 ? requestedSlide - 1 : 0);
+      }
+
+      setupStageScale() {
+        const scale = () => {
+          const chrome = 84;
+          const factor = Math.min(window.innerWidth / 1920, (window.innerHeight - chrome) / 1080);
+          const x = (window.innerWidth - 1920 * factor) / 2;
+          const y = Math.max(10, (window.innerHeight - chrome - 1080 * factor) / 2);
+          this.stage.style.transform = `translate(${x}px, ${y}px) scale(${factor})`;
+          updateFedDiagramLayout(this.slides?.[this.currentSlide]?.querySelector(".fed-diagram"));
+        };
+        scale();
+        window.addEventListener("resize", scale);
+      }
+
+      setupButtons() {
+        document.getElementById("nextBtn").addEventListener("click", () => this.next());
+        document.getElementById("prevBtn").addEventListener("click", () => this.prev());
+      }
+
+      setupKeyboardNav() {
+        document.addEventListener("keydown", (event) => {
+          if (event.key === "ArrowRight" || event.key === " " || event.key === "PageDown") {
+            event.preventDefault();
+            this.next();
+          }
+          if (event.key === "ArrowLeft" || event.key === "PageUp") {
+            event.preventDefault();
+            this.prev();
+          }
+          if (event.key === "Home") this.showSlide(0);
+          if (event.key === "End") this.showSlide(this.slides.length - 1);
+        });
+      }
+
+      setupTouchNav() {
+        let startX = 0;
+        this.stage.addEventListener("touchstart", (event) => {
+          startX = event.changedTouches[0].clientX;
+        }, { passive: true });
+        this.stage.addEventListener("touchend", (event) => {
+          const dx = event.changedTouches[0].clientX - startX;
+          if (Math.abs(dx) > 60) {
+            if (dx < 0) this.next();
+            else this.prev();
+          }
+        }, { passive: true });
+      }
+
+      setupClickNav() {
+        this.stage.addEventListener("click", (event) => {
+          const module = event.target.closest(".interactive-module");
+          if (module) {
+            event.stopPropagation();
+            runInteractiveModule(module.dataset.action);
+            return;
+          }
+          if (event.target.closest("button, input, a, label, select, textarea")) return;
+          this.next();
+        });
+      }
+
+      showSlide(index) {
+        this.currentSlide = (index + this.slides.length) % this.slides.length;
+        this.slides.forEach((slide, i) => {
+          slide.classList.toggle("active", i === this.currentSlide);
+          slide.classList.toggle("visible", i === this.currentSlide);
+        });
+        this.progressBar.style.width = `${((this.currentSlide + 1) / this.slides.length) * 100}%`;
+        this.counter.textContent = `${this.currentSlide + 1} / ${this.slides.length}`;
+        resetSlideAnimations(this.slides[this.currentSlide]);
+        requestAnimationFrame(() => updateFedDiagramLayout(this.slides[this.currentSlide].querySelector(".fed-diagram")));
+      }
+
+      next() { this.showSlide(this.currentSlide + 1); }
+      prev() { this.showSlide(this.currentSlide - 1); }
+    }
+
+    let deck;
+
+    function activeSlide() {
+      return deck.slides[deck.currentSlide];
+    }
+
+    function resetSlideAnimations(slide) {
+      slide.querySelectorAll("[data-active]").forEach((el) => el.removeAttribute("data-active"));
+      slide.querySelectorAll(".is-active, .is-risk, .is-hidden, .is-noisy, .is-dropped").forEach((el) => {
+        el.classList.remove("is-active", "is-risk", "is-hidden", "is-noisy", "is-dropped");
+      });
+      if (slide.querySelector("#denseUploadBar")) {
+        document.getElementById("denseUploadBar").style.width = "0%";
+        document.getElementById("denseCost").textContent = "点击演示";
+      }
+      if (slide.querySelector("#topkVector")) {
+        document.querySelectorAll("#topkVector .grad-cell").forEach((cell) => {
+          cell.classList.remove("is-active", "is-dropped");
+        });
+        document.getElementById("topkUploadBar").style.width = "100%";
+        document.getElementById("topkUploadText").textContent = "100%";
+        document.getElementById("topkSaveBar").style.width = "0%";
+        document.getElementById("topkSaveText").textContent = "0%";
+      }
+      if (slide.querySelector("#riskThought")) {
+        document.getElementById("riskThought").textContent = "服务器观察到的是 top-k 位置和值。";
+      }
+      if (slide.querySelector("#epsilonSlider")) {
+        document.getElementById("epsilonSlider").value = "5";
+        updateDPTradeoff();
+      }
+    }
+
+    function resetCurrentSlide() {
+      resetSlideAnimations(deck.slides[deck.currentSlide]);
+    }
+
+    function runInteractiveModule(action) {
+      if (action === "fl") playFLFlow();
+      if (action === "dense") playDenseUpload();
+      if (action === "topk") playTopK();
+      if (action === "risk") playIndexRisk();
+      if (action === "sparse") playSparseRepresentation();
+      if (action === "hidden-aggregation") playHiddenAggregation();
+    }
+
+    function updateFedDiagramLayout(diagram) {
+      if (!diagram) return;
+      const svg = diagram.querySelector(".fed-lines");
+      const staticLayer = svg?.querySelector("[data-fed-static]");
+      const flowLayer = svg?.querySelector("[data-fed-flows]");
+      const server = diagram.querySelector(".fed-server");
+      const serverPorts = diagram.querySelector(".fed-server-ports");
+      const clients = Array.from(diagram.querySelectorAll(".fed-client"));
+      if (!svg || !staticLayer || !flowLayer || !server || !serverPorts || clients.length === 0) return;
+
+      const diagramRect = diagram.getBoundingClientRect();
+      const scaleX = diagram.offsetWidth / diagramRect.width;
+      const scaleY = diagram.offsetHeight / diagramRect.height;
+      const ns = "http://www.w3.org/2000/svg";
+
+      const point = (el, xRatio, yRatio) => {
+        const rect = el.getBoundingClientRect();
+        return {
+          x: (rect.left - diagramRect.left + rect.width * xRatio) * scaleX,
+          y: (rect.top - diagramRect.top + rect.height * yRatio) * scaleY,
+        };
+      };
+
+      const path = (className, d) => {
+        const item = document.createElementNS(ns, "path");
+        item.setAttribute("class", className);
+        item.setAttribute("d", d);
+        item.setAttribute("data-flow-path", "");
+        return item;
+      };
+
+      const flow = (className, d, delay) => {
+        const circle = document.createElementNS(ns, "circle");
+        const motion = document.createElementNS(ns, "animateMotion");
+        circle.setAttribute("class", `flow-circle ${className}`.trim());
+        circle.setAttribute("r", "8");
+        motion.setAttribute("dur", "7s");
+        motion.setAttribute("begin", `${delay}s`);
+        motion.setAttribute("repeatCount", "indefinite");
+        motion.setAttribute("path", d);
+        circle.appendChild(motion);
+        return circle;
+      };
+
+      svg.setAttribute("viewBox", `0 0 ${diagram.offsetWidth} ${diagram.offsetHeight}`);
+      staticLayer.replaceChildren();
+      flowLayer.replaceChildren();
+      serverPorts.replaceChildren(...clients.map(() => {
+        const port = document.createElement("span");
+        port.className = "fed-port";
+        return port;
+      }));
+
+      const ports = Array.from(serverPorts.querySelectorAll(".fed-port"));
+      const clientGeometry = clients.map((client, index) => {
+        const model = client.querySelector(".model-cube");
+        const port = ports[index];
+        const center = point(model, .5, .5);
+        const portCenter = point(port, .5, .5);
+        const side = center.x < portCenter.x ? -1 : 1;
+        return {
+          index,
+          side,
+          port: { x: portCenter.x, y: portCenter.y + 5 },
+          downEnd: point(model, .5, -.12),
+          upStart: point(model, .5, .06),
+        };
+      });
+
+      clientGeometry.forEach((client) => {
+        const offset = client.side < 0 ? -9 : 9;
+        const down = `M${client.port.x} ${client.port.y} L${client.downEnd.x + offset} ${client.downEnd.y}`;
+        const up = `M${client.upStart.x - offset} ${client.upStart.y + 20} L${client.port.x} ${client.port.y}`;
+        staticLayer.appendChild(path("down-line", down));
+        staticLayer.appendChild(path("up-line", up));
+        flowLayer.appendChild(flow("down", down, client.index * .35));
+        flowLayer.appendChild(flow("", up, 2.2 + client.index * .35));
+      });
+    }
+
+    function playFLFlow() {
+      const slide = activeSlide();
+      const diagram = slide.querySelector(".fed-diagram");
+      updateFedDiagramLayout(diagram);
+      diagram.classList.remove("is-active");
+      void diagram.offsetWidth;
+      diagram.classList.add("is-active");
+      diagram.querySelectorAll("animateMotion").forEach((motion) => {
+        if (typeof motion.beginElement === "function") motion.beginElement();
+      });
+    }
+
+    function playDenseUpload() {
+      const slide = activeSlide();
+      slide.querySelectorAll(".upload-packet").forEach((packet, i) => {
+        packet.style.animationDelay = `${i * 120}ms`;
+        packet.classList.add("is-active");
+      });
+      slide.querySelector("#denseServer").classList.add("is-active");
+      document.getElementById("denseUploadBar").style.width = "100%";
+      document.getElementById("denseCost").textContent = "每轮 N x d";
+    }
+
+    function playTopK() {
+      const slide = activeSlide();
+      slide.querySelectorAll("#topkVector .grad-cell").forEach((cell) => {
+        const keep = cell.classList.contains("keep");
+        cell.classList.toggle("is-dropped", !keep);
+        cell.classList.toggle("is-active", keep);
+      });
+      document.getElementById("topkPairs").setAttribute("data-active", "true");
+      document.getElementById("topkUploadBar").style.width = "38%";
+      document.getElementById("topkUploadText").textContent = "3/8 + index";
+      document.getElementById("topkSaveBar").style.width = "62%";
+      document.getElementById("topkSaveText").textContent = "约 62%";
+    }
+
+    function playIndexRisk() {
+      const slide = activeSlide();
+      slide.querySelectorAll(".index-marker").forEach((marker) => marker.classList.add("is-risk"));
+      slide.querySelectorAll(".leak-method").forEach((method, i) => {
+        setTimeout(() => method.classList.add("is-risk"), i * 90);
+      });
+      document.getElementById("indexRiskPanel").setAttribute("data-active", "true");
+      document.getElementById("riskThought").textContent = "即使 value 被隐藏，index=2、4、6 的模式仍可能暗示本地数据分布。";
+    }
+
+    function playSparseRepresentation() {
+      const slide = activeSlide();
+      slide.querySelectorAll(".sparse-entry").forEach((entry, i) => {
+        setTimeout(() => entry.classList.add("is-active"), i * 90);
+      });
+    }
+
+    function playHiddenAggregation() {
+      const slide = activeSlide();
+      slide.querySelector("#privateUpdate").classList.add("is-hidden");
+      slide.querySelectorAll(".share-line").forEach((line, i) => {
+        line.style.animationDelay = `${i * 120}ms`;
+        line.classList.add("is-active");
+      });
+      slide.querySelectorAll(".server-card").forEach((server) => server.classList.add("is-active"));
+      document.getElementById("aggregateVector").setAttribute("data-active", "true");
+    }
+
+    function updateDPTradeoff() {
+      const epsilon = Number(document.getElementById("epsilonSlider").value);
+      const strongPrivacy = epsilon <= 3;
+      const weakPrivacy = epsilon >= 8;
+      const noiseWidth = Math.max(18, 100 - epsilon * 8);
+      document.getElementById("privacyLabel").textContent = strongPrivacy ? "强" : weakPrivacy ? "弱" : "中";
+      document.getElementById("noiseLabel").textContent = strongPrivacy ? "大" : weakPrivacy ? "小" : "中";
+      document.getElementById("utilityLabel").textContent = strongPrivacy ? "较低" : weakPrivacy ? "较高" : "中";
+      document.getElementById("noiseBar").style.width = `${noiseWidth}%`;
+      document.getElementById("epsilonText").textContent = `epsilon=${epsilon}`;
+    }
+
+    async function initDeck() {
+      try {
+        await loadSlidePartials();
+        const epsilonSlider = document.getElementById("epsilonSlider");
+        if (epsilonSlider) epsilonSlider.addEventListener("input", updateDPTradeoff);
+        deck = new SlidePresentation();
+        if (epsilonSlider) updateDPTradeoff();
+      } catch (error) {
+        const stage = document.getElementById("deckStage");
+        stage.innerHTML = `<section class="slide active"><div class="full-flow" style="place-items:center;text-align:center;"><div class="center-title"><p class="eyebrow reveal">Load Error</p><h2 class="reveal">页面分文件加载失败</h2><p class="lead reveal">${error.message}</p></div></div></section>`;
+        console.error(error);
+      }
+    }
+
+    initDeck();
+  </script>
+</body>
+</html>

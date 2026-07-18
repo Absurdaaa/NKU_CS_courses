@@ -1,0 +1,35 @@
+<section class="slide" data-title="总结与展望">
+        <div class="closing-page">
+          <div class="closing-hero reveal">
+            <p class="eyebrow">总结与展望</p>
+            <h2>Clover 的核心价值：让 top-k 稀疏联邦学习真正安全可用</h2>
+            <p>它不是只优化通信，也不是只做安全聚合，而是把效率、正确性和隐私保护放进同一个训练流程中一起权衡。</p>
+          </div>
+
+          <div class="closing-summary reveal">
+            <article class="summary-tile efficiency">
+              <span>01</span>
+              <h3>通信效率</h3>
+              <p>保留 top-k 稀疏上传，不退回 d 维密集梯度。</p>
+            </article>
+            <article class="summary-tile security">
+              <span>02</span>
+              <h3>安全聚合</h3>
+              <p>同时隐藏稀疏位置 index 和梯度 value，避免位置模式泄露。</p>
+            </article>
+            <article class="summary-tile privacy">
+              <span>03</span>
+              <h3>输出隐私</h3>
+              <p>通过分布式 DP 噪声限制最终聚合结果暴露的信息量。</p>
+            </article>
+          </div>
+
+          <div class="closing-outlook reveal">
+            <div>
+              <span>Future direction</span>
+              <strong>更少信任假设 · 更低系统开销 · 更强密码学后端 · 更大模型场景</strong>
+            </div>
+            <p>后续工作应继续把 Clover 从“协议可行”推进到“工程可部署”：降低三服务器协作成本，并探索 HE / MPC 与 DP 的互补组合。</p>
+          </div>
+        </div>
+      </section>

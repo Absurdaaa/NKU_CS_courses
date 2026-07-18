@@ -1,0 +1,62 @@
+<section class="slide" data-title="实验：模型效用">
+        <div class="experiment-page">
+          <div class="experiment-header reveal">
+            <p class="eyebrow">Experiment 1 · Model Utility</p>
+            <h2>Clover 保留标准 top-k，模型效用接近 DP-FedAvg</h2>
+            <p>论文在 MNIST、CIFAR-10、Fashion-MNIST 上比较 Clover、DP-FedAvg、FedSMP-randk 和 FedSel。核心问题是：安全聚合和 DP 加噪之后，模型还能不能训练好。</p>
+          </div>
+
+          <div class="experiment-visual reveal">
+            <div class="utility-chart">
+              <div class="chart-title">
+                <strong>MNIST final accuracy under practical privacy budget</strong>
+                <span>from Fig. 3 / Fig. 4, approximate values reported in paper</span>
+              </div>
+              <div class="bar-chart">
+                <div class="y-axis-title">Test Accuracy (%)</div>
+                <div class="bar-item">
+                  <span class="bar-label">Clover<br><small>λ = 0.5%</small></span>
+                  <div class="bar-track"><i style="height:97%"></i></div>
+                  <strong>≈97%</strong>
+                </div>
+                <div class="bar-item">
+                  <span class="bar-label">DP-FedAvg<br><small>dense</small></span>
+                  <div class="bar-track muted"><i style="height:98%"></i></div>
+                  <strong>≈98%</strong>
+                </div>
+                <div class="bar-item">
+                  <span class="bar-label">FedSMP-randk<br><small>λ = 0.5%</small></span>
+                  <div class="bar-track risk"><i style="height:80%"></i></div>
+                  <strong>≈80%</strong>
+                </div>
+                <div class="bar-item">
+                  <span class="bar-label">FedSel<br><small>LDP baseline</small></span>
+                  <div class="bar-track risk"><i style="height:70%"></i></div>
+                  <strong>≈70%</strong>
+                </div>
+                <div class="x-axis-title">Method / baseline</div>
+              </div>
+            </div>
+
+            <div class="insight-stack">
+              <article class="insight-card">
+                <span>Across datasets</span>
+                <strong>3 datasets</strong>
+                <p>MNIST、CIFAR-10、Fashion-MNIST 上都观察到类似趋势：Clover 最终效果接近 DP-FedAvg。</p>
+              </article>
+              <article class="insight-card">
+                <span>Utility</span>
+                <strong>Clover ≈ DP-FedAvg</strong>
+                <p>稀疏化会让前期训练稍慢，但轮数足够后，Clover 的精度接近 dense DP baseline。</p>
+              </article>
+              <article class="insight-card">
+                <span>Privacy budget</span>
+                <strong>ε &lt; 10, MNIST &gt; 96%</strong>
+                <p>相比 LDP 方法 FedSel，Clover 在实际可接受的 privacy budget 下保持更高准确率。</p>
+              </article>
+            </div>
+          </div>
+
+          <div class="experiment-takeaway reveal">结论：Clover 的目标不是超过无保护 FL，而是在隐藏 index/value 并加入 DP 后，仍尽量接近 central DP 的模型效用。</div>
+        </div>
+      </section>

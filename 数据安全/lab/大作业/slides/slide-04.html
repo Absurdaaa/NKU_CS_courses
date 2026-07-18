@@ -1,0 +1,35 @@
+<section class="slide" data-title="top-k 稀疏化">
+        <div class="slide-grid">
+          <div class="copy">
+            <p class="eyebrow reveal">Top-k</p>
+            <h2 class="reveal">top-k 稀疏化：</h2>
+            <h2 class="reveal">只上传最重要的梯度坐标</h2>
+            <p class="lead reveal">客户端从完整梯度中选择绝对值最大的 k 个坐标，只上传这些坐标和值。</p>
+            <div class="formula-box reveal">TopK(g) = {(i, g_i) | i belongs to largest-k coordinates of |g|}</div>
+          </div>
+          <div class="visual">
+            <div class="vector-panel interactive-module" data-action="topk">
+              <div class="mini-label">gradient vector</div>
+              <div class="gradient-vector" id="topkVector">
+                <span class="grad-cell" data-index="1">+0.12</span>
+                <span class="grad-cell keep" data-index="2">-1.84</span>
+                <span class="grad-cell" data-index="3">+0.05</span>
+                <span class="grad-cell keep" data-index="4">+1.36</span>
+                <span class="grad-cell" data-index="5">-0.22</span>
+                <span class="grad-cell keep" data-index="6">+2.10</span>
+                <span class="grad-cell" data-index="7">+0.08</span>
+                <span class="grad-cell" data-index="8">-0.17</span>
+              </div>
+              <div class="sparse-pairs" id="topkPairs">
+                <div class="pair-card">(2, -1.84)</div>
+                <div class="pair-card">(4, +1.36)</div>
+                <div class="pair-card">(6, +2.10)</div>
+              </div>
+              <div class="meter-grid">
+                <div class="meter-row"><span>上传内容</span><div class="bar"><span id="topkUploadBar"></span></div><strong id="topkUploadText">100%</strong></div>
+                <div class="meter-row"><span>通信节省</span><div class="bar"><span id="topkSaveBar" style="width:0%"></span></div><strong id="topkSaveText">0%</strong></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>

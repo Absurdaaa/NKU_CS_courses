@@ -1,0 +1,55 @@
+<section class="slide" data-title="实验：系统效率">
+        <div class="experiment-page">
+          <div class="experiment-header reveal">
+            <p class="eyebrow">Experiment 2 · System Efficiency</p>
+            <h2>SparVecAgg 比通用 ORAM 基线低几个数量级</h2>
+            <p>论文用 synthetic sparse vector aggregation 比较 SparVecAgg 和 distributed ORAM baseline。任务是安全聚合 100 个稀疏向量，观察服务器间通信和服务器计算成本。</p>
+          </div>
+
+          <div class="experiment-visual reveal">
+            <div class="efficiency-chart">
+              <div class="chart-title">
+                <strong>Cost trend when density λ increases</strong>
+                <span>ORAM grows with sparse writes; SparVecAgg stays low by using permutation-based shuffle</span>
+              </div>
+              <div class="line-chart">
+                <div class="y-axis-title">Server-side cost (log scale)</div>
+                <svg viewBox="0 0 560 260" aria-hidden="true">
+                  <path class="grid-line" d="M56 34H530M56 96H530M56 158H530M56 220H530" />
+                  <path class="oram-line" d="M70 210 C170 196, 250 152, 330 92 S470 34, 520 28" />
+                  <path class="spar-line" d="M70 214 C180 212, 300 211, 520 209" />
+                  <circle class="oram-dot" cx="520" cy="28" r="7" />
+                  <circle class="spar-dot" cx="520" cy="209" r="7" />
+                </svg>
+                <div class="axis-label x1">0.01%</div>
+                <div class="axis-label x2">0.1%</div>
+                <div class="axis-label x3">0.5%</div>
+                <div class="axis-label x4">1%</div>
+                <div class="x-axis-title">Sparse density λ</div>
+                <div class="series-label oram">ORAM baseline</div>
+                <div class="series-label spar">SparVecAgg</div>
+              </div>
+            </div>
+
+            <div class="insight-stack">
+              <article class="big-result">
+                <span>Inter-server communication</span>
+                <strong>1602×</strong>
+                <p>当 d = 10<sup>5</sup>、λ = 1% 时，SparVecAgg semi-honest 相比 ORAM 更少通信。</p>
+              </article>
+              <article class="big-result">
+                <span>Server-side computation</span>
+                <strong>12041×</strong>
+                <p>同一设置下，SparVecAgg semi-honest 相比 ORAM 更少服务器侧计算。</p>
+              </article>
+              <article class="overhead-card">
+                <span>Malicious security overhead</span>
+                <strong>2.67× comm. / 3.67× runtime</strong>
+                <p>完整性检查有开销，但相比 ORAM 仍然低很多。</p>
+              </article>
+            </div>
+          </div>
+
+          <div class="experiment-takeaway reveal">结论：Clover 的效率优势来自“把 index 编码成 permutation 并做 secret-shared shuffle”，避免了对每个 index-value pair 执行昂贵 ORAM write。</div>
+        </div>
+      </section>

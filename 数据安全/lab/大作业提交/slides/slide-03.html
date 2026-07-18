@@ -1,0 +1,36 @@
+<section class="slide" data-title="稀疏化动机">
+        <div class="slide-grid wide-copy">
+          <div class="copy">
+            <p class="eyebrow reveal">Motivation</p>
+            <h2 class="reveal">为什么要稀疏化：梯度通信太贵</h2>
+            <p class="lead reveal">每轮每个客户端都上传完整梯度，通信量会随着模型维度和客户端数量线性放大。</p>
+            <ul class="talk-points reveal">
+              <li>大量梯度分量很小，不一定都值得上传。</li>
+              <li>已有梯度压缩工作显示，top-k/稀疏化能带来数量级通信节省。</li>
+            </ul>
+          </div>
+          <div class="visual">
+            <div class="diagram reveal">
+              <div class="source-cards">
+                <div class="source-card"><strong>99%</strong><span>Aji &amp; Heafield：许多小更新可以被置零。</span></div>
+                <div class="source-card"><strong>270x-600x</strong><span>Deep Gradient Compression 报告的大幅压缩比。</span></div>
+                <div class="source-card"><strong>97MB -> 0.35MB</strong><span>DGC 中 ResNet-50 梯度通信的示例量级。</span></div>
+              </div>
+              <div class="vector-panel" style="margin-top:36px;max-width:none;">
+                <div class="mini-label">dense gradient vs sparse gradient</div>
+                <div class="gradient-vector">
+                  <span class="grad-cell is-dropped" data-index="1">0.02</span>
+                  <span class="grad-cell keep is-active" data-index="2">-1.84</span>
+                  <span class="grad-cell is-dropped" data-index="3">0.05</span>
+                  <span class="grad-cell keep is-active" data-index="4">+1.36</span>
+                  <span class="grad-cell is-dropped" data-index="5">0.01</span>
+                  <span class="grad-cell keep is-active" data-index="6">+2.10</span>
+                  <span class="grad-cell is-dropped" data-index="7">0.03</span>
+                  <span class="grad-cell is-dropped" data-index="8">-0.04</span>
+                </div>
+              </div>
+              <div class="note" style="margin-top:28px;">稀疏化可以大大减少通信；Clover 接下来解决的是：稀疏 top-k 在隐私保护下如何聚合。</div>
+              </div>
+            </div>
+          </div>
+      </section>

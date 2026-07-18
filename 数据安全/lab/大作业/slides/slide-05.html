@@ -1,0 +1,35 @@
+<section class="slide" data-title="index 隐私">
+        <div class="slide-grid">
+          <div class="copy">
+            <p class="eyebrow reveal">Privacy Risk</p>
+            <h2 class="reveal">top-k index 本身也是隐私暴露面</h2>
+            <p class="lead reveal">即使梯度值被保护，客户端反复选中的坐标仍会暴露本地数据对模型参数的影响。</p>
+            <ul class="talk-points reveal">
+              <li>服务器可观察每轮被选中的 top-k 坐标。</li>
+              <li>坐标模式与本地标签、特征分布存在相关性。</li>
+              <li>Clover 的目标是同时隐藏 value 和 index。</li>
+            </ul>
+            <div class="formula-box reveal">泄露面：selected indices over rounds</div>
+          </div>
+          <div class="visual">
+            <div class="risk-board reveal interactive-module" data-action="risk">
+              <div class="mini-label">server-observed top-k indices</div>
+              <div class="observed-indexes">
+                <div class="index-marker">i = 2</div>
+                <div class="index-marker">i = 4</div>
+                <div class="index-marker">i = 6</div>
+              </div>
+              <div class="attacker-panel" id="indexRiskPanel">
+                <div class="avatar">?</div>
+                <p class="thought" id="riskThought">服务器观察到的是 top-k 位置和值</p>
+              </div>
+              <div class="leak-methods">
+                <article class="leak-method"><strong>标签推断</strong><span>哪些类别更可能出现在本地数据中</span></article>
+                <article class="leak-method"><strong>分布推断</strong><span>客户端数据是否偏向某类样本</span></article>
+                <article class="leak-method"><strong>相似性分析</strong><span>哪些客户端的数据分布更接近</span></article>
+                <article class="leak-method"><strong>跨轮追踪</strong><span>多轮 index 模式会累积泄露</span></article>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>

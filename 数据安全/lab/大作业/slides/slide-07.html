@@ -1,0 +1,58 @@
+<section class="slide" data-title="Clover 问题定义">
+        <div class="full-flow">
+          <div class="center-title">
+            <p class="eyebrow reveal">Problem Definition</p>
+            <h2 class="reveal">为什么需要 Clover？</h2>
+          </div>
+          <div class="visual reveal">
+            <div class="sparse-context">
+              <p>Top-k 稀疏联邦学习</p>
+            </div>
+            <div class="constraint-triangle">
+              <div class="constraint-line line-top"></div>
+              <div class="constraint-line line-left"></div>
+              <div class="constraint-line line-right"></div>
+              <div class="constraint top constraint-comm">
+                <span class="constraint-icon">
+                  <svg viewBox="0 0 20 20" aria-hidden="true">
+                    <path d="M3.4 8a6.6 6.6 0 0 1 13.2 0" />
+                    <path d="M5.8 10a3.6 3.6 0 0 1 8.4 0" />
+                    <circle cx="10" cy="13.2" r="2.3" />
+                  </svg>
+                </span>
+                <h3>通信高效</h3>
+                <strong>保持 Top-k 稀疏上传</strong>
+                <p>避免恢复为 dense 上传</p>
+              </div>
+              <div class="constraint left constraint-priv">
+                <span class="constraint-icon">
+                  <svg viewBox="0 0 20 20" aria-hidden="true">
+                    <path d="M5.2 9.1V7.2a4.8 4.8 0 0 1 9.6 0v1.9" />
+                    <rect x="4.2" y="9" width="11.6" height="6.8" rx="1.6" />
+                    <circle cx="10" cy="12.4" r="1.2" />
+                    <path d="M10 10.6v1.2" />
+                  </svg>
+                </span>
+                <h3>隐私保护</h3>
+                <strong>隐藏 index 和 value</strong>
+                <p>单客户端更新不外泄</p>
+              </div>
+              <div class="constraint right constraint-agg">
+                <span class="constraint-icon">
+                  <svg viewBox="0 0 20 20" aria-hidden="true">
+                    <rect x="4" y="8.2" width="4" height="4" rx="1" />
+                    <rect x="8.2" y="8.2" width="4" height="4" rx="1" />
+                    <rect x="12.4" y="8.2" width="4" height="4" rx="1" />
+                    <path d="M6 8.2L6 6.4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v1.8" />
+                  </svg>
+                </span>
+                <h3>正确聚合</h3>
+                <strong>聚合多个 top-k 稀疏向量</strong>
+                <p>恢复可用于更新的结果</p>
+              </div>
+              <div class="constraint center">Clover</div>
+            </div>
+          </div>
+          <div class="note reveal problem-question" style="margin:0 auto;text-align:center;">如何在隐藏 index 与 value 的情况下，正确聚合多个客户端的 top-k 稀疏梯度？</div>
+        </div>
+      </section>

@@ -1,0 +1,48 @@
+<section class="slide" data-title="核心难点">
+        <div class="full-flow">
+          <div class="center-title">
+            <p class="eyebrow reveal">Core Difficulty</p>
+            <h2 class="reveal">隐藏单个更新，只暴露聚合结果</h2>
+            <p class="lead reveal" style="max-width:1160px;margin-left:auto;margin-right:auto;">服务器不能看到任一客户端选择的 index 和 value，但最终仍要得到按坐标求和后的全局更新。</p>
+          </div>
+          <div class="hide-aggregate reveal">
+            <div class="hidden-box input-box">
+              <span class="box-kicker">Private input</span>
+              <h3>客户端私有 top-k</h3>
+              <p>
+                Client A: (2,+0.8), (7,-1.1)<br>
+                Client B: (3,-0.5), (7,+0.6)<br>
+                Client C: (1,+1.2), (5,-0.4)
+              </p>
+              <div class="privacy-tags">
+                <span>隐藏 index</span>
+                <span>隐藏 value</span>
+              </div>
+            </div>
+            <div class="aggregate-core">
+              <span class="arrow-big">-></span>
+              <div class="core-box">
+                <strong>Clover</strong>
+                <span>安全聚合</span>
+              </div>
+              <span class="arrow-big">-></span>
+            </div>
+            <div class="hidden-box output-box">
+              <span class="box-kicker">Public output</span>
+              <h3>只暴露全局聚合</h3>
+              <p>
+                G[1]=+1.2<br>
+                G[2]=+0.8<br>
+                G[3]=-0.5<br>
+                G[5]=-0.4<br>
+                G[7]=-0.5
+              </p>
+              <div class="privacy-tags result-tags">
+                <span>按坐标求和</span>
+                <span>不可回溯单个客户端</span>
+              </div>
+            </div>
+          </div>
+          <div class="note reveal" style="margin:0 auto;max-width:1180px;text-align:center;">目标不是恢复每个客户端的更新，而是在隐藏 index 和 value 的前提下得到按坐标求和的结果。</div>
+        </div>
+      </section>

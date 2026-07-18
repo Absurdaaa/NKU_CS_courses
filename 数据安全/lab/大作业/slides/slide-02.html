@@ -1,0 +1,58 @@
+<section class="slide" data-title="联邦学习">
+        <div class="full-flow">
+          <div class="center-title">
+            <p class="eyebrow reveal">Background</p>
+            <h2 class="reveal">联邦学习：数据不出本地，共同训练模型</h2>
+          </div>
+          <div class="fed-diagram reveal interactive-module" id="flFlow" data-action="fl">
+            <svg class="fed-lines" viewBox="0 0 1500 560" aria-hidden="true">
+              <defs>
+                <marker id="fedArrow" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto">
+                  <path d="M0,0 L10,5 L0,10 Z" fill="rgba(106, 116, 117, .62)"></path>
+                </marker>
+                <marker id="fedArrowDown" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto">
+                  <path d="M0,0 L10,5 L0,10 Z" fill="rgba(49, 86, 90, .62)"></path>
+                </marker>
+              </defs>
+              <g data-fed-static></g>
+              <g data-fed-flows></g>
+            </svg>
+            <div class="fed-server">
+              <div class="server-stack">
+                <div class="server-unit"></div>
+                <div class="server-unit"></div>
+              </div>
+              <span>中央服务器</span>
+            </div>
+            <div class="fed-server-ports" aria-hidden="true"></div>
+            <div class="fed-clients">
+              <div class="fed-client">
+                <div class="model-cube"><span class="dot d1"></span><span class="dot d2"></span><span class="dot d3"></span><span class="dot d4"></span><span class="dot d5"></span><span class="dot d6"></span><span class="edge e1"></span><span class="edge e2"></span><span class="edge e3"></span><span class="edge e4"></span><span class="edge e5"></span></div>
+                <span>模型1</span>
+                <div class="data-stack"><div class="data-unit"></div><div class="data-unit"></div></div>
+                <span class="fed-client-label">C1</span>
+              </div>
+              <div class="fed-client">
+                <div class="model-cube"><span class="dot d1"></span><span class="dot d2"></span><span class="dot d3"></span><span class="dot d4"></span><span class="dot d5"></span><span class="dot d6"></span><span class="edge e1"></span><span class="edge e2"></span><span class="edge e3"></span><span class="edge e4"></span><span class="edge e5"></span></div>
+                <span>模型2</span>
+                <div class="data-stack"><div class="data-unit"></div><div class="data-unit"></div></div>
+                <span class="fed-client-label">C2</span>
+              </div>
+              <div class="fed-client">
+                <div class="model-cube"><span class="dot d1"></span><span class="dot d2"></span><span class="dot d3"></span><span class="dot d4"></span><span class="dot d5"></span><span class="dot d6"></span><span class="edge e1"></span><span class="edge e2"></span><span class="edge e3"></span><span class="edge e4"></span><span class="edge e5"></span></div>
+                <span>模型3</span>
+                <div class="data-stack"><div class="data-unit"></div><div class="data-unit"></div></div>
+                <span class="fed-client-label">C3</span>
+              </div>
+              <div class="fed-client">
+                <div class="model-cube"><span class="dot d1"></span><span class="dot d2"></span><span class="dot d3"></span><span class="dot d4"></span><span class="dot d5"></span><span class="dot d6"></span><span class="edge e1"></span><span class="edge e2"></span><span class="edge e3"></span><span class="edge e4"></span><span class="edge e5"></span></div>
+                <span>模型n</span>
+                <div class="data-stack"><div class="data-unit"></div><div class="data-unit"></div></div>
+                <span class="fed-client-label">Cn</span>
+              </div>
+            </div>
+            <!-- <div class="fed-note">下发全局模型 · 本地训练 · 上传更新</div> -->
+          </div>
+          <div class="note reveal" style="margin:0 auto;max-width:1180px;text-align:center;">关键转折：虽然原始数据没有上传，但上传的梯度并不一定安全。</div>
+        </div>
+      </section>

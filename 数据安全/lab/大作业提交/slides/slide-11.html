@@ -1,0 +1,55 @@
+<section class="slide" data-title="分布式 DP">
+        <div class="slide-grid">
+          <div class="copy">
+            <p class="eyebrow reveal">Distributed DP Noise</p>
+            <h2 class="reveal">安全聚合之后，还要给输出加噪</h2>
+            <p class="lead reveal">SparVecAgg 隐藏单个客户端更新；DP 噪声限制最终释放的聚合结果继续泄露训练数据。</p>
+            <ul class="talk-points reveal">
+              <li>服务器先得到聚合梯度的 secret share：JΔK。</li>
+              <li>每台服务器本地采样一份噪声，并把噪声也 secret-share 成 JηK。</li>
+              <li>最终释放的是 Δ + η，而不是无噪的真实聚合。</li>
+            </ul>
+          </div>
+          <div class="visual">
+            <div class="dp-board">
+              <div class="noise-flow">
+                <div class="aggregate-share flow-node">
+                  <span>Secure aggregate</span>
+                  <strong>JΔK</strong>
+                  <p>真实聚合仍保持 secret-shared</p>
+                </div>
+                <div class="flow-arrow">+</div>
+                <div class="noise-servers">
+                  <div class="noise-server n0"><strong>S0</strong><span>采样 η0</span><code>share η0</code></div>
+                  <div class="noise-server n1"><strong>S1</strong><span>采样 η1</span><code>share η1</code></div>
+                  <div class="noise-server n2"><strong>S2</strong><span>采样 η2</span><code>share η2</code></div>
+                </div>
+                <div class="flow-arrow">=</div>
+                <div class="released-output flow-node">
+                  <span>Released output</span>
+                  <strong>Δ + η</strong>
+                  <p>只释放带噪聚合结果</p>
+                </div>
+                <div class="noise-equation">
+                  <span>JΔK + Jη0K + Jη1K + Jη2K</span>
+                  <strong>secret-shared addition</strong>
+                </div>
+              </div>
+              <div class="dp-control-panel">
+                <div class="slider-box">
+                  <div class="mini-label">epsilon 越小，隐私越强，噪声越大</div>
+                  <input id="epsilonSlider" type="range" min="1" max="10" value="5" />
+                </div>
+                <div class="dp-metrics">
+                  <div class="metric"><strong id="privacyLabel">中</strong><span>隐私强度</span></div>
+                  <div class="metric"><strong id="noiseLabel">中</strong><span>噪声规模</span></div>
+                  <div class="metric"><strong id="utilityLabel">中</strong><span>模型效用</span></div>
+                </div>
+                <div class="meter-grid">
+                  <div class="meter-row"><span>噪声</span><div class="bar noise"><span id="noiseBar" style="width:50%"></span></div><strong id="epsilonText">epsilon=5</strong></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>

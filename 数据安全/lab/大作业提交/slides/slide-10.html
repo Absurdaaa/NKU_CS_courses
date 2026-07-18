@@ -1,0 +1,47 @@
+<section class="slide" data-title="SparVecAgg">
+        <div class="full-flow">
+          <div class="center-title">
+            <p class="eyebrow reveal">SparVecAgg</p>
+            <h2 class="reveal sparvec-title">SparVecAgg：用随机置换掩码隐藏 index</h2>
+          </div>
+          <div class="sparvec-pipeline reveal">
+            <article class="sparvec-stage">
+              <span class="step-index">1</span>
+              <h3>原始 sparse vector</h3>
+              <div class="vector-row">
+                <span>0</span><strong>+0.8</strong><span>0</span><span>0</span><span>0</span><span>0</span><strong>-1.1</strong><span>0</span>
+              </div>
+              <p>这里的 2 和 7 表示客户端选择了哪些梯度坐标；即使 value 加密，位置模式本身也会泄露信息。</p>
+            </article>
+            <div class="pipeline-arrow">-></div>
+            <article class="sparvec-stage">
+              <span class="step-index">2</span>
+              <h3>compact 后只保留值</h3>
+              <div class="vector-row compacted">
+                <strong>+0.8</strong><strong>-1.1</strong><span>0</span><span>0</span><span>0</span><span>0</span><span>0</span><span>0</span>
+              </div>
+              <p>先把真正要上传的 value 收到前面，让通信仍然保持 top-k 稀疏，而不是上传完整 d 维向量。</p>
+            </article>
+            <div class="pipeline-arrow">-></div>
+            <article class="sparvec-stage">
+              <span class="step-index">3</span>
+              <h3>随机置换掩码位置</h3>
+              <div class="perm-box">
+                <span>π0 ∘ π1 ∘ π2</span>
+                <p>两个随机置换掩码真实位置</p>
+              </div>
+              <p>客户端用随机 π0、π1 掩码真实 π，只发送 π2 的前 k 项；服务器无法直接读出真实 top-k index。</p>
+            </article>
+            <div class="pipeline-arrow">-></div>
+            <article class="sparvec-stage">
+              <span class="step-index">4</span>
+              <h3>secret-shared shuffle</h3>
+              <div class="vector-row shuffled">
+                <span>0</span><strong>+0.8</strong><span>0</span><span>0</span><span>0</span><span>0</span><strong>-1.1</strong><span>0</span>
+              </div>
+              <p>三台服务器在 share 上完成洗牌和求和，最后只得到聚合后的向量 share，看不到单个客户端的位置和值。</p>
+            </article>
+          </div>
+          <div class="note reveal" style="margin:0 auto;max-width:1300px;text-align:center;">Clover 不直接上传 index；它用随机 permutation shares 掩码位置关系，再让服务器在秘密分享域里完成 shuffle 和聚合。</div>
+        </div>
+      </section>

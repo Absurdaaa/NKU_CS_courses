@@ -1,0 +1,45 @@
+<section class="slide" data-title="优化方向">
+        <div class="discussion-page future-page">
+          <div class="discussion-header reveal">
+            <p class="eyebrow">Discussion · Research Outlook</p>
+            <h2>未来展望：从加噪保护到密文域训练</h2>
+            <p>DP 通过扰动输出来限制泄露，但噪声会损伤模型效用；在大模型、多轮训练中，这种损失可能持续累积。</p>
+          </div>
+
+          <div class="future-workboard reveal">
+            <div class="crypto-complement">
+              <div class="crypto-row">
+                <div class="crypto-pill dp">DP Noise</div>
+                <div class="crypto-arrow">问题</div>
+                <div class="crypto-box">效用损失<br><span>多轮训练中噪声影响可能累积</span></div>
+              </div>
+              <div class="crypto-row">
+                <div class="crypto-pill he">HE</div>
+                <div class="crypto-arrow">设想</div>
+                <div class="crypto-box">Encrypted Training<br><span>模型参数、梯度和更新尽量保持密文态</span></div>
+              </div>
+              <div class="crypto-note">研究问题：能否用 FHE-based encrypted training 隐藏梯度、模型参数和更新过程，从而降低 DP 噪声规模？</div>
+            </div>
+
+            <div class="future-stack">
+              <article class="future-item highlight">
+                <span>01 · Main Idea</span>
+                <h3>密文域联邦训练</h3>
+                <p>让聚合、模型更新甚至部分训练步骤在密文域完成，服务器尽量不接触明文梯度和参数。</p>
+              </article>
+              <article class="future-item">
+                <span>02 · Open Question</span>
+                <h3>降低噪声依赖</h3>
+                <p>如果中间过程由密码学隐藏，就可以研究是否只对最终发布结果使用更轻量、更精细的 DP。</p>
+              </article>
+              <article class="future-item">
+                <span>03 · Challenge</span>
+                <h3>大模型下的可行性</h3>
+                <p>FHE 计算开销高，还要处理非线性算子、top-k 选择和多轮训练效率，这是后续创新点。</p>
+              </article>
+            </div>
+          </div>
+
+          <div class="discussion-takeaway reveal">展望：用密文域训练把隐私保护从“加噪隐藏”部分转向“密文不可见”，再结合更轻量的 DP 控制最终模型发布风险。</div>
+        </div>
+      </section>
