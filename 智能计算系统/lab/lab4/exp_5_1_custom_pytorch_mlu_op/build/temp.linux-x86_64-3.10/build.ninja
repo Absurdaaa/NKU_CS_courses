@@ -1,0 +1,27 @@
+ninja_required_version = 1.3
+cxx = c++
+cncc = /torch/neuware_home/bin/cncc
+
+cflags = -pthread -Wno-unused-result -Wsign-compare -DNDEBUG -g -fwrapv -O3 -Wall -march=nocona -mtune=haswell -ftree-vectorize -fPIC -fstack-protector-strong -fno-plt -O2 -pipe -fPIC -I/opt/code_chap_5_student/exp_5_1_custom_pytorch_mlu_op/mlu_custom_ext/mlu/include -I/torch/venv3/pytorch/lib/python3.10/site-packages/torch/include -I/torch/venv3/pytorch/lib/python3.10/site-packages/torch/include/torch/csrc/api/include -I/torch/venv3/pytorch/lib/python3.10/site-packages/torch/include/TH -I/torch/venv3/pytorch/lib/python3.10/site-packages/torch/include/THC -I/torch/venv3/pytorch/lib/python3.10/site-packages/torch_mlu/csrc -I/torch/venv3/pytorch/lib/python3.10/site-packages/torch_mlu/csrc/api/include/torch_mlu -I/torch/neuware_home/include -I/torch/venv3/pytorch/include -I/opt/py3.10/include/python3.10 -c
+post_cflags = -O3 -std=c++14 -DTORCH_API_INCLUDE_EXTENSION_H '-DPYBIND11_COMPILER_TYPE="_gcc"' '-DPYBIND11_STDLIB="_libstdcpp"' '-DPYBIND11_BUILD_ABI="_cxxabi1011"' -DTORCH_EXTENSION_NAME=libmlu_custom_ext -D_GLIBCXX_USE_CXX11_ABI=0
+bang_cflags = -I/opt/code_chap_5_student/exp_5_1_custom_pytorch_mlu_op/mlu_custom_ext/mlu/include -I/torch/venv3/pytorch/lib/python3.10/site-packages/torch/include -I/torch/venv3/pytorch/lib/python3.10/site-packages/torch/include/torch/csrc/api/include -I/torch/venv3/pytorch/lib/python3.10/site-packages/torch/include/TH -I/torch/venv3/pytorch/lib/python3.10/site-packages/torch/include/THC -I/torch/venv3/pytorch/lib/python3.10/site-packages/torch_mlu/csrc -I/torch/venv3/pytorch/lib/python3.10/site-packages/torch_mlu/csrc/api/include/torch_mlu -I/torch/neuware_home/include -I/torch/venv3/pytorch/include -I/opt/py3.10/include/python3.10 -c
+bang_post_cflags = -O3 -Wall -fPIC -std=c++14 -pthread -O3 -I/opt/code_chap_5_student/exp_5_1_custom_pytorch_mlu_op/mlu_custom_ext/mlu/include -DTORCH_API_INCLUDE_EXTENSION_H '-DPYBIND11_COMPILER_TYPE="_gcc"' '-DPYBIND11_STDLIB="_libstdcpp"' '-DPYBIND11_BUILD_ABI="_cxxabi1011"' -DTORCH_EXTENSION_NAME=libmlu_custom_ext -D_GLIBCXX_USE_CXX11_ABI=0 --bang-arch=compute_30
+ldflags = 
+
+rule compile
+  command = $cxx $cflags -c $in -o $out $post_cflags
+  depfile = $out.d
+  deps = gcc
+
+rule bang_compile
+  command = $cncc -c $in -o $out $bang_post_cflags
+
+
+
+build /opt/code_chap_5_student/exp_5_1_custom_pytorch_mlu_op/build/temp.linux-x86_64-3.10/opt/code_chap_5_student/exp_5_1_custom_pytorch_mlu_op/mlu_custom_ext/mlu/src/bang_sigmoid.o: compile /opt/code_chap_5_student/exp_5_1_custom_pytorch_mlu_op/mlu_custom_ext/mlu/src/bang_sigmoid.cpp
+build /opt/code_chap_5_student/exp_5_1_custom_pytorch_mlu_op/build/temp.linux-x86_64-3.10/opt/code_chap_5_student/exp_5_1_custom_pytorch_mlu_op/mlu_custom_ext/mlu/src/bang_sigmoid_sample.o: bang_compile /opt/code_chap_5_student/exp_5_1_custom_pytorch_mlu_op/mlu_custom_ext/mlu/src/bang_sigmoid_sample.mlu
+
+
+
+
+

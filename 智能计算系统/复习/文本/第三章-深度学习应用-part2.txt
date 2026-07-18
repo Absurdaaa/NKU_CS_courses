@@ -1,0 +1,2063 @@
+# 第三章-深度学习应用-part2  (共104页)
+
+
+--- 第1页 ---
+智能计算系统
+第三章深度学习应用
+讲授：李涛、张久武
+实验：董前琨
+2026年春季
+
+--- 第2页 ---
+2
+2026年春季
+Driving Example
+输入
+输出
+建模
+实现
+运行
+深度学习基础
+深度学习应用
+上一章学习了神经网络的基本知
+识，多层感知机的正反向计算过
+程，以及基础优化方法。
+本章通过分析经典深度学习算法，学习将基
+础神经网络应用到实际场景，并逐步优化实
+现工业级应用的过程。
+
+--- 第3页 ---
+3
+2026年春季
+Driving Example
+像艺术家一样
+
+--- 第4页 ---
+4
+2026年春季
+Image style transfer
+Gatys et al. Image Style Transfer Using Convolutional Neural Networks. CVPR2016.
+
+--- 第5页 ---
+5
+2026年春季
+Image style transfer
+给定一张风格图像 a 和一张内容图像 p
+风格图像经过 CNN 生成的 feature maps 组成风格特征集A；内容图像 p 通过 CNN 生成的 
+feature maps 组成内容特征集P
+输入一张随机噪声图像 x，随机噪声图像 x 通过 CNN 生成的 feature maps 构成内容特征和风格
+特征集合 F和 G ，目标损失函数由 A, P, F ,G 计算得到
+损失函数是希望调整图像 x，使其最后看起来既保持内容图像 p的内容, 又有风格图像 a 的风格
+内容图像𝒑
+风格图像𝒂
+原始图像𝒙
+卷积神经网络
+卷积神经网络
+卷积神经网络
+内容特征表示𝑃
+风格特征表示𝐴
+损失函数
+内容特征表示𝐹
+风格特征表示𝐺
+
+--- 第6页 ---
+6
+2026年春季
+Image style transfer
+论文中使用的CNN网络为在imageNet上训练好的VGG19，去除了最后的全
+连接层和softmax。
+内容损失函数
+只取conv4单层特征来计算内容损失
+计算内容图片特征和噪声图片特征之间的欧式距离
+•
+𝑙: 用于计算内容特征的层数.
+•
+𝐹𝑖𝑗
+𝑙: 生成图片在第𝑙层第𝑖个特征图上位置𝑗处的特征值
+•
+𝑃𝑖𝑗
+𝑙: 内容图片在第𝑙层第𝑖个特征图上位置𝑗处的特征值
+•
+𝑝: 内容图片
+•
+𝑥: 生成图片
+Gatys et al. Image Style Transfer Using Convolutional Neural Networks. CVPR2016.
+
+--- 第7页 ---
+7
+2026年春季
+Image style transfer
+风格损失函数
+取 conv1~conv5共5层的特征来计算风格损失
+使用相关矩阵来表示图像的风格
+•
+𝐿: 用于计算风格特征的层数
+•
+𝑤𝑙: 第𝑙层的𝐸𝑙用于计算风格损失的权重，文中都取0.2
+•
+𝑎: 初始风格图片
+•
+𝑥: 生成图片
+•
+𝐴𝑖𝑗
+𝑙: 风格图片在𝑙层第𝑖个特征图和第𝑗个特征图的内积
+•
+𝐺𝑖𝑗
+𝑙: 生成图片在𝑙层第𝑖个特征图和第𝑗个特征图的内积
+•
+𝑀𝑙: 第𝑙层的输出特征图的大小
+•
+𝑁𝑙: 第𝑙层的输出特征图的数目
+•
+𝐹𝑖𝑘
+𝑙: 第𝑙层第𝑖个特征图上位置𝑘处的特征值
+(gram矩阵)
+
+--- 第8页 ---
+8
+2026年春季
+Image style transfer
+𝜕𝐿𝑡𝑜𝑡𝑎𝑙
+𝜕𝒙
+𝒙≔𝒙−𝜕𝐿𝑡𝑜𝑡𝑎𝑙
+𝜕𝒙
+
+--- 第9页 ---
+9
+2026年春季
+Image style transfer
+𝛼/𝛽 越大
+内容越具象
+
+--- 第10页 ---
+10
+2026年春季
+Real-Time Image style transfer
+对每一张待转换图片，都要进行前馈和反馈调优过程，无法做到实时转换；
+能够把图像生成网络提前训练好，
+使风格转换过程不需要进行反向训练？
+卷积神经网络
+卷积神经网络
+卷积神经网络
+内容特征表示P
+风格特征表示A
+损失函数
+内容特征表示F
+风格特征表示G
+内容图像𝒑
+风格图像𝒂
+原始图像𝒙
+
+--- 第11页 ---
+11
+2026年春季
+Real-Time Image style transfer
+内容图像
+风格图像
+输入图像
+特
+征
+提
+取
+网
+络
+（
+预
+训
+练
+）
+内容特征表示
+风格特征表示
+损失函数
+图像转换网络
+（待训练）
+风格特征表示
+内容特征表示
+训练过程
+实时转换过程
+输入图像
+图像转换网络
+（训练完成）
+
+--- 第12页 ---
+12
+2026年春季
+Real-Time Image style transfer
+
+J. Johnson J, A. Alahi, Fei-Fei Li, et al. Perceptual Losses for Real-Time Style Transfer and Super-Resolution. ECCV2016.
+项目实现：https://github.com/jcjohnson/fast-neural-style 
+Image Transform Net
+深度卷积网络，参考DCGAN的设计思想：用步长卷积和小数步长卷积替代pooling、每个卷积层后
+接BatchNorm和ReLU
+增加残差结构，使网络更易训练
+
+--- 第13页 ---
+13
+2026年春季
+Real-Time Image style transfer
+Gatys et al.
+Ours
+Content
+
+--- 第14页 ---
+14
+2026年春季
+提纲
+适合图像处理的卷积神经网络
+适合语音/文本处理的循环神经网络
+从深度学习到大模型
+神经网络量化
+Driving Example
+本章小结
+本章实验
+
+--- 第15页 ---
+15
+2026年春季
+人获得的输入是什么？
+图像信息
+序列信息
+任务：理解图像内容
+方法：卷积神经网络
+任务：理解语音/文字/视频
+方法：循环神经网络
+任务特点：按时序输入的数据之间不是相互独立的，前后数据之间有相关性，所以网络要有“存储”信息的能力。
+循环神经网络
+
+--- 第16页 ---
+16
+2026年春季
+循环神经网络
+主要应用场景：机器翻译、图片描述、视频标注、视觉问答等
+机器翻译
+图片描述
+
+--- 第17页 ---
+17
+2026年春季
+主要应用场景
+◼GitHub Project: Awesome Recurrent Neural Networks
+◼A curated list of resources dedicated to recurrent neural networks 
+(closely related to deep learning).
+◼https://github.com/kjw0612/awesome-rnn
+
+--- 第18页 ---
+18
+2026年春季
+语言模型
+序列数据：有先后顺序的一组数据，数据间有相互依赖关系
+将文本转化为一组由词元（token）组成的序列数据
+语言模型：估计序列发生的概率分布
+𝑃𝑥1, 𝑥2, ⋯, 𝑥𝑡= ෑ
+𝑖=1
+𝑡
+𝑃𝑥𝑖|𝑥1, 𝑥2, ⋯, 𝑥𝑖−1
+中国的首都是北京。 →  概率高
+美国的首都是北京。 →  概率低
+依赖关系
+
+--- 第19页 ---
+19
+2026年春季
+模型处理
+分词（tokenization）
+嵌入（embedding）
+网络模型
+https://www.bilibili.com/video/BV1dfmoY2ESA/?spm_id_from=333.1387.upload.video_card.click&vd_source=17457963
+d33d31888494e6740726da1a
+
+--- 第20页 ---
+20
+2026年春季
+tokenization
+token（词元）：文本的基本单位（经过分词后获得）
+tokenization（词元化/分词）：将清洗后的文本字符串划分为有意义的基本单元
+（词元）组成的序列
+词表：由所有词元组成的列表
+
+--- 第21页 ---
+21
+2026年春季
+tokenization
+token的不同粒度
+character-level：token为字符
+word-level：token为单词
+subword-level：token为subword
+“A hippopotamus ate my homework.”
+
+--- 第22页 ---
+22
+2026年春季
+tokenization
+Subword Tokenization: Byte Pair Encoding (BPE，字节对编码) 
+核心思路：不断将最频繁出现的一对词元合并成一个词元
+步骤
+预分词
+基础词表
+合并
+目前LLM中常用的分词方法
+GPT词表 40478：478 base characters + 40000次合并 
+Neural Machine Translation of Rare Words with Subword Units，Sennrich et al, ACL2016.
+("hug", 10), ("pug", 5), ("pun", 12), ("bun", 4), ("hugs", 5)
+("h" "u" "g", 10), ("p" "u" "g", 5), ("p" "u" "n", 12), ("b" "u" "n", 4), ("h" "u" "g" "s", 5)
+("h" "ug", 10), ("p" "ug", 5), ("p" "u" "n", 12), ("b" "u" "n", 4), ("h" "ug" "s", 5)
+("hug", 10), ("p" "ug", 5), ("p" "un", 12), ("b" "un", 4), ("hug" "s", 5)
+["b", "g", "h", "n", "p", "s", "u"]
+
+--- 第23页 ---
+23
+2026年春季
+embedding
+embedding（词表示/词嵌入）：
+将离散的token转化为固定维度的连续的数值向量表示，捕捉token的语义信息
+最简单粗暴的embedding：one-hot
+高效的embedding：word2vec
+Transformer中使用的embedding：学习embedding矩阵
+苹果
+[0.1, 0.3, 0.4]
+
+--- 第24页 ---
+24
+2026年春季
+embedding
+最简单粗暴的embedding：one-hot
+对于大小为N的词表，用长度为N的向量表示token，向量中token索引对应的值为1，其余值为0
+缺陷：无法准确表达不同词之间的相似度（任意两个token的余弦相似度为0）
+          维度较高，稀疏表示，计算不友好
+苹果
+[0, …, 0, 1, 0, …, 0]
+one-hot
+
+--- 第25页 ---
+25
+2026年春季
+embedding
+高效的embedding：word2vec
+较为准确的表达不同词之间的相似性和关系
+稠密表示，维度低，计算友好
+预训练：利用大量语料，无监督训练
+Efficient Estimation of Word Representations in Vector Space，Mikolov et al，ICLR workshop 2013.
+①Continuous Bag-of-Words（CBOW，连续词袋模型）
+②Skip-gram（跳元模型）
+Man is to Woman as King is to Queen
+King – Man = Queen – Woman
+Queen = King – Man + Woman
+
+--- 第26页 ---
+26
+2026年春季
+embedding
+Transformer中使用的embedding：学习embedding矩阵
+较为准确的表达不同词之间的相似性和关系。稠密表示，维度低，计算友好
+输入的token用one-hot编码表示，矩阵乘法可以简化为查表操作
+在训练过程中学习embedding矩阵权重
+token
+embedding matrix
+embedding
+
+--- 第27页 ---
+27
+2026年春季
+循环神经网络结构
+循环神经网络（RNN）通过使用带自反馈的神经元，能够处理任意长度的序列
+时刻𝑡的输入为𝒙(𝑡)，隐藏状态为𝒉(𝑡)。𝒉(𝑡)既和当前时刻输入𝒙(𝑡)相关，也和上
+一时刻隐藏状态𝒉(𝑡−1)相关
+𝒉(𝑡) = 𝑓𝑊𝒉𝑡−1 + 𝑈𝒙𝑡+ 𝒃， 𝑓是非线性激活函数，常用tanh或ReLU
+=
+unfold
+输入
+输出层
+隐层
+（记忆单元）
+𝒙
+ෝ𝒚
+𝒉
+𝑊
+𝑉
+𝑈
+ෝ𝒚(1)
+𝒉(1)
+𝒙(1)
+ෝ𝒚(2)
+𝒉(2)
+𝒙(2)
+ෝ𝒚(3)
+𝒉(3)
+𝒙(3)
+ෝ𝒚(4)
+𝒉(4)
+𝒙(4)
+ෝ𝒚(𝑡)
+𝒉(𝑡)
+𝒙(𝑡)
+…
+…
+
+--- 第28页 ---
+28
+2026年春季
+•
+时序sequence：RNN能建模序列数据，序列指的是前、后输入数据(𝒙(𝑡)
+，𝒙(𝑡+1))不独立，相互影响
+•
+循环recurrent：对每个输入的操作都是一样的，循环往复地重复这些相同操作，每时刻有相同参数
+W和U（参数共享）
+•
+记忆memory：隐藏层𝒉(𝑡)中捕捉了所有时刻t之前的信息，理论上𝒉(𝑡)记忆的内容可以无限长，然而
+实际上记忆还是有限的
+循环神经网络结构
+=
+unfold
+输入
+输出层
+隐层
+（记忆单元）
+𝒙
+ෝ𝒚
+𝒉
+𝑊
+𝑉
+𝑈
+ෝ𝒚(1)
+𝒉(1)
+𝒙(1)
+ෝ𝒚(2)
+𝒉(2)
+𝒙(2)
+ෝ𝒚(3)
+𝒉(3)
+𝒙(3)
+ෝ𝒚(4)
+𝒉(4)
+𝒙(4)
+ෝ𝒚(𝑡)
+𝒉(𝑡)
+𝒙(𝑡)
+…
+…
+
+--- 第29页 ---
+29
+2026年春季
+循环神经网络结构
+正向计算过程
+初始时刻：ℎ0 为输入的初始零向量
+一般时刻：
+•
+𝑓常用tanh或ReLU激活函数
+•
+𝑊、𝑈、𝑉、𝒃 在时间序列上共享参数
+𝒉(1) = 𝑓(𝑊𝒉(0) + 𝑈𝒙(1) + 𝒃)
+ෝ𝒚(1) = 𝑠𝑜𝑓𝑡𝑚𝑎𝑥(𝒐(1))
+𝒉(𝑡) = 𝑓(𝑊𝒉(𝑡−1) + 𝑈𝒙(𝑡) + 𝒃)
+ෝ𝒚(𝑡) = 𝑠𝑜𝑓𝑡𝑚𝑎𝑥(𝒐(𝑡))
+𝒐(1) = 𝑉𝒉(1) + 𝒄
+𝒐(𝑡) = 𝑉𝒉(𝑡) + 𝒄
+RNN cell
+X
++
+X
+f
+X
+softmax
+𝒉𝑡−1
+𝑊𝒉𝑡−1
+𝒃
+𝑉𝒉𝑡
+ෝ𝒚𝑡
+𝒙𝑡
+𝑈𝒙𝑡
+𝒉𝑡
+𝒄
+
+--- 第30页 ---
+30
+2026年春季
+循环神经网络
+示例
+https://karpathy.github.io/2015/05/21/rnn-effectiveness/
+
+--- 第31页 ---
+31
+2026年春季
+循环神经网络结构
+RNN的多种输入-输出结构
+序列作为输出
+image captioning
+序列作为输入
+sentiment analysis
+序列转化为序列
+machine translation
+video caption
+同步序列转化为序列
+video classification
+（标注每一帧）
+对序列的长度（绿色块块多少个）无要求，不用预先定义
+http://karpathy.github.io/2015/05/21/rnn-effectiveness/
+
+--- 第32页 ---
+32
+2026年春季
+循环神经网络结构
+反向传播BPTT (back-propagation through time)
+某个时刻的损失函数为：
+整个序列的损失函数为：
+𝐿(𝑡) = −𝒚𝑡lnෝ𝒚(𝑡)
+𝐿= ෍
+𝑡=1
+𝜏
+𝐿(𝑡) = −෍
+𝑡=1
+𝜏
+𝒚𝑡lnෝ𝒚𝑡
+损失函数对W的偏导为：
+𝜕𝐿
+𝜕𝑊= ෍
+𝑡=1
+𝜏𝜕𝐿(𝑡)
+𝜕𝑊= ෍
+𝑡=1
+𝜏
+෍
+𝑘=1
+𝑡𝜕𝐿(𝑡)
+𝜕ෝ𝒚𝑡
+𝜕ෝ𝒚𝑡
+𝜕𝒉(𝑡)
+𝜕𝒉(𝑡)
+𝜕𝒉(𝑘)
+𝜕𝒉(𝑘)
+𝜕𝑊
+𝒙
+𝒚
+𝒉
+𝑊
+𝑉
+𝑈
+𝒚(𝑡−2)
+𝒉(𝑡−2)
+𝒙(𝑡−2)
+𝒚(𝑡−1)
+𝒉(𝑡−1)
+𝒙(𝑡−1)
+𝒚(𝑡)
+𝒉(𝑡)
+𝒙(𝑡)
+𝐿(𝑡−2)
+𝐿(𝑡−1)
+𝐿(𝑡)
+𝜕𝐿(𝑡)
+𝜕ෝ𝒚𝑡
+𝜕ෝ𝒚𝑡
+𝜕𝒉(𝑡)
+𝜕𝐿(𝑡−1)
+𝜕ෝ𝒚𝑡−1
+𝜕ෝ𝒚𝑡−1
+𝜕𝒉(𝑡−1)
+
+--- 第33页 ---
+33
+2026年春季
+RNN的梯度消失与梯度爆炸
+梯度爆炸/梯度消失
+根据推导可知序列损失函数对U和W的梯度为：
+令 𝛾=
+当𝑡≫𝑘时，𝛾
+→∞，𝜕𝐿
+𝜕𝑈→∞，𝜕𝐿
+𝜕𝑊→∞梯度爆炸
+→0，𝜕𝐿
+𝜕𝑈→0 ，𝜕𝐿
+𝜕𝑊→0 梯度消失
+由于梯度爆炸或消失的存在，循环神经网络实际上只能学习到短期的依赖关系。
+
+--- 第34页 ---
+34
+2026年春季
+RNN的梯度消失与梯度爆炸
+循环神经网络的递归结构导致梯度消失/梯度爆炸现象更明显
+如何改进
+梯度爆炸问题
+梯度截断
+梯度消失问题
+模型上的改进，例如LSTM、GRU算法
+Pascanu, R.; Mikolov, T. & Bengio, Y. Dasgupta, S. & McAllester, D. (Eds.) On the difficulty 
+of training recurrent neural networks， ICML2013.
+
+--- 第35页 ---
+35
+2026年春季
+RNN的梯度消失与梯度爆炸
+由于梯度消失，循环神经网络无法处理长期依赖关系；
+比如，考虑一个语言模型，试图根据之前到单词预测下一个。
+如果要预测“The clouds are in the sky”中最后一个单词，不需要更多的上下文即可
+知道下一个单词会是“sky”。在这种情况下，相关信息与预测位置的间隔比较小，
+RNNs可以学会使用之前的信息。
+考虑试图预测“I grew up in Italy… I speak fluent Italian.”中最后一个，则需要用到
+包含“Italy”的上下文，从前面的信息推断后面的单词。相关信息与预测位置的间隔
+可能会很大。随着这种间隔的拉长，RNNs就会无法学习连接信息。
+如何记住长期依赖？
+
+--- 第36页 ---
+36
+2026年春季
+长短期记忆模型
+◼Hochreiter S, Schmidhuber J. Long short-term memory[J]. Neural computation, 1997, 9(8): 1735-1780.
+• 隐藏状态：作为神经网络的记忆，保存着网络先前观察到的数据信息。
+• 单元状态：类似信息传送带，它贯穿整个链条，只有一些小的线性相互作用；这很容易让信息
+以不变的方式向下流动；LSTM有能力向单元状态中移除或添加信息，这种管理结构称为门限。
+X
+𝒉𝑡−1
+𝒙𝑡
+𝜎
+stack
+𝜎
++
+𝑡𝑎𝑛ℎ
+X
+𝜎
+𝑡𝑎𝑛ℎ
+X
+𝒉𝑡
+𝒄𝑡
+𝒄𝑡−1
+X
+𝒙𝑡+1
+𝜎
+stack
+𝜎
++
+𝑡𝑎𝑛ℎ
+X
+𝜎
+𝑡𝑎𝑛ℎ
+X
+𝒉𝑡+1
+𝒄𝑡+1
+𝒲𝑓
+𝒲𝑖
+𝒲𝑜
+𝒲𝑓
+𝒲𝑖
+𝒲𝑜
+𝒇𝑡
+𝒊𝑡
+𝒈𝑡
+𝒇𝑡
+𝒊𝑡
+𝒈𝑡
+𝒲𝑐
+𝒲𝑐
+LSTM (Long Short-Term Memory networks)
+
+--- 第37页 ---
+37
+2026年春季
+长短期记忆模型
+◼Forget gate（遗忘门）：记住前一时刻单元状态的多少内容
+◼Input gate（输入门）：写入多少输入到当前单元
+◼Output gate（输出门）：输出多少当前单元状态
+𝒙𝑡
+X
+𝒉𝑡−1
+𝜎
+stack
+𝜎
++
+𝑡𝑎𝑛ℎ
+X
+𝜎
+𝑡𝑎𝑛ℎ
+X
+𝒉𝑡
+𝒄𝑡−1
+𝒲𝑓
+𝒲𝑖
+𝒲𝑜
+𝒇𝑡
+𝒊𝑡
+𝒈𝑡
+𝒲𝑐
+𝒄𝑡
+内部状态更新：
+LSTM cell输出：
+LSTM (Long Short-Term Memory networks)
+
+--- 第38页 ---
+38
+2026年春季
+长短期记忆模型
+◼窥视孔连接(peephole connection)：门值不仅取决
+于ℎ𝑡−1和𝑥𝑡，也取决于上一个单元状态的值𝐶𝑡−1
+◼耦合输入门和遗忘门：不单独决定遗忘和新增信息，
+在输入时一起做决定
+X
+𝒉𝑡−1
+𝒙𝑡
+𝜎
+stack
+𝜎
++
+𝑡𝑎𝑛ℎ
+X
+𝜎
+𝑡𝑎𝑛ℎ
+X
+𝒉𝑡
+𝒄𝑡
+𝒄𝑡−1
+𝒇𝑡
+𝒊𝑡
+𝒈𝑡
+X
+𝒉𝑡−1
+𝒙𝑡
+𝜎
+stack
++
+𝑡𝑎𝑛ℎ
+X
+𝜎
+𝑡𝑎𝑛ℎ
+X
+𝒉𝑡
+𝒄𝑡
+𝒄𝑡−1
+𝒇𝑡
+𝒊𝑡
+𝒈𝑡
+1-
+LSTM变体
+
+--- 第39页 ---
+39
+2026年春季
+长短期记忆模型
+◼Chung J, Gulcehre C, Cho K H, et al. Empirical evaluation of gated recurrent neural networks on sequence 
+modeling[J]. arXiv preprint arXiv:1412.3555, 2014.
+◼在LSTM的基础上，将单元状态和隐藏状态合并，将遗忘门和输入门合并为更新门，无输出
+门。更新门决定历史信息和当前信息如何相加；重置门决定保留多少历史信息。
+X
+stack
+𝜎
++
+𝜎
+𝑡𝑎𝑛ℎ
+X
+𝒉𝑡
+𝒉𝑡−1
+1-
+𝒙𝑡
+X
+stack
+𝒓𝑡
+𝒛𝑡
+෩𝒉𝑡
+重置门（reset gate）：
+更新门（update gate）：
+隐藏状态更新：
+GRU (Gated Recurrent Unit)
+
+--- 第40页 ---
+40
+2026年春季
+长短期记忆模型
+LSTM与GRU
+•
+哪个模型更好无定论。GRU参数量更少，训练速度快；在训练数据足够的情况下，
+LSTM的表征能力更强；可自行选择；
+
+--- 第41页 ---
+41
+2026年春季
+提纲
+适合图像处理的卷积神经网络
+适合语音/文本处理的循环神经网络
+从深度学习到大模型
+神经网络量化
+本章小结
+
+--- 第42页 ---
+42
+2026年春季
+机器翻译
+对话系统
+自动文摘
+Seq2Seq
+Seq2Seq：Sequence-to-Sequence，序列到序列模型
+一种特殊的语言模型，是自然语言处理领域的重要模型
+应用：将一种时序数据转换为另一种时序数据
+
+--- 第43页 ---
+43
+2026年春季
+由编码器（encoder)和解码器（decoder)两部分组成
+编码器根据输入数据生成语义编码
+解码器根据该语义编码输出处理结果
+Seq2Seq模型适用于输入序列和输出序列不等长的情况
+Seq2Seq
+h(0)
+智
+能
+计
+算
+系
+统
+编码器
+h(1)
+h(2)
+h(3)
+h(4)
+h(5)
+h(6)
+e
+k(1)
+k(2)
+k(3)
+x(1)
+x(2)
+x(3)
+x(4)
+x(6)
+ŷ(1)
+ŷ(2)
+ŷ(3)
+AI
+system
+computing
+解码器
+x(5)
+Embedding
+
+--- 第44页 ---
+44
+2026年春季
+传统Seq2Seq模型通常使用RNN或LSTM作为编码器和解码器
+基于RNN的Seq2Seq
+基于LSTM的Seq2Seq
+Seq2Seq
+[1] Kyunghyun Cho, Bart van Merrienboer, Caglar Gulcehre, Dzmitry Bahdanau, Fethi Bougares, Holger Schwenk, Yoshua Bengio, Learning Phrase Representation using RNN Encoder-Decoder
+for Statistical Machine Translation, EMNLP2014.
+[2] Ilya Sutskever, Oriol Vinyals, Quoc V. Le, Sequence to Sequence Learning with Neural Networks, NIPS2014.
+
+--- 第45页 ---
+45
+2026年春季
+（1）固定长度的语义编码
+难以存储较长的输入序列
+的所有信息，严重影响模
+型性能。
+（2）语义编码中每个元素
+权重相同，模型无法区分
+各个元素的重要程度。
+导致
+编码器把输入
+编码成固定长
+度的语义编码
+注意力机制
+解决
+Seq2Seq
+
+--- 第46页 ---
+46
+2026年春季
+注意力机制可以抽取少量重要信息，并聚焦于这些重要信息，忽略大多数不重
+要的信息
+注意力机制可以有效地提升基于RNN（LSTM）的Seq2Seq模型的信息处理能力
+视觉神经系统的注意力机制
+注意力机制
+D Bahdanau, K Cho, Y Bengio, Neural machine translation by jointly learning to align and translate, ICLR2015.
+
+--- 第47页 ---
+47
+2026年春季
+注意力机制通过对输入部分赋予不同的权重，有效抽取关键信息
+注意力机制
+注意力机制的优势
+聚焦关键信息，使模型做出更加准确的判断
+可以并行运算，比RNN等序列化计算的速度快
+𝒙(𝟏)
+𝒙(𝟐)
+𝒙(𝟑)
+𝒙(𝟒)
+𝒙(𝟓)
+𝒙(𝟔)
+𝒉(𝟏)
+𝒉(𝟐)
+𝒉(𝟑)
+𝒉(𝟒)
+𝒉(𝟓)
+𝒉(𝟔)
+智           能           计           算            系           统
+ෝ𝒚(𝟏)
+0.35
+0.35
+0.05
+0.05
+0.1
+0.1
+0.4
+0.4
+0.075
+0.075
+0.025
+0.025
+0.4
+0.4
+0.05
+0.05
+0.05
+0.05
+ෝ𝒚(𝟐)
+ෝ𝒚(𝟑)
+AI      Computing   Systems
+𝒉(𝟎)
+𝒔(𝟏)
+𝒔(𝟐)
+𝒔(𝟑)
+𝒔(𝟎)
+𝒄(𝟏)
+𝒄(𝟐)
+𝒄(𝟑)
+𝒔(𝟏)
+𝒔(𝟐)
+𝒔(𝟎)
+注意力机制
+2. 注意力汇聚：
+𝑐(𝑖) = ෍
+𝑗
+𝛼𝑖𝑗ℎ(𝑗)
+1. 计算相似度：
+𝛼𝑖𝑗= softmax(𝑎(𝑠𝑖−1 , ℎ𝑗))
+D Bahdanau, K Cho, Y Bengio, Neural machine translation by jointly learning to align and translate, ICLR2015.
+
+--- 第48页 ---
+48
+2026年春季
+缩放点积注意力
+Scaled dot-product attention
+输入：查询Q、键K、值V，每个值V都与一个键K配对
+原理：根据Q和K的相似度计算V的权重
+计算过程：
+计算Q和K的向量内积，得到输入中词与词之间的相关关系
+经过尺度变换（scale）、掩码（Mask）和Softmax等处理，得到权重矩阵
+将权重矩阵与V相乘（注意力汇聚）
+𝐴𝑡𝑡𝑒𝑛𝑡𝑖𝑜𝑛𝑄, 𝐾, 𝑉= softmax 𝑄𝐾𝑇
+𝑑𝑘
++ Mask 𝑉
+注意力机制：缩放点积注意力
+除以𝑑𝑘：q和k中数值都是均值为0，方差为1，qk内积的方差为𝑑𝑘。当𝑑𝑘较大时，qk内积值
+可能会很大，除以𝑑𝑘，使qk内积的方差变为1，以获得较大的softmax梯度，防止梯度消失
+Ashish Vaswani, Noam Shazeer, Niki Parmar, Jakob Uszkoreit, Llion Jones, Aidan N. Gomez, Łukasz Kaiser, and Illia Polosukhin. Attention is all you need. NeurIPS’2017.
+
+--- 第49页 ---
+49
+2026年春季
+自注意力（self-attention）
+查询Q、键K、值V都来源于同一组输入
+自注意力机制擅长捕捉序列数据内部的相关性
+𝐴𝑡𝑡𝑒𝑛𝑡𝑖𝑜𝑛𝑄, 𝐾, 𝑉= softmax 𝑄𝐾𝑇
+𝑑𝑘
++ Mask 𝑉
+𝑄= 𝐼𝑊𝑄
+𝐾= 𝐼𝑊𝐾
+𝑉= 𝐼𝑊𝑉
+自注意力
+先对输入自身进行计算
+再把输入端的自注意力权重
+加入到对输出的影响中
+传统注意力
+基于输入和输出计算
+注意力权重
+仅能捕捉输入和输出
+之间的相关关系
+不仅可以捕捉输入和输出的
+相关关系，还可以捕捉输入
+内部的相关关系
+VS
+注意力机制：自注意力
+翻译：
+苹果是我最喜欢的水果     apple
+苹果是我最喜欢的手机     Iphone
+
+--- 第50页 ---
+50
+2026年春季
+Transformer：自注意力
+自注意力计算
+Emb
+Seq
+AI 
+Computing
+Systems
+PAD
+Linear
+Seq
+AI 
+Computing
+Systems
+PAD
+Linear
+Linear
+Emb
+Seq
+Seq
+Seq
+Emb
+Seq
+Embedding Size
+Softmax
+Seq
+AI 
+Computing
+Systems
+PAD
+Seq
+AI 
+Computing
+Systems
+PAD
+Seq
+AI 
+Computing
+Systems
+PAD
+Q
+KT
+*
+Mask
+Seq
++
+*
+Emb
+Attention Score
+Q
+K
+V
+Key
+Query
+Value
+V
+𝑄= 𝐼𝑊𝑄
+𝐾= 𝐼𝑊𝐾
+𝑉= 𝐼𝑊𝑉
+
+--- 第51页 ---
+51
+2026年春季
+原理：基于相同的注意力机制学习不同的知识，再进行组合
+计算过程
+对QKV进行h组不同的线性变换
+将h组不同线性变换后的QKV并行计算注意力
+将h组注意力计算结果拼接在一起，并进行线性映射
+𝑀𝑢𝑙𝑡𝑖𝐻𝑒𝑎𝑑𝑄, 𝐾, 𝑉= 𝐶𝑜𝑛𝑐𝑎𝑡ℎ𝑒𝑎𝑑1, … , ℎ𝑒𝑎𝑑ℎ𝑊𝑂
+where, ℎ𝑒𝑎𝑑𝑖= 𝐴𝑡𝑡𝑒𝑛𝑡𝑖𝑜𝑛(𝑄𝑊𝑖
+𝑄, 𝐾𝑊𝑖
+𝐾, 𝑉𝑊𝑖
+𝑉)
+注意力机制：多头注意力
+𝑄𝑊𝑖
+𝑄, 𝐾𝑊𝑖
+𝐾, 𝑉𝑊𝑖
+𝑉
+𝐴𝑡𝑡𝑒𝑛𝑡𝑖𝑜𝑛(𝑄𝑊𝑖
+𝑄, 𝐾𝑊𝑖
+𝐾, 𝑉𝑊𝑖
+𝑉)
+𝐶𝑜𝑛𝑐𝑎𝑡ℎ𝑒𝑎𝑑1, … , ℎ𝑒𝑎𝑑ℎ
+乘𝑊𝑂
+Ashish Vaswani, Noam Shazeer, Niki Parmar, Jakob Uszkoreit, Llion Jones, Aidan N. Gomez, Łukasz Kaiser, and Illia Polosukhin. Attention is all you need. NeurIPS’2017.
+
+--- 第52页 ---
+52
+2026年春季
+复杂度分析
+Ashish Vaswani, Noam Shazeer, Niki Parmar, Jakob Uszkoreit, Llion Jones, Aidan N. Gomez, Łukasz Kaiser, and Illia Polosukhin. Attention is all you need. NeurIPS’2017.
+
+--- 第53页 ---
+53
+2026年春季
+Transformer结构特点：
+遵循seq2seq结构，编码器（encoder）+ 解码器（decoder）
+去掉了循环神经网络结构（效率低，无法并行训练）
+大量重复使用attention
+Transformer
+编码器
+解码器
+Q
+K
+V
+Q
+K
+V
+Q
+K
+V
+编码器
+解码器
+Ashish Vaswani, Noam Shazeer, Niki Parmar, Jakob Uszkoreit, Llion Jones, Aidan N. Gomez, Łukasz Kaiser, and Illia Polosukhin. Attention is all you need. NeurIPS’2017.
+
+--- 第54页 ---
+54
+2026年春季
+Transformer
+词元嵌入（Token embedding）
+token
+embedding matrix
+embedding
+编码器
+
+--- 第55页 ---
+55
+2026年春季
+Transformer
+位置编码（Position Encoding）
+使用了波长从2到10000*2 的不同正弦和余弦函数计算，
+函数的输入为当前嵌入结果在序列中的位置pos以及嵌入
+结果中每个元素所在的维度2i或2i+1
+Ashish Vaswani, Noam Shazeer, Niki Parmar, Jakob Uszkoreit, Llion Jones, Aidan N. Gomez, Łukasz Kaiser, and Illia Polosukhin. Attention is all you need. NeurIPS’2017.
+编码器
+
+--- 第56页 ---
+56
+2026年春季
+Ashish Vaswani, Noam Shazeer, Niki Parmar, Jakob Uszkoreit, Llion Jones, Aidan N. Gomez, Łukasz Kaiser, and Illia Polosukhin. Attention is all you need. NeurIPS’2017.
+Transformer
+编码器：N个相同的层组成（N=6）
+每层由两个子层(Sub-layer)组成
+多头注意力机制(Multi-Head Self-Attention)
+前馈网络(Feed-forward network)
+每个子层还增加了残差连接和层归一化
+编码器
+Q
+K
+V
+Q
+K
+V
+Q
+K
+V
+
+--- 第57页 ---
+57
+2026年春季
+Transformer
+编码器layer
+多头自注意力：QKV是同源的，无mask
+Ashish Vaswani, Noam Shazeer, Niki Parmar, Jakob Uszkoreit, Llion Jones, Aidan N. Gomez, Łukasz Kaiser, and Illia Polosukhin. Attention is all you need. NeurIPS’2017.
+编码器
+𝐴𝑡𝑡𝑒𝑛𝑡𝑖𝑜𝑛𝑄, 𝐾, 𝑉= softmax 𝑄𝐾𝑇
+𝑑𝑘
+𝑉
+𝑀𝑢𝑙𝑡𝑖𝐻𝑒𝑎𝑑𝑄, 𝐾, 𝑉= 𝐶𝑜𝑛𝑐𝑎𝑡ℎ𝑒𝑎𝑑1, … , ℎ𝑒𝑎𝑑ℎ𝑊𝑂
+where, ℎ𝑒𝑎𝑑𝑖= 𝐴𝑡𝑡𝑒𝑛𝑡𝑖𝑜𝑛(𝑄𝑊𝑖
+𝑄, 𝐾𝑊𝑖
+𝐾, 𝑉𝑊𝑖
+𝑉)
+𝑄= 𝐼𝑊𝑄
+𝐾= 𝐼𝑊𝐾
+𝑉= 𝐼𝑊𝑉
+Q
+K
+V
+Q
+K
+V
+Q
+K
+V
+
+--- 第58页 ---
+58
+2026年春季
+Transformer
+层归一化（Layer Norm）
+原理：将中间层的输入标准化为均值为0，方差为1的高斯分布
+沿embedding方向，对每个嵌入向量分别进行层归一化
+作用
+缓解梯度消失问题，加快收敛速度
+可以达到类似正则化的效果，防止过拟合
+降低调参难度，可以使用较大的学习率
+Ba, Jimmy Lei, Jamie Ryan Kiros, and Geoffrey E. Hinton. “Layer Normalization.” arXiv:1607.06450, 2016
+多头注意力
+层归一化
+前馈
+神经网络
+层归一化
++
++
+在每个token 
+vector上计算
+Emb
+Seq
+
+--- 第59页 ---
+59
+2026年春季
+Transformer
+编码器layer
+FFN前馈子层
+先升维再降维：512→2048→512
+使用ReLU，引入非线性变换，增加特征表达能力
+序列中每个位置的计算都使用相同的线性变换权重
+Ashish Vaswani, Noam Shazeer, Niki Parmar, Jakob Uszkoreit, Llion Jones, Aidan N. Gomez, Łukasz Kaiser, and Illia Polosukhin. Attention is all you need. NeurIPS’2017.
+编码器
+共享权重
+
+--- 第60页 ---
+60
+2026年春季
+Transformer
+Ashish Vaswani, Noam Shazeer, Niki Parmar, Jakob Uszkoreit, Llion Jones, Aidan N. Gomez, Łukasz Kaiser, and Illia Polosukhin. Attention is all you need. NeurIPS’2017.
+解码器：N个相同的层组成（N=6）
+每层由三个子层(Sub-layer)组成
+带mask的多头自注意力机制(Multi-Head Self-Attention)
+交叉注意力子层（cross-attention）
+前馈网络(Feed-forward network)
+每个子层增加了残差连接和层归一化
+解码器
+
+--- 第61页 ---
+61
+2026年春季
+Ashish Vaswani, Noam Shazeer, Niki Parmar, Jakob Uszkoreit, Llion Jones, Aidan N. Gomez, Łukasz Kaiser, and Illia Polosukhin. Attention is all you need. NeurIPS’2017.
+Transformer
+解码器的输入
+编码器的输出，以及上一个位置的解码器输出
+训练时，有编码器输入对应的label（整体向右偏移一位），可以并行处理
+推理时，没有label，需要逐个位置进行解码，无法并行
+解码器
+
+--- 第62页 ---
+62
+2026年春季
+Transformer
+Ashish Vaswani, Noam Shazeer, Niki Parmar, Jakob Uszkoreit, Llion Jones, Aidan N. Gomez, Łukasz Kaiser, and Illia Polosukhin. Attention is all you need. NeurIPS’2017.
+解码器
+解码器layer：
+带mask的自注意力子层
+捕捉输出序列内部的相关关系
+mask去掉当前位置后面的token的影响，满足自回归性质
+Q
+K
+V
+Q
+K
+V
+Q
+K
+V
+𝐴𝑡𝑡𝑒𝑛𝑡𝑖𝑜𝑛𝑄, 𝐾, 𝑉= softmax 𝑄𝐾𝑇
+𝑑𝑘
++ 𝑀
+𝑉
+Mask矩阵的右
+上角值设为-inf
+
+--- 第63页 ---
+63
+2026年春季
+Transformer
+Ashish Vaswani, Noam Shazeer, Niki Parmar, Jakob Uszkoreit, Llion Jones, Aidan N. Gomez, Łukasz Kaiser, and Illia Polosukhin. Attention is all you need. NeurIPS’2017.
+解码器
+解码器layer：
+交叉注意力子层
+捕捉输入序列和输出序列之间的相关关系
+残差连接来源于Q（解码器的自注意力子层的输出）
+Q
+K
+V
+Q
+K
+V
+Q
+K
+V
+N
+d
+dff
+h
+dk=dv
+参数量
+base
+6
+512
+2048
+8
+64
+65M
+large
+6
+1024
+4096
+16
+64
+213M
+
+--- 第64页 ---
+64
+2026年春季
+Transformer
+Ashish Vaswani, Noam Shazeer, Niki Parmar, Jakob Uszkoreit, Llion Jones, Aidan N. Gomez, Łukasz Kaiser, and Illia Polosukhin. Attention is all you need. NeurIPS’2017.
+Transformer的输出
+先经过一个线性变换（全连接层），将输出映射为词汇表空间
+再经过softmax，输出下一个词元的概率分布
+
+--- 第65页 ---
+65
+2026年春季
+Transformer
+推理
+Encoder Layer 1
+Decoder Layer 1 
+Linear
+Softmax
+Word Probabilities
+Word IDs
+Transformer
+Step1
+Step2
+Step3
+Step4
+Step5
+Encoder Layer 6
+Decoder Layer 6 
+…
+…
+Enc-6输出
+Step6
+Word IDs
+智能计算系统
+<START>
+<START> AI
+AI
+输入嵌入
+位置编码
+输出嵌入
+位置编码
+
+--- 第66页 ---
+66
+2026年春季
+Transformer
+训练
+输入嵌入
+位置编码
+Encoder Layer 1
+Decoder Layer 1 
+输出嵌入
+位置编码
+Linear
+Softmax
+Word Probabilities
+Word IDs
+Transformer
+Step1
+Step2
+Step3
+Step4
+Step5
+Encoder Layer 6
+Decoder Layer 6 
+…
+…
+Enc-6输出
+Step6
+Word IDs
+智能计算系统
+AI Computing Systems
+目标真值
+AI  Computing Systems
+计算交叉熵
+损失
+AI Computing Systems
+
+--- 第67页 ---
+67
+2026年春季
+Transformer
+位置编码及嵌入（Embedding）
+一个batch的输入序列
+（5个samples × 4序列长度）
+转换为Word IDs
+（5个samples × 4序列长度）
+Embeddings
+Embed size=3
+（5 × 4 × 3 ）
+Position Encoding
+Encode size=3
+（5 × 4 × 3 ）
+Encoder Input
+(Samples数 × 序列长度 × Embed Size )
+输入嵌入
+位置编码
+
+--- 第68页 ---
+68
+2026年春季
+Transformer
+编码器（Encoder）
+解码器（Decoder）
+Emb
+Seq
+Encoder layer i-1 
+的输出
+Multi-Head
+Self-Attention
+Layer Norm
+Feed Forward
+Layer Norm
+Emb
+Seq
+Encoder layer i
+的输出
+Encoder 
+layer i
+Multi-Head
+Self-Attention
+Layer Norm
+Cross-Attention
+Layer Norm
+Layer Norm
+Feed Forward
+Emb
+Seq
+上一轮回归
+的输出嵌入
+Decoder 
+layer 1
+Emb
+Seq
+Decoder layer 1 
+的输出
+Emb
+Seq
+Encoder layer 6 
+的输出
+
+--- 第69页 ---
+69
+2026年春季
+Transformer
+编码器中注意力
+解码器中注意力
+Emb
+Seq
+Encoder layer 5
+的输出
+Multi-Head
+Self-Attention
+Encoder layer 6
+Emb
+Seq
+Emb
+Seq
+Encoder layer 6 的输出
+Encoder layer 5
+Key
+Query
+Value
+Cross-Attention
+Key
+Query
+Value
+Multi-Head
+Self-Attention
+Key
+Query
+Value
+Decoder layer 2
+Decoder layer 1
+Decoder layer 1 
+的输出
+归一化后的输出
+
+--- 第70页 ---
+70
+2026年春季
+编码器-解码器（Encoder-Decoder）
+
+常用于序列到序列Seq2Seq任务，如机器翻译、生成对话等
+
+代表：原始Transformer，Google T5，GLM等
+仅编码器（Encoder-Only）
+
+适用于不需要生成序列，只需要对输入进行编码和处理的单向任
+务场景，如文本分类、情感分析等
+
+代表：Google BERT
+仅解码器（Decoder-Only）
+
+通常用于序列生成任务，从输入的编码中生成相应的序列，关注
+于从已有的信息（开头）扩展出新的内容
+
+代表：OpenAI GPT系列，Meta LLaMA系列，DeepSeek系列
+自然语言处理大模型
+
+--- 第71页 ---
+71
+2026年春季
+BERT（Bidirectional Encoder Representation from Transformer)
+采用Transformer编码器部分，进行双向的Block连接
+编码器结构：每个编码器layer中包含一个多头自注意力（无mask）和FFN
+双向：每个位置可以看到序列前后的位置（无mask）
+BERT（Encoder-only）
+层数
+隐状态维度
+FFN维度
+head
+dk=dv
+参数量
+base
+12
+768
+3072
+12
+64
+110M
+large
+24
+1024
+4096
+16
+64
+340M
+Devlin, Jacob and Chang, Ming-Wei and Lee, Kenton and Toutanova, Kristina. BERT: Pre-training of Deep Bidirectional Transformers for Language Understanding. arXiv.1810.04805. 2018
+
+--- 第72页 ---
+72
+2026年春季
+预训练：利用互联网上大量无标签的语料数据进行自监督训练，包括完形填空，以及判断
+两句话之间是否有上下文关系
+微调：利用下游任务的有标签数据进行微调，可使模型快速应用于文本分类、序列标注、
+信息检索等多种下游任务
+BERT（Encoder-only）
+Devlin, Jacob and Chang, Ming-Wei and Lee, Kenton and Toutanova, Kristina. BERT: Pre-training of Deep Bidirectional Transformers for Language Understanding. arXiv.1810.04805. 2018
+BERT
+BERT
+E[CLS]
+E1
+ E[SEP]
+...
+EN
+E1’
+...
+EM’
+C
+T1
+T[SEP]
+...
+TN
+T1’
+...
+TM’
+[CLS]
+Tok 1
+ [SEP]
+...
+Tok N
+Tok 1
+...
+TokM
+Question
+Paragraph
+Start/End Span
+BERT
+E[CLS]
+E1
+ E[SEP]
+...
+EN
+E1’
+...
+EM’
+C
+T1
+T[SEP]
+...
+TN
+T1’
+...
+TM’
+[CLS]
+Tok 1
+ [SEP]
+...
+Tok N
+Tok 1
+...
+TokM
+Masked Sentence A
+Masked Sentence B
+Pre-training
+Fine-Tuning
+NSP
+Mask LM
+Mask LM
+Unlabeled Sentence A and B Pair 
+SQuAD
+Question Answer Pair
+NER
+MNLI
+输入：预训练和微调不同
+输出：预训练和微调不同，
+根据下游任务调整
+
+--- 第73页 ---
+73
+2026年春季
+输入嵌入
+BERT（Encoder-only）
+Devlin, Jacob and Chang, Ming-Wei and Lee, Kenton and Toutanova, Kristina. BERT: Pre-training of Deep Bidirectional Transformers for Language Understanding. arXiv.1810.04805. 2018
+
+--- 第74页 ---
+74
+2026年春季
+BERT和GPT的模型参数量差不多，但是BERT预训练的数据集大约是GPT的4倍，
+BERT在NLP的很多下游任务上（主要是理解任务）都超越了GPT
+BERT（Encoder-only）
+BERT-base
+GPT
+参数量
+110M
+117M
+数据集大小
+BooksCorpus（800M words）+
+English Wikipedia（2500M words）
+BooksCorpus
+（800M words）
+Devlin, Jacob and Chang, Ming-Wei and Lee, Kenton and Toutanova, Kristina. BERT: Pre-training of Deep Bidirectional Transformers for Language Understanding. arXiv.1810.04805. 2018
+
+--- 第75页 ---
+75
+2026年春季
+Encoder-only 架构的优势与不足
+优势
+可以在大量的无标签文本语料库上进行无监督预训练
+挖掘了预训练阶段的潜力，通过掩码语言模型（MLM）任务获取到上下文相关的双向特征表示
+可以通过微调，将预训练好的模型迅速迁移到各种下游任务
+适合各种自然语言理解（NLU）任务
+不足
+由于只使用了Transformer的编码器部分，没有进行自回归预训练，且架构上缺少解码器结构，因此
+不适合直接处理自然语言生成（NLG）任务，如生成对话、文章摘要、机器翻译
+只适合处理句子和段落级别的任务，不适合处理文档级别的任务
+
+--- 第76页 ---
+76
+2026年春季
+Decoder-only 架构
+Decoder-only 架构
+GPT (Generative Pre-trained Transformer)系列：1-2-3-4-o1-o3
+LLAMA (Large Language Model Meta Al)
+DeepSeek
+为什么 Decoder-only 架构成为主流
+
+--- 第77页 ---
+77
+2026年春季
+GPT（Decoder-only）
+Radford A, Narasimhan K, Salimans T, Sutskever I. Improving language understanding by generative pre-training. 2018.
+GPT（Generative Pre-trained Transformer）提出了NLP领域的
+预训练-微调统一框架
+采用Transformer解码器结构：带mask的自注意力+FFN
+12层，12注意力头，768 维，dff=3072, 
+Context size=512
+预训练：在大规模无标记的语料库上进行预训练，即给定前N-1
+个词，预测第N个词（无监督学习）
+微调：对每个特定下游任务利用有标记数据进行微调
+可以广泛应用于各种自然语言处理任务，如文本自动补全、生成
+对话、文章摘要等
+
+--- 第78页 ---
+78
+2026年春季
+GPT的预训练
+预训练（无监督）
+训练方式：自回归，给定前N-1个词，预测第N个词，适用于大量未标注数据的预训练
+（无监督学习，第N个词成为学习的标签）
+目标函数：语言模型
+用i-k到i-1序列预测第i个词
+使用mask保证仅利用i-k到i-1计算
+P是GPT
+经过词嵌入矩阵We，加上位置编码Wp
+经过n个解码层
+经过逆词嵌入矩阵和softmax获得输出词的概率
+Radford A, Narasimhan K, Salimans T, Sutskever I. Improving language understanding by generative pre-training. 2018.
+
+--- 第79页 ---
+79
+2026年春季
+GPT的微调
+微调（有监督）
+训练方式：有监督学习，使用下游任务的数据集和标签
+参数更新：新添加的层从头训练，其他参数微调
+目标函数：下游任务的目标函数+预训练的语言模型
+Wy是微调时添加的线性层，需要从头训练
+其中，x1到xm是下游任务序列，标签是y
+下游任务的目标函数
+最终的目标函数：预训练与微调的目标函数加权求和
+Radford A, Narasimhan K, Salimans T, Sutskever I. Improving language understanding by generative pre-training. 2018.
+
+--- 第80页 ---
+80
+2026年春季
+GPT-2
+核心思想：无需特定任务的监督微调，在预训练阶段使用语言模型建模多种下游
+任务，实现通用的NLP模型
+训练样本
+机器翻译：（translate to French，English text，French text）
+阅读理解：（answer the question，document，question，answer）
+原始语言模型
+语言模型建模下游任务
+任务输出   任务输入   任务描述
+Radford, Alec, et al. "Language models are unsupervised multitask learners." OpenAI blog 1.8 (2019): 9.
+
+--- 第81页 ---
+81
+2026年春季
+GPT-2
+结构调整：采用Pre-LN
+Post-LN：layer norm放在子层后面，例如Transformer和GPT
+pre-LN ：layer norm放在子层前面，使各子层的梯度范数保持不变，有利于稳定优化
+pre-LN
+post-LN
+GPT-2
+GPT
+最后有一个额外
+的layer norm
+
+--- 第82页 ---
+82
+2026年春季
+GPT-2
+更大的参数量，更多的层，更多的训练数据
+通过海量数据和大量参数训练出来的词向量模型，可以迁移到其它任务中而不需要
+额外的训练
+数据集：
+GPT：5GB
+GPT-2：40GB
+对标GPT
+对标BERT-large
+规模提高一个量级
+
+--- 第83页 ---
+83
+2026年春季
+GPT-3
+GPT-3沿用了GPT-2的结构，在规模上做了很大提升
+更大的参数量，更多的层和更多的训练数据
+Brown, Tom B. "Language models are few-shot learners." arXiv preprint arXiv:2005.14165 (2020).
+GPT
+GPT-2
+GPT-3
+贡献
+提出预训练-微调的统一
+框架
+无需微调，预训练用语言模
+型建模多种任务
+无需微调，利用少量示例提升
+泛化能力
+框架
+预训练-微调
+仅预训练，无需微调
+仅预训练，无需微调
+结构
+12层，12 heads，d=768
+48层，d=1600
+96层，96 heads，d=12288
+参数量
+117M
+1.5B
+175B
+数据量
+5GB
+40GB
+45TB
+发布时间
+2018年6月
+2019年2月
+2020年5月
+
+--- 第84页 ---
+84
+2026年春季
+GPT-3
+GPT-3沿用GPT-2的结构，在规模上做了很大提升
+更大的参数量，更多的层和更多的训练数据
+Brown, Tom B. "Language models are few-shot learners." arXiv preprint arXiv:2005.14165 (2020).
+尺度定律(Scaling law)：当增加模型计算
+量、训练数据量、模型参数规模，大模型
+的Loss都会单调降低，模型效果越来越好
+涌现能力(Emergent ability)：当模型规模大到一定程度
+(60B)，模型能力出现飞跃
+
+--- 第85页 ---
+85
+2026年春季
+GPT-3
+无需微调，使用任务提示(prompt)和少量示例处理下游任务（few-shot）
+zero-shot：只有任务描述和提示，没有示例
+one-shot：有任务描述提示，和一个示例
+few-shot：有任务描述提示，和若干个示例
+传统微调：样本用于参数更新
+
+--- 第86页 ---
+86
+2026年春季
+InstructGPT
+InstructGPT使用来自人类反馈
+的强化学习（RLHF）对预训练
+大模型进行微调
+Step1：人类标注产生数据，监督方
+式微调GPT-3
+Step2：利用人类标注数据训练一个
+奖励模型
+Step3：利用奖励模型提供reward，
+利用PPO微调step1的GPT-3
+Long Ouyang, Jeff Wu, Xu Jiang, et al. Training language models to follow instructions with human feedback. arXiv:2203.02155. 2022.
+
+--- 第87页 ---
+87
+2026年春季
+GPT系列后续发展
+2022.11，ChatGPT：GPT3.5+RLHF，高质量数据
+2023.3，GPT-4：AGI的火花，比ChatGPT效果更好
+2024.5，GPT-4o：全能，多模态的输入输出（文本、音频、图像）
+2024.9，OpenAI o1：通用推理能力，应用于数学、科学、代码领域
+2024.12，OpenAI o3：通用推理能力，应用于数学、科学、代码等领域
+
+--- 第88页 ---
+88
+2026年春季
+Llama系列
+Meta AI 发布的基础语言模型，开源
+LLaMa
+Llama 2
+Llama 3
+参数量
+7B、13B、30B和65B
+7B、13B、34B和70B
+8B、70B、400B
+数据量
+1.4T
+2T
+15T
+上下文长度
+2048
+4096
+8192
+词表大小
+32k
+32k
+128k
+发布时间
+2023年2月
+2023年7月
+2024年4月
+
+--- 第89页 ---
+89
+2026年春季
+LLama
+Llama模型与GPT类似，也采用decoder-only架构
+在原始Transformer解码器的基础上，Llama进行了如下改动：
+采用前置的 RMSNorm 作为层归一化方法，增强训练稳定性
+采用 SwiGLU激活函数，提高模型性能
+采用旋转位置编码RoPE，建模长序列数据
+部分模型采用分组查询注意力机制（Grouped-Query Attention, GQA），
+平衡效率和性能
+Touvron, Hugo, et al. "Llama: Open and efficient foundation language models." arXiv preprint arXiv:2302.13971 (2023).
+Touvron, Hugo, et al. "Llama 2: Open foundation and fine-tuned chat models." arXiv preprint arXiv:2307.09288 (2023).
+Dubey, Abhimanyu, et al. "The llama 3 herd of models." arXiv preprint arXiv:2407.21783 (2024).
+
+--- 第90页 ---
+90
+2026年春季
+RoPE
+RoPE（Rotary Position Encoding，旋转位置编码）
+使用旋转矩阵编码绝对位置
+在自注意力操作中加入相对位置信息，在每个transformer层中注入位置信息
+优势：支持长序列，并且随着相对距离增加，词元间依赖下降
+Su, Jianlin, et al. "Roformer: Enhanced transformer with rotary position embedding." Neurocomputing 568 (2024).
+为了能够表示相对位置，qk的内积表示
+为qk和其相对位置i-j的函数
+
+--- 第91页 ---
+91
+2026年春季
+RoPE
+RoPE（rotary position encoding，旋转位置编码）
+Su, Jianlin, et al. "Roformer: Enhanced transformer with rotary position embedding." Neurocomputing 568 (2024).
+任意偶数维的RoPE可以表示为二维形式的拼接
+
+--- 第92页 ---
+92
+2026年春季
+大模型中的激活函数
+Swish激活函数
+更加平滑，可以更好的优化和更快的收敛，减少过拟合提高泛化性
+Switch(𝑥)= 𝑥 · sigmoid(𝑥)
+SwiGLU激活函数（Llama3，DeepSeek等）
+SwiGLU 𝑥, 𝑊, 𝑉, 𝑏, 𝑐= SiLU 𝑥𝑊+ 𝑏· (𝑥𝑉+ 𝑐)
+
+--- 第93页 ---
+93
+2026年春季
+大模型中的layer norm变体
+RMSNorm：均方根norm
+layer norm中包含平移和缩放不变性，RMSnorm去除平移，只保留缩放
+效果相当，计算更加简单，更加稳定的
+Layer Norm：平移和缩放
+RMSNorm：去除平移，只有缩放
+
+--- 第94页 ---
+94
+2026年春季
+大模型中的attention变体
+GQA：通过共享KV，减少计算量，提升计算速度
+MHA：每个head有自己
+单独的KV
+GQA：将Q分成N个组，
+每个组共享KV
+MQA：所有Q共享KV
+GQA和MHA的效果相当，
+取得了performance和速
+度的trade-off
+
+--- 第95页 ---
+95
+2026年春季
+Decoder-only
+推理
+Prefill阶段：输入提示词，生成第一个词元。
+此过程分析全部的提示词，用时较长，同时将
+注意力模块中的K、V缓存下来，方便后续计算
+调用（KV-Cache）
+Decode阶段：自回归地进行生成的过程，直
+到生成终止符
+Decoder
+Linear
+Softmax
+Word Probabilities
+Word IDs
+输入和输出嵌入
+位置编码
+Step1
+Step2
+Step3
+智能计算系统：
+智能计算系统：AI
+智能计算系统：AI
+Step4
+
+--- 第96页 ---
+96
+2026年春季
+KV cache
+通过缓存之前的K和V，只需要计算新token的attention
+https://medium.com/@joaolages/kv-caching-explained-276520203249
+
+--- 第97页 ---
+97
+2026年春季
+一脉相承的深度求索之路
+——DeepSeek系列工作发展历程
+DeepSeek
+LLM
+LLaMA
+DeepSeek
+MoE
+MoE
+基座架构
+扩展法则
+细粒度专家分割
+共享专家隔离
+DeepSeek
+Math
+组相对策略优化
+(GRPO)
+DeepSeek
+V2
+多头潜在注意力
+DeepSeek
+V3
+多Token预测
+混合精度训练
+DeepSeek
+R1
+无监督强化学习
+推理能力蒸馏
+Decoder-only
+Transformer
+混合专家模型
+
+--- 第98页 ---
+98
+2026年春季
+DeepSeek
+DeepSeek-V3
+671B参数，每token激活37B
+61层Transformer layers，从第4层开
+始FFN替换为MoE
+hidden dimension=7168
+注意力头128，单头维度128
+KV压缩维度512，Q压缩维度1536，
+旋转位置编码维度64
+SwiGLU激活函数
+MoE中每个expert的隐藏维度为2048
+
+--- 第99页 ---
+99
+2026年春季
+DeepSeek
+MLA
+
+--- 第100页 ---
+100
+2026年春季
+Attention变体
+通过共享KV，减少计算量或存储开销，提升处理速度
+
+--- 第101页 ---
+101
+2026年春季
+DeepSeek
+MLA
+性能优于MHA
+KV cache远低于MHA，小MoE模型
+约14%，大MoE模型约4%
+DeepSeek-V2: A Strong, Economical, and Efficient Mixture-of-Experts Language Model, arXiv:2405.04434v5, 2024.
+
+--- 第102页 ---
+102
+2026年春季
+DeepSeek
+DeepSeek-V3中的MoE
+每个MoE包含1个shared expert，256个 
+routed experts
+每token激活8个routed experts，最多发
+送到4个节点
+
+--- 第103页 ---
+103
+2026年春季
+Decoder-only 架构成为主流的原因探讨
+一些原因分析
+decoder-only的架构相比encoder-decoder在in-context learning上会更有优势，因
+为prompt可以更加直接地作用于decoder每一层的参数，无需经过编码器的转换，
+微调的信号更强，使得decoder-only能够更准确地捕捉和利用输入序列的信息
+注意力的秩：双向attention的注意力矩阵容易退化为低秩状态，而causal attention
+的注意力矩阵是下三角矩阵，必然是满秩的，建模能力更强
+causal attention （就是decoder-only的单向attention）具有隐式的位置编码功能
+
+--- 第104页 ---
+104
+2026年春季
+模型复杂度与训练效率
+decoder-only支持一直复用KV-Cache，计算效率更高
+Megatron和flash attention等重要工具对causal attention的支持更好
+实验表明
+decoder-only架构的zero-shot泛化性能更好
+decoder-only架构的in context learning能力更强，使得few-shot能力更强
+Decoder-only 架构成为主流的原因探讨

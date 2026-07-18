@@ -1,0 +1,2994 @@
+# 第三章-深度学习应用-part1  (共135页)
+
+
+--- 第1页 ---
+智能计算系统
+第三章深度学习应用
+讲授：李涛、张久武
+实验：董前琨
+2026年春季
+
+--- 第2页 ---
+2
+2026年春季
+前情回顾
+机器学习
+人工智能、机器学习、神经网络、深度学习
+神经网络
+神经元->感知机（单神经元）->两层感知机->深度学习
+神经网络训练方法
+前向传播、后向传播
+2
+
+--- 第3页 ---
+3
+2026年春季
+前情回顾
+机器学习
+神经网络
+神经网络训练方法
+神经网络设计基础
+调整网络拓扑结构：隐层设计，包括层数数量、每层神经元数量
+选择合适的激活函数
+激活函数性质：可微性、输出值的范围
+常用激活函数：sigmoid、tanh、ReLU、PReLU/Leaky ReLU 、ELU
+选择合适的损失函数
+常用损失函数：均方差损失函数、交叉熵损失函数
+3
+
+--- 第4页 ---
+4
+2026年春季
+前情回顾
+机器学习
+神经网络
+神经网络训练方法
+神经网络设计基础
+过拟合与正则化
+过拟合（overfitting）指模型过度接近训练的数据，模型的泛化能力
+不足。
+正则化方法：参数范数惩罚、稀疏化、Bagging集成、Dropout、提
+前终止、数据集扩增、权重共享
+4
+
+--- 第5页 ---
+5
+2026年春季
+前情回顾
+机器学习
+神经网络
+神经网络训练方法
+神经网络设计基础
+过拟合与正则化
+交叉验证
+Leave-one-out cross-validation、K-折交叉验证（k-fold cross 
+validation）
+5
+
+--- 第6页 ---
+6
+2026年春季
+Driving Example
+输入
+输出
+建模
+实现
+运行
+深度学习基础
+深度学习应用
+上一章学习了神经网络的基本知
+识，多层感知机的正反向计算过
+程，以及基础优化方法。
+本章通过分析经典深度学习算法，学习将基
+础神经网络应用到实际场景，并逐步优化实
+现工业级应用的过程。
+
+--- 第7页 ---
+7
+2026年春季
+让机器更好的理解和服务人类
+人获得的输入是什么？
+图像信息
+序列信息
+任务：理解图像内容
+方法：卷积神经网络
+任务：理解语音/文字/视频
+方法：循环神经网络
+Transformer
+Transformer
+
+--- 第8页 ---
+8
+2026年春季
+提纲
+适合图像处理的卷积神经网络
+适合语音/文本处理的循环神经网络
+从深度学习到大模型
+神经网络量化
+本章小结
+
+--- 第9页 ---
+9
+2026年春季
+提纲
+适合图像处理的卷积神经网络
+卷积神经网络总体结构
+神经网络的优化
+应用于图像分类的卷积神经网络
+应用于目标检测的卷积神经网络
+应用于图像生成的卷积神经网络
+Driving example
+生成对抗网络
+扩散模型
+
+--- 第10页 ---
+10
+2026年春季
+一个例子
+计算机视觉
+输入图像
+•
+输入图像大小为 32x32，输入数据量为 32x32x3 = 3072
+•
+隐层神经元个数为 100，第一层权重数量为3072 x100 = 307200
+
+--- 第11页 ---
+11
+2026年春季
+一个例子
+⚫实际场景中，往往需要更大的输入图像以及更深的网络结构
+•
+输入图像大小为 1024x1024，第一层隐层神经元个数为 1000
+•
+第一层权重数量级为10^9，过多的参数会导致过拟合
+•
+卷积神经网络可以有效减少权重数量
+输入图像
+
+--- 第12页 ---
+12
+2026年春季
+卷积神经网络（CNN）
+全连接
+卷积
+局
+部
+连
+接
+权
+重
+共
+享
+所有神经元之间的连接都使用不同权重。
+输出层神经元共用同一组权重，
+进一步减少权重数量。
+权
+重
+数
+量
+𝑤𝑖× ℎ𝑖× 𝑤𝑜× ℎ𝑜
+𝑓× 𝑓
+https://blog.csdn.net/lovely_yoshino/article/details/107127510
+
+--- 第13页 ---
+13
+2026年春季
+CNN组成
+VGG16
+⚫卷积层（conv）
+⚫池化层（max pool）
+⚫全连接层 （FC）
+⚫Softmax
+3x3 conv, 64
+3x3 conv, 64
+Maxpool, /2
+3x3 conv, 128
+3x3 conv, 128
+Maxpool, /2
+3x3 conv, 256
+3x3 conv, 256
+3x3 conv, 256
+Maxpool, /2
+3x3 conv, 512
+3x3 conv, 512
+3x3 conv, 512
+3x3 conv, 512
+Maxpool, /2
+3x3 conv, 512
+3x3 conv, 512
+Maxpool, /2
+FC, 4096
+FC, 4096
+FC, 1000
+softmax
+Output size: 224x224
+Output size: 112x112
+Output size: 56x56
+Output size: 28x28
+Output size: 14x14
+Output size: 7x7
+image
+conv1
+conv2
+conv3
+conv4
+conv5
+
+--- 第14页 ---
+14
+2026年春季
+卷积层
+⚫卷积层如何检测特征
+• 检测复杂边缘
+w0
+w1
+w2
+w3
+w4
+w5
+w6
+w7
+w8
+filter/kernel
+将权重作为参数，在训练中学习
+➢卷积神经网络的两个重要特征：局部连接、权重共享
+可有效减少权重参数，避免过拟合，为增加卷积层数提供可能。
+
+--- 第15页 ---
+15
+2026年春季
+卷积层
+数学：
+⚫卷积运算
+𝑦𝑛= ෍
+𝑖=−∞
+∞
+𝑥𝑖ℎ𝑛−𝑖= 𝑥𝑛∗ℎ(𝑛)
+神经网络：实际为计算矩阵内积
+( “ * ”表示卷积 )
+2
+3
+1
+5
+2
+3
+7
+4
+5
+2
+3
+1
+3
+9
+6
+0
+4
+2
+0
+6
+4
+7
+1
+2
+4
+1
+0
+8
+0
+6
+7
+0
+2
+1
+6
+3
+*
+1
+0
+1
+4
+-3
+2
+3
+0
+-1
+=
+32
+1
+0
+1
+4
+-3
+2
+3
+0
+-1
+
+--- 第16页 ---
+16
+2026年春季
+卷积层
+2
+3
+1
+5
+2
+3
+7
+4
+5
+2
+3
+1
+3
+9
+6
+0
+4
+2
+0
+6
+4
+7
+1
+2
+4
+1
+0
+8
+0
+6
+7
+0
+2
+1
+6
+3
+*
+1
+0
+1
+4
+-3
+2
+3
+0
+-1
+=
+32
+40
+1
+0
+1
+4
+-3
+2
+3
+0
+-1
+2
+3
+1
+5
+2
+3
+7
+4
+5
+2
+3
+1
+3
+9
+6
+0
+4
+2
+0
+6
+4
+7
+1
+2
+4
+1
+0
+8
+0
+6
+7
+0
+2
+1
+6
+3
+*
+1
+0
+1
+4
+-3
+2
+3
+0
+-1
+=
+32
+40
+37
+7
+5
+1
+0
+1
+4
+-3
+2
+3
+0
+-1
+
+--- 第17页 ---
+17
+2026年春季
+卷积层
+⚫多输入特征图单输出特征图的卷积运算
+*
+输入特征图
+卷积核
+=
+输出特征图
+6x6x3
+3x3x3
+4x4
+
+--- 第18页 ---
+18
+2026年春季
+卷积层
+*
+=
+6x6x3
+3x3x3
+4x4
+0
+0
+0
+0
+1
+1
+0
+0
+2
+0
+0
+0
+0
+0
+2
+0
+1
+2
+0
+0
+0
+0
+2
+2
+0
+1
+2
+1
+-1
+-1
+-1
+-1
+0
+-1
+1
+1
+1
+-1
+-1
+-1
+0
+-1
+-1
+0
+1
+-1
+1
+1
+-1
+1
+-1
+1
+-1
+1
+C = 0
+C = 1
+C = 2
+*
+=
+2-2-1+2
++
+0-2+0+2
++
+(-1)+0+0+2
+=
+2
+
+--- 第19页 ---
+19
+2026年春季
+卷积层
+
+--- 第20页 ---
+20
+2026年春季
+卷积层
+⚫多输入特征图多输出特征图的卷积运算
+*
+输入特征图
+卷积核1
+=
+output
+6x6x3
+2x3x3x3
+4x4x2
+•
+不同的滤波器可检测不同特征
+卷积核2
+输出特征图
+
+--- 第21页 ---
+21
+2026年春季
+卷积层
+⚫卷积运算可转换为矩阵相乘
+卷积的相乘再相加过程可转换为向量内积
+多输入输出通道卷积可转换为矩阵相乘
+
+--- 第22页 ---
+22
+2026年春季
+卷积层
+⚫卷积层如何检测特征
+1
+0
+-1
+1
+0
+-1
+1
+0
+-1
+10    10    10     0      0     0
+10    10    10     0      0     0
+10    10    10     0      0     0
+10    10    10     0      0     0
+10    10    10     0      0     0
+10    10    10     0      0     0
+0
+30    30     0
+0
+30    30     0
+0
+30    30     0
+0
+30    30     0
+*
+=
+1
+1
+0
+1
+0
+-1
+0
+-1
+-1
+10    10    10    10    10     0
+10    10    10    10
+0     0
+10    10    10     0      0     0
+10    10     0
+0      0     0
+10    0      0     0      0     0
+0      0      0     0      0     0
+0
+10    30   30
+10    30    30   10
+30  30    10    0
+30    10     0     0
+*
+=
+•
+检测垂直边缘
+•
+检测对角线边缘
+
+--- 第23页 ---
+23
+2026年春季
+卷积层
+⚫边界扩充(padding)
+•
+扩大输入图像/特征图的尺寸并填充像素
+•
+防止深度神经网络中特征图被动持续减小
+•
+强化图像边缘信息
+⚫卷积步长(stride)
+•
+滑动卷积窗口时每次移动的像素点个数
+•
+与pad共同确定输出特征图尺寸
+input = 𝑊𝑖× 𝐻𝑖，kernel = 𝐾× 𝐾，pad = 𝑝，stride = 𝑠
+output =
+𝑊𝑖+ 2𝑝−𝐾
+𝑠
++ 1 × 𝐻𝑖+ 2𝑝−𝐾
+𝑠
++ 1
+input = 5 × 5，kernel = 3 × 3，pad = 1
+𝑠𝑡𝑟𝑖𝑑𝑒= 2
+
+--- 第24页 ---
+24
+2026年春季
+卷积神经网络（CNN）
+24
+全连接
+卷积
+局
+部
+连
+接
+权
+重
+共
+享
+所有神经元之间的连接都使用不同权重。
+输出层神经元共用同一组权重，
+进一步减少权重数量。
+权
+重
+数
+量
+𝑤𝑖× ℎ𝑖× 𝑤𝑜× ℎ𝑜
+𝑓× 𝑓
+https://blog.csdn.net/CP18281638639/article/details/117418615
+
+--- 第25页 ---
+25
+2026年春季
+卷积层
+⚫总结：卷积层参数
+*
+输入特征图
+卷积核
+1
+=
+output
+𝑊𝑖× 𝐻𝑖× 𝐶𝑖
+卷积核
+2
+输出特征图
++
+bias
+𝐶𝑜× 𝐾× 𝐾× 𝐶𝑖
+1 × 1 × 𝐶𝑜
+𝑊𝑜× 𝐻𝑜× 𝐶𝑜
+•
+stride
+•
+pad
+•
+output =
+𝑊𝑖+2𝑝−𝐾
+𝑠
++ 1 ×
+𝐻𝑖+2𝑝−𝐾
+𝑠
++ 1
+•
+卷积核：可训练
+•
+bias：可训练，使分类器偏离激活函数原点，更灵活
+计算量：𝑊𝑜× 𝐻𝑜× 𝐶𝑜× 𝐶𝑖× 𝐾× 𝐾
+
+--- 第26页 ---
+26
+2026年春季
+卷积层
+深度可分离卷积（depthwise separable convolution）
+参数量：𝐾× 𝐾× 𝐶𝑖+ 𝐶𝑖× 𝐶𝑜
+计算量：𝑊𝑖× 𝐻𝑖× 𝐾× 𝐾× 𝐶𝑖+ 𝑊𝑜× 𝐻𝑜× 𝐶𝑖× 𝐶𝑜
+
+--- 第27页 ---
+27
+2026年春季
+池化层
+⚫Pooling 
+•
+Max Pooling / Avg Pooling / L2 Pooling
+•
+主动减小图片尺寸，从而减少参数的数量和计算量，控制过拟合
+•
+不引入额外参数
+2
+3
+1
+5
+2
+3
+7
+4
+5
+2
+3
+1
+3
+9
+6
+0
+4
+2
+0
+6
+4
+7
+1
+2
+4
+1
+0
+8
+0
+6
+7
+0
+2
+1
+6
+3
+7
+5
+3
+9
+7
+4
+7
+8
+6
+Max pooling
+𝑓𝑖𝑙𝑡𝑒𝑟= 2 × 2，𝑝𝑎𝑑= 0，𝑠𝑡𝑟𝑖𝑑𝑒= 2
+Max pooling 可保留特征最大值，提高提取特征的鲁棒性。
+
+--- 第28页 ---
+28
+2026年春季
+全连接层
+⚫Fully Connect 
+•
+卷积层和池化层构成特征提取器，全连接层则为分类器
+•
+将特征提取得到的高维特征图映射成一维特征向量，该特征向量包含
+所有特征信息，可转化为各个类别的概率
+⚫Softmax
+•
+通常作为网络的最后一层，对输出进行归一化，输出分类概率
+•
+凸显其中最大的值并抑制远低于最大值的其他分量
+•
+Softmax层的输入、输出数据规模相同
+•
+公式：𝑓𝑧𝑗= 𝑒𝑧𝑗/ σ𝑖=0
+𝑛
+𝑒𝑧𝑖
+
+--- 第29页 ---
+29
+2026年春季
+各层如何排布组成一个网络？
+特征提取
+分类
+•
+VGG16
+3x3 conv, 64
+3x3 conv, 64
+Maxpool, /2
+3x3 conv, 128
+3x3 conv, 128
+Maxpool, /2
+3x3 conv, 256
+3x3 conv, 256
+3x3 conv, 256
+Maxpool, /2
+3x3 conv, 512
+3x3 conv, 512
+3x3 conv, 512
+3x3 conv, 512
+Maxpool, /2
+3x3 conv, 512
+3x3 conv, 512
+Maxpool, /2
+FC, 4096
+FC, 4096
+FC, 1000
+softmax
+Output size: 224x224
+Output size: 112x112
+Output size: 56x56
+Output size: 28x28
+Output size: 14x14
+Output size: 7x7
+image
+conv1
+conv2
+conv3
+conv4
+conv5
+
+--- 第30页 ---
+30
+2026年春季
+卷积神经网络结构
+⚫层排列规律
+Conv
++
+ReLU
+pool
+FC
++
+ReLU
+FC/softmax
+N
+M
+P
+…
+dog
+•
+常见卷积神经网络由卷积层（激活）、池化层和全连接层构成；
+•
+各层的常见排列方式如图所示，其中N、M、P为重复次数；
+•
+例如：N=3，M=1，P=2 情况下的网络结构为：
+input →conv ReLU →conv ReLU →conv ReLU →pool →FC(ReLU) →FC ReLU →FC →output
+•
+其中卷积和池化部分可包含分支和连接结构，将在具体网络分析中介绍。
+
+--- 第31页 ---
+31
+2026年春季
+浅层学习局部特征，深层学习整体特征
+•
+神经网络可视化：
+conv6
+conv9
+Springenberg, J. T.; Dosovitskiy, A.; Brox, T. & Riedmiller, M. Striving for simplicity: the all convolutinal net ICML, 2015, 1-12
+
+--- 第32页 ---
+32
+2026年春季
+卷积神经网络结构
+⚫为何选择 “深” 而非 “广” 的网络结构
+➢即使只有一层隐层，只要有足够的神经元，神经网络理论上可以拟合任意连
+续函数。为什么还要使用深层网络结构？
+◼深度网络可从局部到整体“理解图像”
+学习复杂特征时（例如人脸识别），浅层的卷积层感受野小，学习到局部特征，深层
+的卷积层感受野大，学习到整体特征。
+以宽度换深度，用多个小卷积替代一个大卷积，在获得更多样特征的同时所需权重数
+量也更少。
+◼深度网络可减少权重数量
+
+--- 第33页 ---
+33
+2026年春季
+卷积神经网络训练
+• N=1，M=1，P=1 情况下的网络结构为：
+Conv
++
+ReLU
+pool
+FC
++
+ReLU
+FC/softmax
+N
+M
+P
+…
+dog
+正向传播
+L
+反向传播
+y
+𝑿→conv →ReLU →pool →FC →ReLU →softmax →ෝ𝒚
+𝑺(𝟏)
+𝑪(𝟏)
+𝑷
+𝑺(𝟐)
+𝑪(𝟐)
+𝑾(𝟐), 𝒃(𝟐)
+𝑾(𝟏), 𝒃(𝟏)
+
+--- 第34页 ---
+34
+2026年春季
+随机初始化
+均匀分布初始化
+从均匀分布𝑈(−𝑎, 𝑎)中随机抽取值来初始化参数值
+正态分布初始化
+通常使用均值为0、标准差为𝜎的正态分布𝑁(0, 𝜎2) 生成参数值
+例如，DeepSeek-V3中𝜎= 0.006
+
+--- 第35页 ---
+35
+2026年春季
+Xavier初始化（1/3）
+Xavier Glorot, Yoshua Bengio, Understanding the difficulty of training deep feedforward neural
+networks, Journal of Machine Learning Research, 2010.
+Glorot条件：为保证神经网络模型的稳定性和有效性，避免梯度消失或梯度
+爆炸，对模型的初始化需满足两个条件：
+前向传播时，每一层的输入的方差保持一致
+反向传播时，每一层的梯度的方差保持一致
+
+--- 第36页 ---
+36
+2026年春季
+Xavier初始化（2/3）
+经推导，第i层权重Wi的方差需满足：
+𝑉𝑎𝑟𝑊𝑖=
+2
+𝑛𝑖+𝑛𝑖+1
+为此，满足均匀分布的权重W的初值需满足：
+𝑊~𝑈(−
+6
+𝑛𝑖+𝑛𝑖+1 ,
+6
+𝑛𝑖+𝑛𝑖+1)
+满足正态分布的权重W的初值需满足
+𝑊~𝑁(0,
+2
+𝑛𝑖+𝑛𝑖+1)
+i表示当前层号，ni表示第i层中包含的神经元个数
+
+--- 第37页 ---
+37
+2026年春季
+Xavier初始化（3/3）
+实验结果：采用tanh(x)激活函数
+激活值标准直方图
+采用Xavier方法的网络，各层的激活值
+较为一致
+反向传播梯度标准直方图
+采用Xavier方法的网络，各层的梯度
+较为一致
+标准初始化
+Xavier初始化
+
+--- 第38页 ---
+38
+2026年春季
+Kaiming初始化（1/2）
+K. He, X. Zhang, S. Ren and J. Sun, "Delving Deep into Rectifiers: Surpassing Human-
+Level Performance on ImageNet Classification," ICCV, 2015.
+Xavier方法适用于关于0对称、在原点处具有单位导数（如𝑓′(0)=1）的激活函数，如tanh。
+对于ReLU、PReLU这种非对称的激活函数的效果并不好
+对于ReLU函数，当其输入小于0时输出为0，影响了输出的分布模式
+Kaiming初始化在满足Glorot条件的基础上，考虑使用ReLU激活函数情况下的权重参数初
+始化问题
+经推导，第i层权重Wi的方差需满足：𝑉𝑎𝑟𝑊𝑖=
+2
+𝑛𝑖
+
+--- 第39页 ---
+39
+2026年春季
+Kaiming初始化（2/2）
+为此，在使用了ReLU激活函数的神经网络中，满足均匀分布的权重W的初值需满足：
+𝑊~𝑈(−
+6
+𝑛𝑖,
+6
+𝑛𝑖)
+满足正态分布的权重W的初值需满足
+𝑊~𝑁(0,
+2
+𝑛𝑖)
+i表示当前层号，ni表示第i层中包含的神经元个数
+适用于具有ReLU激活函数的神经网络，在计算机视觉任务上应用较多
+
+--- 第40页 ---
+40
+2026年春季
+梯度下降法GD
+原理：损失函数关于参数𝑤的负梯度方向是损失函数下降最快的方向，
+因此用负梯度方向对参数进行更新
+方法
+更新梯度
+计算梯度的样本
+特点
+Gradient Descent (GD)
+𝑤←𝑤−𝜂∗𝛻𝑤𝐿(𝑤)
+全部训练样本
+计算复杂度高
+Stochastic Gradient Descent 
+(SGD)
+𝑤←𝑤−𝜂∗𝛻𝑤𝐿𝑖(𝑤)
+随机抽取一个样本
+随机性过大，优化效率低
+mini-batch Stochastic 
+Gradient Descent 
+𝑤←𝑤−𝜂
+𝑝∗𝛻𝑤෍
+𝑖
+𝐿𝑖(𝑤)
+随机抽取的mini-batch样本
+计算复杂度低，优化效率高
+𝑤0
+𝑤1
+𝐿𝑤0, 𝑤1
+
+--- 第41页 ---
+41
+2026年春季
+Mini-batch随机梯度下降法
+mini-batch随机梯度下降法
+目前深度学习领域的SGD通常指mini-batch随机梯度下降法
+每次迭代随机选取一个mini-batch的样本计算梯度并进行参数更新
+SGD的缺点
+选择合适的学习率十分困难
+SGD容易收敛到局部最优点，且可能困在鞍点
+其中𝜂是学习率，𝑔是当前batch
+的梯度，𝑝是batch size
+𝑔𝑡←1
+𝑝𝛻𝑤
+෍
+𝑖
+𝐿𝑖(𝑤𝑡)
+𝑤𝑡+1 ←𝑤𝑡−𝜂∗𝑔𝑡
+
+--- 第42页 ---
+42
+2026年春季
+动量Momentum
+带动量的随机梯度下降法
+目的：通过积累历史梯度，减小梯度方向的改变，抑制梯度的震荡，加快收
+敛速度
+𝑣𝑡←𝜇∗𝑣𝑡−1 −𝜂𝑔𝑡
+𝑤𝑡+1 ←𝑤𝑡+ 𝑣𝑡
+其中，𝜇是动量因子，
+𝑣是累计动量
+𝑔𝑡←1
+𝑝𝛻𝑤
+෍
+𝑖
+𝐿𝑖(𝑤𝑡)
+Rumelhart, David E.; Hinton, Geoffrey E.; Williams, Ronald J. (8 October 1986). "Learning representations by back-propagating
+errors". Nature. 323 (6088): 533–536.
+
+--- 第43页 ---
+43
+2026年春季
+Nesterov Accelerated Gradient (NAG)
+NAG: 添加矫正因子的Momentum
+原理：先用当前的速度更新一遍参数，再用更新的临时参数计算梯度
+优势：相比Momentum梯度方向更加稳定，进一步减少震荡
+Momentum
+NAG
+෦
+𝑤𝑡←𝑤𝑡+ 𝜇∗𝑣𝑡−1
+Sutskever, I., Martens, J., Dahl, G., and Hinton, G. On the importance of initialization and momentum in deep learning. ICML2013.
+Momentum
+NAG
+𝑣𝑡←𝜇∗𝑣𝑡−1 −𝜂𝑔𝑡
+𝑤𝑡+1 ←𝑤𝑡+ 𝑣𝑡
+𝑔𝑡←1
+𝑝𝛻෥𝑤
+෍
+𝑖
+𝐿𝑖(෦
+𝑤𝑡)
+
+--- 第44页 ---
+44
+2026年春季
+二阶优化方法
+牛顿法
+目的：利用二阶导数（Hession矩阵）更准确的估计目标函数，
+加快收敛速度，获得更好的收敛结果
+计算：①更新或计算Hession矩阵H的逆
+
+②更新参数𝜃∗= 𝜃0 −𝐻−1𝛻𝜃𝑓(𝜃0)
+优势：收敛速度快
+缺点：需要计算和存储Hession矩阵，复杂度高
+其中，𝐻是Hession矩阵
+
+--- 第45页 ---
+45
+2026年春季
+二阶优化方法
+BFGS
+思想：通过迭代更新矩阵𝑀𝑡的方式近似Hession矩阵的逆
+计算：①更新或计算Hession矩阵逆的近似𝑀𝑡
+
+②更新参数𝜃𝑡+1 = 𝜃𝑡−𝜖𝑀𝑡𝛻𝜃𝑓(𝜃𝑡)
+优势：只需存储Hession矩阵逆的近似𝑀𝑡，大大减少计算和存储成本
+缺点：需要存储整个Hession矩阵逆的近似，存储空间𝑂(𝑛2)
+L-BFGS：
+不需要存储完整的 Hessian 矩阵逆的近似，只需存储历史参数差值和梯
+度差值信息，用于重新构建Hessian 矩阵逆的近似，存储空间𝑂(𝑛)
+
+--- 第46页 ---
+46
+2026年春季
+学习率
+From: https://cs231n.github.io/neural-networks-3/
+
+--- 第47页 ---
+47
+2026年春季
+AdaGrad
+AdaGrad：使每个参数获得不同的学习率
+原理：设置全局学习率，每次通过全局学习率逐参数的除以历史梯度平方和的平方根，
+使得每个参数的学习率不同
+效果：对更新频率高的参数使用较小的学习率，对更新频率低的参数使用较大的学习率
+优势：对于稀疏梯度的效果较好，稳定性高
+局限性：梯度的平方和使训练后期学习率会快速缩小，导致参数更新提前停止
+其中η是全局学习率，
+𝑟是历史梯度的平方和
+𝑤𝑡+1 ←𝑤𝑡−
+𝜂
+𝑟𝑡+ 𝜖∗𝑔𝑡
+Duchi, John; Hazan, Elad; Singer, Yoram (2011). "Adaptive subgradient methods for online learning and stochastic optimization". JMLR. 12: 2121–2159.
+𝑟𝑡←𝑟𝑡−1 + 𝑔𝑡
+2
+𝑔𝑡←1
+𝑝𝛻𝑤
+෍
+𝑖
+𝐿𝑖(𝑤𝑡)
+
+--- 第48页 ---
+48
+2026年春季
+AdaDelta
+AdaDelta：AdaGrad的改进
+原理：不是累积所有过去的梯度，而是将累积的过去梯度的窗口限制在某个固定大小
+优势：使用最近梯度的局部估计，确保了在进行了多次更新迭代之后，缓解学习率快
+速衰减的问题
+其中，𝑟是历史梯度的累积量，
+ρ是衰减系数
+初始化𝑑0 = 0，𝑟0 = 0
+∆𝑤𝑡←−
+𝑑𝑡−1 + 𝜖
+𝑟𝑡+ 𝜖
+∗𝑔𝑡
+𝑤𝑡+1 ←𝑤𝑡+ ∆𝑤𝑡
+𝑑𝑡←𝜌𝑑𝑡−1 + (1 −𝜌)(∆𝑤𝑡)2
+𝑟𝑡←𝜌𝑟𝑡−1 + (1 −𝜌)𝑔𝑡
+2
+𝑔𝑡←1
+𝑝𝛻𝑤
+෍
+𝑖
+𝐿𝑖(𝑤𝑡)
+Zeiler, M. D. (2012). ADADELTA: An Adaptive Learning Rate Method. http://arxiv.org/abs/1212.5701
+
+--- 第49页 ---
+49
+2026年春季
+RMSProp
+RMSProp：AdaGrad的改进
+原理：增加了一个衰减系数控制历史梯度的积累量，对梯度计算指数衰减的移
+动平均，丢弃时间靠前的历史梯度
+优势：可以缓解AdaGrad训练后期学习率快速减小的问题，善于处理非平稳目
+标，目前常用在训练RNN相关的深度学习模型中
+其中η是全局学习率，
+𝑟是历史梯度的累积量，
+ρ是衰减系数
+𝑔𝑡←1
+𝑝𝛻𝑤
+෍
+𝑖
+𝐿𝑖(𝑤𝑡)
+𝑟𝑡←𝜌𝑟𝑡−1 + (1 −𝜌)𝑔𝑡
+2
+𝑤𝑡+1 ←𝑤𝑡−
+𝜂
+𝑟𝑡+𝜖
+∗𝑔𝑡
+Hinton, G. (2012). Neural networks for machine learning. Coursera, video lectures
+
+--- 第50页 ---
+50
+2026年春季
+Adam
+Adam：带有动量项的RMSProp
+原理：利用梯度的一阶矩估计和二阶矩估计动态调整每个参数的学习率
+Adam结合了AdaGrad善于处理稀疏梯度和RMSprop善于处理非平稳目标的优点，为不
+同的参数计算不同的自适应学习率，训练稳定，收敛速度快
+适用于大多非凸优化，适用于大数据集和高维空间
+其中η是全局学习率，
+𝑚是梯度的一阶矩估计，
+𝑟是梯度的二阶矩估计，
+ෝ𝑚和Ƹ𝑟是对𝑚和𝑟进行无偏估计的校正，
+𝛽1和𝛽2是衰减因子， 𝑡是time step。
+Kingma, Diederik; Ba, Jimmy. "Adam: A Method for Stochastic Optimization". ICLR2015.
+𝑟𝑡←𝛽2𝑟𝑡−1 + (1 −𝛽2)𝑔𝑡
+2
+𝑚𝑡←𝛽1𝑚𝑡−1 + 1 −𝛽1 𝑔𝑡
+ෞ
+𝑚𝑡←
+𝑚𝑡
+1 −𝛽1
+𝑡
+ෝ𝑟𝑡=
+𝑟𝑡
+1 −𝛽2
+𝑡
+𝑔𝑡←1
+𝑝𝛻𝑤
+෍
+𝑖
+𝐿𝑖(𝑤𝑡−1)
+𝑤𝑡+1 ←𝑤𝑡−𝜂
+ෞ
+𝑚𝑡
+ෝ𝑟𝑡+ 𝜖
++𝜆𝑤𝑡−1
+
+--- 第51页 ---
+51
+2026年春季
+AdamW
+AdamW：改进版Adam
+原理：权重衰减与梯度更新步骤解耦
+AdamW解耦了权重衰减与优化器的更新过程，防止过拟合
+用于CV领域，BERT、GPT、Llama、DeepSeek等大模型训练
+𝑟𝑡←𝛽2𝑟𝑡−1 + (1 −𝛽2)𝑔𝑡
+2
+𝑚𝑡←𝛽1𝑚𝑡−1 + 1 −𝛽1 𝑔𝑡
+ෞ
+𝑚𝑡←
+𝑚𝑡
+1 −𝛽1
+𝑡
+ෝ𝑟𝑡=
+𝑟𝑡
+1 −𝛽2
+𝑡
+𝑤𝑡+1 ←𝑤𝑡−𝜂
+ෞ
+𝑚𝑡
+ෞ
+𝑚𝑡+ 𝜖
++ 𝜆𝑤𝑡
+𝜆是权重衰减因子。
+𝑔𝑡←1
+𝑝𝛻𝑤
+෍
+𝑖
+𝐿𝑖(𝑤𝑡−1)
+Ilya Loshchilov，Frank Hutter. Decoupled Weight Decay Regularization. ICLR2019.
+
+--- 第52页 ---
+52
+2026年春季
+不同优化方法的结果对比
+Image credit: Alec Radford
+
+--- 第53页 ---
+53
+2026年春季
+应用于图像分类的卷积神经网络
+⚫1979-1980年，日本学者福岛邦彦参照生物的视觉皮层（visual cortex）设计了以
+“neocognitron” 命名的神经网络，卷积神经网络的雏形
+⚫1998年，Yann LeCun团队提出首个手写字体识别卷积神经网络
+⚫2012年，AlexNet使用卷积神经网络解决图像分类问题，在ILSVRC2012中取得获胜并大
+大提高了state-of-art的准确率。自此卷积神经网络在图像分类领域获得快速发展
+
+--- 第54页 ---
+54
+2026年春季
+应用于图像分类的卷积神经网络
+⚫AlexNet
+⚫VGG
+⚫Inception 系列
+⚫ResNet
+网络
+深度
+参数量 (Millions)
+AlexNet
+8
+60
+VGG16
+16
+138
+VGG19
+19
+143
+GoogleNet
+22
+7
+Inception V3
+48
+23.9
+ResNet 18
+18
+11.7
+ResNet 152
+152
+60.2
+
+--- 第55页 ---
+55
+2026年春季
+AlexNet
+◼Paper:  ImageNet Classification with Deep Convolutional Neural Networks (NIPS’2012)
+◼Author:  Alex Krizhevsky,  Ilya Sutskever,  Geoffrey E. Hinton
+◼Test: error rate on ImageNet, top5: 15.3%
+论文中给出的网络结构（用两张GPU训练）
+
+--- 第56页 ---
+56
+2026年春季
+AlexNet
+What‘s New？
+◼Dropout：随机舍弃部分隐
+层节点，避免过拟合
+◼LRN局部归一化：提升较大
+响应，抑制较小响应
+◼ReLU激活函数：训练中收
+敛速度更快
+◼MaxPool：避免特征被平均
+池化模糊，提升特征鲁棒性
+
+--- 第57页 ---
+57
+2026年春季
+AlexNet
+⚫Local Response Normalization (LRN)
+•
+局部响应归一化
+𝑥
+𝑦
+𝑁
+•
+对图像的每个“位置”，提升高响应特征，抑制低响应特征
+•
+减少高激活神经元数量，提高训练速度，抑制过拟合
+被后来研究者发现无明显效果，故现在很少使用。
+
+--- 第58页 ---
+58
+2026年春季
+AlexNet
+⚫Dropout
+•
+随机丢弃部分神经元
+•
+在模型训练过程中，以一定概率随机地舍弃某些隐层神经元。在反向传播更新
+权重时，不更新与该神经元相关的权重
+•
+但是与被舍弃神经元相关的权重得保留下来（只是暂时不更新），另一批样本
+输入时继续使用与该神经元相关的权重
+•
+防止训练数据中复杂的co-adaptation，抑制过拟合
+
+--- 第59页 ---
+59
+2026年春季
+AlexNet
+⚫AlexNet 成功的原因
+•
+使用多个卷积层，有效提取图像特征
+•
+ReLU帮助提高训练速度
+•
+Dropout、数据增强扩大训练集，防止过拟合
+使用更多卷积层是否能进一步提升效果？
+
+--- 第60页 ---
+60
+2026年春季
+VGG
+◼
+Paper:  Very Deep Convolutional Networks for Large-Scale 
+Image Recognition (ICLR 2015)
+◼
+Author:  K. Simonyan,
+A. Zisserman
+◼
+Test: error rate on ImageNet,  top1: 24.7%,  top5: 7.5%
+•
+VGG16
+3x3 conv, 64
+3x3 conv, 64
+Maxpool, /2
+3x3 conv, 128
+3x3 conv, 128
+Maxpool, /2
+3x3 conv, 256
+3x3 conv, 256
+3x3 conv, 256
+Maxpool, /2
+3x3 conv, 512
+3x3 conv, 512
+3x3 conv, 512
+3x3 conv, 512
+Maxpool, /2
+3x3 conv, 512
+3x3 conv, 512
+Maxpool, /2
+FC, 4096
+FC, 4096
+FC, 1000
+softmax
+Output size: 224x224
+Output size: 112x112
+Output size: 56x56
+Output size: 28x28
+Output size: 14x14
+Output size: 7x7
+image
+
+--- 第61页 ---
+61
+2026年春季
+VGG
+⚫规整的卷积-池化结构
+𝟐𝟐𝟒× 𝟐𝟐𝟒× 𝟑
+𝟏𝟏𝟐× 𝟏𝟏𝟐× 𝟔𝟒
+𝟓𝟔× 𝟓𝟔× 𝟏𝟐𝟖
+𝟐𝟖× 𝟐𝟖× 𝟐𝟓𝟔
+𝟏𝟒× 𝟏𝟒× 𝟓𝟏𝟐
+𝟕× 𝟕× 𝟓𝟏𝟐
+◼Conv
+•
+所有卷积层kernel大小/stride/pad相同
+•
+kernel=3*3,  stride=1,  pad=SAME
+•
+pad=SAME：补pad至输出图像
+大小等于输入图像大小
+•
+pad=VALID：pad=0
+◼Maxpool
+•
+所有池化层kernel大小/stride/pad相同
+•
+kernel=2*2,  stride=2,  pad=0
+卷积层：负责数据体深度变换
+                （控制特征图数量）
+    池化层：负责数据体长宽变换
+（控制特征图大小）
+
+--- 第62页 ---
+62
+2026年春季
+VGG
+⚫规整的<卷积-池化>结构
+•
+多层小卷积比单层大卷积效果好
+•
+实验：对 VGG13(上表B)，使用5x5conv代替两层3x3conv，进行训练和测试
+•
+原因：一个5x5conv和两个3x3conv的感受野大小相同；每个卷积层加入ReLU，
+两层3x3conv 决策函数的区分能力更强
+•
+结果：5x5conv网络比两个3x3conv网络top-1准确率低7%。
+
+--- 第63页 ---
+63
+2026年春季
+Conv
+7x7
+𝑤𝑒𝑖𝑔ℎ𝑡_𝑐𝑜𝑢𝑛𝑡1 = 7 × 7 = 49
+Conv
+3x3
+Conv
+3x3
+Conv
+3x3
+𝑤𝑒𝑖𝑔ℎ𝑡_𝑐𝑜𝑢𝑛𝑡2 = 3 × 3 × 3 = 27
+相同感受野，多层网络权重更少
+
+--- 第64页 ---
+64
+2026年春季
+VGG
+◼由简单到复杂的网络结构
+训练VGG11（A）
+训练更深神经网络
+使用收敛的VGG11的前4个卷积层和后3
+个全连接层权重，初始化更深神经网络
+的权重值，其余层的权重随机初始化
+
+--- 第65页 ---
+65
+2026年春季
+VGG
+⚫实验结果
+•
+A/A-LRN：加 LRN 准确率无明显提升；
+•
+A/B/D/E：层数越多准确率越高；
+•
+C/D： conv3x3 比 conv1x1 得到的准确率高
+
+--- 第66页 ---
+66
+2026年春季
+VGG
+⚫VGG成功的原因
+•
+更深的卷积神经网络，更多的卷积层和非线性激活函数，提升分类准确率
+•
+使用规则的多层小卷积替代大卷积，减少参数数量，提高训练收敛速度
+•
+部分网络层参数的预初始化，提高训练收敛速度
+卷积核还能不能更小？网络还能不能更深？
+
+--- 第67页 ---
+67
+2026年春季
+Inception
+◼
+Inception-v1(GoogLeNet)：Szegedy C, Liu W, Jia Y, et al. Going deeper with convolutions, CVPR 2015:1-9.
+◼
+BN-Inception：Ioffe S, Szegedy C. Batch normalization: accelerating deep network training by reducing 
+internal covariate shift. ICML, 2015:448-456.
+◼
+Inception-v2,Inception-v3：Szegedy C, Vanhoucke V, Ioffe S, et al. Rethinking the Inception Architecture for 
+Computer Vision[C]// CVPR, 2016:2818-2826.
+◼
+Inception-v4：Szegedy C, Ioffe S, Vanhoucke V, et al. Inception-v4, Inception-ResNet and the Impact of 
+Residual Connections on Learning, AAAI’2017.
+网络
+主要创新
+Top5错误率
+网络层数
+GoogLeNet
+提出inception结构
+6.67%
+22
+BN-Inception
+提出 Batch Normalization, 用3x3代替5x5
+4.82%
+—
+Inception-v3
+将一个二维卷积拆成两个一维卷积，
+辅助分类器的全连接层做BN
+3.5%
+42
+Inception-v4
+inception模块化, 结合ResNet的跳转结构
+3.08%
+—
+
+--- 第68页 ---
+68
+2026年春季
+Inception-v1
+⚫Inception 模块
+•
+Naïve version：叠加多种尺寸的卷积层和池化层，获得不同尺度的特征，提高网络对不同尺寸特
+征的适应性
+•
+Dimension reductions：使用1x1的卷积层来缩减维度（减少channel），形成“瓶颈层”，减少参数
+
+--- 第69页 ---
+69
+2026年春季
+Inception-v1
+•
+作用：跨通道聚合，进一步可以起到降维（或者升维）的作用，减少参数
+⚫1x1卷积
+ℎ𝑖
+𝑤𝑖
+𝑐𝑖
+*
+=
+ℎ𝑖
+𝑤𝑖
+𝑐𝑜
+𝑐𝑖
+1
+1
+…
+𝑐𝑜
+•
+相当于在输入和输出之间做了一个特征上的全连接，提取得到非线性特征
+•
+同时，当 co < ci 时，维度降低，参数减少
+•
+扩展：Network in Network
+
+--- 第70页 ---
+70
+2026年春季
+Inception-v1
+⚫1x1卷积
+•
+使用1x1卷积，形成“瓶颈层”，可有效减少计算量和参数数量
+output
+input
+5x5 conv
+28 × 28 × 256
+96 × 5 × 5 × 256
+28 × 28 × 96
+output
+input
+5x5 conv
+1x1 conv
+28 × 28 × 256
+32 × 1 × 1 × 256
+96 × 5 × 5 × 32
+28 × 28 × 32
+28 × 28 × 96
+乘加次数：
+28×28×96×5×5×256≈4.8×10^8
+参数数量：
+96×5×5×256 ≈6.1×10^5
+乘加次数：
+28×28×32×256+28×28×96×5×5×32≈6.7×10^7
+参数数量：
+32×256+96×5×5×32 ≈8.5×10^4
+
+--- 第71页 ---
+71
+2026年春季
+Inception-v1
+⚫GoogLeNet 网络结构
+
+--- 第72页 ---
+72
+2026年春季
+Inception-v1
+⚫Softmax 辅助分类网络
+•
+训练时，让中间某一层的输出经过
+softmax得到分类结果，并按较小的权重
+加到最终分类结果中，相当于模型融合。
+防止多层神经网络训练过程中梯度消失。
+•
+推理时，softmax辅助分类网络会被去掉。
+
+--- 第73页 ---
+73
+2026年春季
+BN-Inception
+•
+具体分析见 VGG 部分，不再赘述。
+⚫学习 VGG 用两个 3x3 卷积代替一个 5x5 卷积
+⚫使用 BatchNorm，并在每个卷积层之后、激活函数之前插入 BN 层
+1x1 conv
+1x1 conv
+Pool
+1x1 conv
+3x3 conv
+3x3 conv
+1x1 conv
+previous 
+layer
+Filter 
+concatenation
+3x3 conv
+1x1 conv
+1x1 conv
+Pool
+1x1 conv
+5x5 conv
+3x3 conv
+1x1 conv
+previous 
+layer
+Filter 
+concatenation
+
+--- 第74页 ---
+74
+2026年春季
+BN-Inception
+⚫BatchNorm
+◼Normalize
+•
+将激活层的输入调整为标准正态分布（均
+值为0，方差为1）；
+•
+激活层输入分布在激活函数敏感部分，输
+入有小变化就能是损失函数有较大的反应，
+避免梯度消失，加快训练速度。
+◼Scale and shift
+•
+标准化后的输入使得网络的表达能力下降；
+•
+为保持网络的表达能力，增加两个可训练
+参数。
+
+--- 第75页 ---
+75
+2026年春季
+BN-Inception
+•
+BN 可替代 LRN / Dropout / L2 Normalization
+•
+可提高收敛速度、训练速度
+•
+可选择更高的学习率，方便调参
+⚫BatchNorm 效果
+•
+-x5 表示学习率设为inception初始学习率的5倍。
+
+--- 第76页 ---
+76
+2026年春季
+Inception-v3
+•
+将 3x3 卷积拆分成 1x3 和 3x1 卷积
+•
+减少参数数量，同时通过非对称的卷积结构拆分增加特征多样性
+⚫Factorization 思想
+Figure 5
+Figure 6
+Figure 7
+1x1 conv
+1x1 conv
+Pool
+1x1 conv
+3x3 conv
+1x3 conv
+1x1 conv
+previous 
+layer
+Filter 
+concatenation
+3x1 conv
+1x3 conv
+3x1 conv
+1x1 conv
+1x1 conv
+Pool
+1x1 conv
+1xn conv
+nx1 conv
+1x1 conv
+previous 
+layer
+Filter 
+concatenation
+nx1 conv
+1xn conv
+1xn conv
+nx1 conv
+1x1 conv
+1x1 conv
+Pool
+1x1 conv
+3x3 conv
+3x3 conv
+1x1 conv
+previous 
+layer
+Filter 
+concatenation
+3x3 conv
+
+--- 第77页 ---
+77
+2026年春季
+Inception-v3
+•
+将前面三种 inception 结构组合起来
+•
+GoogLeNet中7x7卷积拆分成3x3卷积
+•
+卷积层和辅助分类器的全连接层做BN
+⚫网络结构
+
+--- 第78页 ---
+78
+2026年春季
+ResNet
+◼Paper: Deep Residual Learning for Image Recognition, CVPR’2016 (Best paper).
+◼Authors: Kaiming He，Xiangyu Zhang，Shaoqing Ren，Jian Sun
+◼Test: error rate on ImageNet,  top5: 3. 57%  (ResNet152)
+
+--- 第79页 ---
+79
+2026年春季
+ResNet
+•
+问题：卷积层堆积就能提升图像分类准确率吗？
+•
+实验：分别用20层和56层卷积神经网络在CIFAR-10数据集上进行训练和测试，
+发现更深的网络错误率更高，在ImageNet数据集上也同样如此。
+•
+原因：梯度消失？No, 使用BatchNorm可有效缓解梯度消失；
+过拟合？  No, 更深的网络在训练集上的误差同样更高；
+神经网络退化：收敛到极值点而非最值，误差大。
+
+--- 第80页 ---
+80
+2026年春季
+ResNet
+•
+Plain network(普通网络)：直接用多项式拟合输出；
+•
+Residual network(残差网络)：建立在BN之上，用多项式拟合差值；
+•
+优点：对数据波动更灵敏，更容易学习获得最优解。
+⚫什么是“残差”
+input
+CNN
+output
+plain network
+input
+CNN
+output
+residual network
++
+(output – input)
+
+--- 第81页 ---
+81
+2026年春季
+ResNet
+⚫残差块
+•
+残差网络在训练时更容易收敛
+
+--- 第82页 ---
+82
+2026年春季
+⚫将残差块应用到普通网络
+◼改造VGG得到 plain-network
+•
+plain-network：无跳转连接的普通网络；
+•
+基本全部由卷积层构成：kernel=3*3, stride=1, pad=SAME；
+•
+特征图尺寸的减小由 stride=2 的卷积层完成；
+•
+若特征图的尺寸不变，则特征的数量也不变；若特征图的尺寸减半，
+则特征图的数量翻倍；
+◼增加跳转连接得到 ResNet
+•
+实线：特征图尺寸和特征数量不变，直接相连；
+•
+虚线：特征图尺寸减半，特征图数量翻倍；
+•
+特征图数量翻倍的两种方法：
+a. 以stride=2直接取值，不够的特征补0(不引入额外参数)
+b. 用stride=2，特征数量翻倍的1x1卷积做映射，卷积的权重经过学
+习得到，会引入额外参数；
+
+--- 第83页 ---
+83
+2026年春季
+残差连接在CNN中的应用
+Huang G, Liu Z, Van Der Maaten L, et al. Densely connected convolutional networks[C]//CVPR’2017.
+Hu J, Shen L, Sun G. Squeeze-and-excitation networks[C]//CVPR’2018.
+DenseNet
+SENet
+
+--- 第84页 ---
+84
+2026年春季
+残差连接在Transformer中的应用
+Transformer encoder-decoder
+Transformer decoder-only
+
+--- 第85页 ---
+85
+2026年春季
+图像分类算法
+图像分
+类
+CNN
+AlexNet
+ZF-Net
+VGG
+网络中的网
+络
+GoogLeNet
+Inception-v2
+Inception-v3
+Inception-v4
+层与层的连
+接
+ResNet
+ResNext
+DenseNet
+卷积注意力
+SENet
+CBAM
+轻量化可分
+离卷积
+MobileNet
+EfficientNet
+Transformer
+全局注意力
+ViT
+Swin
+Transformer
+DeiT
+多模态对齐
+CLIP
+CoOp
+CLIP-Adapter
+MLP
+MLP-Mixer
+
+--- 第86页 ---
+86
+2026年春季
+分类
+定位+分类
+目标检测
+图示
+输入
+single and big object
+single and big object
+multi and small object
+输出
+label
+label & bounding box
+multi label & bounding box
+评价
+accuracy(top1/top5)
+IoU(交并比)
+mAP(Mean Average Precision)
+目标检测算法
+
+--- 第87页 ---
+87
+2026年春季
+评测指标——IoU
+⚫IoU(交并比)
+•
+用于衡量定位准确度，一般 IoU ≥ 0.5 可认为定位成功 (true detection)；
+bounding box
+
+--- 第88页 ---
+88
+2026年春季
+评测指标——mAP
+⚫mAP(mean Average Precision平均精度均值)
+•
+在计算机视觉领域，用于衡量模型在测试集上检测精度的优劣程度；
+•
+综合考虑检测结果的召回率/查全率和精度/查准率，mAP值越高表示检测结果越好；
+▸召回率/查全率(recall)：选的N个样本里选对的k个正样本占总的M个正样本的比例  k/M；
+▸精度/查准率(precision) ：选的N个样本里选对的k个正样本比例  k/N；
+▸选择的样本数N越多，召回率越高，查准率越低；
+⚫mAP计算原理
+召回率 Recall=k/M=TP/(TP+FN)
+精度    Precision=k/N=TP/(TP+FP)
+
+--- 第89页 ---
+89
+2026年春季
+
+--- 第90页 ---
+90
+2026年春季
+
+--- 第91页 ---
+91
+2026年春季
+•
+假设一个图像检测任务，共有5种类别，有100张图像作为测试集；
+•
+假设对于类A，100张测试图像中共有25个事先人为将类别标记为A的框；
+•
+假设算法对100张测试图像共检测出20个分类为A的候选框；
+评测指标——mAP
+编号
+置信度
+标记
+1
+0.35
+0
+2
+0.15
+0
+3
+0.92
+1
+4
+0.03
+0
+5
+0.24
+1
+6
+0.10
+0
+7
+0.78
+1
+8
+0.01
+0
+9
+0.47
+0
+10
+0.09
+1
+11
+0.69
+0
+12
+0.43
+0
+13
+0.26
+0
+14
+0.35
+1
+15
+0.11
+0
+16
+0.07
+0
+17
+0.45
+0
+18
+0.16
+1
+19
+0.32
+0
+20
+0.52
+1
+编号
+置信度
+标记
+3
+0.92
+1
+7
+0.78
+1
+11
+0.69
+0
+20
+0.52
+1
+9
+0.47
+0
+17
+0.45
+0
+12
+0.43
+0
+1
+0.35
+0
+14
+0.35
+1
+19
+0.32
+0
+13
+0.26
+0
+5
+0.24
+1
+18
+0.16
+1
+2
+0.15
+0
+15
+0.11
+0
+6
+0.10
+0
+10
+0.09
+1
+16
+0.07
+0
+4
+0.03
+0
+8
+0.01
+0
+
+--- 第92页 ---
+92
+2026年春季
+例如： 
+confidence_threshold=0.5时：
+第3, 7, 11, 20号框(score>0.5)被认为是positive，实际只
+有3, 7, 20号框(label=1)是true positive，那么此时 
+precision=3/4，又因为总共应该有25个类别为A的框，
+那么recall=3/25
+confidence_threshold=0.2时：
+共有12个框(score>0.2)被认为是positive，实际只有5个
+框是true positive，此时 precision=5/12，recall=5/25
+阈值越小，选中样本越多，精度越低，召回率越高
+评测指标——mAP
+编号
+置信度
+标记
+3
+0.92
+1
+7
+0.78
+1
+11
+0.69
+0
+20
+0.52
+1
+9
+0.47
+0
+17
+0.45
+0
+12
+0.43
+0
+1
+0.35
+0
+14
+0.35
+1
+19
+0.32
+0
+13
+0.26
+0
+5
+0.24
+1
+18
+0.16
+1
+2
+0.15
+0
+15
+0.11
+0
+6
+0.10
+0
+10
+0.09
+1
+16
+0.07
+0
+4
+0.03
+0
+8
+0.01
+0
+
+--- 第93页 ---
+93
+2026年春季
+•
+类A的AP值计算方法(VOC2012)：对每个recall值，取最大的precision求平均；
+•
+例如：recall=4/25时, 取precision=6/13;  recall=6/25时, 取precision=6/13; 
+评测指标——mAP
+
+--- 第94页 ---
+94
+2026年春季
+•
+类A的AP值计算方法(VOC2012)：对每个recall值，取最大的precision求平均；
+•
+例如：recall=4/25时, 取precision=6/13;  recall=6/25时, 取precision=6/13; 
+•
+AP(类A) = (1+1+3/4+6/13+6/13+6/13+7/17)/25=0.1819
+评测指标——mAP
+
+--- 第95页 ---
+95
+2026年春季
+基于CNN的目标检测算法
+⚫目前，基于深度学习的目标检测算法大致分为两类：
+⚫两阶段（two-stage）算法：基于候选区域方法，先产生边界框，再做CNN分类
+（R-CNN系列）
+⚫一阶段（one-stage）算法：对输入图像直接处理，同时输出定位及其类别 
+（YOLO系列、SSD）
+
+--- 第96页 ---
+96
+2026年春季
+R-CNN系列
+◼R-CNN：Girshick R , Donahue J , Darrell T , et al.  Rich Feature Hierarchies for Accurate Object 
+Detection and Semantic Segmentation[C]. CVPR’2014.
+◼Fast R-CNN：Girshick R. Fast R-CNN[C]. ICCV’2015.
+◼Faster R-CNN ：Ren S, He K, Girshick R, et al.  Faster R-CNN: towards real-time object detection with 
+region proposal networks[C], NeurIPS’2015.
+网络
+主要特点
+mAP(VOC2012)
+单帧检测时间
+R-CNN
+结合RegionProposal区域提取和CNN特征提取；
+SVM分类，Bounding Box回归；
+53.3%
+50 s
+Fast R-CNN
+提出 ROIPooling；softmax分类；
+65.7%
+2 s
+Faster R-CNN
+使用RPN(Region Proposal Network)
+生成候选区域
+67.0%
+0.2 s
+
+--- 第97页 ---
+97
+2026年春季
+R-CNN
+R-CNN的主要步骤：
+•
+候选区域提取：使用Selective Search从输入图片中提取2000个左右候选区域
+•
+特征提取：首先将所有侯选区域裁切缩放为固定大小，再用AlexNet(5conv+2FC) 提取图像特征
+•
+线性分类：用特定类别的线性SVMs对每个候选区域做分类
+•
+边界框回归：用线性回归修正边界框的位置与大小，其中每个类别单独训练一个边界框回归器
+
+--- 第98页 ---
+98
+2026年春季
+R-CNN
+⚫候选区域(Region Proposal)
+•
+Uijlings J R R , K. E. A. van de Sande…. Selective Search for Object Recognition[J]. International Journal of 
+Computer Vision, 2013, 104(2):154-171.
+•
+意义：经典的目标检测算法使用滑动窗法依次判断所有可能的区域(穷举)，而 R-CNN 采用 
+Region Proposal 预先提取一系列较可能是物体的候选区域，之后仅在这些候选区域上提取
+特征，大大减少了计算量。
+•
+方法：带多样性策略的选择性搜索(Selective Search)
+
+--- 第99页 ---
+99
+2026年春季
+R-CNN
+•
+候选区域提取步骤
+◼层次化分组算法
+◼用基于图的图像分割方法创建初始区域
+◼计算所有相邻区域间的相似度
+◼每次合并相似度最高的两个相邻图像区域，并计算
+合并后的区域与其相邻区域的相似度。重复该过程，
+直到所有图像区域合并为一张完整图像
+◼提取所有图像区域的目标位置框，并按层级排序
+（覆盖整个图像的区域的层级为1）
+◼在不同图像分割阈值、不同色彩空间、以及不同
+的相似度（综合考虑颜色、纹理、大小、重叠度）
+下，调用层次化分组算法，对所有合并策略下得
+到的位置框按层级*RND排序，去掉冗余框
+◼取一定个数的候选区域作为后续卷积神经网络的
+输入(R-CNN取2000个)
+Uijlings, J. R. R.; van de Sande, K. E. A.; Gevers, T. & Smeulders, A. W. M. Selective Search for Object Recognition. International Journal of Computer Vision, 2013, 104, 154-171.
+
+--- 第100页 ---
+100
+2026年春季
+R-CNN
+⚫分类与回归
+1. SVM分类
+2. 非极大值抑制
+3. BoundingBox回归
+4096维特征
+…
+2000个
+候选框
+20个类别
+…
+2000个
+候选框
+每个类别一个
+SVM分类器
+21个分类
+(包括背景)
+NMS
+回归
+去掉冗余选框
+微调校准选框以提高AP
+
+--- 第101页 ---
+101
+2026年春季
+R-CNN
+⚫非极大值抑制(Non-Maximum Suppression, NMS)
+• 问题：同一目标的位置可能产生多个候选框，而这些候选框之间可能会有重叠
+• 解决思路：
+• 对每个分类，使用贪心NMS选择较优的目标边界框，去除冗余的边界框
+• NMS算法流程：
+1. 按照检测得分对候选框排序
+2. 将分数最高的候选框𝑏𝑚加到最终输出列表中，并将其从候选框列表中删除
+3. 计算𝑏𝑚与其它候选框𝑏𝑖的IoU；如果IoU大于阈值，则从候选框列表中删除𝑏𝑖
+4. 重复上述步骤，直至候选框列表为空。
+
+--- 第102页 ---
+102
+2026年春季
+R-CNN
+R-CNN的缺点：
+• 重复计算：需要对两千个候选框做CNN，计算量很大，而且有很多重复计算
+• SVM模型：在标注数据足够的时候不是最好的选择
+• 多个步骤：候选区域提取、特征提取、分类、回归都要单独训练，大量中间
+数据需要保存
+• 检测速度慢：GPU K40上处理一张图片需要13秒，CPU上则需要53秒
+能否避免候选框特征提取过程的重复计算？
+
+--- 第103页 ---
+103
+2026年春季
+Fast R-CNN
+Fast R-CNN的主要步骤：
+•
+候选区域提取：通过Selective Search从原始图片提取2000个左右区域候选框；
+•
+特征提取：原始图像输入CNN网络，得到特征图；
+•
+ROI-Pooling：根据映射关系，将不同尺寸的候选框在特征图上的对应区域池化为维度相同的
+特征图(因为全连接层要求输入尺寸固定)；
+•
+全连接层：将维度相同的特征图转化为ROI特征向量(ROI feature vector)；
+•
+分类与回归：经过全连接层，再用softmax分类器进行识别，用回归器修正边界框的位置与大
+小，最后对每个类别做NMS。
+
+--- 第104页 ---
+104
+2026年春季
+Fast R-CNN
+⚫ROI Pooling
+•
+ROI：regions of interest，对应前文中经过region proposal得到的候选框
+•
+目的：将不同尺寸的ROI对应的卷积特征图转换为固定大小的特征图。一方面ROI可以复用
+卷积层提取的特征图，提高图像处理速度；另一方面向全连接层提供固定尺寸的特征图。
+•
+特点：输出尺寸与输入尺寸无关。对每个特征图通道，根据输出尺寸(HxW)将输入(hxw)均
+分成多块(h/H x w/W大小/块），取每块的最大值作为输出。
+
+--- 第105页 ---
+105
+2026年春季
+Fast R-CNN
+Fast R-CNN 改进之处：
+•
+直接对整张图像做卷积，不再对每个候选区域分别做卷积，从而减少大量的重复计算
+•
+用ROI pooling对不同候选框的特征进行尺寸归一化
+•
+将边界框回归器放进网络一起训练，每个类别对应一个回归器
+•
+用softmax代替SVM分类器
+Fast R-CNN 缺点：
+•
+候选区域提取仍使用selective search，目标检测时间大多消耗在这上面（region proposal 
+2~3s，而特征分类只需0.32s）
+寻找更高效的候选区域生成方法？
+
+--- 第106页 ---
+106
+2026年春季
+Faster R-CNN
+Faster R-CNN网络结构：
+Faster R-CNN = 候选区域生成网络 RPN + Fast R-CNN
+
+--- 第107页 ---
+107
+2026年春季
+Faster R-CNN
+Faster R-CNN主要步骤：
+1.
+卷积层：输入图片经过多层卷积神经网络(ZF、VGG），提取出卷
+积特征图，供RPN网络和Fast R-CNN使用。RPN网络和Fast R-
+CNN共享特征提取网络可大大减小计算时间
+2.
+RPN层：生成候选区域，并用 softmax 判断候选框是前景还是背景，
+从中选取前景候选框并利用 bounding box regression 调整候选框
+的位置，得到候选区域
+3.
+ROIPooling层：同 Fast R-CNN，将不同尺寸的候选框在特征图上
+的对应区域池化为维度相同的特征图
+4.
+分类与回归：同 Fast R-CNN，用softmax分类器判断图像类别，同
+时用边界框回归修正边界框的位置和大小
+
+--- 第108页 ---
+108
+2026年春季
+RPN (region proposal networks)
+目的：输入特征图，输出候选区域集合，包括各候选区域属于前/背景的
+概率、以及位置坐标。
+思路：RPN采用Anchor机制，能够从特征图上直接提取候选区域的特征，
+相对于selective search大大减少运算量，且整个过程融合到一个网络中，
+方便训练和测试。
+步骤：
+1.
+先经过一个3x3卷积，使每一个点对应256维(ZF模型）或512维（VGG16）
+特征向量。
+2.
+然后分两路处理：一路经过1x1卷积之后做softmax处理输出候选框为前景
+或背景的概率；另一路用bbox regression来确定候选框的位置。
+3.
+两路计算结束后，计算得到前景候选框（因为物体在前景中），再用
+NMS去除冗余候选框，最后输出候选区域。 
+Faster R-CNN
+3x3 conv
+1x1 conv
+1x1 conv
+softmax
+proposals
+region 
+proposal 
+network
+reg layer
+cls layer
+
+--- 第109页 ---
+109
+2026年春季
+Faster R-CNN
+⚫关于anchor box
+•
+在RPN中，feature map每个位置输出
+2k个得分，分别表示该位置的k个
+anchor为前景/背景的概率；同时每个
+位置输出4k个框位置参数，用 [x,y,w,h] 
+四个坐标来表示 anchor的位置。
+•
+对于feature map的每个位置，考虑
+9个可能的候选框：三种面积分别是
+128×128, 256×256, 512×512，每种
+面积又分成3种长宽比，分别是2:1, 
+1:2, 1:1 ，这些候选框称为anchors。
+
+--- 第110页 ---
+110
+2026年春季
+R-CNN 系列
+⚫R-CNN系列
+•
+从R-CNN到Fast R-CNN，再到Faster R-CNN，目
+标检测的四个基本步骤（候选区域生成，特征提取，
+分类，位置调整）终于被统一到一个深度网络框架
+之内，大大提高了运行速度。
+网络
+mAP(VOC2012)
+单帧检测时间
+R-CNN
+53.3%
+50 s
+Fast R-CNN
+65.7%
+2 s
+Faster R-CNN
+67.0%
+0.2 s
+拓展：R-CNN训练相关，Ross Girshick在ICCV15的演讲，Training R-CNNs of various velocities(Slow, fast, and faster)
+
+--- 第111页 ---
+111
+2026年春季
+YOLO
+◼
+YOLO(v1)：Redmon J, Divvala S, Girshick R, et al. You Only Look Once: Unified, Real-Time Object 
+Detection[C]. CVPR’2016.
+◼主要思想：将目标检测问题转换为直接从图像中提取bounding boxes和类别概率的单回
+归问题，只需看一眼(you only look once, YOLO) 就可以检测出目标的类别和位置。
+YOLO算法开创了one-stage检测的先河，将目标分类和边界框定位合二为一，实现了端
+到端的目标检测。YOLO的运行速度非常快，达到45帧/秒，满足实时性要求。
+
+--- 第112页 ---
+112
+2026年春季
+YOLO
+⚫统一检测(Unified Detection)具体实现
+•
+每个格子还要预测分别属于C种类别的条件概率Pr Class𝑖Object , 𝑖= 0,1, … 𝐶，其中C为数据集物体类
+别数量；在测试时，属于该格子的B个bbox共享这C个类别的条件概率，则某个bbox的类别置信度为：
+•
+将输入图像分为S×S个格子
+•
+每个格子都预测B个Bounding box
+•
+每个bbox包含五个预测值：x, y, w, h和confidence;
+•
+x, y, w, h用于表示bbox的位置和大小，且都被归一
+化到(0, 1)；
+•
+confidence(置信度分数) 综合考虑了当前bbox内存
+在目标的可能性Pr(Object)以及预测目标位置的准
+确性IoU(pred|truth)，定义为：
+confidence = Pr Object ∗IoUpred
+truth ，Pr Object = ቊ1，
+𝑜𝑏𝑗𝑒𝑐𝑡𝑒𝑥𝑖𝑠𝑡𝑠𝑖𝑛𝑡ℎ𝑎𝑡𝑐𝑒𝑙𝑙
+0，𝑛𝑜𝑜𝑏𝑗𝑒𝑐𝑡𝑒𝑥𝑖𝑠𝑡𝑠𝑖𝑛𝑡ℎ𝑎𝑡𝑐𝑒𝑙𝑙
+•
+最终输出tensor的维度为：𝑆× 𝑆× (𝐵× 5 + 𝐶)
+Pr Class𝑖|Object ∗Pr Object ∗IoUpred
+truth= Pr Class𝑖∗IoUpred
+truth
+
+--- 第113页 ---
+113
+2026年春季
+YOLO
+⚫网络结构
+•
+网络结构基于GoogleNet；
+•
+对于PASCAL VOC数据集，采用S=7，B=2，C=20，最终输出tensor维度为 7×7×30 (其中30=B*5+C)。
+◼激活函数用的是Leaky ReLU : f(x)=max(x,0.1x)，在x
+小于0的时候，用0.1x，避免使用ReLU的时候有些单
+元永远得不到激活（Dead ReLU Problem），在不
+增加计算法复杂度的前提下提升了模型的拟合能力。
+
+--- 第114页 ---
+114
+2026年春季
+YOLO
+YOLO(v1)的优点
+1、检测速度快。 YOLO将目标检测重建为单一回归问题，对输入图像直接处理，同
+时输出边界框坐标和分类概率，而且每张图像只预测98个bbox，检测速度非常快，
+在Titan X 的 GPU 上能达到45 FPS，Fast YOLO检测速度可以达到155 FPS。
+2、背景误判少。以往基于滑窗或候选区域提取的目标检测算法，只能看到图像的局
+部信息，会出现把背景当前景的问题。而YOLO在训练和测试时每个cell都使用全局
+信息做预测，因此不容易把背景误认为目标。
+3、泛化性更好。 YOLO能够学习到目标的泛化表示，能够迁移到其它领域。例如，
+当YOLO在自然图像上做训练，在艺术品上做测试时，YOLO的性能远优于DPM、R-
+CNN等。
+
+--- 第115页 ---
+115
+2026年春季
+YOLO
+YOLO(v1) 的缺点
+1、邻近物体检测精度低。YOLO对每个cell只预测两个bbox和一个分类，如果多个物体的
+中心都在同一cell内，检测精度低。
+2、损失函数的设计过于简单。用坐标和分类的MSE作为损失函数不合理
+3、训练不易收敛。直接预测的bbox位置，相较于预测物体的偏移量，模型收敛不稳定。
+表示目标出现在cell i中
+表示cell i中第j个边框预测目标在该cell中
+
+--- 第116页 ---
+116
+2026年春季
+YOLOv9
+From https://images.app.goo.gl/HJ6A5in33HQaoVVt5
+2024
+
+--- 第117页 ---
+117
+2026年春季
+YOLOv5
+◼
+YOLO-v5 ：https://github.com/ultralytics/yolov5
+◼
+最受欢迎的YOLO版本之一
+•
+Backbone：类似ResNet，由1个Stem Layer和4个Stage Layer组成。
+•
+Neck：FPN+PAN
+•
+FPN结构，自顶向下，将高层的语义信息通过上采样的方式传递给底层
+•
+PAN结构，自下向上，将底层的位置信息通过下采样的方式传递给高层
+•
+FPN层自顶向下传递强语义特征，PAN层自底向上传递强定位特征
+•
+Head：耦合检测头，使用共同的MLP层预测类别和回归包围框
+•
+CIoU损失：
+•
+对于预测框和GT框：1）最大化IoU 2)最小化中心距离  3）最小化长宽比差异
+
+--- 第118页 ---
+118
+2026年春季
+FPN
+⚫FPN (Feature Pyramid Networks)
+•
+问题：卷积操作拥有固定的感受野，难以稳健地面对尺度多变的目标。
+•
+难点：
+•
+1）传统方法将图像采样到不同尺寸后输入检测器，计算量大
+•
+2）不同层级的特征图在语义层级存在差异，难以统一利用检测
+头进行预测
+•
+方法：
+•
+1） Backbone自下而上地生成多尺度的特征图，底层特征分辨
+率高，对小目标友好；顶层特征分辨率低，对大目标友好
+•
+2）顶层特征包含更丰富的语义信息，因此自上而下地融合高层
+特征与低层特征，补充多尺度语义信息
+◼
+Lin T Y, Dollár P, Girshick R, et al. Feature pyramid networks for object detection[C]. CVPR’2017.
+
+--- 第119页 ---
+119
+2026年春季
+FPN
+⚫FPN (Feature Pyramid Networks)
+◼
+Lin T Y, Dollár P, Girshick R, et al. Feature pyramid networks for object detection[C]. CVPR’2017.
+•
+显著提升了Faster R-CNN在小目标和中目标上的性能
+•
+性能一举超越同时期检测器
+
+--- 第120页 ---
+120
+2026年春季
+YOLO
+YOLO系列架构演化：网络结构+优化目标
+Wang C Y, Liao H Y M. YOLOv1 to YOLOv10: The fastest and most accurate real-time object detection systems[J]. APSIPA Transactions on Signal and 
+Information Processing, 2024, 13(1).
+YOLO-v1
+YOLO-v2
+YOLO-v3
+YOLO-v4,v5
+YOLO-v6, v8
+YOLO-v7
+YOLO-X
+YOLO-v9
+YOLO-v10
+
+--- 第121页 ---
+121
+2026年春季
+YOLO系列
+Yunjie Tian, Qixiang Ye, David Doermann, YOLOv12: Attention-Centric Real-Time Object Detectors，arXiv:2502.12524v1，2025.
+
+--- 第122页 ---
+122
+2026年春季
+SSD
+◼Liu W, Anguelov D, Erhan D, et al. SSD: Single Shot MultiBox Detector[C]// European Conference 
+on Computer Vision. 2016.
+◼主要思想：基于YOLO直接回归 bbox和分类概率的one-stage检测方法，结合Faster R-
+CNN中的anchor-box思想产生先验框，并且采用特征金字塔进行多尺度预测，在满足检
+测速度快的同时，大大提高了检测准确度。
+
+--- 第123页 ---
+123
+2026年春季
+SSD
+⚫多尺度特征图检测
+◼
+CNN网络一般前面的特征图比较大，后
+面会逐渐采用stride=2的卷积或者pool来
+降低特征图大小，在大的和小的特征图
+都提取anchor box用来做检测，可找到
+最合适的anchor box尺寸，提高检测准
+确度。
+◼
+比较大的特征图可以用来检测相对较小
+的目标，而小的特征图负责检测大目标，
+例如左图中8x8的特征图可以划分成更多
+单元，其每个单元的先验框尺度较小，
+适合用于检测较小的目标。
+
+--- 第124页 ---
+124
+2026年春季
+SSD
+⚫Anchor box (论文中为default box)
+•
+个数：每个点对应6个anchor boxes，2个正方形和4个长方形(宽高比𝑎𝑟取2、3、1/2、1/3)；
+•
+第k层scale：
+其中：𝑆𝑚𝑖𝑛= 0.2, 𝑆𝑚ax = 0.9，m为网络用于生成anchor box进行检测的卷积层总层数；
+宽高比为1的情况，增加一个默认框，其缩放为
+•
+第k层default box的宽：
+高：
+𝑆𝑘
+𝑆𝑘/ 𝑎𝑟
+𝑆𝑘𝑎𝑟
+𝑆𝑘𝑆𝑘+1
+
+--- 第125页 ---
+125
+2026年春季
+SSD
+•
+同时对多层特征图上的默认框计算IoU，可以找到与真实框大小和位置最接近
+（即IoU最大）的框，在训练时能达到最好的精度。
+较低层级的特征图
+中间层级的特征图
+较高层级的特征图
+
+--- 第126页 ---
+126
+2026年春季
+目标检测算法
+https://zhuanlan.zhihu.com/p/33277354
+目标检
+测
+Two stage
+R-CNN
+SPP-Net
+Fast R-CNN
+Faster R-CNN 
+更好的特征网络
+HyperNet
+MS-CNN
+PVANet
+Light-Head R-CNN
+更精确的RPN
+MR-CNN
+FPN
+CRAFT
+更完善的ROI分类
+R-FCN
+CoupleNet
+Mask R-CNN
+Cascade R-CNN
+目标后处理
+OHEM
+Soft-NMS
+A-Fast-RCNN
+One stage
+OverFeat
+YOLO
+YOLO v2
+YOLOv3
+YOLO v4
+YOLO v7
+YOLO v5
+YOLO v8
+YOLO v6
+YOLOX
+YOLOR
+SSD
+R-SSD
+DSSD
+DSOD
+FSSD
+RetinaNet
+EfficientDet
+
+--- 第127页 ---
+127
+2026年春季
+小结
+适合图像处理的卷积神经网络
+卷积神经网络总体结构
+神经网络的优化
+应用于图像分类的卷积神经网络
+应用于目标检测的卷积神经网络
+应用于图像生成的卷积神经网络
+Driving example
+生成对抗网络
+扩散模型
+
+--- 第128页 ---
+128
+2026年春季
+YOLO
+◼YOLO-v2 ：Redmon J, Farhadi A. YOLO9000: Better, Faster, Stronger[C]// IEEE 
+Conference on Computer Vision & Pattern Recognition. 2017.
+⚫拓展
+提高了训练图像的分辨率；引入了Faster RCNN中anchor box的思想；对网络结构的设
+计进行了改进(Darknet-19)；输出层使用卷积层替代YOLO的全连接层，联合使用COCO
+物体检测标注数据和ImageNet物体分类标注数据训练物体检测模型。
+类似FPN的多尺度预测；更好的基础分类网络（Darknet-53，结合ResNet）；
+Sigmoid代替Softmax用于多标签分类。
+◼YOLO-v3 ：Redmon J, Farhadi A. YOLOv3: An Incremental Improvement[J]. 2018.
+
+--- 第129页 ---
+129
+2026年春季
+YOLO
+◼YOLO-v4 ：Optimal Speed and Accuracy of Object Detection
+⚫拓展
+在特征融合阶段使用了FPN和PAN多尺度结构
+引入了深度学习领域多种技巧提升效果，包括加权的残差连接（WRC），跨阶段的部分
+连接（CSP），跨批量标准化（CmBN），自对抗训练（SAT），Mish激活函数
+使用FCOS思路，增加高质量正样本anchor，加快收敛
+整合了大量深度学习领域的技巧
+在灵活度与速度时远胜YOLO-v4
+◼YOLO-v5 ：https://github.com/ultralytics/yolov5
+
+--- 第130页 ---
+130
+2026年春季
+YOLO
+Backbone
+Neck
+Head
+Prediction
+YOLO-v1
+GoogleNet
+None
+Single path
+MSE Loss
+YOLO-v2
+Darknet-19
+None
+Single path
+MSE Loss
+YOLO-v2
+Darknet-53
+Csp
+FPN
+Three paths
+MSE Loss
+YOLO-v4
+Darknet-53
+Csp
+SPP
+FPN+PAN
+Three paths
+DUoU Loss
+YOLO-v5
+Darknet-53
+Focus, csp
+SPP, csp
+FPN+PAN
+Three paths
+GIoU Loss
+
+--- 第131页 ---
+131
+2026年春季
+YOLO
+YOLO
+问题
+关键方法
+意义
+v1
+二阶段检测器较为繁琐
+直接在每个格点预测类别和回归框
+提出首个一阶段检测器
+v2
+最后一层特征分辨率低，定位不准确
+使用旁路层融合高分辨率和低分辨率特征
+增强细粒度小物体的检测能力，同时兼顾
+速度
+v3
+对多尺度目标的稳健性差
+引入残差网络架构和FPN
+增强多尺度物体的检测能力，同时兼顾速
+度
+v4
+特征复用率低
+用PAN替代FPN，引入CSPNet作为Backbone
+提出一系列优化策略，保证计算量的同时
+提升了精度
+v5
+当预测框与GT框不重合时（IoU=0），
+无法计算损失，训练效率低
+提出CIoU损失
+良好整合了各类方法，是最受欢迎的
+YOLO版本之一
+X
+类别、回归框都使用同一网络预测
+解耦检测头，使用不同网络预测不同信息
+解耦检测头得到广泛应用
+v6
+为部署到工业界，需要缩小参数量
+量化感知训练和知识蒸馏
+极大地提升了工程部署适配性
+v7
+需要更深的网络；传统的辅助损失可能
+导致优化目标不一致，难以收敛
+提出ELAN作为Backbone；设计Coarse to Fine标
+签分配策略，平衡各个分支的特性
+进一步提升了性能
+v8
+对v5进行重构，进一步整合现有方法
+将C3模块替换为梯度流更丰富的C2F模块；解
+耦检测头；优化底层代码等
+成为现今主流项目的基检测器
+v9
+探索训练时更高效的梯度反传
+提出可编程梯度信息模块PGI辅助训练
+增强了模型的可解释性、鲁棒性和通用性
+v10
+NMS策略面临多对一的困境，效率相对
+低下；卷积无法建模全局的关系
+引入一对一检测头，采用匈牙利匹配映射预测
+框与GT框；提出PSA，融合卷积和Transformer
+进一步提高了模型的训练效率和准确性
+
+--- 第132页 ---
+132
+2026年春季
+DenseNet
+⚫问题
+•
+ResNet中，每一层只能直接访问前一层的输出，特征复用率和计算效率不高
+Huang G, Liu Z, Van Der Maaten L, et al. Densely connected convolutional networks[C]//CVPR’2017.
+⚫密集卷积网络
+•
+由密集卷积块堆叠而成。在块内，每一层都与所有之前的层直接连接，即某层的输入除了包含前一
+层的输出外还包含前面所有层的输出（通过在通道维的拼接实现）
+
+--- 第133页 ---
+133
+2026年春季
+DenseNet
+⚫优点
+•
+梯度复用：每一层都可以直接访问之前所
+有层的特征图，从而促进了特征的重用
+（也可以表述为，促进了浅层特征和深层
+特征的融合）
+•
+梯度传播：密集连接使得梯度可以更轻松
+地传播到较早的层，有助于缓解梯度消失
+和梯度爆炸问题
+Huang G, Liu Z, Van Der Maaten L, et al. Densely connected convolutional networks[C]//CVPR’2017.
+
+--- 第134页 ---
+134
+2026年春季
+SENet
+⚫SE块
+•
+S(Squeeze)：沿通道维，通过全局平均池化，将每张特征图压缩为
+一个像素
+•
+E(Excitation)：通过MLP层，为每个通道生成自适应权重，并通过
+乘法逐通道乘回原特征图
+Hu J, Shen L, Sun G. Squeeze-and-excitation networks[C]//CVPR’2018.
+⚫问题
+•
+现有卷积网络默认所有通道提供同等重要的信息。但是，深度特征
+往往是稀疏的，不同的通道提供的信息量不同，需要有选择的关注。
+
+--- 第135页 ---
+135
+2026年春季
+SENet
+⚫优点
+•
+特征关联性：引入了跨通道
+特征相关性的概念，根据特
+征图的激活值自适应地调整
+通道权重。
+•
+具备了注意力机制的雏形。
+Hu J, Shen L, Sun G. Squeeze-and-excitation networks[C]//CVPR’2018.
